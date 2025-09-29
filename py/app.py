@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 from LLM_Extraction import llm_extract_information_incremental, talk_to_chatbot
 from BERT_Extraction import bertopic_extraction_information
-from Methods import assign_colors, merge_domains_incremental
+from Methods import assign_colors, merge_domains_timeline
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
@@ -74,7 +74,8 @@ def extract():
             else:
                 flat_new_results.append(r)
 
-        merged_results_global = merge_domains_incremental(merged_results_global,flat_new_results)
+        print("扁平化结果：", flat_new_results)
+        merged_results_global = merge_domains_timeline(flat_new_results)
         print("合并结果:", merged_results_global)
         colored_results = assign_colors(merged_results_global)
         print("带颜色的抽取结果：")

@@ -132,14 +132,6 @@ def llm_extract_information_incremental(new_sentence, existing_domains=None):
         3. domain 只表示核心领域，不超过 6 个字；slots 负责细分问题。
         """
     
-    # 短期记忆存储历史对话
-    # completion = openai.chat.completions.create(
-    # model="gpt-4o",
-    # temperature=1.0,
-    # messages=[
-    #     {"role": "system", "content": "你是一名对话分析助手，擅长从对话中提取出用户的对话主题。"},
-    #     {"role": "user", "content": prompt }
-    #     ],)
     completion = openai.chat.completions.create(
         model="gpt-4o",
         temperature=0.5,
@@ -155,27 +147,8 @@ def llm_extract_information_incremental(new_sentence, existing_domains=None):
 
     print("抽取结果：")
     print(result)
-    
+
     return result
-
-# 短期记忆函数
-# def talk_to_chatbot(content):
-#     global history
-
-#      # 添加用户输入
-#     history.append({"role": "user", "content": content})
-
-#     completion = openai.chat.completions.create(
-#         model="gpt-4o",
-#         temperature=1.0,
-#         messages=history,
-#         )
-#     result = (completion.choices[0].message.content)
-
-#     # 把模型的回复也存进去，形成对话历史
-#     history.append({"role": "assistant", "content": result})
-
-#     return result
 
 # 生成 embedding
 def get_embedding(text):

@@ -41,22 +41,30 @@ def assign_colors(data):
         return f'#{r:02X}{g:02X}{b:02X}'
 
     color_cycle = itertools.cycle(color_palette)
+    domain_color_map = {}  # 新增：记录 domain -> 颜色的映射
 
     def process_item(item):
         """递归处理单个 domain 或 list"""
         if isinstance(item, dict):  
-            
-            # domain 层
-            base_color = next(color_cycle)
-            # 大椭圆小椭圆颜色
-            domain_color = '#%02X%02X%02X' % tuple(int(x * 255) for x in base_color[:3])
-            slot_color = lighten_color(base_color, 0.65)
+            domain_name = item.get("domain")
 
-            item["color"] = domain_color
-            if "slots" in item and isinstance(item["slots"], list):
-                for slot in item["slots"]:
-                    if isinstance(slot, dict):
-                        slot["color"] = slot_color
+            if domain_name:
+                # 如果 domain 已有颜色，直接取
+                if domain_name in domain_color_map:
+                    base_color = domain_color_map[domain_name]
+                else:
+                    # 否则分配新颜色，并存下来
+                    base_color = next(color_cycle)
+                    domain_color_map[domain_name] = base_color
+
+                domain_color = '#%02X%02X%02X' % tuple(int(x * 255) for x in base_color[:3])
+                slot_color = lighten_color(base_color, 0.65)
+
+                item["color"] = domain_color
+                if "slots" in item and isinstance(item["slots"], list):
+                    for slot in item["slots"]:
+                        if isinstance(slot, dict):
+                            slot["color"] = slot_color
             return item
 
         elif isinstance(item, list):  
@@ -68,16 +76,26 @@ def assign_colors(data):
     return process_item(data)
 
 # 合并增量主题
-def merge_domains_incremental(existing, new_results):
-    merged = {t["domain"]: t for t in existing}
+def merge_domains_timeline(new_results):
+    if not new_results:
+        return []
+
+    merged = []
     for item in new_results:
-        domain = item["domain"]
-        if domain not in merged:
-            merged[domain] = {"domain": domain, "slots": []}
-        for slot in item.get("slots", []):
-            if slot["sentence"] not in [s["sentence"] for s in merged[domain]["slots"]]:
-                merged[domain]["slots"].append(slot)
-    return list(merged.values())
+        if not merged:
+            merged.append(item)
+        else:
+            last = merged[-1]
+            if last["domain"] == item["domain"]:
+                # 相邻且 domain 相同，合并 slots
+                for slot in item.get("slots", []):
+                    if slot["sentence"] not in [s["sentence"] for s in last["slots"]]:
+                        last["slots"].append(slot)
+            else:
+                # 不相邻，开新块
+                merged.append(item)
+
+    return merged
 
 # 合并主题
 # def merge_domains(results):

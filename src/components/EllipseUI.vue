@@ -1245,16 +1245,17 @@ function drawUI(data: Conversation[]) {
   const height = 884
   // 中心点
   const currentX = width / 2
+  let beforeY = 70 // 前一个 domain 半径
   let currentY = 70 // 每个 domain 垂直间隔
+  const spacing = 100 // 固定间距
 
   // 创建椭圆
   const svg = d3.select(UIcontainer.value).append('svg').attr('width', width).attr('height', height)
-
   const g = svg.append('g') // 所有图形都在 g 里，方便缩放
   // 绘制大椭圆，并计算小椭圆位置
   const ellipsesData = data.map((domainData) => {
-    const baseRx = 100
-    const baseRy = 60
+    const baseRx = 80
+    const baseRy = 100
     const scale = 1 + 0.1 * (domainData.slots.length - 1)
     const domainRadiusX = baseRx * scale
     const domainRadiusY = baseRy * scale
@@ -1270,33 +1271,40 @@ function drawUI(data: Conversation[]) {
         console.log('点击了 domain:', domainData.domain)
         onDomainClick(domainData.slots)
       })
-    // 在椭圆中心显示文字
-    g.append('text')
-      .attr('x', currentX)
-      .attr('y', currentY - 30)
-      .attr('text-anchor', 'middle') // 居中
-      .attr('fill', '#fff') // 字体颜色，可根据背景调整
-      .attr('font-size', 16) // 字体大小
-      .text(domainData.domain)
+    const domain = domainData.domain
+    const lineHeight = 20 // 让文字均匀分布在椭圆高度内
+    const textHeight = domain.length * lineHeight // 总高度
+    const startY = currentY - textHeight / 2 // 从中心往上偏移一半
+
+    domain.split('').forEach((char, i) => {
+      g.append('text')
+        .attr('x', currentX) // 椭圆左边，留 10px 间距
+        .attr('y', startY + lineHeight / 2 + i * lineHeight) // 从椭圆顶端开始往下排
+        .attr('text-anchor', 'middle')
+        .attr('dominant-baseline', 'middle')
+        .attr('fill', '#fff')
+        .attr('font-size', 16)
+        .text(char)
+    })
 
     const slots = domainData.slots.map((slotData, i) => {
       const padding = 10
       let slotWidth: number
       let slotHeight: number
-      let x: number
+      let y: number
       if (domainData.slots.length === 1) {
         // 🔹只有一个小椭圆时，固定大小
         slotWidth = domainRadiusX * 0.6
         slotHeight = domainRadiusY * 0.6
-        x = currentX
+        y = currentY
       } else {
-        const availableWidth = domainRadiusX * 2 - padding * (domainData.slots.length + 1)
-        slotWidth = availableWidth / domainData.slots.length
-        slotHeight = domainRadiusY * 0.6 // 高度可以固定比例
-        x = currentX - domainRadiusX + padding + slotWidth / 2 + i * (slotWidth + padding)
+        const availableHeight = domainRadiusY * 2 - padding * (domainData.slots.length + 1)
+        slotWidth = domainRadiusX * 0.6
+        slotHeight = availableHeight / domainData.slots.length
+        y = currentY - domainRadiusY + padding + slotHeight / 2 + i * (slotHeight + padding)
       }
 
-      const y = currentY
+      const x = currentX
 
       return {
         ...slotData,
@@ -1307,7 +1315,9 @@ function drawUI(data: Conversation[]) {
       }
     })
 
-    currentY += 200
+    currentY = currentY + beforeY + domainRadiusY + spacing
+    beforeY = domainRadiusY
+
     return { domainEllipse, slots }
   })
 
