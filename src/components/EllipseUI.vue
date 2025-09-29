@@ -1224,6 +1224,7 @@ const data = [
   ],
 ]
 const newdata = data.flat()
+
 // 小椭圆点击了哪个句子
 const onSlotClick = (sentence: string) => {
   FileStore.selectedMessage = sentence
@@ -1243,11 +1244,28 @@ function drawUI(data: Conversation[]) {
   // 初始椭圆参数
   const width = 1024
   const height = 884
+
   // 中心点
-  const currentX = width / 2
   let beforeY = 70 // 前一个 domain 半径
   let currentY = 70 // 每个 domain 垂直间隔
   const spacing = 100 // 固定间距
+
+  // 假设 data 是 Conversation[]，每个元素有 domain 字段
+  const domains = Array.from(new Set(data.map((d) => d.domain))) // 去重
+  // X 方向间隔
+  const xInterval = 200
+  // 给每个 domain 计算 X
+  const domainXMap: Record<string, number> = {}
+  domains.forEach((domain, i) => {
+    domainXMap[domain] = 100 + i * xInterval // 100 是初始 X
+  })
+  // 椭圆的中心点
+  const domainPoints: Record<string, { x: number; y: number }[]> = {}
+  // 颜色map
+  const domainColorMap: Record<string, string> = {}
+  data.forEach((d) => {
+    domainColorMap[d.domain] = d.color
+  })
 
   // 创建椭圆
   const svg = d3.select(UIcontainer.value).append('svg').attr('width', width).attr('height', height)
@@ -1261,16 +1279,26 @@ function drawUI(data: Conversation[]) {
     const domainRadiusY = baseRy * scale
     const domainEllipse = g
       .append('ellipse')
-      .attr('cx', currentX)
+      .attr('cx', domainXMap[domainData.domain])
       .attr('cy', currentY)
       .attr('rx', domainRadiusX)
       .attr('ry', domainRadiusY)
-      .attr('fill', domainData.color)
-      .attr('opacity', 0.5)
+      .attr('fill', domainColorMap[domainData.domain])
+      .attr('fill-opacity', 0.9)
       .on('click', () => {
         console.log('点击了 domain:', domainData.domain)
         onDomainClick(domainData.slots)
       })
+
+    // 将椭圆的中心点push进去
+    if (!domainPoints[domainData.domain]) {
+      domainPoints[domainData.domain] = []
+    }
+    domainPoints[domainData.domain].push({
+      x: domainXMap[domainData.domain],
+      y: currentY,
+    })
+
     const domain = domainData.domain
     const lineHeight = 20 // 让文字均匀分布在椭圆高度内
     const textHeight = domain.length * lineHeight // 总高度
@@ -1278,13 +1306,29 @@ function drawUI(data: Conversation[]) {
 
     domain.split('').forEach((char, i) => {
       g.append('text')
-        .attr('x', currentX) // 椭圆左边，留 10px 间距
+        .attr('x', domainXMap[domainData.domain]) // 椭圆左边，留 10px 间距
         .attr('y', startY + lineHeight / 2 + i * lineHeight) // 从椭圆顶端开始往下排
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'middle')
         .attr('fill', '#fff')
         .attr('font-size', 16)
         .text(char)
+    })
+
+    // 绘制直线连接椭圆
+    const lineGenerator = d3
+      .line<{ x: number; y: number }>()
+      .x((d) => d.x)
+      .y((d) => d.y)
+      .curve(d3.curveLinear) // 直线，你也可以换成 curveMonotoneY
+
+    Object.entries(domainPoints).forEach(([domain, points]) => {
+      g.append('path')
+        .datum(points)
+        .attr('d', lineGenerator)
+        .attr('stroke', domainColorMap[domain]) // 这里你可以用 domainData.color
+        .attr('stroke-width', 5)
+        .attr('stroke-opacity', 0.5)
     })
 
     const slots = domainData.slots.map((slotData, i) => {
@@ -1304,7 +1348,7 @@ function drawUI(data: Conversation[]) {
         y = currentY - domainRadiusY + padding + slotHeight / 2 + i * (slotHeight + padding)
       }
 
-      const x = currentX
+      const x = domainXMap[domainData.domain]
 
       return {
         ...slotData,
