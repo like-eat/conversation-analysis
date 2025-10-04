@@ -5,6 +5,7 @@ import json
 import re
 import itertools
 import colorsys
+import uuid
 import matplotlib.pyplot as plt
 
 from LLM_Extraction import llm_extract_information_incremental, talk_to_chatbot
@@ -16,7 +17,7 @@ CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
 
 # 全局已抽取主题
 merged_results_global = []
-
+user_id = "default_user"
 # 第一个路由 调用LLM返回询问结果
 @app.route('/back_message', methods=['POST'])
 def back_message():
@@ -26,7 +27,17 @@ def back_message():
             return jsonify({"error": "请求体为空或缺少 text 字段"}), 400
 
         user_query = data['text']
-        result = talk_to_chatbot(user_query)
+
+        # # -------------------------
+        # # 获取用户 ID
+        # # 优先使用前端传来的 user_id
+        # user_id = data.get('user_id')
+        # if not user_id:
+        #     # 如果前端没有传，生成新的 UUID，返回给前端保存
+        #     user_id = str(uuid.uuid4())
+        # # -------------------------
+        
+        result = talk_to_chatbot(user_id, user_query)
 
         return jsonify(result), 200
     except Exception as e:
@@ -74,12 +85,11 @@ def extract():
             else:
                 flat_new_results.append(r)
 
-        print("扁平化结果：", flat_new_results)
+        # print("扁平化结果：", flat_new_results)
         merged_results_global = merge_domains_timeline(flat_new_results)
         print("合并结果:", merged_results_global)
         colored_results = assign_colors(merged_results_global)
-        print("带颜色的抽取结果：")
-        print(colored_results)
+        # print("带颜色的抽取结果：", colored_results)
     
         # Step 5: 返回 JSON 给前端
         return jsonify(colored_results), 200
