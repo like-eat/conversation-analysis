@@ -29,10 +29,16 @@ def llm_extract_information_incremental(new_sentence, existing_domains=None):
     """
     existing_domains = existing_domains or []
 
+    # 👉 支持 dict 或 str
+    if isinstance(new_sentence, dict):
+        sentence_text = new_sentence.get("content", "")
+    else:
+        sentence_text = str(new_sentence)
+
     prompt = f"""请完成以下任务：
 
         任务：对一句新的对话进行主题抽取，只处理这句话，不重新抽取已有主题。
-        新句子: {new_sentence}
+        新句子: {sentence_text}
         已有主题: {json.dumps(existing_domains, ensure_ascii=False)}
         请只输出新句子的主题 JSON，不修改已有主题。
 
@@ -100,6 +106,7 @@ def get_user_memory(user_id):
 
 # 更新用户Memory
 def update_user_memory(user_id, key, value):
+    global user_memory_db
     if user_id not in user_memory_db:
         user_memory_db[user_id] = {}
     

@@ -55,28 +55,53 @@ def extract():
             return jsonify({'error': '缺少 content 字段'}), 400
         
         content = data['content']
-        # 如果 content 是 list
+        # ✅ 兼容两种格式
         if isinstance(content, list):
-            docs = [msg['text'] if isinstance(msg, dict) else str(msg) for msg in content]
+            # [{role: 'user'/'bot', content: '...'}]
+            if all(isinstance(msg, dict) and 'content' in msg for msg in content):
+                messages = content  # 新格式：完整消息列表
+            else:
+                # 旧格式：纯字符串列表
+                messages = [{'role': 'user', 'content': str(msg)} for msg in content]
         else:
-            docs = [s.strip() for s in re.split(r'[。！？\n]', content) if s.strip()]
+            # 单个字符串的情况
+            split_docs = [s.strip() for s in re.split(r'[。！？\n]', str(content)) if s.strip()]
+            messages = [{'role': 'user', 'content': s} for s in split_docs]
 
         new_results = []
-        if len(docs) < 100:
+
+        # -------- 用户部分抽取 --------
+        if len(messages) < 100:
             # 小数据：直接 LLM 处理
-            for doc in docs:
-                result = llm_extract_information_incremental(doc, existing_domains=merged_results_global)
+            for msg in messages:
+                role = msg.get("role", "user")
+                text = msg.get("content", "").strip()
+                if not text:
+                    continue
+
+                # 小数据直接 LLM，大数据可扩展为批处理
+                result = llm_extract_information_incremental(text, existing_domains=merged_results_global)
+
+                # 给每个 slot 添加来源标识
+                for domain in result:
+                    for slot in domain.get("slots", []):
+                        slot["source"] = role  # user 或 bot
+
                 new_results.append(result)
         else:
             # 大数据：先 BERTopic，再 LLM
-            clustered = bertopic_extraction_information(docs=docs, keep_noise=True)
+            clustered = bertopic_extraction_information(docs=messages, keep_noise=True)
             print("主题聚类结果：", clustered)
 
             for cluster in clustered:
                 content = json.dumps(cluster, ensure_ascii=False, indent=2)
                 result = llm_extract_information_incremental(content, existing_domains=merged_results_global)
+                # 给结果的每个 slot 添加来源标识
+                for domain in result:
+                    for slot in domain.get("slots", []):
+                        slot["source"] = role  # user 或 bot
                 new_results.append(result)
-        
+
         # 先扁平化 results
         flat_new_results = []
         for r in new_results:
@@ -154,4 +179,4 @@ def test_extract():
         return jsonify({'error': '抽取失败，添加颜色失败', 'details': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)

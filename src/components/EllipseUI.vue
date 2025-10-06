@@ -1433,9 +1433,7 @@ watch(
   },
   { immediate: true }, // 如果已经有数据，则立即触发
 )
-onMounted(() => {
-  drawUI(newdata)
-})
+onMounted(() => {})
 </script>
 <style scoped>
 /* 可根据需要调整容器大小 */

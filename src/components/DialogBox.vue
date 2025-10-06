@@ -72,14 +72,15 @@ const sendMessage = async () => {
     messages.value.push({ text: output.value, from: 'bot' })
     FileStore.MessageContent.push({ text: output.value, from: 'bot' })
     scrollToBottom()
-    // 过滤用户消息
-    const userMessages = FileStore.MessageContent.filter((msg) => msg.from === 'user').map(
-      (msg) => msg.text,
-    )
-    // 接着提取问题
-    console.log('发送到 /extract 的内容:', userMessages)
+    // 构建用户 + bot 消息数组，传给 /extract
+    const allMessages = FileStore.MessageContent.map((msg) => ({
+      role: msg.from,
+      content: msg.text,
+    }))
+    // 把用户和模型的消息抽传给后端
+    console.log('发送到 /extract 的内容:', allMessages)
     const extractResponse = await axios.post('http://localhost:5000/extract', {
-      content: userMessages,
+      content: allMessages,
     })
     FileStore.GPTContent = extractResponse.data
   } catch (error) {
