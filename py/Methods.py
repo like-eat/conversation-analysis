@@ -79,7 +79,7 @@ def assign_colors(data):
 def merge_domains_timeline(new_results):
     if not new_results:
         return []
-
+    print("new_results: ", new_results)
     merged = []
     for item in new_results:
         if not merged:
@@ -88,9 +88,13 @@ def merge_domains_timeline(new_results):
             last = merged[-1]
             if last["domain"] == item["domain"]:
                 # 相邻且 domain 相同，合并 slots
+                existing_pairs = {(s["sentence"], s["slot"]) for s in last["slots"]}
                 for slot in item.get("slots", []):
-                    if slot["sentence"] not in [s["sentence"] for s in last["slots"]]:
+                    # 只有当slot和sentence都重复时才会跳过
+                    pair = (slot["sentence"], slot["slot"])
+                    if pair not in existing_pairs:
                         last["slots"].append(slot)
+                        existing_pairs.add(pair)
             else:
                 # 不相邻，开新块
                 merged.append(item)
