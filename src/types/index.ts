@@ -1,46 +1,23 @@
-export interface Node {
-  id: string
-  group: number
-  timeOrder: number
-  x?: number
-  y?: number
-  fx?: number | null
-  fy?: number | null
-  vx?: number
-  vy?: number
-  index?: number
-}
-
-export interface Link {
-  source: string | Node
-  target: string | Node
-  value: number
-  group: number
-  index?: number
-}
-
-export interface GraphData {
-  nodes: Node[]
-  links: Link[]
-}
-
-export interface MessageItem {
-  text: string
-  from: 'user' | 'bot'
-}
-
 export interface Slot {
+  id: number
   sentence: string
   slot: string
   color: string
+  source: 'user' | 'bot'
+  x?: number // 新增
+  y?: number // 新增
 }
 export interface Conversation {
+  id: number
   domain: string
   slots: Slot[]
   color: string
+  x?: number // 新增
+  y?: number // 新增
 }
 
 export interface MessageItem {
+  id: number
   text: string
   from: 'user' | 'bot'
 }

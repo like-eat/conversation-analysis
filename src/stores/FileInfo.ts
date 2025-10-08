@@ -17,8 +17,8 @@ export const useFileStore = defineStore('refileInfo', {
     return {
       MessageContent: [] as MessageItem[],
       GPTContent: [] as Conversation[],
-      selectedMessage: null as string | null,
       FileContent: '',
+      selectedSlotId: null as number | null,
     }
   },
   actions: {

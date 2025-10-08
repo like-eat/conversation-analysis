@@ -39,7 +39,7 @@ import axios from 'axios'
 
 const FileStore = useFileStore()
 
-const messages = ref<MessageItem[]>([{ text: '你好，我是对话助手！', from: 'bot' }])
+const messages = ref<MessageItem[]>([])
 const messageRefs = ref<(HTMLElement | null)[]>([])
 
 const input = ref<string>('')
@@ -53,14 +53,15 @@ const scrollToMessage = (index: number) => {
     el.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 }
-
+let globalId = 1 // 全局自增
 const sendMessage = async () => {
   const text = input.value.trim()
   if (!text) return
 
   // 添加用户消息
-  messages.value.push({ text, from: 'user' })
-  FileStore.MessageContent.push({ text, from: 'user' })
+  const userMsg: MessageItem = { id: globalId++, text, from: 'user' }
+  messages.value.push(userMsg)
+  FileStore.MessageContent.push(userMsg)
 
   try {
     // 发送消息给机器人
@@ -69,8 +70,9 @@ const sendMessage = async () => {
     output.value = response.data
 
     // 模拟机器人回复
-    messages.value.push({ text: output.value, from: 'bot' })
-    FileStore.MessageContent.push({ text: output.value, from: 'bot' })
+    const botMsg: MessageItem = { id: globalId++, text: output.value, from: 'bot' }
+    messages.value.push(botMsg)
+    FileStore.MessageContent.push(botMsg)
     scrollToBottom()
     // 构建用户 + bot 消息数组，传给 /extract
     const allMessages = FileStore.MessageContent.map((msg) => ({
@@ -100,10 +102,10 @@ const scrollToBottom = () => {
 }
 
 watch(
-  () => FileStore.selectedMessage,
-  (sentence) => {
-    if (!sentence) return
-    const index = messages.value.findIndex((msg) => msg.text === sentence)
+  () => FileStore.selectedSlotId,
+  (slotId) => {
+    if (!slotId) return
+    const index = messages.value.findIndex((msg) => msg.id === slotId)
     if (index !== -1) {
       scrollToMessage(index)
     }
