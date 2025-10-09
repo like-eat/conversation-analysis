@@ -275,20 +275,7 @@ watch(
     console.log(typeof content)
     try {
       content = content.flat()
-      // ====== 在这里给 domain 和 slot 顺序赋 ID ======
-      let domainIdCounter = 1
-      let slotIdCounter = 1
-      const contentWithId = content.map((domain: Conversation) => {
-        return {
-          ...domain,
-          id: domainIdCounter++,
-          slots: domain.slots.map((slot) => ({
-            ...slot,
-            id: slotIdCounter++,
-          })),
-        }
-      })
-      drawUI(contentWithId)
+      drawUI(content)
     } catch (err) {
       console.error('JSON 解析失败:', err)
     }

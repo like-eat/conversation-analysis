@@ -79,7 +79,6 @@ def assign_colors(data):
 def merge_domains_timeline(new_results):
     if not new_results:
         return []
-    print("new_results: ", new_results)
     merged = []
     for item in new_results:
         if not merged:

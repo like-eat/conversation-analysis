@@ -76,6 +76,7 @@ const sendMessage = async () => {
     scrollToBottom()
     // 构建用户 + bot 消息数组，传给 /extract
     const allMessages = FileStore.MessageContent.map((msg) => ({
+      id: msg.id,
       role: msg.from,
       content: msg.text,
     }))

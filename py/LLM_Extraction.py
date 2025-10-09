@@ -46,8 +46,8 @@ def llm_extract_information_incremental(new_sentence, existing_domains=None):
         1. 输出必须是标准 JSON 对象，严禁包含代码块标记（如```json）或多余文字。
         2. 每个主题包含字段：
         - "domain": 主题名称
-        - "slots": 一个数组，每个元素包含 {{"sentence": 原始句子, "slot": 对应的子主题}}
-        3. **slots 不要超过 3 个**，只保留最核心、最具代表性的子主题。
+        - "slots": 一个数组，每个元素包含 {{ "sentence": 原始句子, "slot": 对应的子主题}}
+        3. **slots 只能抽取 1 个**，只保留最核心、最具代表性的子主题。
         4. 保持主题与子主题表述简洁，不超过 6 个字。
         5. slots 必须是「概念级别」或「议题级别」的关键词，而不是每个子句。
         6. 输出的标准 JSON 格式：
@@ -62,7 +62,7 @@ def llm_extract_information_incremental(new_sentence, existing_domains=None):
 
         规则补充：
         1. 所有问题首先要识别最高层的大主题（如“可视化”），作为唯一的 domain。
-        2. 若句子涉及多个内容，请提炼出最核心的主题，并只保留相关的 2~3 个核心方面。
+        2. 若句子涉及多个内容，请提炼出最核心的主题。
         3. 不允许每个子句都单独成为一个 slot。
         4. slot 应该是“该主题下的核心点”——例如方法、应用、问题、挑战、评价等；
         5. domain 只表示核心领域，不超过 6 个字；slots 负责细分问题。

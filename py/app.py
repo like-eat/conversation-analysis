@@ -70,10 +70,10 @@ def extract():
 
         new_results = []
 
-        # -------- 用户部分抽取 --------
         if len(messages) < 100:
             # 小数据：直接 LLM 处理
             for msg in messages:
+                id = msg.get("id", "")
                 role = msg.get("role", "user")
                 text = msg.get("content", "").strip()
                 if not text:
@@ -86,6 +86,11 @@ def extract():
                 for domain in result:
                     for slot in domain.get("slots", []):
                         slot["source"] = role  # user 或 bot
+
+                # 给每个 slot 添加id
+                for domain in result:
+                    for slot in domain.get("slots", []):
+                        slot["id"] = id  # 给每个 slot 赋予唯一 id
 
                 new_results.append(result)
         else:
