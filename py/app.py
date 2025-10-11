@@ -23,11 +23,16 @@ user_id = "default_user"
 def back_message():
     try:
         data = request.get_json(force=True)
-        if not data or 'text' not in data:
-            return jsonify({"error": "请求体为空或缺少 text 字段"}), 400
+        if not data or 'message' not in data:
+            return jsonify({"error": "请求体为空或缺少 message 字段"}), 400
 
-        user_query = data['text']
-
+        # 接收完整 userMsg
+        user_msg = data['message']
+        user_query = user_msg.get('text', '')
+        user_from = user_msg.get('from')
+    
+        # 接收完整历史
+        history_msgs = data.get('history', [])
         # # -------------------------
         # # 获取用户 ID
         # # 优先使用前端传来的 user_id
@@ -37,7 +42,7 @@ def back_message():
         #     user_id = str(uuid.uuid4())
         # # -------------------------
         
-        result = talk_to_chatbot(user_id, user_query)
+        result = talk_to_chatbot(user_id, user_query, user_from, history_msgs)
 
         return jsonify(result), 200
     except Exception as e:

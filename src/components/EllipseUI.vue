@@ -10,13 +10,14 @@ import { useFileStore } from '@/stores/FileInfo'
 
 const FileStore = useFileStore()
 const UIcontainer = ref<HTMLElement | null>(null)
-
-// 小椭圆点击了哪个句子
+const fontSize = 15
+const lineHeight = 20
+// 小胶囊点击了哪个句子
 const onSlotClick = (slotId: number) => {
   FileStore.selectedSlotId = slotId
   console.log('定位 slot id:', slotId)
 }
-// 大椭圆
+// 大胶囊
 const onDomainClick = (domainSlots: Slot[]) => {
   const slotToSelect =
     domainSlots.find((s) => s.source === 'user') || domainSlots.find((s) => s.source === 'bot')
@@ -25,249 +26,229 @@ const onDomainClick = (domainSlots: Slot[]) => {
     onSlotClick(slotToSelect.id)
   }
 }
+// 辅助：生成竖向胶囊路径（rx: 水平半径，ry: 半高）
+function capsulePath(cx: number, cy: number, rx: number, ry: number) {
+  return `
+    M ${cx - rx}, ${cy - ry + rx}
+    a ${rx},${rx} 0 0 1 ${2 * rx},0
+    v ${2 * (ry - rx)}
+    a ${rx},${rx} 0 0 1 ${-2 * rx},0
+    Z
+  `
+}
 
 // 绘制 UI
 function drawUI(data: Conversation[]) {
   if (!UIcontainer.value) return
 
-  // 清空上一次生成的 SVG
+  // 清空 SVG
   d3.select(UIcontainer.value).selectAll('*').remove()
 
-  // 初始椭圆参数
   const width = 1024
   const height = 884
-  // 中心点
-  let beforeY = 70 // 前一个 domain 半径
-  let currentY = 140 // 每个 domain 垂直间隔
-  const spacing = 100 // 固定间距
+  const fontSize = 15
+  const spacing = 100
+  let beforeY = 70
+  let currentY = 140
 
-  // 假设 data 是 Conversation[]，每个元素有 domain 字段
-  const domains = Array.from(new Set(data.map((d) => d.domain))) // 去重
-  // X 方向间隔
-  const xInterval = 200
-  // 给每个 domain 计算 X
-  const domainXMap: Record<string, number> = {}
-  domains.forEach((domain, i) => {
-    domainXMap[domain] = 110 + i * xInterval // 100 是初始 X
-  })
-  // 椭圆的中心点
-  const domainPoints: Record<string, { x: number; y: number }[]> = {}
-  // 颜色map
-  const domainColorMap: Record<string, string> = {}
-  data.forEach((d) => {
-    domainColorMap[d.domain] = d.color
-  })
-
-  // 创建椭圆
   const svg = d3.select(UIcontainer.value).append('svg').attr('width', width).attr('height', height)
-  const g = svg.append('g') // 所有图形都在 g 里，方便缩放
-  // 绘制大椭圆，并计算小椭圆位置
-  const ellipsesData = data.map((domainData) => {
-    const baseRx = 80
-    const baseRy = 100
-    const scale = 1 + 0.1 * (domainData.slots.length - 1)
-    const domainRadiusX = baseRx * scale
-    const domainRadiusY = baseRy * scale
-    const cx = domainXMap[domainData.domain]
+  const g = svg.append('g')
+
+  // 生成 domain 层级的唯一 id
+  const ellipsesData = data.map((domainData, domainIdx) => {
+    const domainId = `${domainData.domain}-${domainIdx}`
+
+    const rx = fontSize * domainData.domain.length
+    const ry = fontSize * domainData.domain.length * 1.5
+    const cx = 110 + domainIdx * 200
     const cy = currentY
 
-    // 存入 Conversation 坐标
-    domainData.x = cx
-    domainData.y = cy
-
-    const domainEllipse = g
-      .append('ellipse')
-      .attr('cx', cx)
-      .attr('cy', cy)
-      .attr('rx', domainRadiusX)
-      .attr('ry', domainRadiusY)
-      .attr('fill', domainColorMap[domainData.domain])
+    // 大胶囊
+    const domainCapsule = g
+      .append('path')
+      .attr('d', capsulePath(cx, cy, rx, ry))
+      .attr('fill', domainData.color)
       .attr('fill-opacity', 0.9)
       .on('click', () => {
-        console.log('点击了 domain:', domainData.domain)
-        onDomainClick(domainData.slots)
+        const slotToSelect =
+          domainData.slots.find((s) => s.source === 'user') ||
+          domainData.slots.find((s) => s.source === 'bot')
+        if (slotToSelect) FileStore.selectedSlotId = slotToSelect.id
       })
 
-    // 将椭圆的中心点push进去
-    if (!domainPoints[domainData.domain]) {
-      domainPoints[domainData.domain] = []
-    }
-    domainPoints[domainData.domain].push({
-      x: domainXMap[domainData.domain],
-      y: currentY,
-    })
+    // 大胶囊文字
+    const domainTextGroup = g.append('g').attr('class', `domain-text-group domain-${domainId}`)
 
-    const domain = domainData.domain
-    const lineHeight = 20 // 让文字均匀分布在椭圆高度内
-    const textHeight = domain.length * lineHeight // 总高度
-    const startY = currentY - textHeight / 2 // 从中心往上偏移一半
-
-    domain.split('').forEach((char, i) => {
-      g.append('text')
-        .attr('x', domainXMap[domainData.domain]) // 椭圆左边，留 10px 间距
-        .attr('y', startY + lineHeight / 2 + i * lineHeight) // 从椭圆顶端开始往下排
+    const lineHeight = 20
+    const textHeight = domainData.domain.length * lineHeight
+    const startY = cy - textHeight / 2
+    domainData.domain.split('').forEach((char, i) => {
+      domainTextGroup
+        .append('text')
+        .attr('class', `domain-text domain-${domainId}`)
+        .attr('x', cx)
+        .attr('y', startY + lineHeight / 2 + i * lineHeight)
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'middle')
         .attr('fill', '#fff')
-        .attr('font-size', 16)
+        .attr('font-size', fontSize)
         .text(char)
     })
 
-    // 绘制直线连接椭圆
-    const lineGenerator = d3
-      .line<{ x: number; y: number }>()
-      .x((d) => d.x)
-      .y((d) => d.y)
-      .curve(d3.curveLinear) // 直线，你也可以换成 curveMonotoneY
-
-    Object.entries(domainPoints).forEach(([domain, points]) => {
-      g.append('path')
-        .datum(points)
-        .attr('d', lineGenerator)
-        .attr('stroke', domainColorMap[domain]) // 这里你可以用 domainData.color
-        .attr('stroke-width', 5)
-        .attr('stroke-opacity', 0.5)
-    })
-
-    const slots = domainData.slots.map((slotData, i) => {
-      const padding = 10
-      let slotWidth: number
-      let slotHeight: number
-      let y: number
-      if (domainData.slots.length === 1) {
-        // 🔹只有一个小椭圆时，固定大小
-        slotWidth = domainRadiusX * 0.6
-        slotHeight = domainRadiusY * 0.6
-        y = currentY
-      } else {
-        const availableHeight = domainRadiusY * 2 - padding * (domainData.slots.length + 1)
-        slotWidth = domainRadiusX * 0.6
-        slotHeight = availableHeight / domainData.slots.length
-        y = currentY - domainRadiusY + padding + slotHeight / 2 + i * (slotHeight + padding)
+    // 小胶囊
+    const slots = domainData.slots.map((slot, slotIdx) => {
+      const textLen = slot.slot.length
+      const slotWidth = fontSize * textLen
+      const slotHeight = Math.max(fontSize * textLen * 1.5, fontSize * 2)
+      let y = cy
+      if (domainData.slots.length > 1) {
+        const padding = 10
+        y = cy - ry + padding + slotHeight / 2 + slotIdx * (slotHeight + padding)
       }
-
-      const x = domainXMap[domainData.domain]
-
+      const slotId = `slot-${domainId}-${slotIdx}`
+      const groupId = `slot-group-${domainId}-${slotIdx}`
       return {
-        ...slotData,
-        x,
+        ...slot,
+        x: cx,
         y,
         rx: slotWidth / 2,
         ry: slotHeight / 2,
+        slotId,
+        groupId,
+        _slotHeight: slotHeight,
       }
     })
 
-    currentY = currentY + beforeY + domainRadiusY + spacing
-    beforeY = domainRadiusY
+    currentY += beforeY + ry + spacing
+    beforeY = ry
 
-    domainData.slots = slots
-
-    return { domainEllipse, slots }
+    return { domainData, domainId, domainCapsule, domainTextGroup, slots, cx, cy, rx, ry }
   })
 
-  // 绘制user/bot曲线
-  const drawLines = () => {
-    const userPoints = [{ x: 85, y: 0 }]
-    const botPoints = [{ x: 130, y: 0 }]
-
-    data.forEach((domain) => {
-      const { x, y, slots } = domain
-      if (!x || !y) return // 防止意外未定义
-
-      const hasUser = slots.some((s) => s.source === 'user')
-      const hasBot = slots.some((s) => s.source === 'bot')
-
-      // 偏移量（左右偏 20）
-      const offset = 20
-
-      if (hasUser) {
-        userPoints.push({ x: x - offset, y })
-      }
-
-      if (hasBot) {
-        botPoints.push({ x: x + offset, y })
-      }
-    })
-    console.log('Domain Points:', domainPoints)
-    console.log('User Points:', userPoints)
-    console.log('Bot Points:', botPoints)
-
-    const lineGen = d3
-      .line<{ x: number; y: number }>()
-      .x((d) => d.x)
-      .y((d) => d.y)
-      .curve(d3.curveMonotoneY)
-
-    g.append('path')
-      .datum(userPoints)
-      .attr('d', lineGen)
-      .attr('stroke', 'red')
-      .attr('stroke-width', 4)
-      .attr('fill', 'none')
-      .attr('stroke-opacity', 0.7)
-
-    g.append('path')
-      .datum(botPoints)
-      .attr('d', lineGen)
-      .attr('stroke', 'blue')
-      .attr('stroke-width', 4)
-      .attr('fill', 'none')
-      .attr('stroke-opacity', 0.7)
-  }
-  drawLines()
-
-  // 小椭圆组，初始透明度为 0
-  const slotsGroup = g.append('g')
+  // 小胶囊组
+  const slotsGroup = g.append('g').attr('class', 'slots-group')
   const slotEllipses = slotsGroup
-    .selectAll('ellipse')
+    .selectAll('path.slot')
     .data(ellipsesData.flatMap((d) => d.slots))
     .enter()
-    .append('ellipse')
-    .attr('data-slot-id', (d) => d.id)
-    .on('click', (event, d) => onSlotClick(d.id))
-    .attr('cx', (d) => d.x)
-    .attr('cy', (d) => d.y)
-    .attr('rx', (d) => d.rx) // 固定大小
-    .attr('ry', (d) => d.ry) // 固定大小
+    .append('path')
+    .attr('class', 'slot')
+    .attr('id', (d) => d.slotId)
+    .attr('d', (d) => capsulePath(d.x, d.y, d.rx, d.ry))
     .attr('fill', (d) => d.color)
-    .attr('opacity', 0) // 初始透明
+    .attr('opacity', 0)
+    .on('click', (event, d) => onSlotClick(d.id))
 
-  // 在小椭圆中心添加文字
-  const slotTexts = slotsGroup
-    .selectAll('text')
+  // 小胶囊文字组
+  const slotGroups = slotsGroup
+    .selectAll('g.slot-group')
     .data(ellipsesData.flatMap((d) => d.slots))
     .enter()
-    .append('text')
-    .attr('x', (d) => d.x)
-    .attr('y', (d) => d.y)
-    .attr('text-anchor', 'middle') // 水平居中
-    .attr('dominant-baseline', 'middle') // 垂直居中
-    .attr('fill', '#fff') // 字体颜色，可根据小椭圆背景色调整
-    .attr('font-size', 15) // 字体大小，可调整
-    .text((d) => d.slot) // 显示 slot 名称
-    .attr('opacity', 0) // 初始与椭圆透明度一致
+    .append('g')
+    .attr('class', 'slot-group')
+    .attr('id', (d) => d.groupId)
 
-  // 缩放事件
+  slotGroups.each(function (d) {
+    const gThis = d3.select(this)
+    const chars = d.slot.split('')
+    const startY = d.y - ((chars.length - 1) * lineHeight) / 2
+    chars.forEach((char, i) => {
+      gThis
+        .append('text')
+        .attr('x', d.x)
+        .attr('y', startY + i * lineHeight)
+        .attr('text-anchor', 'middle')
+        .attr('dominant-baseline', 'middle')
+        .attr('fill', '#fff')
+        .attr('font-size', fontSize)
+        .attr('opacity', 0)
+        .text(char)
+    })
+  })
+
+  // 缩放逻辑
   const zoom = d3
     .zoom<SVGSVGElement, unknown>()
-    .scaleExtent([0.5, 5])
+    .scaleExtent([0.5, 3])
     .on('zoom', (event) => {
       g.attr('transform', event.transform.toString())
-      // 动态调整文字大小
-      slotTexts.attr('font-size', 15 / event.transform.k) // 让文字随缩放反向缩放
-      if (event.transform.k >= 1.25) {
-        // 渐显
-        slotEllipses.transition().duration(500).attr('opacity', 0.8)
-        slotTexts.transition().duration(500).attr('opacity', 0.8)
-      } else {
-        // 渐隐
-        slotEllipses.transition().duration(500).attr('opacity', 0)
-        slotTexts.transition().duration(500).attr('opacity', 0)
-      }
+
+      ellipsesData.forEach((d) => {
+        const { cx, cy, rx, ry, slots, domainCapsule, domainId } = d
+        const originalRy = ry
+        if (event.transform.k >= 1.25) {
+          const padding = 10
+          const totalHeight =
+            slots.reduce((acc, s) => acc + s._slotHeight, 0) + padding * (slots.length - 1)
+          const targetRy = Math.max(originalRy, totalHeight / 2 + rx * 0.25)
+          domainCapsule
+            .transition()
+            .duration(300)
+            .attr('d', capsulePath(cx, cy, rx, targetRy))
+
+          // 小胶囊布局
+          let currentTop = cy - totalHeight / 2
+          slots.forEach((slot) => {
+            const slotCenterY = currentTop + slot._slotHeight / 2
+            currentTop += slot._slotHeight + padding
+            d3.select(`#${slot.slotId}`)
+              .transition()
+              .duration(300)
+              .attr('d', capsulePath(slot.x, slotCenterY, slot.rx, slot.ry))
+              .attr('opacity', 0.9)
+            const group = d3.select(`#${slot.groupId}`)
+            const chars = slot.slot.split('')
+            const startY = slotCenterY - ((chars.length - 1) * lineHeight) / 2
+            group.selectAll('text').each((_, i, nodes) => {
+              d3.select(nodes[i])
+                .transition()
+                .duration(300)
+                .attr('y', startY + i * lineHeight)
+                .attr('opacity', 1)
+            })
+          })
+
+          // 隐藏大胶囊文字
+          g.selectAll(`.domain-text.domain-${domainId}`)
+            .transition()
+            .duration(200)
+            .style('opacity', 0)
+        } else {
+          // 缩小回去
+          domainCapsule
+            .transition()
+            .duration(300)
+            .attr('d', capsulePath(cx, cy, rx, ry))
+          slots.forEach((slot) => {
+            d3.select(`#${slot.slotId}`)
+              .transition()
+              .duration(250)
+              .attr('d', capsulePath(slot.x, slot.y, slot.rx, slot.ry))
+              .attr('opacity', 0)
+            const group = d3.select(`#${slot.groupId}`)
+            const chars = slot.slot.split('')
+            const startY = slot.y - ((chars.length - 1) * lineHeight) / 2
+            group.selectAll('text').each((_, i, nodes) => {
+              d3.select(nodes[i])
+                .transition()
+                .duration(250)
+                .attr('y', startY + i * lineHeight)
+                .attr('opacity', 0)
+            })
+          })
+          // 恢复大胶囊文字
+          g.selectAll(`.domain-text.domain-${domainId}`)
+            .transition()
+            .delay(200)
+            .duration(300)
+            .style('opacity', 1)
+        }
+      })
     })
 
   svg.call(zoom)
 }
+
 // 监听GPT返回内容的变化
 watch(
   () => FileStore.GPTContent,

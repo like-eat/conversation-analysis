@@ -1,8 +1,5 @@
 <template>
   <div class="page-container">
-    <div class="upload-container">
-      <UploadFile />
-    </div>
     <div class="content-container">
       <div class="dialog-container">
         <DialogBox />
@@ -15,7 +12,6 @@
 </template>
 
 <script setup lang="ts">
-import UploadFile from './UploadFile.vue'
 import DialogBox from './DialogBox.vue'
 import EllipseUI from './EllipseUI.vue'
 </script>

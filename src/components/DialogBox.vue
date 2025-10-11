@@ -65,7 +65,10 @@ const sendMessage = async () => {
 
   try {
     // 发送消息给机器人
-    const response = await axios.post('http://localhost:5000/back_message', { text })
+    const response = await axios.post('http://localhost:5000/back_message', {
+      message: userMsg,
+      history: FileStore.MessageContent,
+    })
     console.log('机器人回复:', response.data)
     output.value = response.data
 
