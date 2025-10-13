@@ -1,12 +1,12 @@
 <template>
-  <div class="svg-container" ref="UIcontainer"></div>
+  <div class="container">
+    <div ref="svgContainer" class="svg-box"></div>
+  </div>
 </template>
 
 <script setup lang="ts">
 import * as d3 from 'd3'
-import { onMounted, ref, watch } from 'vue'
-import type { Conversation, Slot } from '@/types/index'
-import { useFileStore } from '@/stores/FileInfo'
+import { onMounted, ref } from 'vue'
 
 const FileStore = useFileStore()
 const UIcontainer = ref<HTMLElement | null>(null)
@@ -205,7 +205,7 @@ function drawUI(data: Conversation[]) {
   // --------------------- 缩放事件 ----------
   const zoom = d3
     .zoom<SVGSVGElement, unknown>()
-    .scaleExtent([0.5, 5])
+    .scaleExtent([0.5, 3])
     .on('zoom', (event) => {
       g.attr('transform', event.transform.toString())
       const slotGroup = g.select('.slot-group')
@@ -304,6 +304,7 @@ function drawUI(data: Conversation[]) {
       }
     })
 
+  // 应用缩放
   svg.call(zoom)
 }
 // 监听GPT返回内容的变化
@@ -322,14 +323,12 @@ watch(
 )
 onMounted(() => {})
 </script>
+
 <style scoped>
-/* 可根据需要调整容器大小 */
-div {
-  width: 850px;
-  height: 850px;
-  margin-top: 10px;
-}
-input {
-  margin-bottom: 10px;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
 }
 </style>

@@ -27,7 +27,6 @@ function drawUI(data: Conversation[]) {
   if (!UIcontainer.value) return
   d3.select(UIcontainer.value).selectAll('*').remove()
 
-  // 初始椭圆参数
   const width = 1024
   const height = 884
   let beforeY = 70 // 前一个 domain 半径
@@ -373,6 +372,7 @@ function drawUI(data: Conversation[]) {
 
   svg.call(zoom)
 }
+
 // 监听GPT返回内容的变化
 watch(
   () => FileStore.GPTContent,

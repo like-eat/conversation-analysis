@@ -19,8 +19,6 @@ with open('py/conversation_example/ChatGPT.txt', 'r', encoding='utf-8') as file:
 # ===== 1. 初始化向量数据库（FAISS） =====
 dimension = 1536  # OpenAI text-embedding-3-small 输出向量维度
 index = faiss.IndexFlatL2(dimension)  # L2 距离索引
-# 定义全局消息列表（保存上下文）
-history = []
 
 def llm_extract_information_incremental(new_sentence, existing_domains=None): 
     
@@ -163,8 +161,15 @@ def extract_memory_from_text(user_id, new_sentence):
         print("Memory JSON解析失败:", result)
 
 # ===== GPT + Memory + RAG函数 =====
-def talk_to_chatbot(user_id, content, top_k=3):
-    global history, index
+def talk_to_chatbot(user_id, content, source, history_msgs, top_k=3):
+    """
+    content: 本轮用户问题
+    source: 消息来源，可传入
+    history_msgs: 短期对话列表 [{"role": "user"/"assistant", "content": "..."}]
+    index: FAISS 索引对象，用于存储长期记忆
+    top_k: RAG 检索数量
+    """
+    global index
 
     # 1. 先检索Memory
     memory_context = get_user_memory(user_id)
@@ -172,25 +177,32 @@ def talk_to_chatbot(user_id, content, top_k=3):
     # 2. 为用户输入生成 embedding
     query_emb = get_embedding(content).reshape(1, -1)
 
-    # 检索相似历史related_context
-    if len(history) > 0:
+    # 3. 检索相关 Memory
+    related_context = ""
+    if index is not None and memory_context:
         D, I = index.search(query_emb, top_k)
-        related_context = "\n".join([history[i] for i in I[0] if i < len(history)])
-    else:
-        related_context = ""
+        # 简单示例：用索引对应的 Memory 行（假设 memory_text 分行存储）
+        memory_lines = memory_context.split("\n")
+        related_context = "\n".join([memory_lines[i] for i in I[0] if i < len(memory_lines)])
 
-    # 3. 组织 prompt，把 Memory 和 RAG 检索内容都拼进去
+    # 4.先把历史对话整理成文本
+    history_text = "\n".join(
+    [f"{msg.get('from', 'user').capitalize()}: {msg.get('text', '')}" for msg in history_msgs])
+
+    # 5. 组织 prompt，把 Memory 和 RAG 检索内容都拼进去
     messages = [
         {"role": "system", "content": "你是一名对话分析助手，擅长与用户进行沟通, 请根据用户的输入，合理回答，并保持沟通连贯。"},
         {"role": "user", "content": f"""
-        下面是与本问题相关的历史对话：{related_context}
+        下面是与本问题相关的历史对话：{history_text}
         用户信息：
         {memory_context}
+        相关 Memory 检索内容：
+        {related_context}
         现在用户的问题是：
         {content}"""}
         ]
-    # 4. 调用大模型生成回复 
-
+    
+    # 6. 调用大模型生成回复 
     completion = openai.chat.completions.create(
         model="gpt-4o",
         temperature=0.5,
@@ -198,14 +210,14 @@ def talk_to_chatbot(user_id, content, top_k=3):
         )
     result = (completion.choices[0].message.content)
 
-    # 5. 更新 FAISS 向量数据库（存用户问题即可，也可存模型回答）
-    for text in [content, result]:  # 你要是只想存用户问题，可以去掉 result
-        emb = get_embedding(text).reshape(1, -1)
+    # 7. 更新 Memory（长期记忆）到 FAISS
+    if index is not None and memory_context:
+        memory_text = "\n".join([f"{k}: {v}" for k, v in user_memory_db[user_id].items()])
+        emb = get_embedding(memory_text).reshape(1, -1)
         index.add(emb)
-        history.append(text)
 
-    # 6. 自动从用户输入和模型回答抽取 Memory 信息
-    extract_memory_from_text(user_id, content)  # 从用户输入中提取
+    # 8. 自动抽取最新 Memory 信息
+    extract_memory_from_text(user_id, content)
 
     return result
 
