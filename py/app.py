@@ -55,6 +55,7 @@ def extract():
             return jsonify({'error': '缺少 content 字段'}), 400
         
         content = data['content']
+        
         # ✅ 兼容两种格式
         if isinstance(content, list):
             # [{role: 'user'/'bot', content: '...'}]
@@ -69,10 +70,11 @@ def extract():
             messages = [{'role': 'user', 'content': s} for s in split_docs]
 
         new_results = []
-
+        # 小数据：直接 LLM 处理
         if len(messages) < 100:
-            # 小数据：直接 LLM 处理
-            for msg in messages:
+            # 只处理最新一轮对话
+            latest_msgs = messages[-2:]  # 最后两条：user + bot
+            for msg in latest_msgs:
                 id = msg.get("id", "")
                 role = msg.get("role", "user")
                 text = msg.get("content", "").strip()
@@ -115,8 +117,10 @@ def extract():
             else:
                 flat_new_results.append(r)
 
+        # 把新结果合并到全局
+        all_results = merged_results_global + flat_new_results
         # print("扁平化结果：", flat_new_results)
-        merged_results_global = merge_domains_timeline(flat_new_results)
+        merged_results_global = merge_domains_timeline(all_results)
         print("合并结果:", merged_results_global)
         colored_results = assign_colors(merged_results_global)
         # print("带颜色的抽取结果：", colored_results)

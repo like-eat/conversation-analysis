@@ -80,6 +80,7 @@ const sendMessage = async () => {
       role: msg.from,
       content: msg.text,
     }))
+
     // 把用户和模型的消息抽传给后端
     console.log('发送到 /extract 的内容:', allMessages)
     const extractResponse = await axios.post('http://localhost:5000/extract', {

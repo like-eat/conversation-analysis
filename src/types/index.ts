@@ -6,6 +6,8 @@ export interface Slot {
   source: 'user' | 'bot'
   x?: number // 新增
   y?: number // 新增
+  rw?: number // 新增
+  rh?: number // 新增
 }
 export interface Conversation {
   id: number
@@ -14,6 +16,10 @@ export interface Conversation {
   color: string
   x?: number // 新增
   y?: number // 新增
+  w?: number
+  h?: number
+  cx?: number
+  cy?: number
 }
 
 export interface MessageItem {
