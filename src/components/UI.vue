@@ -24,14 +24,8 @@ import EllipseUI from './EllipseUI.vue'
   height: 100vh;
 }
 
-.upload-container {
-  flex: 0 0 10%; /* 高度占 10% */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .content-container {
-  flex: 1 1 90%;
+  flex: 1 1 100%;
   display: flex;
   flex-direction: row;
   width: 100%;

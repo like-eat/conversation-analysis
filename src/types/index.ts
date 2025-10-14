@@ -14,8 +14,6 @@ export interface Conversation {
   domain: string
   slots: Slot[]
   color: string
-  x?: number // 新增
-  y?: number // 新增
   w?: number
   h?: number
   cx?: number

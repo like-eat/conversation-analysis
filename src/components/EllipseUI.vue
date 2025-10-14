@@ -1,5 +1,7 @@
 <template>
-  <div class="svg-container" ref="UIcontainer"></div>
+  <div class="capsule-container">
+    <div ref="UIcontainer" class="capsule-body"></div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -10,7 +12,9 @@ import { useFileStore } from '@/stores/FileInfo'
 
 const FileStore = useFileStore()
 const UIcontainer = ref<HTMLElement | null>(null)
+const domainXMap: Record<string, number> = {}
 
+const domainColorMap: Record<string, string> = {}
 // 🧩 胶囊路径生成函数
 function capsulePath(cx: number, cy: number, rw: number, rh: number) {
   return `
@@ -22,6 +26,34 @@ function capsulePath(cx: number, cy: number, rw: number, rh: number) {
   `
 }
 
+// 根据 domainPoints 中的 Y 坐标中位数优化 domain 顺序
+function optimizeDomainOrder(
+  domains: string[],
+  domainPoints: Record<string, { x: number; y: number }[]>,
+): string[] {
+  const domainStats = domains.map((domain) => {
+    const points = domainPoints[domain] || []
+    console.log('points是 :', points)
+    if (points.length === 0) return { domain, score: Infinity }
+
+    // 计算 Y 的中位数
+    const ys = points.map((p) => p.y)
+    const score =
+      ys.length > 0
+        ? ys.reduce((sum, y) => sum + y, 0) / ys.length // 使用平均值
+        : Infinity
+
+    return { domain, score: score }
+  })
+
+  // score 小 → 上方 → X 更靠左
+  domainStats.sort((a, b) => a.score - b.score)
+
+  console.log('domainStats是 :', domainStats)
+  // 返回排序后的 domain 名称数组
+  return domainStats.map((d) => d.domain)
+}
+
 // 绘制 UI
 function drawUI(data: Conversation[]) {
   if (!UIcontainer.value) return
@@ -31,23 +63,15 @@ function drawUI(data: Conversation[]) {
   const height = 884
   let beforeY = 70 // 前一个 domain 半径
   let currentY = 140 // 每个 domain 垂直间隔
-  const spacing = 100 // 固定间距
-  const xInterval = 200 // X 方向间隔
+  const spacing = 50 // 固定间距
+  const xInterval = 120 // X 方向间隔
   const lineHeight = 20 // 让文字均匀分布在椭圆高度内
   const fontSize = 15 // 字体大小
   const padding = 10
 
   let activeDomain: string | null = null
 
-  const domainXMap: Record<string, number> = {}
-  const domainPoints: Record<string, { x: number; y: number }[]> = {}
-  const domainColorMap: Record<string, string> = {}
-
   const domains = Array.from(new Set(data.map((d) => d.domain))) // 去重
-
-  domains.forEach((domain, i) => {
-    domainXMap[domain] = 110 + i * xInterval // 110 是初始 X
-  })
 
   data.forEach((d) => {
     domainColorMap[d.domain] = d.color
@@ -139,11 +163,39 @@ function drawUI(data: Conversation[]) {
     .append('g')
     .attr('class', 'domain-group')
 
+  const domainPoints: Record<string, { x: number; y: number }[]> = {}
   // 设置基础信息
+  domainGroups.each(function (domainData) {
+    const rh = domainData.domain.length * fontSize * 1.5
+    const cx = domainXMap[domainData.domain]
+    const cy = currentY
+
+    // 保存到 domainPoints
+    if (!domainPoints[domainData.domain]) domainPoints[domainData.domain] = []
+    domainPoints[domainData.domain].push({ x: cx, y: cy })
+
+    currentY = currentY + beforeY + rh + spacing
+    beforeY = rh
+  })
+
+  // 2️⃣ 优化顺序
+  const optimizedDomains = optimizeDomainOrder(domains, domainPoints)
+
+  // 3️⃣ 更新 domainXMap 和 domainPoints 的 X
+  optimizedDomains.forEach((domain, i) => {
+    const newX = 110 + i * xInterval
+    domainXMap[domain] = newX
+    domainPoints[domain].forEach((p) => (p.x = newX))
+  })
+  console.log('domainPoints是 :', domainPoints)
+
+  currentY = 140
+  // 绘制
   domainGroups.each(function (domainData) {
     const group = d3.select(this)
     const rw = domainData.domain.length * fontSize
     const rh = domainData.domain.length * fontSize * 1.5
+
     const cx = domainXMap[domainData.domain]
     const cy = currentY
 
@@ -152,10 +204,7 @@ function drawUI(data: Conversation[]) {
     domainData.h = rh
     domainData.cx = cx
     domainData.cy = cy
-    domainData.x = cx
-    domainData.y = cy
 
-    // 大胶囊
     group
       .append('path')
       .attr('class', 'domain')
@@ -167,35 +216,84 @@ function drawUI(data: Conversation[]) {
         onDomainClick(domainData.slots, domainData.domain)
       })
 
-    // 保存中心点
-    if (!domainPoints[domainData.domain]) domainPoints[domainData.domain] = []
-    domainPoints[domainData.domain].push({ x: cx, y: cy })
-
     currentY = currentY + beforeY + rh + spacing
     beforeY = rh
   })
+  // -----------绘制顶部导航栏----------------
+  const navHeight = 40
+  const navBar = svg.append('g').attr('class', 'nav-bar')
+
+  // 每个导航项对应一个 domain
+  const navItems = navBar
+    .selectAll('.nav-item')
+    .data(domains)
+    .enter()
+    .append('g')
+    .attr('class', 'nav-item')
+    .attr('transform', (d) => `translate(${domainXMap[d]}, ${navHeight / 2})`)
+
+  // 胶囊样式导航背景
+  navItems
+    .append('rect')
+    .attr('x', -60)
+    .attr('y', -15)
+    .attr('width', 120)
+    .attr('height', 30)
+    .attr('rx', 15)
+    .attr('fill', (d) => domainColorMap[d])
+    .attr('opacity', 0.8)
+    .on('click', (event, d) => {
+      const svgNode = svg.node()
+      if (!svgNode) return
+
+      const currentTransform = d3.zoomTransform(svgNode)
+      const k = currentTransform.k
+      const currentY = currentTransform.y
+
+      // 找出该 domain 对应的大胶囊中心 cx
+      const domainData = data.find((item) => item.domain === d)
+      if (!domainData?.cx) return
+
+      // ✅ 计算新的 translateX，使导航栏和大胶囊对齐
+      const targetX = domainXMap[d]
+      const newTranslateX = targetX - domainData.cx * k
+
+      svg
+        .transition()
+        .duration(500)
+        .call(zoom.transform, d3.zoomIdentity.translate(newTranslateX, currentY).scale(k))
+    })
+
+  // 导航文字
+  navItems
+    .append('text')
+    .attr('text-anchor', 'middle')
+    .attr('dy', '0.35em')
+    .attr('fill', '#fff')
+    .text((d) => d)
+
   // --------------------- 绘制用户/机器人曲线 ---------------------
   const drawLines = () => {
     const userPoints = [{ x: 90, y: 0 }]
     const botPoints = [{ x: 130, y: 0 }]
 
     data.forEach((domain) => {
-      const { x, y, slots } = domain
-      if (!x || !y) return
+      const { cx, cy, slots } = domain
+      if (!cx || !cy) return
       const offset = 20
       const domainHeight = domain.h!
-      const topY = y - domainHeight / 2
-      const bottomY = y + domainHeight / 2
+      const topY = cy - domainHeight / 2
+      const bottomY = cy + domainHeight / 2
       const curveOffsetY = 30 // 控制曲线提前拐弯的距离
       if (slots.some((s) => s.source === 'user')) {
         // 上拐点（在大胶囊上方）
-        userPoints.push({ x: x - offset, y: topY - curveOffsetY })
+        userPoints.push({ x: cx - offset, y: topY - curveOffsetY })
         // 下拐点（在大胶囊下方）
-        userPoints.push({ x: x - offset, y: bottomY + curveOffsetY })
+        userPoints.push({ x: cx - offset, y: bottomY + curveOffsetY })
       }
       if (slots.some((s) => s.source === 'bot')) {
-        botPoints.push({ x: x + offset, y: topY - curveOffsetY })
-        botPoints.push({ x: x + offset, y: bottomY + curveOffsetY })
+        botPoints.push({ x: cx + offset, y: topY - curveOffsetY })
+        botPoints.push({ x: cx + offset, y: bottomY + curveOffsetY })
       }
     })
 
@@ -232,7 +330,7 @@ function drawUI(data: Conversation[]) {
     .append('g')
     .attr('class', 'domain-text')
     .attr('opacity', 0.8)
-    .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
+    .attr('transform', (d) => `translate(${d.cx}, ${d.cy})`)
     .each(function (d) {
       const gText = d3.select(this)
       const chars = d.domain.split('')
@@ -278,7 +376,7 @@ function drawUI(data: Conversation[]) {
 
           // 更新大胶囊高度
           const totalSlotHeight = slots.reduce((sum, s) => sum + s.rh! * 2 + padding, 0) + padding
-          const newRy = totalSlotHeight / 2
+          const newRy = Math.max(totalSlotHeight / 2, 75)
           const newRx = domainData.w!
 
           group
@@ -395,8 +493,5 @@ div {
   width: 850px;
   height: 850px;
   margin-top: 10px;
-}
-input {
-  margin-bottom: 10px;
 }
 </style>

@@ -121,7 +121,7 @@ watch(
 .chat-app {
   display: flex;
   flex-direction: column;
-  height: 85vh;
+  height: 95vh;
   background: #f5f5f5;
   font-family: Arial, sans-serif;
 }
@@ -178,7 +178,7 @@ watch(
 }
 
 .chat-message.user .bubble {
-  background: #49f55d;
+  background: #36ae44;
   color: #fff;
 }
 
@@ -200,7 +200,7 @@ watch(
 .chat-input button {
   padding: 8px 12px;
   border: none;
-  background: #49f55d;
+  background: #36ae44;
   color: #fff;
   border-radius: 5px;
   cursor: pointer;
