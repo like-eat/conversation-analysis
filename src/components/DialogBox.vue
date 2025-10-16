@@ -146,6 +146,12 @@ watch(
   flex: 1;
   padding: 15px;
   overflow-y: auto;
+  scrollbar-width: none; /* Firefox 隐藏滚动条 */
+  -ms-overflow-style: none; /* IE 和 Edge 隐藏滚动条 */
+}
+
+.chat-window::-webkit-scrollbar {
+  display: none;
 }
 
 .chat-message {

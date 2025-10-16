@@ -157,40 +157,51 @@ def test_extract():
         
         docs = user_sentences
 
-        results = []
-        if len(docs) < 100:
-            # 小数据：直接 LLM 处理
-            for doc in docs:
-                result = llm_extract_information(doc)
-                results.append(result)
-        else:
-            # 大数据：先 BERTopic，再 LLM
-            clustered = bertopic_extraction_information(docs=docs, keep_noise=True)
-            print("主题聚类结果：", clustered)
+        new_results = []
+        latest_msgs = messages[-2:]  # 最后两条：user + bot
+        for msg in latest_msgs:
+            id = msg.get("id", "")
+            role = msg.get("role", "user")
+            text = msg.get("content", "").strip()
+            if not text:
+                continue
 
-            for cluster in clustered:
-                content = json.dumps(cluster, ensure_ascii=False, indent=2)
-                result = llm_extract_information(content)
-                results.append(result)
-        
+            # 小数据直接 LLM，大数据可扩展为批处理
+            result = llm_extract_information_incremental(text, existing_domains=merged_results_global)
+
+            # 给每个 slot 添加来源标识
+            for domain in result:
+                for slot in domain.get("slots", []):
+                    slot["source"] = role  # user 或 bot
+
+            # 给每个 slot 添加id
+            for domain in result:
+                for slot in domain.get("slots", []):
+                    slot["id"] = id  # 给每个 slot 赋予唯一 id
+
+            new_results.append(result)
+
         # 先扁平化 results
-        flat_results = []
-        for r in results:
+        flat_new_results = []
+        for r in new_results:
             if isinstance(r, list):
-                flat_results.extend(r)
+                flat_new_results.extend(r)
             else:
-                flat_results.append(r)
+                flat_new_results.append(r)
 
-        merged_results = merge_domains(flat_results)
-        print("合并结果:", merged_results)
-        colored_results = assign_colors(merged_results)
-        print("带颜色的抽取结果：")
-        print(colored_results)
+        # 把新结果合并到全局
+        all_results = merged_results_global + flat_new_results
+        # print("扁平化结果：", flat_new_results)
+        merged_results_global = merge_domains_timeline(all_results)
+        print("合并结果:", merged_results_global)
+        colored_results = assign_colors(merged_results_global)
+        # print("带颜色的抽取结果：", colored_results)
     
         # Step 5: 返回 JSON 给前端
         return jsonify(colored_results), 200
    except Exception as e:
         return jsonify({'error': '抽取失败，添加颜色失败', 'details': str(e)}), 500
+        
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)

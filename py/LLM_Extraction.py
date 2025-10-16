@@ -11,11 +11,6 @@ openai.api_key = "sk-3fk05T3Cme02GzUGBc56BaBfA7Ff4dCa9d7dE5AeA689913c"
 openai.base_url = "https://api.gpt.ge/v1/"
 openai.default_headers = {"x-foo": "true"}
 
-
-with open('py/conversation_example/ChatGPT.txt', 'r', encoding='utf-8') as file:
-    content = file.read()
-    # print(content)
-
 # ===== 1. 初始化向量数据库（FAISS） =====
 dimension = 1536  # OpenAI text-embedding-3-small 输出向量维度
 index = faiss.IndexFlatL2(dimension)  # L2 距离索引

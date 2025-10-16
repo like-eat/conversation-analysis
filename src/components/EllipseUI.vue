@@ -1,6 +1,11 @@
 <template>
   <div class="capsule-container">
+    <div class="nav-scroll-container">
+      <svg ref="navContainer"></svg>
+    </div>
     <div ref="UIcontainer" class="capsule-body"></div>
+    <button class="bottom-left-btn" @click="ClearLines">清除线条</button>
+    <button class="bottom-right-btn" @click="AddTalk">新开分支</button>
   </div>
 </template>
 
@@ -12,9 +17,12 @@ import { useFileStore } from '@/stores/FileInfo'
 
 const FileStore = useFileStore()
 const UIcontainer = ref<HTMLElement | null>(null)
+const navContainer = ref<SVGSVGElement | null>(null)
 const domainXMap: Record<string, number> = {}
 
 const domainColorMap: Record<string, string> = {}
+const data = ref<Conversation[]>([])
+
 // 🧩 胶囊路径生成函数
 function capsulePath(cx: number, cy: number, rw: number, rh: number) {
   return `
@@ -25,8 +33,15 @@ function capsulePath(cx: number, cy: number, rw: number, rh: number) {
     Z
   `
 }
-
-// 根据 domainPoints 中的 Y 坐标中位数优化 domain 顺序
+const ClearLines = () => {
+  if (!UIcontainer.value) return
+  d3.select(UIcontainer.value).selectAll('.user-line, .bot-line, .domain-connection').remove()
+}
+const AddTalk = () => {
+  if (!UIcontainer.value) return
+  d3.select(UIcontainer.value).selectAll('.user-line, .bot-line, .domain-connection').remove()
+}
+// 优化X坐标函数
 function optimizeDomainOrder(
   domains: string[],
   domainPoints: Record<string, { x: number; y: number }[]>,
@@ -48,8 +63,8 @@ function optimizeDomainOrder(
 
   // score 小 → 上方 → X 更靠左
   domainStats.sort((a, b) => a.score - b.score)
-
   console.log('domainStats是 :', domainStats)
+
   // 返回排序后的 domain 名称数组
   return domainStats.map((d) => d.domain)
 }
@@ -66,20 +81,18 @@ function drawUI(data: Conversation[]) {
   const spacing = 50 // 固定间距
   const xInterval = 120 // X 方向间隔
   const lineHeight = 20 // 让文字均匀分布在椭圆高度内
-  const fontSize = 15 // 字体大小
+  const fontSize = 20 // 字体大小
   const padding = 10
 
   let activeDomain: string | null = null
 
   const domains = Array.from(new Set(data.map((d) => d.domain))) // 去重
-
   data.forEach((d) => {
     domainColorMap[d.domain] = d.color
   })
 
   // 创建椭圆
   const svg = d3.select(UIcontainer.value).append('svg').attr('width', width).attr('height', height)
-
   const g = svg.append('g')
 
   const onSlotClick = (slotId: number) => {
@@ -156,6 +169,7 @@ function drawUI(data: Conversation[]) {
   }
 
   // --------------------- 绘制大胶囊---------------------
+  //
   const domainGroups = g
     .selectAll('g.domain-group')
     .data(data)
@@ -174,14 +188,14 @@ function drawUI(data: Conversation[]) {
     if (!domainPoints[domainData.domain]) domainPoints[domainData.domain] = []
     domainPoints[domainData.domain].push({ x: cx, y: cy })
 
-    currentY = currentY + beforeY + rh + spacing
+    currentY = currentY + beforeY + rh / 2 + spacing
     beforeY = rh
   })
 
-  // 2️⃣ 优化顺序
+  // 优化顺序
   const optimizedDomains = optimizeDomainOrder(domains, domainPoints)
 
-  // 3️⃣ 更新 domainXMap 和 domainPoints 的 X
+  // 更新 domainXMap 和 domainPoints 的 X
   optimizedDomains.forEach((domain, i) => {
     const newX = 110 + i * xInterval
     domainXMap[domain] = newX
@@ -193,8 +207,8 @@ function drawUI(data: Conversation[]) {
   // 绘制
   domainGroups.each(function (domainData) {
     const group = d3.select(this)
-    const rw = domainData.domain.length * fontSize
-    const rh = domainData.domain.length * fontSize * 1.5
+    const rw = (domainData.domain.length * fontSize * 0.8) / 2
+    const rh = (domainData.domain.length * fontSize * 1.5) / 2
 
     const cx = domainXMap[domainData.domain]
     const cy = currentY
@@ -216,12 +230,18 @@ function drawUI(data: Conversation[]) {
         onDomainClick(domainData.slots, domainData.domain)
       })
 
-    currentY = currentY + beforeY + rh + spacing
+    currentY = currentY + beforeY + rh / 2 + spacing
     beforeY = rh
   })
   // -----------绘制顶部导航栏----------------
+  if (!navContainer.value) return
   const navHeight = 40
-  const navBar = svg.append('g').attr('class', 'nav-bar')
+  const navSvg = d3
+    .select(navContainer.value)
+    .attr('width', domains.length * 150) // 让 SVG 宽于容器，从而可以滚动
+    .attr('height', 40)
+
+  const navBar = navSvg.append('g').attr('class', 'nav-bar')
 
   // 每个导航项对应一个 domain
   const navItems = navBar
@@ -272,19 +292,22 @@ function drawUI(data: Conversation[]) {
     .attr('fill', '#fff')
     .text((d) => d)
 
+  console.log('导航栏宽度:', navContainer.value?.clientWidth)
+  console.log('SVG 宽度:', domains.length * 150)
+
   // --------------------- 绘制用户/机器人曲线 ---------------------
   const drawLines = () => {
-    const userPoints = [{ x: 90, y: 0 }]
-    const botPoints = [{ x: 130, y: 0 }]
+    const userPoints = [{ x: 100, y: 0 }]
+    const botPoints = [{ x: 120, y: 0 }]
 
     data.forEach((domain) => {
       const { cx, cy, slots } = domain
       if (!cx || !cy) return
-      const offset = 20
+      const offset = 10
       const domainHeight = domain.h!
       const topY = cy - domainHeight / 2
       const bottomY = cy + domainHeight / 2
-      const curveOffsetY = 30 // 控制曲线提前拐弯的距离
+      const curveOffsetY = 10 // 控制曲线提前拐弯的距离
       if (slots.some((s) => s.source === 'user')) {
         // 上拐点（在大胶囊上方）
         userPoints.push({ x: cx - offset, y: topY - curveOffsetY })
@@ -306,6 +329,7 @@ function drawUI(data: Conversation[]) {
     g.append('path')
       .datum(userPoints)
       .attr('d', lineGen)
+      .attr('class', 'user-line')
       .attr('stroke', 'red')
       .attr('stroke-width', 4)
       .attr('fill', 'none')
@@ -314,6 +338,7 @@ function drawUI(data: Conversation[]) {
     g.append('path')
       .datum(botPoints)
       .attr('d', lineGen)
+      .attr('class', 'bot-line')
       .attr('stroke', 'blue')
       .attr('stroke-width', 4)
       .attr('fill', 'none')
@@ -370,7 +395,7 @@ function drawUI(data: Conversation[]) {
           // 计算小椭圆的宽度和高度
           slots.forEach((slot) => {
             const textLen = slot.slot.length
-            slot.rw = (textLen * fontSize) / 2
+            slot.rw = (textLen * fontSize * 0.7) / 2
             slot.rh = (textLen * fontSize * 1.5) / 2
           })
 
@@ -485,13 +510,91 @@ watch(
   },
   { immediate: true }, // 如果已经有数据，则立即触发
 )
-onMounted(() => {})
+onMounted(async () => {
+  try {
+    // 1. 读取JSON文件（注意路径！）
+    const response = await fetch('/ChatGPT-DST-checkpoint.json')
+    console.log('response:', response)
+    // 2. 解析为JS对象
+    const json = await response.json()
+    data.value = json
+    console.log('data:', data.value)
+    // 3. 调用D3绘制函数
+    drawUI(data.value)
+  } catch (error) {
+    console.error('加载 JSON 文件失败：', error)
+  }
+})
 </script>
 <style scoped>
-/* 可根据需要调整容器大小 */
-div {
+.capsule-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
+}
+.nav-scroll-container {
+  width: 1024px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: none; /* Firefox 隐藏滚动条 */
+  -ms-overflow-style: none; /* IE 隐藏滚动条 */
+}
+.nav-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(150, 150, 150, 0.6);
+  border-radius: 3px;
+}
+
+.capsule-body {
   width: 850px;
   height: 850px;
   margin-top: 10px;
+}
+/* 按钮固定在底部居中 */
+.bottom-left-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 30%;
+  transform: translateX(-30%);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 9999px;
+  background-color: #007bff;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.bottom-left-btn:hover {
+  background-color: #0056b3;
+}
+/* 按钮固定在底部居中 */
+.bottom-right-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 30%;
+  transform: translateX(-30%);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 9999px;
+  background-color: #007bff;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.bottom-right-btn:hover {
+  background-color: #0056b3;
 }
 </style>
