@@ -54,6 +54,8 @@ const scrollToMessage = (index: number) => {
   }
 }
 let globalId = 1 // 全局自增
+let reset_flag = false
+let allMessages: { id: number; role: 'user' | 'bot'; content: string }[] = []
 const sendMessage = async () => {
   const text = input.value.trim()
   if (!text) return
@@ -78,7 +80,7 @@ const sendMessage = async () => {
     FileStore.MessageContent.push(botMsg)
     scrollToBottom()
     // 构建用户 + bot 消息数组，传给 /extract
-    const allMessages = FileStore.MessageContent.map((msg) => ({
+    allMessages = FileStore.MessageContent.map((msg) => ({
       id: msg.id,
       role: msg.from,
       content: msg.text,
@@ -86,8 +88,10 @@ const sendMessage = async () => {
 
     // 把用户和模型的消息抽传给后端
     console.log('发送到 /extract 的内容:', allMessages)
+
     const extractResponse = await axios.post('http://localhost:5000/extract', {
       content: allMessages,
+      reset: reset_flag,
     })
     FileStore.GPTContent = extractResponse.data
   } catch (error) {
@@ -113,6 +117,28 @@ watch(
     const index = messages.value.findIndex((msg) => msg.id === slotId)
     if (index !== -1) {
       scrollToMessage(index)
+    }
+  },
+)
+watch(
+  () => FileStore.refreshKey,
+  (newVal, oldVal) => {
+    if (newVal !== oldVal) {
+      // ✅ 清空当前对话消息
+      messages.value = []
+      allMessages = []
+      FileStore.clearMessageContent()
+
+      // ✅ 可选：重置输入框等状态
+      input.value = ''
+      output.value = ''
+
+      globalId = 1
+      reset_flag = true
+
+      // ✅ 清空界面滚动
+      nextTick(scrollToBottom)
+      console.log('对话窗口已清空')
     }
   },
 )

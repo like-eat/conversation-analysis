@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import * as d3 from 'd3'
 import { onMounted, ref, watch } from 'vue'
-import type { Conversation, Slot } from '@/types/index'
+import type { Conversation, Slot, MessageItem } from '@/types/index'
 import { useFileStore } from '@/stores/FileInfo'
 
 const FileStore = useFileStore()
@@ -21,7 +21,9 @@ const navContainer = ref<SVGSVGElement | null>(null)
 const domainXMap: Record<string, number> = {}
 
 const domainColorMap: Record<string, string> = {}
+// 存储真实对话
 const data = ref<Conversation[]>([])
+const selectedDomainMessages = ref<{ id: number; role: string; content: string }[]>([])
 
 // 🧩 胶囊路径生成函数
 function capsulePath(cx: number, cy: number, rw: number, rh: number) {
@@ -33,13 +35,37 @@ function capsulePath(cx: number, cy: number, rw: number, rh: number) {
     Z
   `
 }
+// 清空函数
+const clearUI = () => {
+  d3.select(UIcontainer.value).selectAll('*').remove()
+  d3.select(navContainer.value).selectAll('*').remove()
+  FileStore.clearGPTContent()
+  data.value = []
+}
+// 清空线条
 const ClearLines = () => {
   if (!UIcontainer.value) return
   d3.select(UIcontainer.value).selectAll('.user-line, .bot-line, .domain-connection').remove()
 }
+// 新开分支
 const AddTalk = () => {
-  if (!UIcontainer.value) return
-  d3.select(UIcontainer.value).selectAll('.user-line, .bot-line, .domain-connection').remove()
+  if (!selectedDomainMessages.value.length) {
+    console.log('请先点击一个 domain！')
+    return
+  }
+
+  // 一、清除绘制内容
+  clearUI()
+  FileStore.triggerRefresh()
+
+  // 二、将选中的 domain 内容作为历史上下文
+  const history = selectedDomainMessages.value.map((m) => ({
+    id: m.id,
+    from: m.role === 'user' ? 'user' : 'bot',
+    text: m.content,
+  })) as MessageItem[]
+  console.log('历史上下文：', history)
+  FileStore.setMessageContent(history)
 }
 // 优化X坐标函数
 function optimizeDomainOrder(
@@ -48,7 +74,7 @@ function optimizeDomainOrder(
 ): string[] {
   const domainStats = domains.map((domain) => {
     const points = domainPoints[domain] || []
-    console.log('points是 :', points)
+    // console.log('points是 :', points)
     if (points.length === 0) return { domain, score: Infinity }
 
     // 计算 Y 的中位数
@@ -63,7 +89,7 @@ function optimizeDomainOrder(
 
   // score 小 → 上方 → X 更靠左
   domainStats.sort((a, b) => a.score - b.score)
-  console.log('domainStats是 :', domainStats)
+  // console.log('domainStats是 :', domainStats)
 
   // 返回排序后的 domain 名称数组
   return domainStats.map((d) => d.domain)
@@ -136,36 +162,93 @@ function drawUI(data: Conversation[]) {
       .duration(300)
       .attr('fill', (d) => (d.domain === domain ? domainColorMap[d.domain] : '#ccc'))
 
-    // 获取该 domain 所有大胶囊的中心点
-    const points: { x: number; y: number }[] = []
+    // 获取该 domain 所有大胶囊中心点
+    const centers: { cx: number; cy: number; w: number; h: number }[] = []
     domainGroups.each(function (d: Conversation) {
       if (d.domain === domain) {
-        points.push({ x: d.cx!, y: d.cy! })
+        centers.push({ cx: d.cx!, cy: d.cy!, w: d.w!, h: d.h! })
       }
     })
 
-    // 两个点才画线
-    if (points.length < 2) return
+    // 至少 2 个胶囊才画桥
+    if (centers.length < 2) return
 
-    // 绘制平滑曲线
+    // 曲线生成器
     const lineGenerator = d3
       .line<{ x: number; y: number }>()
       .x((d) => d.x)
       .y((d) => d.y)
-      .curve(d3.curveMonotoneY)
+      .curve(d3.curveBasis)
 
-    g.append('path')
-      .datum(points)
-      .attr('class', 'domain-connection')
-      .attr('d', lineGenerator)
-      .attr('stroke', domainColorMap[domain])
-      .attr('stroke-width', 5)
-      .attr('stroke-opacity', 0.5)
-      .transition()
-      .duration(400)
+    // 遍历相邻两个胶囊
+    for (let i = 0; i < centers.length - 1; i++) {
+      const a = centers[i]
+      const b = centers[i + 1]
 
+      // Y方向距离
+      const midY = (a.cy + b.cy) / 2
+
+      // 让中间收紧、两端外扩
+      const startOffset = a.w
+      const midOffset = a.w * 0.5 // 收紧
+      const endOffset = b.w
+
+      // 左曲线点（相切 + 收腰）
+      const leftpoints = [
+        { x: a.cx - startOffset, y: a.cy },
+        { x: (a.cx + b.cx) / 2 - midOffset, y: midY },
+        { x: b.cx - endOffset, y: b.cy },
+      ]
+
+      // 右曲线点（镜像）
+      const rightpoints = [
+        { x: a.cx + startOffset, y: a.cy },
+        { x: (a.cx + b.cx) / 2 + midOffset, y: midY },
+        { x: b.cx + endOffset, y: b.cy },
+      ]
+
+      // 封闭路径
+      const combinedPath = `
+        M${leftpoints[0].x},${leftpoints[0].y}
+        ${leftpoints
+          .slice(1)
+          .map((p) => `L${p.x},${p.y}`)
+          .join(' ')}
+        L${rightpoints[rightpoints.length - 1].x},${rightpoints[rightpoints.length - 1].y}
+        ${rightpoints
+          .slice(0, -1)
+          .reverse()
+          .map((p) => `L${p.x},${p.y}`)
+          .join(' ')}
+        Z
+      `
+
+      // 绘制单个桥形区域
+      g.append('path')
+        .attr('class', 'domain-connection')
+        .attr('d', combinedPath)
+        .attr('fill', domainColorMap[domain])
+        .attr('fill-opacity', 0.5)
+        .attr('stroke', domainColorMap[domain])
+        .attr('stroke-width', 2)
+        .attr('stroke-opacity', 0.5)
+        .attr('fill-rule', 'evenodd')
+        .transition()
+        .duration(500)
+    }
     // 更新domain
     activeDomain = domain
+
+    // 获取当前 domain 的所有消息
+    selectedDomainMessages.value = data
+      .filter((d) => d.domain === domain)
+      .flatMap((d) =>
+        d.slots.map((s) => ({
+          id: s.id,
+          role: s.source,
+          content: s.sentence,
+        })),
+      )
   }
 
   // --------------------- 绘制大胶囊---------------------
@@ -201,7 +284,7 @@ function drawUI(data: Conversation[]) {
     domainXMap[domain] = newX
     domainPoints[domain].forEach((p) => (p.x = newX))
   })
-  console.log('domainPoints是 :', domainPoints)
+  // console.log('domainPoints是 :', domainPoints)
 
   currentY = 140
   // 绘制
@@ -291,9 +374,6 @@ function drawUI(data: Conversation[]) {
     .attr('dy', '0.35em')
     .attr('fill', '#fff')
     .text((d) => d)
-
-  console.log('导航栏宽度:', navContainer.value?.clientWidth)
-  console.log('SVG 宽度:', domains.length * 150)
 
   // --------------------- 绘制用户/机器人曲线 ---------------------
   const drawLines = () => {
@@ -395,7 +475,7 @@ function drawUI(data: Conversation[]) {
           // 计算小椭圆的宽度和高度
           slots.forEach((slot) => {
             const textLen = slot.slot.length
-            slot.rw = (textLen * fontSize * 0.7) / 2
+            slot.rw = Math.min((textLen * fontSize * 0.7) / 2, domainData.w! * 0.9)
             slot.rh = (textLen * fontSize * 1.5) / 2
           })
 
@@ -503,6 +583,7 @@ watch(
     console.log(typeof content)
     try {
       content = content.flat()
+      console.log('content:', content)
       drawUI(content)
     } catch (err) {
       console.error('JSON 解析失败:', err)

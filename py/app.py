@@ -60,6 +60,10 @@ def extract():
             return jsonify({'error': '缺少 content 字段'}), 400
         
         content = data['content']
+        reset_flag = data['reset']
+
+        if reset_flag:
+            merged_results_global = []  # 清空全局结果
         
         # ✅ 兼容两种格式
         if isinstance(content, list):

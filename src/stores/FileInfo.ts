@@ -19,14 +19,21 @@ export const useFileStore = defineStore('refileInfo', {
       GPTContent: [] as Conversation[],
       FileContent: '',
       selectedSlotId: null as number | null,
+      refreshKey: 0, // 控制左侧对话更新
     }
   },
   actions: {
+    setMessageContent(content: MessageItem[]) {
+      this.MessageContent = content
+    },
     clearMessageContent() {
       this.MessageContent = []
     },
     clearGPTContent() {
       this.GPTContent = []
+    },
+    triggerRefresh() {
+      this.refreshKey++ // ✅ 每次新建分支时+1
     },
   },
 })
