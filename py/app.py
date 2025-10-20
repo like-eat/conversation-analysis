@@ -41,7 +41,7 @@ def back_message():
         #     # 如果前端没有传，生成新的 UUID，返回给前端保存
         #     user_id = str(uuid.uuid4())
         # # -------------------------
-        
+        print("history_msgs:", history_msgs)
         result = talk_to_chatbot(user_id, user_query, user_from, history_msgs)
 
         return jsonify(result), 200

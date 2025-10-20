@@ -99,6 +99,9 @@ function optimizeDomainOrder(
 function drawUI(data: Conversation[]) {
   if (!UIcontainer.value) return
   d3.select(UIcontainer.value).selectAll('*').remove()
+  if (navContainer.value) {
+    d3.select(navContainer.value).selectAll('*').remove()
+  }
 
   const width = 1024
   const height = 884

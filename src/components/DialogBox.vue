@@ -127,7 +127,6 @@ watch(
       // ✅ 清空当前对话消息
       messages.value = []
       allMessages = []
-      FileStore.clearMessageContent()
 
       // ✅ 可选：重置输入框等状态
       input.value = ''
