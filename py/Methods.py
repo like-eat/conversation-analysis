@@ -29,9 +29,9 @@ color_palette = [
 # 生成颜色
 def assign_colors(data):
     """
-    给 domain 和 slots 添加颜色
-    - domain 用深色
-    - slots 用浅色（通过调亮 domain 颜色）
+    给 topic 和 slots 添加颜色
+    - topic 用深色
+    - slots 用浅色（通过调亮 topic 颜色）
     """
     def lighten_color(color, factor=0.5):
         r, g, b = [int(x*255) for x in color[:3]]
@@ -41,26 +41,26 @@ def assign_colors(data):
         return f'#{r:02X}{g:02X}{b:02X}'
 
     color_cycle = itertools.cycle(color_palette)
-    domain_color_map = {}  # 新增：记录 domain -> 颜色的映射
+    topic_color_map = {}  # 新增：记录 topic -> 颜色的映射
 
     def process_item(item):
-        """递归处理单个 domain 或 list"""
+        """递归处理单个 topic 或 list"""
         if isinstance(item, dict):  
-            domain_name = item.get("domain")
+            topic_name = item.get("topic")
 
-            if domain_name:
-                # 如果 domain 已有颜色，直接取
-                if domain_name in domain_color_map:
-                    base_color = domain_color_map[domain_name]
+            if topic_name:
+                # 如果 topic 已有颜色，直接取
+                if topic_name in topic_color_map:
+                    base_color = topic_color_map[topic_name]
                 else:
                     # 否则分配新颜色，并存下来
                     base_color = next(color_cycle)
-                    domain_color_map[domain_name] = base_color
+                    topic_color_map[topic_name] = base_color
 
-                domain_color = '#%02X%02X%02X' % tuple(int(x * 255) for x in base_color[:3])
+                topic_color = '#%02X%02X%02X' % tuple(int(x * 255) for x in base_color[:3])
                 slot_color = lighten_color(base_color, 0.65)
 
-                item["color"] = domain_color
+                item["color"] = topic_color
                 if "slots" in item and isinstance(item["slots"], list):
                     for slot in item["slots"]:
                         if isinstance(slot, dict):
@@ -76,7 +76,7 @@ def assign_colors(data):
     return process_item(data)
 
 # 合并增量主题
-def merge_domains_timeline(new_results):
+def merge_topics_timeline(new_results):
     if not new_results:
         return []
     merged = []
@@ -85,15 +85,15 @@ def merge_domains_timeline(new_results):
             merged.append(item)
         else:
             last = merged[-1]
-            if last["domain"] == item["domain"]:
-                # 相邻且 domain 相同，合并 slots
-                existing_pairs = {(s["sentence"], s["slot"]) for s in last["slots"]}
+            if last["topic"] == item["topic"]:
+                # 相邻且 topic 相同，合并 slots
+                existing = {(s["slot"]) for s in last["slots"]}
                 for slot in item.get("slots", []):
                     # 只有当slot和sentence都重复时才会跳过
-                    pair = (slot["sentence"], slot["slot"])
-                    if pair not in existing_pairs:
+                    key = (slot.get("slot", ""))
+                    if key not in existing:
                         last["slots"].append(slot)
-                        existing_pairs.add(pair)
+                        existing.add(key)
             else:
                 # 不相邻，开新块
                 merged.append(item)
@@ -101,16 +101,16 @@ def merge_domains_timeline(new_results):
     return merged
 
 # 合并主题
-# def merge_domains(results):
+# def merge_topics(results):
 #     merged = {}
 #     for item in results:
-#         domain = item["domain"]
-#         if domain not in merged:
-#             merged[domain] = {
-#                 "domain": domain,
+#         topic = item["topic"]
+#         if topic not in merged:
+#             merged[topic] = {
+#                 "topic": topic,
 #                 "slots": [],
 #             }
-#         merged[domain]["slots"].extend(item.get("slots", []))
+#         merged[topic]["slots"].extend(item.get("slots", []))
 #     return list(merged.values())
 
 # 提取内容

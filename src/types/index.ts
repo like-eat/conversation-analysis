@@ -11,7 +11,7 @@ export interface Slot {
 }
 export interface Conversation {
   id: number
-  domain: string
+  topic: string
   slots: Slot[]
   color: string
   w?: number

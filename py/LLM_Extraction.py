@@ -15,12 +15,12 @@ openai.default_headers = {"x-foo": "true"}
 dimension = 1536  # OpenAI text-embedding-3-small 输出向量维度
 index = faiss.IndexFlatL2(dimension)  # L2 距离索引
 
-def llm_extract_information_incremental(new_sentence, existing_domains=None): 
+def llm_extract_information_incremental(new_sentence, existing_topics=None): 
     
     """
     对新句子进行主题抽取，并与已有抽取结果合并
     """
-    existing_domains = existing_domains or []
+    existing_topics = existing_topics or []
 
     # 👉 支持 dict 或 str
     if isinstance(new_sentence, dict):
@@ -30,35 +30,49 @@ def llm_extract_information_incremental(new_sentence, existing_domains=None):
 
     prompt = f"""请完成以下任务：
 
-        任务：对一句新的对话进行主题抽取，只处理这句话，不重新抽取已有主题。
-        新句子: {sentence_text}
-        已有主题: {json.dumps(existing_domains, ensure_ascii=False)}
+        任务：首先你需要将新的一句对话中无关紧要的信息进行过滤，然后对这句对话进行主题抽取。
+        句子: {sentence_text}
+        已有主题: {json.dumps(existing_topics, ensure_ascii=False)}
         请只输出新句子的主题 JSON，不修改已有主题。
 
         输出要求：
         1. 输出必须是标准 JSON 对象，严禁包含代码块标记（如```json）或多余文字。
         2. 每个主题包含字段：
-        - "domain": 主题名称
+        - "topic": 主题名称（最高层领域名，如“人工智能”“可视化”“智慧城市”），为名词短语。
         - "slots": 一个数组，每个元素包含 {{ "sentence": 原始句子, "slot": 对应的子主题}}
-        3. **slots 只能抽取 1 个**，只保留最核心、最具代表性的子主题。
-        4. 保持主题与子主题表述简洁，不超过 6 个字。
-        5. slots 必须是「概念级别」或「议题级别」的关键词，而不是每个子句。
-        6. 输出的标准 JSON 格式：
+        3. slot必须是**简洁、具体、可落地的名词短语或动宾短语**，能指向一个清晰的关注点。
+        4. 保持主题与子主题表述简洁。
+        5. 输出的标准 JSON 格式：
         [
             {{
-                "domain": "主题名称",
+                "topic": "主题名称",
                 "slots": [
                     {{"sentence": "原始句子", "slot": "子主题"}}
                 ]
             }}
         ]
+        例子：
+        [
+            {{
+                "topic": "人工智能",
+                "slots": [
+                    {{"sentence": "人工智能伦理关注的不仅是算法的公平性与隐私保护，还包括数据使用的透明度、模型决策的可解释性。", "slot": "人工智能伦理"}}
+                ]
+            }}
+        ]
+
 
         规则补充：
-        1. 所有问题首先要识别最高层的大主题（如“可视化”），作为唯一的 domain。
+        1. 所有问题首先要识别最高层的大主题，作为唯一的topic。
         2. 若句子涉及多个内容，请提炼出最核心的主题。
         3. 不允许每个子句都单独成为一个 slot。
-        4. slot 应该是“该主题下的核心点”——例如方法、应用、问题、挑战、评价等；
-        5. domain 只表示核心领域，不超过 6 个字；slots 负责细分问题。
+        4. slot **禁止**空泛/笼统/抽象指代，例如只写“研究”“问题”“应用”“方法论”“影响”“发展”“现状”“讨论”等泛词。
+            slot 至少包含“对象/范围 + 特征/动作/属性”中的一种组合，例如：
+            - 对象+属性： “城市排水的实时性”
+            - 对象+问题： “模型训练的过拟合”
+            - 对象+方法： “暴雨预报的融合方法”
+            - 对象+场景： “地铁积涝的应急处置”
+        5. topic只表示核心领域，slots 负责细分问题。
         """
     
     completion = openai.chat.completions.create(

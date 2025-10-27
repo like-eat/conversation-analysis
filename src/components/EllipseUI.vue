@@ -18,12 +18,12 @@ import { useFileStore } from '@/stores/FileInfo'
 const FileStore = useFileStore()
 const UIcontainer = ref<HTMLElement | null>(null)
 const navContainer = ref<SVGSVGElement | null>(null)
-const domainXMap: Record<string, number> = {}
+const topicXMap: Record<string, number> = {}
 
-const domainColorMap: Record<string, string> = {}
+const topicColorMap: Record<string, string> = {}
 // 存储真实对话
 const data = ref<Conversation[]>([])
-const selectedDomainMessages = ref<{ id: number; role: string; content: string }[]>([])
+const selectedTopicMessages = ref<{ id: number; role: string; content: string }[]>([])
 
 // 🧩 胶囊路径生成函数
 function capsulePath(cx: number, cy: number, rw: number, rh: number) {
@@ -45,12 +45,12 @@ const clearUI = () => {
 // 清空线条
 const ClearLines = () => {
   if (!UIcontainer.value) return
-  d3.select(UIcontainer.value).selectAll('.user-line, .bot-line, .domain-connection').remove()
+  d3.select(UIcontainer.value).selectAll('.user-line, .bot-line, .topic-connection').remove()
 }
 // 新开分支
 const AddTalk = () => {
-  if (!selectedDomainMessages.value.length) {
-    console.log('请先点击一个 domain！')
+  if (!selectedTopicMessages.value.length) {
+    console.log('请先点击一个 topic！')
     return
   }
 
@@ -58,8 +58,8 @@ const AddTalk = () => {
   clearUI()
   FileStore.triggerRefresh()
 
-  // 二、将选中的 domain 内容作为历史上下文
-  const history = selectedDomainMessages.value.map((m) => ({
+  // 二、将选中的 topic 内容作为历史上下文
+  const history = selectedTopicMessages.value.map((m) => ({
     id: m.id,
     from: m.role === 'user' ? 'user' : 'bot',
     text: m.content,
@@ -68,14 +68,14 @@ const AddTalk = () => {
   FileStore.setMessageContent(history)
 }
 // 优化X坐标函数
-function optimizeDomainOrder(
-  domains: string[],
-  domainPoints: Record<string, { x: number; y: number }[]>,
+function optimizeTopicOrder(
+  topics: string[],
+  topicPoints: Record<string, { x: number; y: number }[]>,
 ): string[] {
-  const domainStats = domains.map((domain) => {
-    const points = domainPoints[domain] || []
+  const topicStats = topics.map((topic) => {
+    const points = topicPoints[topic] || []
     // console.log('points是 :', points)
-    if (points.length === 0) return { domain, score: Infinity }
+    if (points.length === 0) return { topic, score: Infinity }
 
     // 计算 Y 的中位数
     const ys = points.map((p) => p.y)
@@ -84,15 +84,15 @@ function optimizeDomainOrder(
         ? ys.reduce((sum, y) => sum + y, 0) / ys.length // 使用平均值
         : Infinity
 
-    return { domain, score: score }
+    return { topic, score: score }
   })
 
   // score 小 → 上方 → X 更靠左
-  domainStats.sort((a, b) => a.score - b.score)
-  // console.log('domainStats是 :', domainStats)
+  topicStats.sort((a, b) => a.score - b.score)
+  // console.log('topicStats是 :', topicStats)
 
-  // 返回排序后的 domain 名称数组
-  return domainStats.map((d) => d.domain)
+  // 返回排序后的 topic 名称数组
+  return topicStats.map((d) => d.topic)
 }
 
 // 绘制 UI
@@ -105,19 +105,19 @@ function drawUI(data: Conversation[]) {
 
   const width = 1024
   const height = 884
-  let beforeY = 70 // 前一个 domain 半径
-  let currentY = 140 // 每个 domain 垂直间隔
+  let beforeY = 70 // 前一个 topic 半径
+  let currentY = 140 // 每个 topic 垂直间隔
   const spacing = 50 // 固定间距
   const xInterval = 120 // X 方向间隔
   const lineHeight = 20 // 让文字均匀分布在椭圆高度内
   const fontSize = 20 // 字体大小
   const padding = 10
 
-  let activeDomain: string | null = null
+  let activeTopic: string | null = null
 
-  const domains = Array.from(new Set(data.map((d) => d.domain))) // 去重
+  const topics = Array.from(new Set(data.map((d) => d.topic))) // 去重
   data.forEach((d) => {
-    domainColorMap[d.domain] = d.color
+    topicColorMap[d.topic] = d.color
   })
 
   // 创建椭圆
@@ -130,45 +130,45 @@ function drawUI(data: Conversation[]) {
   }
 
   // 大椭圆点击事件
-  const onDomainClick = (domainSlots: Slot[], domain: string) => {
+  const onTopicClick = (topicSlots: Slot[], topic: string) => {
     const slotToSelect =
-      domainSlots.find((s) => s.source === 'user') || domainSlots.find((s) => s.source === 'bot')
+      topicSlots.find((s) => s.source === 'user') || topicSlots.find((s) => s.source === 'bot')
 
     if (slotToSelect) {
       onSlotClick(slotToSelect.id)
     }
 
-    if (!domain) return
+    if (!topic) return
 
     // 判断是否重复点击
-    const isSame = activeDomain === domain
+    const isSame = activeTopic === topic
 
-    // 如果重复点击同一个 domain → 清除连接线 + 恢复颜色
+    // 如果重复点击同一个 topic → 清除连接线 + 恢复颜色
     if (isSame) {
-      g.selectAll('.domain-connection').remove()
-      domainGroups
-        .selectAll<SVGPathElement, Conversation>('path.domain')
+      g.selectAll('.topic-connection').remove()
+      topicGroups
+        .selectAll<SVGPathElement, Conversation>('path.topic')
         .transition()
         .duration(300)
-        .attr('fill', (d) => domainColorMap[d.domain]) // 恢复原色
-      activeDomain = null // 清除状态
+        .attr('fill', (d) => topicColorMap[d.topic]) // 恢复原色
+      activeTopic = null // 清除状态
       return
     }
 
     // 否则是新点击 → 先清除旧线
-    g.selectAll('.domain-connection').remove()
+    g.selectAll('.topic-connection').remove()
 
-    // 高亮选中 domain，其余变灰
-    domainGroups
-      .selectAll<SVGPathElement, Conversation>('path.domain')
+    // 高亮选中 topic，其余变灰
+    topicGroups
+      .selectAll<SVGPathElement, Conversation>('path.topic')
       .transition()
       .duration(300)
-      .attr('fill', (d) => (d.domain === domain ? domainColorMap[d.domain] : '#ccc'))
+      .attr('fill', (d) => (d.topic === topic ? topicColorMap[d.topic] : '#ccc'))
 
-    // 获取该 domain 所有大胶囊中心点
+    // 获取该 topic 所有大胶囊中心点
     const centers: { cx: number; cy: number; w: number; h: number }[] = []
-    domainGroups.each(function (d: Conversation) {
-      if (d.domain === domain) {
+    topicGroups.each(function (d: Conversation) {
+      if (d.topic === topic) {
         centers.push({ cx: d.cx!, cy: d.cy!, w: d.w!, h: d.h! })
       }
     })
@@ -177,8 +177,7 @@ function drawUI(data: Conversation[]) {
     if (centers.length < 2) return
 
     // 曲线生成器
-    const lineGenerator = d3
-      .line<{ x: number; y: number }>()
+    d3.line<{ x: number; y: number }>()
       .x((d) => d.x)
       .y((d) => d.y)
       .curve(d3.curveBasis)
@@ -228,23 +227,23 @@ function drawUI(data: Conversation[]) {
 
       // 绘制单个桥形区域
       g.append('path')
-        .attr('class', 'domain-connection')
+        .attr('class', 'topic-connection')
         .attr('d', combinedPath)
-        .attr('fill', domainColorMap[domain])
+        .attr('fill', topicColorMap[topic])
         .attr('fill-opacity', 0.5)
-        .attr('stroke', domainColorMap[domain])
+        .attr('stroke', topicColorMap[topic])
         .attr('stroke-width', 2)
         .attr('stroke-opacity', 0.5)
         .attr('fill-rule', 'evenodd')
         .transition()
         .duration(500)
     }
-    // 更新domain
-    activeDomain = domain
+    // 更新topic
+    activeTopic = topic
 
-    // 获取当前 domain 的所有消息
-    selectedDomainMessages.value = data
-      .filter((d) => d.domain === domain)
+    // 获取当前 topic 的所有消息
+    selectedTopicMessages.value = data
+      .filter((d) => d.topic === topic)
       .flatMap((d) =>
         d.slots.map((s) => ({
           id: s.id,
@@ -256,64 +255,64 @@ function drawUI(data: Conversation[]) {
 
   // --------------------- 绘制大胶囊---------------------
   //
-  const domainGroups = g
-    .selectAll('g.domain-group')
+  const topicGroups = g
+    .selectAll('g.topic-group')
     .data(data)
     .enter()
     .append('g')
-    .attr('class', 'domain-group')
+    .attr('class', 'topic-group')
 
-  const domainPoints: Record<string, { x: number; y: number }[]> = {}
+  const topicPoints: Record<string, { x: number; y: number }[]> = {}
   // 设置基础信息
-  domainGroups.each(function (domainData) {
-    const rh = domainData.domain.length * fontSize * 1.5
-    const cx = domainXMap[domainData.domain]
+  topicGroups.each(function (topicData) {
+    const rh = topicData.topic.length * fontSize * 1.5
+    const cx = topicXMap[topicData.topic]
     const cy = currentY
 
-    // 保存到 domainPoints
-    if (!domainPoints[domainData.domain]) domainPoints[domainData.domain] = []
-    domainPoints[domainData.domain].push({ x: cx, y: cy })
+    // 保存到 topicPoints
+    if (!topicPoints[topicData.topic]) topicPoints[topicData.topic] = []
+    topicPoints[topicData.topic].push({ x: cx, y: cy })
 
     currentY = currentY + beforeY + rh / 2 + spacing
     beforeY = rh
   })
 
   // 优化顺序
-  const optimizedDomains = optimizeDomainOrder(domains, domainPoints)
+  const optimizedTopics = optimizeTopicOrder(topics, topicPoints)
 
-  // 更新 domainXMap 和 domainPoints 的 X
-  optimizedDomains.forEach((domain, i) => {
+  // 更新 topicXMap 和 topicPoints 的 X
+  optimizedTopics.forEach((topic, i) => {
     const newX = 110 + i * xInterval
-    domainXMap[domain] = newX
-    domainPoints[domain].forEach((p) => (p.x = newX))
+    topicXMap[topic] = newX
+    topicPoints[topic].forEach((p) => (p.x = newX))
   })
-  // console.log('domainPoints是 :', domainPoints)
+  // console.log('topicPoints是 :', topicPoints)
 
   currentY = 140
   // 绘制
-  domainGroups.each(function (domainData) {
+  topicGroups.each(function (topicData) {
     const group = d3.select(this)
-    const rw = (domainData.domain.length * fontSize * 0.8) / 2
-    const rh = (domainData.domain.length * fontSize * 1.5) / 2
+    const rw = (topicData.topic.length * fontSize * 0.8) / 2
+    const rh = (topicData.topic.length * fontSize * 1.5) / 2
 
-    const cx = domainXMap[domainData.domain]
+    const cx = topicXMap[topicData.topic]
     const cy = currentY
 
     // 保存原始大小和坐标
-    domainData.w = rw
-    domainData.h = rh
-    domainData.cx = cx
-    domainData.cy = cy
+    topicData.w = rw
+    topicData.h = rh
+    topicData.cx = cx
+    topicData.cy = cy
 
     group
       .append('path')
-      .attr('class', 'domain')
+      .attr('class', 'topic')
       .attr('d', capsulePath(cx, cy, rw, rh))
-      .attr('fill', domainColorMap[domainData.domain])
+      .attr('fill', topicColorMap[topicData.topic])
       .attr('fill-opacity', 0.9)
       .on('click', (event) => {
         event.stopPropagation()
-        onDomainClick(domainData.slots, domainData.domain)
+        onTopicClick(topicData.slots, topicData.topic)
       })
 
     currentY = currentY + beforeY + rh / 2 + spacing
@@ -324,19 +323,19 @@ function drawUI(data: Conversation[]) {
   const navHeight = 40
   const navSvg = d3
     .select(navContainer.value)
-    .attr('width', domains.length * 150) // 让 SVG 宽于容器，从而可以滚动
+    .attr('width', topics.length * 150) // 让 SVG 宽于容器，从而可以滚动
     .attr('height', 40)
 
   const navBar = navSvg.append('g').attr('class', 'nav-bar')
 
-  // 每个导航项对应一个 domain
+  // 每个导航项对应一个 topic
   const navItems = navBar
     .selectAll('.nav-item')
-    .data(domains)
+    .data(topics)
     .enter()
     .append('g')
     .attr('class', 'nav-item')
-    .attr('transform', (d) => `translate(${domainXMap[d]}, ${navHeight / 2})`)
+    .attr('transform', (d) => `translate(${topicXMap[d]}, ${navHeight / 2})`)
 
   // 胶囊样式导航背景
   navItems
@@ -346,7 +345,7 @@ function drawUI(data: Conversation[]) {
     .attr('width', 120)
     .attr('height', 30)
     .attr('rx', 15)
-    .attr('fill', (d) => domainColorMap[d])
+    .attr('fill', (d) => topicColorMap[d])
     .attr('opacity', 0.8)
     .on('click', (event, d) => {
       const svgNode = svg.node()
@@ -356,13 +355,13 @@ function drawUI(data: Conversation[]) {
       const k = currentTransform.k
       const currentY = currentTransform.y
 
-      // 找出该 domain 对应的大胶囊中心 cx
-      const domainData = data.find((item) => item.domain === d)
-      if (!domainData?.cx) return
+      // 找出该 topic 对应的大胶囊中心 cx
+      const topicData = data.find((item) => item.topic === d)
+      if (!topicData?.cx) return
 
       // ✅ 计算新的 translateX，使导航栏和大胶囊对齐
-      const targetX = domainXMap[d]
-      const newTranslateX = targetX - domainData.cx * k
+      const targetX = topicXMap[d]
+      const newTranslateX = targetX - topicData.cx * k
 
       svg
         .transition()
@@ -383,13 +382,13 @@ function drawUI(data: Conversation[]) {
     const userPoints = [{ x: 100, y: 0 }]
     const botPoints = [{ x: 120, y: 0 }]
 
-    data.forEach((domain) => {
-      const { cx, cy, slots } = domain
+    data.forEach((topic) => {
+      const { cx, cy, slots } = topic
       if (!cx || !cy) return
       const offset = 10
-      const domainHeight = domain.h!
-      const topY = cy - domainHeight / 2
-      const bottomY = cy + domainHeight / 2
+      const topicHeight = topic.h!
+      const topY = cy - topicHeight / 2
+      const bottomY = cy + topicHeight / 2
       const curveOffsetY = 10 // 控制曲线提前拐弯的距离
       if (slots.some((s) => s.source === 'user')) {
         // 上拐点（在大胶囊上方）
@@ -429,19 +428,19 @@ function drawUI(data: Conversation[]) {
   }
   drawLines()
 
-  // --------------------- 绘制 domain 文本 ---------------------
-  const domainTextsGroup = g.append('g').attr('class', 'domain-text-group')
-  const domainTexts = domainTextsGroup
-    .selectAll('g.domain-text')
+  // --------------------- 绘制 topic 文本 ---------------------
+  const topicTextsGroup = g.append('g').attr('class', 'topic-text-group')
+  const topicTexts = topicTextsGroup
+    .selectAll('g.topic-text')
     .data(data)
     .enter()
     .append('g')
-    .attr('class', 'domain-text')
+    .attr('class', 'topic-text')
     .attr('opacity', 0.8)
     .attr('transform', (d) => `translate(${d.cx}, ${d.cy})`)
     .each(function (d) {
       const gText = d3.select(this)
-      const chars = d.domain.split('')
+      const chars = d.topic.split('')
       const startY = -((chars.length - 1) * lineHeight) / 2
       chars.forEach((char, i) => {
         gText
@@ -469,26 +468,26 @@ function drawUI(data: Conversation[]) {
       if (event.transform.k >= 1.25 && slotGroup.empty()) {
         const newGroup = g.append('g').attr('class', 'slot-group').attr('opacity', 0)
 
-        domainGroups.each(function (domainData) {
+        topicGroups.each(function (topicData) {
           const group = d3.select(this)
-          const slots = domainData.slots
-          const cx = domainData.cx!
-          const cy = domainData.cy!
+          const slots = topicData.slots
+          const cx = topicData.cx!
+          const cy = topicData.cy!
 
           // 计算小椭圆的宽度和高度
           slots.forEach((slot) => {
             const textLen = slot.slot.length
-            slot.rw = Math.min((textLen * fontSize * 0.7) / 2, domainData.w! * 0.9)
-            slot.rh = (textLen * fontSize * 1.5) / 2
+            slot.rw = Math.min((textLen * fontSize * 0.7) / 2, topicData.w! * 0.9)
+            slot.rh = (textLen * fontSize) / 2
           })
 
           // 更新大胶囊高度
           const totalSlotHeight = slots.reduce((sum, s) => sum + s.rh! * 2 + padding, 0) + padding
           const newRy = Math.max(totalSlotHeight / 2, 75)
-          const newRx = domainData.w!
+          const newRx = topicData.w!
 
           group
-            .select('path.domain')
+            .select('path.topic')
             .transition()
             .duration(400)
             .attr('d', capsulePath(cx, cy, newRx, newRy))
@@ -502,8 +501,8 @@ function drawUI(data: Conversation[]) {
           })
 
           // 绘制小胶囊
-          const slotCapsules = newGroup
-            .selectAll(`.slot-${domainData.domain}`)
+          newGroup
+            .selectAll(`.slot-${topicData.topic}`)
             .data(slots)
             .enter()
             .append('path')
@@ -517,8 +516,8 @@ function drawUI(data: Conversation[]) {
             .attr('opacity', 0.8)
 
           // 绘制小胶囊文字
-          const slotTexts = newGroup
-            .selectAll(`.slot-text-${domainData.domain}`)
+          newGroup
+            .selectAll(`.slot-text-${topicData.topic}`)
             .data(slots)
             .enter()
             .append('g')
@@ -546,34 +545,34 @@ function drawUI(data: Conversation[]) {
             .attr('opacity', 0.8)
         })
         newGroup.transition().duration(300).attr('opacity', 1)
-        domainTexts.transition().duration(300).attr('opacity', 0)
+        topicTexts.transition().duration(300).attr('opacity', 0)
       } else if (event.transform.k < 1.25 && !slotGroup.empty()) {
         slotGroup.transition().duration(300).attr('opacity', 0).remove()
 
         // 恢复大胶囊
-        domainGroups.each(function (domainData) {
+        topicGroups.each(function (topicData) {
           const group = d3.select(this)
           group
-            .select('path.domain')
+            .select('path.topic')
             .transition()
             .duration(400)
-            .attr('d', capsulePath(domainData.cx!, domainData.cy!, domainData.w!, domainData.h!))
+            .attr('d', capsulePath(topicData.cx!, topicData.cy!, topicData.w!, topicData.h!))
         })
 
-        // 恢复 domain 文本
-        domainTexts.transition().duration(300).attr('opacity', 0.8)
+        // 恢复 topic 文本
+        topicTexts.transition().duration(300).attr('opacity', 0.8)
       }
     })
 
   // ---- 点击空白处恢复 ----
   svg.on('click', () => {
-    g.selectAll('.domain-connection').remove()
+    g.selectAll('.topic-connection').remove()
     // 大胶囊恢复原色
-    domainGroups
-      .selectAll<SVGPathElement, Conversation>('path.domain')
+    topicGroups
+      .selectAll<SVGPathElement, Conversation>('path.topic')
       .transition()
       .duration(300)
-      .attr('fill', (d) => domainColorMap[d.domain])
+      .attr('fill', (d) => topicColorMap[d.topic])
   })
 
   svg.call(zoom)
@@ -600,7 +599,7 @@ onMounted(async () => {
     const response = await fetch('/ChatGPT-DST-checkpoint.json')
     console.log('response:', response)
     // 2. 解析为JS对象
-    const json = await response.json()
+    const json: Conversation[] = await response.json()
     data.value = json
     console.log('data:', data.value)
     // 3. 调用D3绘制函数

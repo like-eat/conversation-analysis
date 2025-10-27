@@ -32,12 +32,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick, watch } from 'vue'
+import { ref, nextTick, watch, onMounted } from 'vue'
 import { useFileStore } from '@/stores/FileInfo'
-import type { MessageItem } from '@/types/index'
+import type { MessageItem, Conversation } from '@/types/index'
 import axios from 'axios'
 
 const FileStore = useFileStore()
+const seedActive = ref(false) // 正在展示默认初始对话吗？
 
 const messages = ref<MessageItem[]>([])
 const messageRefs = ref<(HTMLElement | null)[]>([])
@@ -59,6 +60,15 @@ let allMessages: { id: number; role: 'user' | 'bot'; content: string }[] = []
 const sendMessage = async () => {
   const text = input.value.trim()
   if (!text) return
+
+  // ⛳ 第一次真实输入：清掉默认消息，不影响 Pinia
+  if (seedActive.value) {
+    messages.value = []
+    allMessages = []
+    globalId = 1
+    reset_flag = true // 首条作为新会话
+    seedActive.value = false
+  }
 
   // 添加用户消息
   const userMsg: MessageItem = { id: globalId++, text, from: 'user' }
@@ -94,6 +104,7 @@ const sendMessage = async () => {
       reset: reset_flag,
     })
     FileStore.GPTContent = extractResponse.data
+    reset_flag = false // ✅ 立刻复位！否则每次都会清空后端聚合
   } catch (error) {
     console.error('发送 JSON 数据失败:', error)
   } finally {
@@ -141,6 +152,39 @@ watch(
     }
   },
 )
+onMounted(async () => {
+  if (messages.value.length > 0) return
+  try {
+    const resp = await fetch('/ChatGPT-DST-checkpoint.json')
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
+    const convs: Conversation[] = await resp.json()
+
+    // 把你的 Conversation[] 扁平成 MessageItem[]
+    // （若已在 hooks 里有 conversationsToMessages，直接用；否则用这段简版）
+    const seed: MessageItem[] = convs
+      .map((c, i) => ({ ...c, _order: i }))
+      .flatMap((c) =>
+        (c.slots ?? []).map((s) => ({
+          id: s.id,
+          from: s.source === 'user' ? 'user' : 'bot',
+          text: s.sentence ?? s.slot ?? '',
+          _order: c._order,
+        })),
+      )
+      .sort((a, b) => a._order - b._order || (a.id ?? 0) - (b.id ?? 0))
+      .map(({ _order, ...m }) => m as MessageItem)
+
+    messages.value = seed
+    // 计算下一个自增 id（避免和默认数据冲突）
+    const maxId = seed.reduce((mx, m) => Math.max(mx, Number(m.id) || 0), 0)
+    globalId = Math.max(maxId + 1, 1)
+
+    seedActive.value = true
+    await nextTick(scrollToBottom)
+  } catch (e) {
+    console.error('加载默认对话失败：', e)
+  }
+})
 </script>
 <style scoped>
 .chat-app {

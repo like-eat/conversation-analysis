@@ -1,7 +1,7 @@
 import json
 import os
 from LLM_Extraction import llm_extract_information_incremental
-from Methods import assign_colors, merge_domains_timeline
+from Methods import assign_colors, merge_topics_timeline
 
 CHECKPOINT_PATH = "py/conversation_example/ChatGPT-DST-checkpoint.json"
 FINAL_PATH = "py/conversation_example/ChatGPT-DST-processed.json"
@@ -14,16 +14,16 @@ def safe_process_llm_result(result, role, id_counter):
             result = json.loads(result)
         except json.JSONDecodeError:
             print("⚠️ 警告：LLM 返回的字符串无法解析为 JSON，将作为单条文本处理")
-            result = [{"domain": "unknown", "slots": [{"slot": result, "source": role, "id": id_counter}]}]
+            result = [{"topic": "unknown", "slots": [{"slot": result, "source": role, "id": id_counter}]}]
 
     if isinstance(result, dict):
         result = [result]
 
-    for domain in result:
-        slots = domain.get("slots", [])
+    for topic in result:
+        slots = topic.get("slots", [])
         if not isinstance(slots, list):
             slots = []
-            domain["slots"] = slots
+            topic["slots"] = slots
         for slot in slots:
             slot["source"] = role
             slot["id"] = id_counter
@@ -97,6 +97,9 @@ def process_conversation(file_path):
     merged_results_global = checkpoint["merged_results_global"]
     last_id = checkpoint["last_id"]
 
+     # ✅ 关键：先初始化，确保后面一定有值
+    colored_results = assign_colors(merged_results_global)
+
     messages = parse_conversation(file_path)
     total = len(messages)
 
@@ -113,11 +116,11 @@ def process_conversation(file_path):
 
         try:
             print(f"🧠 正在处理第 {id_counter}/{total} 条消息（{role}）...")
-            result = llm_extract_information_incremental(text, existing_domains=merged_results_global)
+            result = llm_extract_information_incremental(text, existing_topics=merged_results_global)
             safe_result = safe_process_llm_result(result, role, id_counter)
 
             # 合并结果
-            merged_results_global = merge_domains_timeline(merged_results_global + safe_result)
+            merged_results_global = merge_topics_timeline(merged_results_global + safe_result)
 
             # 分配颜色
             colored_results = assign_colors(merged_results_global)
