@@ -4,8 +4,8 @@
       <div class="dialog-container">
         <DialogBox />
       </div>
-      <div class="ellipse-graph-container">
-        <EllipseUI />
+      <div class="capsule-graph-container">
+        <CapsuleUI />
       </div>
     </div>
   </div>
@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import DialogBox from './DialogBox.vue'
-import EllipseUI from './EllipseUI.vue'
+import CapsuleUI from './CapsuleUI.vue'
 </script>
 
 <style>
@@ -37,7 +37,7 @@ import EllipseUI from './EllipseUI.vue'
   border-right: 1px solid #ddd;
 }
 
-.ellipse-graph-container {
+.capsule-graph-container {
   flex: 0 0 50%;
   overflow: hidden;
   display: flex;

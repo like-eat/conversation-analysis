@@ -35,6 +35,7 @@ function capsulePath(cx: number, cy: number, rw: number, rh: number) {
     Z
   `
 }
+
 // 清空函数
 const clearUI = () => {
   d3.select(UIcontainer.value).selectAll('*').remove()
@@ -103,6 +104,8 @@ function drawUI(data: Conversation[]) {
     d3.select(navContainer.value).selectAll('*').remove()
   }
 
+  let activeTopic: string | null = null
+
   const width = 1024
   const height = 884
   let beforeY = 70 // 前一个 topic 半径
@@ -112,8 +115,6 @@ function drawUI(data: Conversation[]) {
   const lineHeight = 20 // 让文字均匀分布在椭圆高度内
   const fontSize = 20 // 字体大小
   const padding = 10
-
-  let activeTopic: string | null = null
 
   const topics = Array.from(new Set(data.map((d) => d.topic))) // 去重
   data.forEach((d) => {
@@ -140,24 +141,6 @@ function drawUI(data: Conversation[]) {
 
     if (!topic) return
 
-    // 判断是否重复点击
-    const isSame = activeTopic === topic
-
-    // 如果重复点击同一个 topic → 清除连接线 + 恢复颜色
-    if (isSame) {
-      g.selectAll('.topic-connection').remove()
-      topicGroups
-        .selectAll<SVGPathElement, Conversation>('path.topic')
-        .transition()
-        .duration(300)
-        .attr('fill', (d) => topicColorMap[d.topic]) // 恢复原色
-      activeTopic = null // 清除状态
-      return
-    }
-
-    // 否则是新点击 → 先清除旧线
-    g.selectAll('.topic-connection').remove()
-
     // 高亮选中 topic，其余变灰
     topicGroups
       .selectAll<SVGPathElement, Conversation>('path.topic')
@@ -172,74 +155,6 @@ function drawUI(data: Conversation[]) {
         centers.push({ cx: d.cx!, cy: d.cy!, w: d.w!, h: d.h! })
       }
     })
-
-    // 至少 2 个胶囊才画桥
-    if (centers.length < 2) return
-
-    // 曲线生成器
-    d3.line<{ x: number; y: number }>()
-      .x((d) => d.x)
-      .y((d) => d.y)
-      .curve(d3.curveBasis)
-
-    // 遍历相邻两个胶囊
-    for (let i = 0; i < centers.length - 1; i++) {
-      const a = centers[i]
-      const b = centers[i + 1]
-
-      // Y方向距离
-      const midY = (a.cy + b.cy) / 2
-
-      // 让中间收紧、两端外扩
-      const startOffset = a.w
-      const midOffset = a.w * 0.5 // 收紧
-      const endOffset = b.w
-
-      // 左曲线点（相切 + 收腰）
-      const leftpoints = [
-        { x: a.cx - startOffset, y: a.cy },
-        { x: (a.cx + b.cx) / 2 - midOffset, y: midY },
-        { x: b.cx - endOffset, y: b.cy },
-      ]
-
-      // 右曲线点（镜像）
-      const rightpoints = [
-        { x: a.cx + startOffset, y: a.cy },
-        { x: (a.cx + b.cx) / 2 + midOffset, y: midY },
-        { x: b.cx + endOffset, y: b.cy },
-      ]
-
-      // 封闭路径
-      const combinedPath = `
-        M${leftpoints[0].x},${leftpoints[0].y}
-        ${leftpoints
-          .slice(1)
-          .map((p) => `L${p.x},${p.y}`)
-          .join(' ')}
-        L${rightpoints[rightpoints.length - 1].x},${rightpoints[rightpoints.length - 1].y}
-        ${rightpoints
-          .slice(0, -1)
-          .reverse()
-          .map((p) => `L${p.x},${p.y}`)
-          .join(' ')}
-        Z
-      `
-
-      // 绘制单个桥形区域
-      g.append('path')
-        .attr('class', 'topic-connection')
-        .attr('d', combinedPath)
-        .attr('fill', topicColorMap[topic])
-        .attr('fill-opacity', 0.5)
-        .attr('stroke', topicColorMap[topic])
-        .attr('stroke-width', 2)
-        .attr('stroke-opacity', 0.5)
-        .attr('fill-rule', 'evenodd')
-        .transition()
-        .duration(500)
-    }
-    // 更新topic
-    activeTopic = topic
 
     // 获取当前 topic 的所有消息
     selectedTopicMessages.value = data
@@ -312,12 +227,52 @@ function drawUI(data: Conversation[]) {
       .attr('fill-opacity', 0.9)
       .on('click', (event) => {
         event.stopPropagation()
-        onTopicClick(topicData.slots, topicData.topic)
+        const topicKey = topicData.topic
+        onTopicClick(topicData.slots, topicKey)
+        // 如果已展开同一类 → 忽略；如果展开的是另一类 → 先销毁旧 overlay 并恢复旧基座
+        if (activeTopic && activeTopic !== topicKey) {
+          destroyOverlay(activeTopic, g)
+          showBase(activeTopic, g)
+          activeTopic = null
+        }
+
+        if (!activeTopic) {
+          hideBase(topicKey, g)
+          buildOverlay(topicKey, g, topicColorMap, lineHeight, fontSize, padding, onSlotClick, data)
+          activeTopic = topicKey
+        }
       })
 
     currentY = currentY + beforeY + rh / 2 + spacing
     beforeY = rh
   })
+  // --------------------- 绘制 topic 文本 ---------------------
+  const topicTextsGroup = g.append('g').attr('class', 'topic-text-group')
+  topicTextsGroup
+    .selectAll('g.topic-text')
+    .data(data)
+    .enter()
+    .append('g')
+    .attr('class', 'topic-text')
+    .attr('opacity', 0.8)
+    .attr('transform', (d) => `translate(${d.cx}, ${d.cy})`)
+    .each(function (d) {
+      const gText = d3.select(this)
+      const chars = d.topic.split('')
+      const startY = -((chars.length - 1) * lineHeight) / 2
+      chars.forEach((char, i) => {
+        gText
+          .append('text')
+          .attr('x', 0)
+          .attr('y', startY + i * lineHeight)
+          .attr('text-anchor', 'middle')
+          .attr('dominant-baseline', 'middle')
+          .attr('fill', '#fff')
+          .attr('font-size', fontSize)
+          .text(char)
+      })
+    })
+
   // -----------绘制顶部导航栏----------------
   if (!navContainer.value) return
   const navHeight = 40
@@ -428,145 +383,20 @@ function drawUI(data: Conversation[]) {
   }
   drawLines()
 
-  // --------------------- 绘制 topic 文本 ---------------------
-  const topicTextsGroup = g.append('g').attr('class', 'topic-text-group')
-  const topicTexts = topicTextsGroup
-    .selectAll('g.topic-text')
-    .data(data)
-    .enter()
-    .append('g')
-    .attr('class', 'topic-text')
-    .attr('opacity', 0.8)
-    .attr('transform', (d) => `translate(${d.cx}, ${d.cy})`)
-    .each(function (d) {
-      const gText = d3.select(this)
-      const chars = d.topic.split('')
-      const startY = -((chars.length - 1) * lineHeight) / 2
-      chars.forEach((char, i) => {
-        gText
-          .append('text')
-          .attr('x', 0)
-          .attr('y', startY + i * lineHeight)
-          .attr('text-anchor', 'middle')
-          .attr('dominant-baseline', 'middle')
-          .attr('fill', '#fff')
-          .attr('font-size', fontSize)
-          .text(char)
-      })
-    })
-
   // --------------------- 缩放事件 ----------
   const zoom = d3
     .zoom<SVGSVGElement, unknown>()
     .scaleExtent([0.5, 3])
     .on('zoom', (event) => {
       g.attr('transform', event.transform.toString())
-      // 先计算小胶囊的高度 => 计算大胶囊的高度 => 设置小胶囊的坐标
-      const slotGroup = g.select('.slot-group')
-
-      // 放大时绘制小胶囊
-      if (event.transform.k >= 1.25 && slotGroup.empty()) {
-        const newGroup = g.append('g').attr('class', 'slot-group').attr('opacity', 0)
-
-        topicGroups.each(function (topicData) {
-          const group = d3.select(this)
-          const slots = topicData.slots
-          const cx = topicData.cx!
-          const cy = topicData.cy!
-
-          // 计算小椭圆的宽度和高度
-          slots.forEach((slot) => {
-            const textLen = slot.slot.length
-            slot.rw = Math.min((textLen * fontSize * 0.7) / 2, topicData.w! * 0.9)
-            slot.rh = (textLen * fontSize) / 2
-          })
-
-          // 更新大胶囊高度
-          const totalSlotHeight = slots.reduce((sum, s) => sum + s.rh! * 2 + padding, 0) + padding
-          const newRy = Math.max(totalSlotHeight / 2, 75)
-          const newRx = topicData.w!
-
-          group
-            .select('path.topic')
-            .transition()
-            .duration(400)
-            .attr('d', capsulePath(cx, cy, newRx, newRy))
-
-          // 设置小胶囊坐标（垂直居中）
-          let yOffset = cy - newRy + padding
-          slots.forEach((slot) => {
-            slot.x = cx
-            slot.y = yOffset + slot.rh!
-            yOffset += slot.rh! * 2 + padding
-          })
-
-          // 绘制小胶囊
-          newGroup
-            .selectAll(`.slot-${topicData.topic}`)
-            .data(slots)
-            .enter()
-            .append('path')
-            .attr('class', 'slot')
-            .attr('d', (s) => capsulePath(s.x!, s.y!, s.rw!, s.rh!))
-            .attr('fill', (s) => s.color)
-            .attr('opacity', 0)
-            .on('click', (e, s) => onSlotClick(s.id))
-            .transition()
-            .duration(400)
-            .attr('opacity', 0.8)
-
-          // 绘制小胶囊文字
-          newGroup
-            .selectAll(`.slot-text-${topicData.topic}`)
-            .data(slots)
-            .enter()
-            .append('g')
-            .attr('class', 'slot-text')
-            .attr('transform', (s) => `translate(${s.x}, ${s.y})`)
-            .attr('opacity', 0)
-            .each(function (s) {
-              const gText = d3.select(this)
-              const chars = s.slot.split('')
-              const startY = -((chars.length - 1) * lineHeight) / 2
-              chars.forEach((char, i) => {
-                gText
-                  .append('text')
-                  .attr('x', 0)
-                  .attr('y', startY + i * lineHeight)
-                  .attr('text-anchor', 'middle')
-                  .attr('dominant-baseline', 'middle')
-                  .attr('fill', '#fff')
-                  .attr('font-size', fontSize)
-                  .text(char)
-              })
-            })
-            .transition()
-            .duration(400)
-            .attr('opacity', 0.8)
-        })
-        newGroup.transition().duration(300).attr('opacity', 1)
-        topicTexts.transition().duration(300).attr('opacity', 0)
-      } else if (event.transform.k < 1.25 && !slotGroup.empty()) {
-        slotGroup.transition().duration(300).attr('opacity', 0).remove()
-
-        // 恢复大胶囊
-        topicGroups.each(function (topicData) {
-          const group = d3.select(this)
-          group
-            .select('path.topic')
-            .transition()
-            .duration(400)
-            .attr('d', capsulePath(topicData.cx!, topicData.cy!, topicData.w!, topicData.h!))
-        })
-
-        // 恢复 topic 文本
-        topicTexts.transition().duration(300).attr('opacity', 0.8)
-      }
     })
 
   // ---- 点击空白处恢复 ----
   svg.on('click', () => {
-    g.selectAll('.topic-connection').remove()
+    if (!activeTopic) return
+    destroyOverlay(activeTopic, g)
+    showBase(activeTopic, g)
+    activeTopic = null
     // 大胶囊恢复原色
     topicGroups
       .selectAll<SVGPathElement, Conversation>('path.topic')
@@ -576,8 +406,173 @@ function drawUI(data: Conversation[]) {
   })
 
   svg.call(zoom)
-}
 
+  // 隐藏某一类的“基座”大胶囊与文字
+  function hideBase(topicKey: string, g: d3.Selection<SVGGElement, unknown, null, undefined>) {
+    g.selectAll<SVGGElement, Conversation>('g.topic-group')
+      .filter((d) => d.topic === topicKey)
+      .style('visibility', 'hidden')
+    g.selectAll<SVGGElement, Conversation>('g.topic-text')
+      .filter((d) => d.topic === topicKey)
+      .style('visibility', 'hidden')
+  }
+  // 显示某一类的“基座”大胶囊与文字
+  function showBase(topicKey: string, g: d3.Selection<SVGGElement, unknown, null, undefined>) {
+    g.selectAll<SVGGElement, Conversation>('g.topic-group')
+      .filter((d) => d.topic === topicKey)
+      .style('visibility', null)
+    g.selectAll<SVGGElement, Conversation>('g.topic-text')
+      .filter((d) => d.topic === topicKey)
+      .style('visibility', null)
+  }
+
+  // 删除 overlay 层
+  function destroyOverlay(
+    topicKey: string,
+    g: d3.Selection<SVGGElement, unknown, null, undefined>,
+  ) {
+    g.selectAll(`.overlay-${topicKey}`).remove()
+  }
+
+  // 绘制 overlay 层
+  function buildOverlay(
+    topicKey: string,
+    g: d3.Selection<SVGGElement, unknown, null, undefined>,
+    topicColorMap: Record<string, string>,
+    lineHeight: number,
+    fontSize: number,
+    padding: number,
+    onSlotClick: (id: number) => void,
+    dataArr: Conversation[],
+  ) {
+    // 1) 收集该类所有实例（同名 topic 可能多段）
+    const items = dataArr.filter((d) => d.topic === topicKey)
+    if (!items.length) return
+
+    // 2) 三趟排布（你的版本） —— 只对这一类做布局
+    type GroupLayout = {
+      topic: string
+      cx: number
+      cy: number
+      rx: number
+      slots: Slot[]
+      bandTop: number
+      bandBottom: number
+    }
+    const slotRH = (len: number) => (len * fontSize * 1.5) / 2
+    const slotRW = (len: number, rx: number) => Math.min((len * fontSize * 0.7) / 2, rx * 0.9)
+    const MIN_GAP = 12
+
+    // —— 第1趟：尺寸+原始排布
+    const layouts: GroupLayout[] = []
+    items.forEach((it) => {
+      const slots = (it.slots || []).map((s) => ({ ...s })) // 拷贝避免污染
+      const cx = it.cx!,
+        cy = it.cy!,
+        rx = it.w!
+      slots.forEach((s) => {
+        const L = s.slot.length
+        s.rw = slotRW(L, rx)
+        s.rh = slotRH(L)
+      })
+      const total = slots.reduce((acc, s) => acc + s.rh! * 2 + padding, 0) + padding
+      const newRy = Math.max(total / 2, 75)
+      let yOffset = cy - newRy + padding
+      slots.forEach((s) => {
+        s.x = cx
+        s.y = yOffset + s.rh!
+        yOffset += s.rh! * 2 + padding
+      })
+      layouts.push({
+        topic: it.topic,
+        cx,
+        cy,
+        rx,
+        slots,
+        bandTop: cy - newRy,
+        bandBottom: cy + newRy,
+      })
+    })
+
+    // —— 第2趟：同类之间消重叠
+    layouts.sort((a, b) => a.bandTop - b.bandTop)
+    let curBottom = -Infinity
+    for (const L of layouts) {
+      if (L.bandTop < curBottom + MIN_GAP) {
+        const delta = curBottom + MIN_GAP - L.bandTop
+        L.bandTop += delta
+        L.bandBottom += delta
+        L.cy = (L.bandTop + L.bandBottom) / 2
+        // 同步平移 slots
+        L.slots.forEach((s) => {
+          s.y = s.y! + delta
+        })
+      }
+      curBottom = Math.max(curBottom, L.bandBottom)
+    }
+
+    // —— 第3趟：画 overlay 层（展开胶囊+小胶囊+文字）
+    const layer = g.append('g').attr('class', `overlay-${topicKey}`).attr('opacity', 1)
+
+    // 3.1 先画“展开的大胶囊”（宽度 rx 固定，高度用 band）
+    layouts.forEach((L) => {
+      const cyExp = (L.bandTop + L.bandBottom) / 2
+      const ryExp = (L.bandBottom - L.bandTop) / 2
+      layer
+        .append('path')
+        .attr('class', 'topic-expanded')
+        .attr('d', capsulePath(L.cx, cyExp, L.rx, ryExp))
+        .attr('fill', topicColorMap[topicKey])
+        .attr('fill-opacity', 0.9)
+    })
+
+    // 3.2 再画小胶囊
+    layouts.forEach((L) => {
+      // slots
+      const join = layer
+        .selectAll<SVGPathElement, Slot>(`.slot-${L.topic}-${L.cx}-${L.cy}`)
+        .data(L.slots)
+
+      join
+        .enter()
+        .append('path')
+        .attr('class', 'slot')
+        .attr('d', (s) => capsulePath(s.x!, s.y!, s.rw!, s.rh!))
+        .attr('fill', (s) => s.color)
+        .attr('opacity', 0.95)
+        .on('click', (_e, s) => onSlotClick(s.id))
+    })
+
+    // 3.3 竖排文字
+    layouts.forEach((L) => {
+      const texts = layer
+        .selectAll<SVGGElement, Slot>(`.slot-text-${L.topic}-${L.cx}-${L.cy}`)
+        .data(L.slots)
+        .enter()
+        .append('g')
+        .attr('class', 'slot-text')
+        .attr('transform', (s) => `translate(${s.x}, ${s.y})`)
+        .style('pointer-events', 'none')
+
+      texts.each(function (s) {
+        const gText = d3.select(this)
+        const chars = s.slot.split('')
+        const startY = -((chars.length - 1) * lineHeight) / 2
+        chars.forEach((char, i) => {
+          gText
+            .append('text')
+            .attr('x', 0)
+            .attr('y', startY + i * lineHeight)
+            .attr('text-anchor', 'middle')
+            .attr('dominant-baseline', 'middle')
+            .attr('fill', '#fff')
+            .attr('font-size', fontSize)
+            .text(char)
+        })
+      })
+    })
+  }
+}
 // 监听GPT返回内容的变化
 watch(
   () => FileStore.GPTContent,
