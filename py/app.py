@@ -61,6 +61,7 @@ def extract():
         
         content = data['content']
         reset_flag = data['reset']
+        history_msgs = data['history']
 
         if reset_flag:
             merged_results_global = []  # 清空全局结果
@@ -91,7 +92,7 @@ def extract():
                     continue
 
                 # 小数据直接 LLM，大数据可扩展为批处理
-                result = llm_extract_information_incremental(text, existing_domains=merged_results_global)
+                result = llm_extract_information_incremental(history_msgs,text, existing_domains=merged_results_global)
 
                 # 给每个 slot 添加来源标识
                 for domain in result:

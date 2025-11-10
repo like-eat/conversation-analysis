@@ -1,0 +1,258 @@
+[
+  {
+    "topic": "任务衔接与编号一致",
+    "slots": [
+      {
+        "sentence": "任务一提取出的问题必须全部编号，任务二必须使用任务一的编号来归类。",
+        "color": "#B0CFF6"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "JSON输出与格式规范",
+    "slots": [
+      {
+        "sentence": "输出 JSON 必须是一个有效的对象，键为主题，值为数组，数组元素为 {id, question} 对象。",
+        "color": "#FFC9A9"
+      },
+      {
+        "sentence": "输出层级结构为 DST 格式：{\"domains\": [{\"domain\": \"主题名称\",\"slots\": [ { \"slot\": \"子主题1\" }, { \"slot\": \"子主题2\" } ]}]}",
+        "color": "#FFC9A9"
+      },
+      {
+        "sentence": "输出必须为标准 JSON 对象，不能包含任何代码块标记（如json）。",
+        "color": "#FFC9A9"
+      }
+    ],
+    "color": "#FF660C"
+  },
+  {
+    "topic": "主题和子主题抽取",
+    "slots": [
+      {
+        "sentence": "从对话中抽取讨论的主要主题，并为每个主题提取若干子主题。",
+        "color": "#B4E6B4"
+      },
+      {
+        "sentence": "为每个主题提取若干子主题，子主题必须是从文本对话中的总结，不能虚构。",
+        "color": "#B4E6B4"
+      },
+      {
+        "sentence": "子主题必须从对话文本中总结，不得虚构。",
+        "color": "#B4E6B4"
+      },
+      {
+        "sentence": "保持简洁（主题和子主题尽量 3～8 个字）。",
+        "color": "#B4E6B4"
+      }
+    ],
+    "color": "#2BBA2B"
+  },
+  {
+    "topic": "BERTopic使用",
+    "slots": [
+      {
+        "sentence": "初始化 BERTopic",
+        "color": "#F9B3B3"
+      },
+      {
+        "sentence": "主题模型会自动分簇，把“聚类算法、参数”划分到一个主题，把“吃饭、打球”划分到另一个主题。",
+        "color": "#F9B3B3"
+      },
+      {
+        "sentence": "过滤后你只保留研究相关的几句。",
+        "color": "#F9B3B3"
+      }
+    ],
+    "color": "#EF2628"
+  },
+  {
+    "topic": "人工智能",
+    "slots": [
+      {
+        "sentence": "K-means 算法怎么用？",
+        "color": "#D9C9F0"
+      },
+      {
+        "sentence": "快速排序适合处理大数据吗？",
+        "color": "#D9C9F0"
+      },
+      {
+        "sentence": "决策树和随机森林有什么区别？",
+        "color": "#D9C9F0"
+      },
+      {
+        "sentence": "支持向量机可以做文本分类吗？",
+        "color": "#D9C9F0"
+      },
+      {
+        "sentence": "聚类算法有哪些常见方法？",
+        "color": "#D9C9F0"
+      },
+      {
+        "sentence": "梯度下降会陷入局部最优吗？",
+        "color": "#D9C9F0"
+      },
+      {
+        "sentence": "神经网络的反向传播是怎么计算的？",
+        "color": "#D9C9F0"
+      }
+    ],
+    "color": "#9366D6"
+  },
+  {
+    "topic": "可视化",
+    "slots": [
+      {
+        "sentence": "Python 可以做可视化吗？",
+        "color": "#D6C3BF"
+      }
+    ],
+    "color": "#8C5649"
+  },
+  {
+    "topic": "智慧城市",
+    "slots": [
+      {
+        "sentence": "我想学习 Python 进行数据分析",
+        "color": "#F4CFE9"
+      },
+      {
+        "sentence": "如何用 pandas 处理缺失值？",
+        "color": "#F4CFE9"
+      },
+      {
+        "sentence": "Python 的列表推导式怎么写？",
+        "color": "#F4CFE9"
+      },
+      {
+        "sentence": "有没有推荐的机器学习入门书？",
+        "color": "#F4CFE9"
+      },
+      {
+        "sentence": "Jupyter Notebook 怎么安装？",
+        "color": "#F4CFE9"
+      },
+      {
+        "sentence": "写一个爬虫需要注意什么？",
+        "color": "#F4CFE9"
+      }
+    ],
+    "color": "#E277C1"
+  },
+  {
+    "topic": "Vue3与D3结合应用",
+    "slots": [
+      {
+        "sentence": "我给你一个 Vue3 + D3 的示例",
+        "color": "#D1D1D1"
+      },
+      {
+        "sentence": "Vue3 + D3 的示例：",
+        "color": "#D1D1D1"
+      }
+    ],
+    "color": "#7C7C7C"
+  },
+  {
+    "topic": "嵌套椭圆可视化",
+    "slots": [
+      {
+        "sentence": "大椭圆里套一个小椭圆",
+        "color": "#E7E7B1"
+      },
+      {
+        "sentence": "在大椭圆里放多个小椭圆",
+        "color": "#E7E7B1"
+      }
+    ],
+    "color": "#BCBC21"
+  },
+  {
+    "topic": "鼠标滚轮缩放",
+    "slots": [
+      {
+        "sentence": "支持滚轮缩放大椭圆",
+        "color": "#ADE8ED"
+      },
+      {
+        "sentence": "滚轮缩放控制 <g> 的 scale",
+        "color": "#ADE8ED"
+      }
+    ],
+    "color": "#16BFCE"
+  },
+  {
+    "topic": "颜色管理",
+    "slots": [
+      {
+        "sentence": "每个大椭圆和小椭圆对应的颜色",
+        "color": "#C5B7E4"
+      },
+      {
+        "sentence": "大主题和小主题的颜色色系是相同的",
+        "color": "#C5B7E4"
+      }
+    ],
+    "color": "#5B33B2"
+  },
+  {
+    "topic": "可视化",
+    "slots": [
+      {
+        "sentence": "你可以这样改你的代码：",
+        "color": "#D6C3BF"
+      },
+      {
+        "sentence": "这样每个大椭圆的中心就会显示 domain 名称，而不需要 tooltip。",
+        "color": "#D6C3BF"
+      },
+      {
+        "sentence": "小椭圆我也想放在中心显示：",
+        "color": "#D6C3BF"
+      },
+      {
+        "sentence": "明白，你想让每个小椭圆的 domain 名称或者 slot 名称 直接显示在小椭圆中心，而不是只显示大椭圆文字或者 tooltip。",
+        "color": "#D6C3BF"
+      },
+      {
+        "sentence": "如果你希望 文字在小椭圆透明渐显时一起显示，可以在 zoom 或者 hover 的 transition 中同时调整 ellipse 和 text 的 opacity。",
+        "color": "#D6C3BF"
+      },
+      {
+        "sentence": "你字体没显示，主要可能有几个原因，结合你提供的代码来看：",
+        "color": "#D6C3BF"
+      },
+      {
+        "sentence": "💡 解决方案示例：",
+        "color": "#D6C3BF"
+      },
+      {
+        "sentence": "slotTexts 和 slotEllipses 同步控制透明度。",
+        "color": "#D6C3BF"
+      },
+      {
+        "sentence": "如果你想，我可以帮你改成 默认就显示文字（不透明），并且缩放时文字大小自适应 的效果，这样小椭圆中心文字始终可见。",
+        "color": "#D6C3BF"
+      },
+      {
+        "sentence": "在 D3 中让文字随缩放自适应，核心思路是不要单独缩放文字的 x/y 坐标，而是用 transform 对整个 g 缩放，然后再动态调整文字 font-size，让它看起来跟椭圆一起缩放，但又不会太大或太小。",
+        "color": "#D6C3BF"
+      },
+      {
+        "sentence": "如果希望文字在放大时稍微变大，但不随椭圆完全缩放，可以调整公式，例如：",
+        "color": "#D6C3BF"
+      },
+      {
+        "sentence": "你希望我帮你把小椭圆和大椭圆的文字都居中且缩放自适应整合成一段完整代码吗？",
+        "color": "#D6C3BF"
+      },
+      {
+        "sentence": "明白，你现在大椭圆是沿着 X 轴依次排列（通过 currentX 递增实现）。如果要改成 沿 Y 轴排列，核心思路是：",
+        "color": "#D6C3BF"
+      }
+    ],
+    "color": "#8C5649"
+  }
+]

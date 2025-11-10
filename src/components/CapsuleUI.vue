@@ -107,12 +107,12 @@ function drawUI(data: Conversation[]) {
   let activeTopic: string | null = null
 
   const width = 1024
-  const height = 884
+  const height = 1200
   let beforeY = 70 // 前一个 topic 半径
   let currentY = 140 // 每个 topic 垂直间隔
   const spacing = 50 // 固定间距
   const xInterval = 120 // X 方向间隔
-  const lineHeight = 20 // 让文字均匀分布在椭圆高度内
+  const lineHeight = 20 // 让文字均匀分布在胶囊高度内
   const fontSize = 20 // 字体大小
   const padding = 10
 
@@ -121,16 +121,15 @@ function drawUI(data: Conversation[]) {
     topicColorMap[d.topic] = d.color
   })
 
-  // 创建椭圆
+  // 创建胶囊
   const svg = d3.select(UIcontainer.value).append('svg').attr('width', width).attr('height', height)
   const g = svg.append('g')
 
   const onSlotClick = (slotId: number) => {
     FileStore.selectedSlotId = slotId
-    console.log('定位 slot id:', slotId)
   }
 
-  // 大椭圆点击事件
+  // 大胶囊点击事件
   const onTopicClick = (topicSlots: Slot[], topic: string) => {
     const slotToSelect =
       topicSlots.find((s) => s.source === 'user') || topicSlots.find((s) => s.source === 'bot')
@@ -591,7 +590,7 @@ watch(
 onMounted(async () => {
   try {
     // 1. 读取JSON文件（注意路径！）
-    const response = await fetch('/ChatGPT-DST-checkpoint.json')
+    const response = await fetch('/ChatGPT-DST-processed.json')
     console.log('response:', response)
     // 2. 解析为JS对象
     const json: Conversation[] = await response.json()

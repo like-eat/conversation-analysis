@@ -102,6 +102,7 @@ const sendMessage = async () => {
     const extractResponse = await axios.post('http://localhost:5000/extract', {
       content: allMessages,
       reset: reset_flag,
+      history: FileStore.MessageContent,
     })
     FileStore.GPTContent = extractResponse.data
     reset_flag = false // ✅ 立刻复位！否则每次都会清空后端聚合

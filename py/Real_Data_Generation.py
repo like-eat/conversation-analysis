@@ -1,6 +1,6 @@
 import json
 import os
-from LLM_Extraction import llm_extract_information_incremental
+from LLM_Extraction import llm_extract_information_incremental, topic_extraction
 from Methods import assign_colors, merge_topics_timeline
 
 CHECKPOINT_PATH = "py/conversation_example/ChatGPT-DST-checkpoint.json"
@@ -90,64 +90,87 @@ def parse_conversation(file_path):
         messages.append({"id": id_counter, "role": role, "content": content.strip()})
     return messages
 
+def chunk_text(text, max_chars=40000):
+    """把长文本切成安全的多段"""
+    chunks = []
+    while len(text) > max_chars:
+        # 尽量在句号后切
+        split_idx = text.rfind("。", 0, max_chars)
+        if split_idx == -1:
+            split_idx = max_chars
+        chunks.append(text[:split_idx+1])
+        text = text[split_idx+1:]
+    if text.strip():
+        chunks.append(text)
+    return chunks
 
 def process_conversation(file_path):
-    """主处理逻辑：带中断恢复"""
-    checkpoint = load_checkpoint()
-    merged_results_global = checkpoint["merged_results_global"]
-    last_id = checkpoint["last_id"]
 
-     # ✅ 关键：先初始化，确保后面一定有值
-    colored_results = assign_colors(merged_results_global)
-
-    messages = parse_conversation(file_path)
-    total = len(messages)
-
-    print(f"🧩 共 {total} 条消息，准备从第 {last_id + 1} 条继续。")
-
-    for msg in messages:
-        id_counter = msg.get("id", 1)
-        role = msg.get("role", "user")
-        text = msg.get("content", "").strip()
-        if id_counter <= last_id:
-            continue  # 跳过已处理
-        if not text:
-            continue
-
-        try:
-            print(f"🧠 正在处理第 {id_counter}/{total} 条消息（{role}）...")
-            result = llm_extract_information_incremental(text, existing_topics=merged_results_global)
-            safe_result = safe_process_llm_result(result, role, id_counter)
-
-            # 合并结果
-            merged_results_global = merge_topics_timeline(merged_results_global + safe_result)
-
-            # 分配颜色
-            colored_results = assign_colors(merged_results_global)
-
-            # 每处理一条自动保存
-            save_checkpoint(merged_results_global, id_counter)
-
-        except Exception as e:
-            print(f"❌ 第 {id_counter} 条处理失败：{e}")
-            save_checkpoint(merged_results_global, id_counter)
-            continue  # 保持健壮性
-
-
-
-    # 保存最终文件
+    messages = parse_conversation(file_path)       # list[dict]: {id, role, content}
+    lines = [f"[{m['id']}] ({m['role']}) {m['content'].strip()}" for m in messages if m.get('content')]
+    full_text = "\n".join(lines)
+    chunks = chunk_text(full_text, max_chars=40000)   # 每段约 1/3 模型上限
+    all_results = []
+    
+    for i, chunk in enumerate(chunks, 1):
+        print(f"🧠 第 {i}/{len(chunks)} 段抽取中...")
+        result = topic_extraction(chunk)            
+        all_results.extend(result)
+    colored_results = assign_colors(all_results)        
     with open(FINAL_PATH, "w", encoding="utf-8") as f:
         json.dump(colored_results, f, ensure_ascii=False, indent=2)
     print(f"✅ 处理完成，结果已保存：{FINAL_PATH}")
+    return colored_results
+
+
+    # print(f"🧩 共 {total} 条消息，准备从第 {last_id + 1} 条继续。")
+
+    # # --- 初始化历史记录 ---
+    # history_so_far = []
+
+    # for msg in messages:
+    #     id_counter = msg.get("id", 1)
+    #     role = msg.get("role", "user")
+    #     text = msg.get("content", "").strip()
+
+    #     if id_counter <= last_id or not text:
+    #                 history_so_far.append(msg)
+    #                 continue
+
+    #     try:
+    #         print(f"🧠 正在处理第 {id_counter}/{total} 条消息（{role}）...")
+    #         result = llm_extract_information_incremental(history_so_far,msg, existing_topics=merged_results_global)
+    #         safe_result = safe_process_llm_result(result, role, id_counter)
+
+    #         # 合并结果
+    #         merged_results_global = merge_topics_timeline(merged_results_global + safe_result)
+
+    #         # 分配颜色
+    #         colored_results = assign_colors(merged_results_global)
+
+    #         # 每处理一条自动保存
+    #         save_checkpoint(merged_results_global, id_counter)
+
+    #     except Exception as e:
+    #         print(f"❌ 第 {id_counter} 条处理失败：{e}")
+    #         save_checkpoint(merged_results_global, id_counter)
+    #         continue  # 保持健壮性
+
+
+
+    # # 保存最终文件
+    # with open(FINAL_PATH, "w", encoding="utf-8") as f:
+    #     json.dump(colored_results, f, ensure_ascii=False, indent=2)
+    # print(f"✅ 处理完成，结果已保存：{FINAL_PATH}")
 
     # 删除中断点（可选）
     # os.remove(CHECKPOINT_PATH)
 
-    return colored_results
+    
 
 
 if __name__ == "__main__":
-    file_path = "py/conversation_example/ChatGPT-DST.txt"
+    file_path = "py/conversation_example/ChatGPT-DST copy.txt"
     final_data = process_conversation(file_path)
     # 生成之后的数据要转移到public目录下
     # 删掉最外层字典
