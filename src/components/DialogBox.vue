@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { ref, nextTick, watch, onMounted } from 'vue'
 import { useFileStore } from '@/stores/FileInfo'
-import type { MessageItem, Conversation } from '@/types/index'
+import type { MessageItem } from '@/types/index'
 import axios from 'axios'
 
 const FileStore = useFileStore()
@@ -122,6 +122,63 @@ const scrollToBottom = () => {
   }
 }
 
+function parseConversationFromText(raw: string): MessageItem[] {
+  const result: MessageItem[] = []
+  let idCounter = 1
+  let role: 'user' | 'bot' | null = null
+  let content = ''
+
+  const lines = raw.split(/\r?\n/)
+
+  for (const line of lines) {
+    const trimmed = line.trim()
+
+    if (trimmed.startsWith('## Prompt:') || trimmed.startsWith('## Prompt：')) {
+      // flush 上一段
+      if (content && role) {
+        result.push({
+          id: idCounter,
+          from: role,
+          text: content.trim(),
+        })
+        idCounter += 1
+        content = ''
+      }
+      role = 'user'
+      continue
+    }
+
+    if (trimmed.startsWith('## Response:') || trimmed.startsWith('## Response：')) {
+      if (content && role) {
+        result.push({
+          id: idCounter,
+          from: role,
+          text: content.trim(),
+        })
+        idCounter += 1
+        content = ''
+      }
+      role = 'bot'
+      continue
+    }
+
+    if (role) {
+      content += line + '\n'
+    }
+  }
+
+  // 收尾
+  if (content && role) {
+    result.push({
+      id: idCounter,
+      from: role,
+      text: content.trim(),
+    })
+  }
+
+  return result
+}
+
 watch(
   () => FileStore.selectedSlotId,
   (slotId) => {
@@ -156,32 +213,21 @@ watch(
 onMounted(async () => {
   if (messages.value.length > 0) return
   try {
-    const resp = await fetch('/ChatGPT-DST-checkpoint.json')
+    const resp = await fetch('/ChatGPT-DST copy.txt')
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
-    const convs: Conversation[] = await resp.json()
 
-    // 把你的 Conversation[] 扁平成 MessageItem[]
-    // （若已在 hooks 里有 conversationsToMessages，直接用；否则用这段简版）
-    const seed: MessageItem[] = convs
-      .map((c, i) => ({ ...c, _order: i }))
-      .flatMap((c) =>
-        (c.slots ?? []).map((s) => ({
-          id: s.id,
-          from: s.source === 'user' ? 'user' : 'bot',
-          text: s.sentence ?? s.slot ?? '',
-          _order: c._order,
-        })),
-      )
-      .sort((a, b) => a._order - b._order || (a.id ?? 0) - (b.id ?? 0))
-      .map(({ _order, ...m }) => m as MessageItem)
+    const rawTxt = await resp.text()
+    const parsed = parseConversationFromText(rawTxt)
 
-    messages.value = seed
-    // 计算下一个自增 id（避免和默认数据冲突）
-    const maxId = seed.reduce((mx, m) => Math.max(mx, Number(m.id) || 0), 0)
+    messages.value = parsed
+
+    // 计算全局 id 起点，避免后续新增消息冲突
+    const maxId = parsed.reduce((mx, m) => Math.max(mx, m.id), 0)
     globalId = Math.max(maxId + 1, 1)
 
     seedActive.value = true
-    await nextTick(scrollToBottom)
+    await nextTick()
+    scrollToBottom()
   } catch (e) {
     console.error('加载默认对话失败：', e)
   }

@@ -18,9 +18,14 @@ import { useFileStore } from '@/stores/FileInfo'
 const FileStore = useFileStore()
 const UIcontainer = ref<HTMLElement | null>(null)
 const navContainer = ref<SVGSVGElement | null>(null)
-const topicXMap: Record<string, number> = {}
 
+//颜色代表图
 const topicColorMap: Record<string, string> = {}
+
+//导航栏宽度和中心点x坐标
+const navWidths: Record<string, number> = {}
+const navCentersX: Record<string, number> = {}
+
 // 存储真实对话
 const data = ref<Conversation[]>([])
 const selectedTopicMessages = ref<{ id: number; role: string; content: string }[]>([])
@@ -65,35 +70,7 @@ const AddTalk = () => {
     from: m.role === 'user' ? 'user' : 'bot',
     text: m.content,
   })) as MessageItem[]
-  console.log('历史上下文：', history)
   FileStore.setMessageContent(history)
-}
-// 优化X坐标函数
-function optimizeTopicOrder(
-  topics: string[],
-  topicPoints: Record<string, { x: number; y: number }[]>,
-): string[] {
-  const topicStats = topics.map((topic) => {
-    const points = topicPoints[topic] || []
-    // console.log('points是 :', points)
-    if (points.length === 0) return { topic, score: Infinity }
-
-    // 计算 Y 的中位数
-    const ys = points.map((p) => p.y)
-    const score =
-      ys.length > 0
-        ? ys.reduce((sum, y) => sum + y, 0) / ys.length // 使用平均值
-        : Infinity
-
-    return { topic, score: score }
-  })
-
-  // score 小 → 上方 → X 更靠左
-  topicStats.sort((a, b) => a.score - b.score)
-  // console.log('topicStats是 :', topicStats)
-
-  // 返回排序后的 topic 名称数组
-  return topicStats.map((d) => d.topic)
 }
 
 // 绘制 UI
@@ -106,15 +83,25 @@ function drawUI(data: Conversation[]) {
 
   let activeTopic: string | null = null
 
-  const width = 1024
+  const width = 1440
   const height = 1200
-  let beforeY = 70 // 前一个 topic 半径
-  let currentY = 140 // 每个 topic 垂直间隔
-  const spacing = 50 // 固定间距
-  const xInterval = 120 // X 方向间隔
-  const lineHeight = 20 // 让文字均匀分布在胶囊高度内
-  const fontSize = 20 // 字体大小
+  const lineHeight = 10 // 让文字均匀分布在胶囊高度内
+  const fontSize = 10 // 字体大小
   const padding = 10
+
+  // 🔍 放大镜两条线的初始位置（先只画线，可拖动）
+  let lensY1 = 300
+  let lensY2 = 900
+
+  const LENS_SCALE = 2.5
+
+  // 用 canvas 比较稳定地测量文字宽度
+  function measureTextWidth(text: string, font = `${navFontSize}px sans-serif`) {
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')!
+    ctx.font = font
+    return ctx.measureText(text).width
+  }
 
   const topics = Array.from(new Set(data.map((d) => d.topic))) // 去重
   data.forEach((d) => {
@@ -124,6 +111,78 @@ function drawUI(data: Conversation[]) {
   // 创建胶囊
   const svg = d3.select(UIcontainer.value).append('svg').attr('width', width).attr('height', height)
   const g = svg.append('g')
+  const baseLayer = g.append('g').attr('class', 'base-layer') // 原始大胶囊、曲线都画在这里
+  const lensLayer = g.append('g').attr('class', 'lens-layer') // 放大效果单独一层
+
+  const redrawLens = () => {
+    lensLayer.selectAll('*').remove()
+    if (!activeTopic) return
+    buildOverlay(
+      activeTopic,
+      lensLayer,
+      topicColorMap,
+      lineHeight,
+      fontSize,
+      padding,
+      onSlotClick,
+      data,
+    )
+  }
+  // 拖拽行为：上下拖动线条，更新 y1 / y2
+  function makeLineDrag(which: 'y1' | 'y2') {
+    return d3
+      .drag<SVGLineElement, unknown>()
+      .on('start', (event: any) => {
+        if (event.sourceEvent) event.sourceEvent.stopPropagation()
+      })
+      .on('drag', function (event: any) {
+        let newY = event.y
+        newY = Math.max(0, Math.min(height, newY))
+
+        if (which === 'y1') {
+          newY = Math.min(newY, lensY2 - 20)
+          lensY1 = newY
+        } else {
+          newY = Math.max(newY, lensY1 + 20)
+          lensY2 = newY
+        }
+
+        d3.select(this).attr('y1', newY).attr('y2', newY)
+
+        // 【新增】拖动线时，更新放大层
+        redrawLens()
+      })
+  }
+  // 在 svg 上画出两条水平线
+  svg
+    .append('line')
+    .attr('class', 'lens-line-1')
+    .attr('x1', 0)
+    .attr('x2', width)
+    .attr('y1', lensY1)
+    .attr('y2', lensY1)
+    .attr('stroke', '#888')
+    .attr('stroke-dasharray', '4,4')
+    .attr('stroke-width', 8) // ⭐ 加粗，方便点中
+    .attr('opacity', 0.4)
+    .style('cursor', 'ns-resize')
+    .style('pointer-events', 'stroke') // ⭐ 只在描边上响应事件
+    .call(makeLineDrag('y1'))
+
+  svg
+    .append('line')
+    .attr('class', 'lens-line-2')
+    .attr('x1', 0)
+    .attr('x2', width)
+    .attr('y1', lensY2)
+    .attr('y2', lensY2)
+    .attr('stroke', '#888')
+    .attr('stroke-dasharray', '4,4')
+    .attr('stroke-width', 8)
+    .attr('opacity', 0.4)
+    .style('cursor', 'ns-resize')
+    .style('pointer-events', 'stroke')
+    .call(makeLineDrag('y2'))
 
   const onSlotClick = (slotId: number) => {
     FileStore.selectedSlotId = slotId
@@ -167,50 +226,105 @@ function drawUI(data: Conversation[]) {
       )
   }
 
+  // -----------绘制顶部导航栏----------------
+  const navHeight = 40
+  const navFontSize = 14 // 导航文字字号
+  const navPadX = 16 // 左右内边距
+
+  // 先计算每个 topic 的胶囊宽度 & 导航中心 x
+  let totalWidth = 0
+  topics.forEach((t, i) => {
+    const tw = measureTextWidth(t)
+    const rectW = Math.ceil(tw + navPadX * 2) // 胶囊矩形宽度
+    navWidths[t] = rectW
+    // 该 item 的中心位置 = 上一个末尾 + 半个本宽 + 间距
+    const cx =
+      i === 0 ? rectW / 2 : navCentersX[topics[i - 1]] + navWidths[topics[i - 1]] / 2 + rectW / 2
+    navCentersX[t] = cx
+    totalWidth = cx + rectW / 2 // 累计出总宽
+  })
+
+  // 让 SVG 按总宽设置，容器会水平滚动
+  const navSvg = d3
+    .select(navContainer.value)
+    .attr('width', Math.max(totalWidth, 1))
+    .attr('height', navHeight)
+
+  const navBar = navSvg.append('g').attr('class', 'nav-bar')
+
+  // 每个导航项对应一个 topic（按计算好的中心 x 排布）
+  const navItems = navBar
+    .selectAll('.nav-item')
+    .data(topics)
+    .enter()
+    .append('g')
+    .attr('class', 'nav-item')
+    .attr('transform', (d) => `translate(${navCentersX[d]}, ${navHeight / 2})`)
+    .style('cursor', 'pointer')
+
+  // 胶囊背景（使用各自宽度，居中对齐）
+  navItems
+    .append('rect')
+    .attr('x', (d) => -navWidths[d] / 2)
+    .attr('y', -15)
+    .attr('width', (d) => navWidths[d])
+    .attr('height', 30)
+    .attr('rx', 15)
+    .attr('fill', (d) => topicColorMap[d])
+    .attr('opacity', 0.85)
+    .on('click', (event, d) => {
+      event.stopPropagation()
+      const svgNode = svg.node()
+      if (!svgNode) return
+
+      // 只做视图对齐，保持你原有的主画布列定位逻辑
+      const currentTransform = d3.zoomTransform(svgNode)
+      const k = currentTransform.k
+      const currentY = currentTransform.y
+
+      const topicData = data.find((item) => item.topic === d)
+      if (!topicData?.cx) return
+
+      const targetX = navCentersX[d] // 主画布该列中心
+      const newTranslateX = targetX - topicData.cx * k
+
+      svg
+        .transition()
+        .duration(500)
+        .call(zoom.transform, d3.zoomIdentity.translate(newTranslateX, currentY).scale(k))
+    })
+
+  // 导航文字（居中）
+  navItems
+    .append('text')
+    .attr('text-anchor', 'middle')
+    .attr('dy', '0.35em')
+    .attr('fill', '#fff')
+    .style('font-size', `${navFontSize}px`)
+    .text((d) => d)
+
   // --------------------- 绘制大胶囊---------------------
-  //
-  const topicGroups = g
+  const topMargin = 50
+  const bottomMargin = 50
+  const usableHeight = height - topMargin - bottomMargin
+
+  const topicGroups = baseLayer
     .selectAll('g.topic-group')
     .data(data)
     .enter()
     .append('g')
     .attr('class', 'topic-group')
 
-  const topicPoints: Record<string, { x: number; y: number }[]> = {}
-  // 设置基础信息
-  topicGroups.each(function (topicData) {
-    const rh = topicData.topic.length * fontSize * 1.5
-    const cx = topicXMap[topicData.topic]
-    const cy = currentY
-
-    // 保存到 topicPoints
-    if (!topicPoints[topicData.topic]) topicPoints[topicData.topic] = []
-    topicPoints[topicData.topic].push({ x: cx, y: cy })
-
-    currentY = currentY + beforeY + rh / 2 + spacing
-    beforeY = rh
-  })
-
-  // 优化顺序
-  const optimizedTopics = optimizeTopicOrder(topics, topicPoints)
-
-  // 更新 topicXMap 和 topicPoints 的 X
-  optimizedTopics.forEach((topic, i) => {
-    const newX = 110 + i * xInterval
-    topicXMap[topic] = newX
-    topicPoints[topic].forEach((p) => (p.x = newX))
-  })
-  // console.log('topicPoints是 :', topicPoints)
-
-  currentY = 140
   // 绘制
-  topicGroups.each(function (topicData) {
+  topicGroups.each(function (topicData, i) {
     const group = d3.select(this)
-    const rw = (topicData.topic.length * fontSize * 0.8) / 2
-    const rh = (topicData.topic.length * fontSize * 1.5) / 2
+    const rw = (topicData.topic.length * fontSize * 1) / 5
+    const rh = (topicData.topic.length * fontSize * 1) / 5
 
-    const cx = topicXMap[topicData.topic]
-    const cy = currentY
+    const cx = navCentersX[topicData.topic]
+    // 第 i 个的中心 Y：从 topMargin 开始，到 height-bottomMargin 结束，平均铺开
+    const step = usableHeight / Math.max(data.length, 1)
+    const cy = topMargin + step * (i + 0.5)
 
     // 保存原始大小和坐标
     topicData.w = rw
@@ -230,106 +344,18 @@ function drawUI(data: Conversation[]) {
         onTopicClick(topicData.slots, topicKey)
         // 如果已展开同一类 → 忽略；如果展开的是另一类 → 先销毁旧 overlay 并恢复旧基座
         if (activeTopic && activeTopic !== topicKey) {
-          destroyOverlay(activeTopic, g)
-          showBase(activeTopic, g)
+          destroyOverlay(activeTopic)
+          showBase(activeTopic)
           activeTopic = null
         }
 
         if (!activeTopic) {
-          hideBase(topicKey, g)
-          buildOverlay(topicKey, g, topicColorMap, lineHeight, fontSize, padding, onSlotClick, data)
+          hideBase(topicKey)
           activeTopic = topicKey
+          redrawLens()
         }
       })
-
-    currentY = currentY + beforeY + rh / 2 + spacing
-    beforeY = rh
   })
-  // --------------------- 绘制 topic 文本 ---------------------
-  const topicTextsGroup = g.append('g').attr('class', 'topic-text-group')
-  topicTextsGroup
-    .selectAll('g.topic-text')
-    .data(data)
-    .enter()
-    .append('g')
-    .attr('class', 'topic-text')
-    .attr('opacity', 0.8)
-    .attr('transform', (d) => `translate(${d.cx}, ${d.cy})`)
-    .each(function (d) {
-      const gText = d3.select(this)
-      const chars = d.topic.split('')
-      const startY = -((chars.length - 1) * lineHeight) / 2
-      chars.forEach((char, i) => {
-        gText
-          .append('text')
-          .attr('x', 0)
-          .attr('y', startY + i * lineHeight)
-          .attr('text-anchor', 'middle')
-          .attr('dominant-baseline', 'middle')
-          .attr('fill', '#fff')
-          .attr('font-size', fontSize)
-          .text(char)
-      })
-    })
-
-  // -----------绘制顶部导航栏----------------
-  if (!navContainer.value) return
-  const navHeight = 40
-  const navSvg = d3
-    .select(navContainer.value)
-    .attr('width', topics.length * 150) // 让 SVG 宽于容器，从而可以滚动
-    .attr('height', 40)
-
-  const navBar = navSvg.append('g').attr('class', 'nav-bar')
-
-  // 每个导航项对应一个 topic
-  const navItems = navBar
-    .selectAll('.nav-item')
-    .data(topics)
-    .enter()
-    .append('g')
-    .attr('class', 'nav-item')
-    .attr('transform', (d) => `translate(${topicXMap[d]}, ${navHeight / 2})`)
-
-  // 胶囊样式导航背景
-  navItems
-    .append('rect')
-    .attr('x', -60)
-    .attr('y', -15)
-    .attr('width', 120)
-    .attr('height', 30)
-    .attr('rx', 15)
-    .attr('fill', (d) => topicColorMap[d])
-    .attr('opacity', 0.8)
-    .on('click', (event, d) => {
-      const svgNode = svg.node()
-      if (!svgNode) return
-
-      const currentTransform = d3.zoomTransform(svgNode)
-      const k = currentTransform.k
-      const currentY = currentTransform.y
-
-      // 找出该 topic 对应的大胶囊中心 cx
-      const topicData = data.find((item) => item.topic === d)
-      if (!topicData?.cx) return
-
-      // ✅ 计算新的 translateX，使导航栏和大胶囊对齐
-      const targetX = topicXMap[d]
-      const newTranslateX = targetX - topicData.cx * k
-
-      svg
-        .transition()
-        .duration(500)
-        .call(zoom.transform, d3.zoomIdentity.translate(newTranslateX, currentY).scale(k))
-    })
-
-  // 导航文字
-  navItems
-    .append('text')
-    .attr('text-anchor', 'middle')
-    .attr('dy', '0.35em')
-    .attr('fill', '#fff')
-    .text((d) => d)
 
   // --------------------- 绘制用户/机器人曲线 ---------------------
   const drawLines = () => {
@@ -362,7 +388,8 @@ function drawUI(data: Conversation[]) {
       .y((d) => d.y)
       .curve(d3.curveMonotoneY)
 
-    g.append('path')
+    baseLayer
+      .append('path')
       .datum(userPoints)
       .attr('d', lineGen)
       .attr('class', 'user-line')
@@ -371,7 +398,8 @@ function drawUI(data: Conversation[]) {
       .attr('fill', 'none')
       .attr('stroke-opacity', 0.7)
 
-    g.append('path')
+    baseLayer
+      .append('path')
       .datum(botPoints)
       .attr('d', lineGen)
       .attr('class', 'bot-line')
@@ -385,16 +413,22 @@ function drawUI(data: Conversation[]) {
   // --------------------- 缩放事件 ----------
   const zoom = d3
     .zoom<SVGSVGElement, unknown>()
-    .scaleExtent([0.5, 3])
     .on('zoom', (event) => {
-      g.attr('transform', event.transform.toString())
+      // 如果你以后还想保留“平移”效果，可以用 event.transform.x / y
+      // 这里我把缩放强行固定为 1，防止大小变化
+      const t = event.transform
+      g.attr('transform', `translate(${t.x}, ${t.y}) scale(1)`)
     })
+    .filter(() => false) // ⭐ 关键：禁止所有用户触发的 zoom 事件
+
+  // 仍然要挂上 zoom，这样你在别的地方可以用 zoom.transform 做平移对齐
+  svg.call(zoom)
 
   // ---- 点击空白处恢复 ----
   svg.on('click', () => {
     if (!activeTopic) return
-    destroyOverlay(activeTopic, g)
-    showBase(activeTopic, g)
+    destroyOverlay(activeTopic)
+    showBase(activeTopic)
     activeTopic = null
     // 大胶囊恢复原色
     topicGroups
@@ -404,11 +438,10 @@ function drawUI(data: Conversation[]) {
       .attr('fill', (d) => topicColorMap[d.topic])
   })
 
-  svg.call(zoom)
-
   // 隐藏某一类的“基座”大胶囊与文字
-  function hideBase(topicKey: string, g: d3.Selection<SVGGElement, unknown, null, undefined>) {
-    g.selectAll<SVGGElement, Conversation>('g.topic-group')
+  function hideBase(topicKey: string) {
+    baseLayer
+      .selectAll<SVGGElement, Conversation>('g.topic-group')
       .filter((d) => d.topic === topicKey)
       .style('visibility', 'hidden')
     g.selectAll<SVGGElement, Conversation>('g.topic-text')
@@ -416,8 +449,9 @@ function drawUI(data: Conversation[]) {
       .style('visibility', 'hidden')
   }
   // 显示某一类的“基座”大胶囊与文字
-  function showBase(topicKey: string, g: d3.Selection<SVGGElement, unknown, null, undefined>) {
-    g.selectAll<SVGGElement, Conversation>('g.topic-group')
+  function showBase(topicKey: string) {
+    baseLayer
+      .selectAll<SVGGElement, Conversation>('g.topic-group')
       .filter((d) => d.topic === topicKey)
       .style('visibility', null)
     g.selectAll<SVGGElement, Conversation>('g.topic-text')
@@ -425,15 +459,11 @@ function drawUI(data: Conversation[]) {
       .style('visibility', null)
   }
 
-  // 删除 overlay 层
-  function destroyOverlay(
-    topicKey: string,
-    g: d3.Selection<SVGGElement, unknown, null, undefined>,
-  ) {
-    g.selectAll(`.overlay-${topicKey}`).remove()
+  // 【修改】只清理 lensLayer 中对应 topic 的 overlay
+  function destroyOverlay(topicKey: string) {
+    lensLayer.selectAll(`.overlay-${topicKey}`).remove()
   }
 
-  // 绘制 overlay 层
   function buildOverlay(
     topicKey: string,
     g: d3.Selection<SVGGElement, unknown, null, undefined>,
@@ -448,128 +478,204 @@ function drawUI(data: Conversation[]) {
     const items = dataArr.filter((d) => d.topic === topicKey)
     if (!items.length) return
 
-    // 2) 三趟排布（你的版本） —— 只对这一类做布局
-    type GroupLayout = {
-      topic: string
-      cx: number
-      cy: number
-      rx: number
-      slots: Slot[]
-      bandTop: number
-      bandBottom: number
+    // 2) 把所有 slots 合并成一份（按 id 排好，保持时间顺序）
+    type SlotEx = Slot & {
+      x?: number
+      y?: number
+      yRaw?: number
+      rw?: number
+      rh?: number
+      baseRw?: number
     }
-    const slotRH = (len: number) => (len * fontSize * 1.5) / 2
-    const slotRW = (len: number, rx: number) => Math.min((len * fontSize * 0.7) / 2, rx * 0.9)
-    const MIN_GAP = 12
 
-    // —— 第1趟：尺寸+原始排布
-    const layouts: GroupLayout[] = []
-    items.forEach((it) => {
-      const slots = (it.slots || []).map((s) => ({ ...s })) // 拷贝避免污染
-      const cx = it.cx!,
-        cy = it.cy!,
-        rx = it.w!
-      slots.forEach((s) => {
-        const L = s.slot.length
-        s.rw = slotRW(L, rx)
-        s.rh = slotRH(L)
-      })
-      const total = slots.reduce((acc, s) => acc + s.rh! * 2 + padding, 0) + padding
-      const newRy = Math.max(total / 2, 75)
-      let yOffset = cy - newRy + padding
-      slots.forEach((s) => {
-        s.x = cx
-        s.y = yOffset + s.rh!
-        yOffset += s.rh! * 2 + padding
-      })
-      layouts.push({
-        topic: it.topic,
-        cx,
-        cy,
-        rx,
-        slots,
-        bandTop: cy - newRy,
-        bandBottom: cy + newRy,
-      })
+    const allSlots: SlotEx[] = items
+      .flatMap((it) => (it.slots || []).map((s) => ({ ...s }) as SlotEx))
+      .sort((a, b) => (Number(a.id) || 0) - (Number(b.id) || 0))
+
+    if (!allSlots.length) return
+
+    // 3) 取一个基准的中心 X / 宽度（所有同类 topic 的 cx 本来就在同一列）
+    const base = items[0]
+    const cx = base.cx!
+    const rx = base.w!
+
+    // 【新增】放大层横向放大系数：大胶囊和小胶囊都比 overview 宽一些
+    const rxLens = rx * LENS_SCALE // 放大层里用的“大胶囊半宽”
+
+    // 这里保存原始小胶囊的宽度
+    const slotRH = (len: number) => (len * fontSize * 1.2) / 5
+    const slotRWBase = (len: number, rx: number) => Math.min((len * fontSize * 0.7) / 5, rx * 0.9)
+
+    // 计算原始宽度
+    allSlots.forEach((s) => {
+      const L = s.slot.length
+      s.baseRw = slotRWBase(L, rx) // 保存原始宽度
+      s.rh = slotRH(L)
     })
 
-    // —— 第2趟：同类之间消重叠
-    layouts.sort((a, b) => a.bandTop - b.bandTop)
-    let curBottom = -Infinity
-    for (const L of layouts) {
-      if (L.bandTop < curBottom + MIN_GAP) {
-        const delta = curBottom + MIN_GAP - L.bandTop
-        L.bandTop += delta
-        L.bandBottom += delta
-        L.cy = (L.bandTop + L.bandBottom) / 2
-        // 同步平移 slots
-        L.slots.forEach((s) => {
-          s.y = s.y! + delta
-        })
+    // 在一个虚拟坐标系中，从上到下排布，记录 yRaw
+    let yCursor = padding
+    allSlots.forEach((s) => {
+      s.yRaw = yCursor + (s.rh || 0)
+      yCursor += (s.rh || 0) * 2 + padding
+    })
+
+    const rawMin = d3.min(allSlots, (s) => s.yRaw!)!
+    const rawMax = d3.max(allSlots, (s) => s.yRaw!)!
+    const rawSpan = rawMax - rawMin || 1
+
+    // 映射到“全屏展开”的纵向范围 [topMargin, height-bottomMargin]
+    const outerTop = topMargin
+    const outerBottom = height - bottomMargin
+    const outerSpan = outerBottom - outerTop
+
+    allSlots.forEach((s) => {
+      const t = (s.yRaw! - rawMin) / rawSpan
+      s.y = outerTop + t * outerSpan
+      s.x = cx
+    })
+
+    // ------------------- 第 2 步：基于 Y1/Y2 做“窗口放大” -------------------
+    const Y1 = lensY1
+    const Y2 = lensY2
+    const Lout = Y2 - Y1
+
+    const C = (Y1 + Y2) / 2
+    const innerHalf = Lout / (2 * LENS_SCALE)
+    let a = C - innerHalf
+    let b = C + innerHalf
+
+    // 保证 inner 区间在可用区域内
+    a = Math.max(outerTop, a)
+    b = Math.min(outerBottom, b)
+    const innerSpan = b - a || 1
+
+    // 分段映射：
+    //  - [outerTop, a]  → [outerTop, Y1]      （压缩上半部）
+    //  - [a, b]         → [Y1, Y2]            （放大中间区域）
+    //  - [b, outerBottom] → [Y2, outerBottom]（压缩下半部）
+    const mapY = (y: number) => {
+      if (y <= a) {
+        if (a === outerTop) return outerTop
+        const t = (y - outerTop) / (a - outerTop)
+        return outerTop + t * (Y1 - outerTop)
+      } else if (y >= b) {
+        if (b === outerBottom) return outerBottom
+        const t = (y - b) / (outerBottom - b)
+        return Y2 + t * (outerBottom - Y2)
+      } else {
+        const t = (y - a) / innerSpan
+        return Y1 + t * Lout
       }
-      curBottom = Math.max(curBottom, L.bandBottom)
     }
 
-    // —— 第3趟：画 overlay 层（展开胶囊+小胶囊+文字）
+    allSlots.forEach((s) => {
+      s.y = mapY(s.y!)
+    })
+
+    // ------------------- 第 3 步：宽度放大 -------------------
+    // 根据 Y 坐标和放大区域，调整小胶囊的宽度
+
+    allSlots.forEach((s) => {
+      const y = s.y!
+      const inLens = y >= Y1 && y <= Y2 // 只有在放大区域内的才变宽
+      s.rw = (s.baseRw || 0) * (inLens ? LENS_SCALE : 1)
+      s.rh = (s.rh || 0) * (inLens ? LENS_SCALE : 1)
+    })
+
+    // 根据变换后的 y，算出大胶囊的中心和半高
+    const minY2 = d3.min(allSlots, (s) => s.y!)!
+    const maxY2 = d3.max(allSlots, (s) => s.y!)!
+    const cyLens = (minY2 + maxY2) / 2
+    const ryLens = (maxY2 - minY2) / 2 + padding
+
+    // ------------------- 第 4 步：绘制 overlay -------------------
     const layer = g.append('g').attr('class', `overlay-${topicKey}`).attr('opacity', 1)
 
-    // 3.1 先画“展开的大胶囊”（宽度 rx 固定，高度用 band）
-    layouts.forEach((L) => {
-      const cyExp = (L.bandTop + L.bandBottom) / 2
-      const ryExp = (L.bandBottom - L.bandTop) / 2
-      layer
-        .append('path')
-        .attr('class', 'topic-expanded')
-        .attr('d', capsulePath(L.cx, cyExp, L.rx, ryExp))
-        .attr('fill', topicColorMap[topicKey])
-        .attr('fill-opacity', 0.9)
+    // ===== 3.1 放大区域的“大胶囊容器”（只覆盖 Y1~Y2） =====
+    const maxRw = d3.max(allSlots, (s) => s.rw || 0) || rxLens
+    const containerRw = maxRw + padding
+
+    // 3.1 大胶囊（只有一个）
+    layer
+      .append('path')
+      .attr('class', 'topic-expanded')
+      .attr('d', capsulePath(cx, cyLens, rx, ryLens))
+      .attr('fill', topicColorMap[topicKey])
+      .attr('fill-opacity', 1)
+
+    layer
+      .append('rect')
+      .attr('class', 'topic-lens-container')
+      .attr('x', cx - containerRw)
+      .attr('y', Y1)
+      .attr('width', containerRw * 2)
+      .attr('height', Y2 - Y1)
+      .attr('rx', 20) // 圆角，让它看起来还是“胶囊感”
+      .attr('fill', topicColorMap[topicKey])
+      .attr('fill-opacity', 1) // 半透明，不要挡住小胶囊
+
+    // ========== 3.3 只给「矩形区域内」的小胶囊加竖排文本 ==========
+    const slotsInLens = allSlots.filter((s) => s.y! >= Y1 && s.y! <= Y2)
+    const lensFontScale = LENS_SCALE
+    const lensFontSize = fontSize * lensFontScale
+    const lensLineHeight = lineHeight * lensFontScale
+
+    // ✅ 让小胶囊高度完全由“文字真实占用空间”决定
+    slotsInLens.forEach((s) => {
+      const charsLen = (s.slot || '').length || 1
+
+      // 竖排文字真实占用的总高度 ≈ (行距 * (n - 1)) + 字体高度
+      const textTotalHeight = (Math.max(charsLen, 1) - 1) * lensLineHeight + lensFontSize
+
+      // 小胶囊半高 = 总高度一半，再稍微乘一点 padding（比如 1.1）
+      const minRh = textTotalHeight / 2
+
+      s.rh = Math.max(s.rh || 0, minRh)
     })
 
-    // 3.2 再画小胶囊
-    layouts.forEach((L) => {
-      // slots
-      const join = layer
-        .selectAll<SVGPathElement, Slot>(`.slot-${L.topic}-${L.cx}-${L.cy}`)
-        .data(L.slots)
+    // 3.2 小胶囊
+    layer
+      .selectAll<SVGPathElement, SlotEx>('.slot')
+      .data(allSlots)
+      .enter()
+      .append('path')
+      .attr('class', 'slot')
+      .attr('d', (s) => capsulePath(s.x!, s.y!, s.rw!, s.rh!)) // 用 rw（可能被放大）
+      .attr('fill', (s) => s.color)
+      .attr('opacity', 0.95)
+      .on('click', (event, s) => {
+        event.stopPropagation() // ⭐ 阻止冒泡到 svg
+        onSlotClick(s.id) // 继续你的定位逻辑
+      })
 
-      join
-        .enter()
-        .append('path')
-        .attr('class', 'slot')
-        .attr('d', (s) => capsulePath(s.x!, s.y!, s.rw!, s.rh!))
-        .attr('fill', (s) => s.color)
-        .attr('opacity', 0.95)
-        .on('click', (_e, s) => onSlotClick(s.id))
-    })
-
-    // 3.3 竖排文字
-    layouts.forEach((L) => {
-      const texts = layer
-        .selectAll<SVGGElement, Slot>(`.slot-text-${L.topic}-${L.cx}-${L.cy}`)
-        .data(L.slots)
-        .enter()
-        .append('g')
-        .attr('class', 'slot-text')
-        .attr('transform', (s) => `translate(${s.x}, ${s.y})`)
-        .style('pointer-events', 'none')
-
-      texts.each(function (s) {
+    layer
+      .selectAll<SVGGElement, SlotEx>('.slot-text')
+      .data(slotsInLens)
+      .enter()
+      .append('g')
+      .attr('class', 'slot-text')
+      .attr('transform', (s) => `translate(${s.x}, ${s.y})`)
+      .style('pointer-events', 'none') // 不挡住点击
+      .each(function (s) {
         const gText = d3.select(this)
-        const chars = s.slot.split('')
-        const startY = -((chars.length - 1) * lineHeight) / 2
+        const chars = (s.slot || '').split('')
+
+        // 竖排：让文本整体在小胶囊内垂直居中
+        const startY = -((chars.length - 1) * lensLineHeight) / 2
+
         chars.forEach((char, i) => {
           gText
             .append('text')
             .attr('x', 0)
-            .attr('y', startY + i * lineHeight)
+            .attr('y', startY + i * lensLineHeight)
             .attr('text-anchor', 'middle')
             .attr('dominant-baseline', 'middle')
             .attr('fill', '#fff')
-            .attr('font-size', fontSize)
+            .attr('font-size', lensFontSize)
             .text(char)
         })
       })
-    })
   }
 }
 // 监听GPT返回内容的变化
@@ -611,7 +717,7 @@ onMounted(async () => {
   height: 100vh;
 }
 .nav-scroll-container {
-  width: 1024px;
+  width: 1440px;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;

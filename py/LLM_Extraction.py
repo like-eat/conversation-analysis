@@ -15,19 +15,156 @@ openai.default_headers = {"x-foo": "true"}
 dimension = 1536  # OpenAI text-embedding-3-small 输出向量维度
 index = faiss.IndexFlatL2(dimension)  # L2 距离索引
 
-def chunk_text(text, max_chars=40000):
-    """把长文本切成安全的多段"""
+# ====== 工具：把对话切成窗口 ======
+def build_conv_chunks(history, window_size=20, stride=20):
+    """
+    把整轮对话按 id 排序后，切成一段段 chunk，
+    每段包含 window_size 条对话（可重叠，步长 stride）。
+    每个 chunk 结构：{start_id, end_id, text}
+    """
+    # 先按 id 排序
+    history_sorted = sorted(
+        [m for m in history if isinstance(m, dict) and m.get("content")],
+        key=lambda x: x.get("id", 0)
+    )
+
     chunks = []
-    while len(text) > max_chars:
-        # 尽量在句号后切
-        split_idx = text.rfind("。", 0, max_chars)
-        if split_idx == -1:
-            split_idx = max_chars
-        chunks.append(text[:split_idx+1])
-        text = text[split_idx+1:]
-    if text.strip():
-        chunks.append(text)
+    n = len(history_sorted)
+    if n == 0:
+        return chunks
+
+    idx = 0
+    while idx < n:
+        sub = history_sorted[idx: idx + window_size]
+        if not sub:
+            break
+        text = "\n".join(
+            f"[{m['id']}][{m['role']}]: {m['content'].strip()}"
+            for m in sub if m.get("content")
+        )
+        chunks.append({
+            "start_id": sub[0]["id"],
+            "end_id": sub[-1]["id"],
+            "text": text,
+        })
+        if idx + window_size >= n:
+            break
+        idx += stride
+
     return chunks
+
+def embed_texts(
+        text_list, 
+        model="text-embedding-3-large",
+        max_chars_per_item=2000,\
+        max_batch_chars=6000,
+        max_batch_items=8 ):
+    """
+    输入: [str, str, ...]
+    输出: [np.array(d), ...]
+    """
+    processed = []
+    for text in text_list:
+        t = str(text)
+        if len(t) > max_chars_per_item:
+            t = t[:max_chars_per_item]
+        processed.append(t)
+
+    embs = []
+    batch = []
+    batch_chars = 0
+
+    def _flush_batch(batch_texts):
+        if not batch_texts:
+            return []
+        resp = openai.embeddings.create(
+            model=model,
+            input=batch_texts,
+        )
+        return [np.array(d.embedding, dtype="float32") for d in resp.data]
+
+    for t in processed:
+        # 如果再加这一条会超出限制，就先把当前 batch 发出去
+        if (batch and (batch_chars + len(t) > max_batch_chars
+                       or len(batch) >= max_batch_items)):
+            embs.extend(_flush_batch(batch))
+            batch = []
+            batch_chars = 0
+
+        batch.append(t)
+        batch_chars += len(t)
+
+    # 别忘了 flush 最后一个 batch
+    if batch:
+        embs.extend(_flush_batch(batch))
+
+    return embs
+
+# 向量数据库类
+class ConvVectorStore:
+    def __init__(self, chunks, index, emb_dim):
+        self.chunks = chunks          # list[dict], 每个有 start_id/end_id/text
+        self.index = index            # faiss index
+        self.emb_dim = emb_dim
+
+    @classmethod
+    def from_history(cls, history, window_size=20, stride=20):
+        """
+        从一整轮对话构建向量库：
+        - 切 chunk
+        - 对每个 text 做 embedding
+        - 用 FAISS 建 IndexFlatIP
+        """
+        chunks = build_conv_chunks(history, window_size=window_size, stride=stride)
+        if not chunks:
+            # 空 history
+            index = None
+            return cls([], index, 0)
+
+        texts = [c["text"] for c in chunks]
+        embs = embed_texts(texts)  # list[np.array]
+        emb_dim = embs[0].shape[0]
+
+        emb_matrix = np.stack(embs, axis=0)  # (N, d)
+        index = faiss.IndexFlatIP(emb_dim)   # 内积，相当于余弦相似度（需先归一化的话可以再封装）
+        index.add(emb_matrix)
+
+        # 把 embedding 一起存住方便 debug（不一定必须）
+        for c, e in zip(chunks, embs):
+            c["embedding"] = e
+
+        return cls(chunks, index, emb_dim)
+
+    def search_by_text(self, query_text, top_k=8):
+        """
+        给一段 query 文本，返回最相关的 top_k 个 chunk（已经按相似度排好）
+        """
+        if not self.chunks or self.index is None:
+            return []
+
+        q_emb = embed_texts([query_text])[0].reshape(1, -1).astype("float32")  # (1, d)
+        D, I = self.index.search(q_emb, top_k)  # I: (1, top_k)
+
+        idxs = I[0]
+        selected = [self.chunks[i] for i in idxs if 0 <= i < len(self.chunks)]
+        # 按时间顺序排一下，方便你后面用
+        selected.sort(key=lambda c: c["start_id"])
+        return selected
+
+    def build_context(self, query_text, top_k=5):
+        """
+        把检索到的 top_k chunks 拼成一个上下文文本，用来丢给 LLM 看。
+        """
+        selected = self.search_by_text(query_text, top_k=top_k)
+        if not selected:
+            return ""
+
+        ctx = "\n\n".join(
+            f"[对话片段 {c['start_id']}~{c['end_id']}]\n{c['text']}"
+            for c in selected
+        )
+        return ctx
+
 
 def Semantic_pre_scanning(history):
     if isinstance(history, dict):
@@ -75,21 +212,34 @@ def Semantic_pre_scanning(history):
     return result
 
 def Topic_cleaning(history,topic_description,min_support=2):
-    # 统一转 str
-    if isinstance(history, dict):
-        history = history.get("content", "")
-    else:
-        history = str(history)
 
-    # 入参既可能是 str(JSON)，也可能是 Python list
-    if isinstance(topic_description, (list, tuple)):
-        topic_json_str = json.dumps(topic_description, ensure_ascii=False)
+    # 1) 构建向量库（history 应该是 list[dict] 的对话历史）
+    if isinstance(history, list) and history:
+        store = ConvVectorStore.from_history(history, window_size=40, stride=40)
+
+        # 2) 把 topic_description 作为 query，检索相关片段
+        if isinstance(topic_description, (list, tuple)):
+            topic_json_str = json.dumps(topic_description, ensure_ascii=False)
+        else:
+            topic_json_str = str(topic_description)
+
+        # 从向量库里取 top_k 个片段，拼成上下文
+        history_context = store.build_context(topic_json_str)
+
     else:
-        topic_json_str = str(topic_description)
+        # 如果 history 不是标准 list[dict]（例如已经是字符串），
+        # 就直接当成上下文使用（退化成非 RAG，保证兼容）
+        if isinstance(topic_description, (list, tuple)):
+            topic_json_str = json.dumps(topic_description, ensure_ascii=False)
+        else:
+            topic_json_str = str(topic_description)
+
+        history_context = str(history)
 
     prompt = f"""请完成以下任务：
-        任务：对下面的“主题列表”进行清洗与合并，仅保留与“语义摘要”高度相关、且不空泛的主题。
-        语义摘要：{history}
+        任务：对下面的“主题列表”进行清洗与合并。
+        语义摘要（供相关性参考）：
+        {history_context}
         主题列表（JSON数组，元素可能包含 support_count/support_examples，也可能不包含）：{topic_json_str}
 
         清洗规则：
@@ -114,109 +264,164 @@ def Topic_cleaning(history,topic_description,min_support=2):
             {"role": "system", "content": "你是一名文本分析师，擅长主题去重、相关性判定和证据检查。"},
             {"role": "user", "content": prompt }
             ])
+    
+    raw = completion.choices[0].message.content.strip()
+
+    # 3. 去掉可能的 ```json 包裹等噪声
+    clean = raw
+    if clean.startswith("```"):
+        first_newline = clean.find("\n")
+        if first_newline != -1:
+            clean = clean[first_newline+1:]
+        end_fence = clean.rfind("```")
+        if end_fence != -1:
+            clean = clean[:end_fence]
+        clean = clean.strip()
+
+    # 4. 如果前后还有解释文字，只取第一个 '[' 到最后一个 ']' 之间
+    if "[" in clean and "]" in clean:
+        start = clean.find("[")
+        end = clean.rfind("]")
+        if start != -1 and end != -1 and end > start:
+            clean = clean[start:end+1].strip()
+
     try:
-        result = json.loads(completion.choices[0].message.content)
-    except json.JSONDecodeError:
-        result = []
+        result = json.loads(clean)
+    except json.JSONDecodeError as e:
+        print("⚠️ [Topic_cleaning] JSON 解析失败，将直接返回原始 topic_description。错误：", e)
+        print("⚠️ 原始内容片段：", clean[:500])
+        # 解析失败时，宁可原样返回，不要清空
+        if isinstance(topic_description, list):
+            result = topic_description
+        else:
+            result = []
 
     return result
 
-def Topic_Allocation(history,topic_description):
-    # 统一转 str
-    if isinstance(history, dict):
-        history = history.get("content", "")
-    else:
-        history = str(history)
-
-    # 入参既可能是 str(JSON)，也可能是 Python list
-    if isinstance(topic_description, (list, tuple)):
-        topic_json_str = json.dumps(topic_description, ensure_ascii=False)
-    else:
-        topic_json_str = str(topic_description)
-
-    prompt = f"""请完成以下任务：
-        任务：你的任务是识别可以概括的二级子主题，这些子主题可以作为所提供的一级主题的子主题。
-        对话历史：{history}
-        一级主题清单：{topic_json_str}
-
-        实例：
-        [
-            {{
-                "topic": "人工智能",
-                "slots": [
-                    {{"sentence": "人工智能伦理关注的不仅是算法的公平性与隐私保护，还包括数据使用的透明度、模型决策的可解释性。", "slot": "人工智能伦理"}},
-                    {{"sentence": "人工智能在医疗领域的应用正在迅速扩展，从辅助诊断到个性化治疗方案。", "slot": "医疗领域应用"}}
-                ]
-            }},
-            {{
-                "topic": "可视化",
-                "slots": [
-                    {{"sentence": "可视化技术的发展使得数据更加丰富、复杂，同时也带来了新的可视化方式。", "slot": "可视化技术的发展"}}
-                ]
-            }}
-        ]
-
-
-        规则：
-        1. "topic" 必须是上面清单中的某一个，禁止创造新主题名，主题必须具有普遍性，并且不易过于具体，方便扩充出更多的子主题。
-        2. "slots[*].sentence" 必须是上面对话历史中的原文子串；请优先直接拷贝对应行的子串。
-        3. "slots[*].slot" 必须是二级子主题，必须是**简洁、具体、可落地的名词短语或动宾短语**，能指向一个清晰的关注点。
-        4. 每条对话/句子最多分配 1 个主题；若均不匹配，跳过该条。
-
-        输出要求：
-        1. 输出必须是标准 JSON 数组，严禁包含代码块标记（如```json）或多余文字。
-        2. 每个主题包含字段：
-        - "topic": 主题名称（最高层领域名，如“人工智能”“可视化”“智慧城市”），为名词短语。
-        - "slots": 一个数组，每个元素包含 {{ "sentence": 原始句子}}，{{ "slot": 二级子主题}}
-        3. 输出的标准 JSON 格式：
-        [
-            {{
-                "topic": "一级主题名称",
-                "slots": [
-                    {{"sentence": "原始句子", "slot": "二级子主题"}}
-                ]
-            }}
-        ]
-        
-
+def Topic_Allocation(history, cleaned_topics, top_k_chunks=6):
+    """
+    - 不再从全文“盲扫”；
+    - 对每个 topic，使用 (topic + support_examples) 作为 query，
+      在对话向量库里检索相关片段，然后在这些片段里抽取二级子主题（slots）。
     """
 
-    completion = openai.chat.completions.create(
-        model="gpt-4o",
-        temperature=0.2,
-        messages=[
-            {"role": "system", "content": "你是一名对话分析助手，擅长从对话中提取出对话主题。"},
-            {"role": "user", "content": prompt }
-            ],)
-    
-    try:
-        result = json.loads(completion.choices[0].message.content)
-    except json.JSONDecodeError:
-        result = []
+    # 0. 构建对话向量库
+    if not (isinstance(history, list) and history):
+        print("⚠️ Topic_Allocation_v2: history 为空或格式异常，将返回空结果。")
+        return []
 
-    return result
+    store = ConvVectorStore.from_history(history, window_size=40, stride=40)
 
-def topic_extraction(history):
-     # --- 统一 history 视图 ---
-    if isinstance(history, list):
-        # 将 parse_conversation 的输出条目化，方便 LLM 逐条引用原文子串
-        lines = []
-        for m in history:
-            if not m.get("content"): 
+    results = []
+
+    for topic_obj in cleaned_topics:
+        topic_name = topic_obj.get("topic", "").strip()
+        if not topic_name:
+            continue
+
+        support_examples = topic_obj.get("support_examples", []) or []
+        if not isinstance(support_examples, list):
+            support_examples = [str(support_examples)]
+
+        # 1) 构造 query：topic 名 + 支撑例子
+        query_text = topic_name + "\n" + "\n".join(support_examples)
+
+        # 2) 检索与该 topic 相关的对话片段
+        context = store.build_context(query_text, top_k=top_k_chunks)
+        if not context.strip():
+            # 没检索到就跳过或给空 slots
+            results.append({"topic": topic_name, "slots": []})
+            continue
+
+        # 3) 让 LLM 在这个上下文中抽取二级子主题（slots）
+        #    注意：上下文中每行都是 "[id][role]: content"，让模型复制 id 即可
+        prompt = f"""请完成以下任务：
+            任务：你将看到一段与某个一级主题高度相关的对话原文片段。
+            一级主题为："{topic_name}"
+
+            对话片段（每行以 [id][role]: 开头）：
+            {context}
+
+            请你在上述对话中，抽取若干与该主题密切相关的“二级子主题”(slot)。
+            输出为 JSON 数组，每个元素为一个对象，包含字段：
+            - "sentence": 对话中的原文句子（必须与上面某一行的 content 完全一致，可以包含前后少量标点，但不要自行改写）
+            - "slot": 该句子对应的二级子主题名称（简短、具体的名词短语或动宾短语）
+            - "id": 该句子对应行前面的 id（整数）
+
+            具体要求：
+            1. 只考虑与一级主题 "{topic_name}" 明确相关的句子；
+            2. 每条 sentence 最多对应一个 slot；
+            3. 如果多句表达完全相同的二级子主题，可只保留信息更完整的句子；
+            4. 严格输出 JSON 数组，不要包含任何解释性文字，也不要使用代码块标记。
+            示例输出（示意）：
+            [
+              {{"sentence": "我们需要改进 SWMM 模型的参数校准过程。", "slot": "SWMM 参数校准", "id": 45}},
+              {{"sentence": "本次主要讨论 DrainScope 中的排水风险指标可视分析。", "slot": "排水风险指标可视分析", "id": 52}}
+            ]
+        """
+
+        completion = openai.chat.completions.create(
+            model="gpt-4o",
+            temperature=0.2,
+            messages=[
+                {"role": "system", "content": "你是一名对话分析助手，擅长从对话中抽取结构化主题信息。"},
+                {"role": "user", "content": prompt}
+            ]
+        )
+
+        raw = completion.choices[0].message.content.strip()
+
+        # 4) 解析 JSON（和你清洗那边一样的鲁棒套路）
+        clean = raw
+        if clean.startswith("```"):
+            first_newline = clean.find("\n")
+            if first_newline != -1:
+                clean = clean[first_newline + 1:]
+            end_fence = clean.rfind("```")
+            if end_fence != -1:
+                clean = clean[:end_fence]
+            clean = clean.strip()
+
+        if "[" in clean and "]" in clean:
+            start = clean.find("[")
+            end = clean.rfind("]")
+            if start != -1 and end != -1 and end > start:
+                clean = clean[start:end + 1].strip()
+
+        try:
+            slots = json.loads(clean)
+        except json.JSONDecodeError as e:
+            print(f"⚠️ [Topic_Allocation_v2] 解析 slots JSON 失败，topic={topic_name}, 错误: {e}")
+            slots = []
+
+        # 5) 规范化 & 排序（按 id 时间顺序）
+        norm_slots = []
+        for s in slots:
+            if not isinstance(s, dict):
                 continue
-            lines.append(f"[{m.get('id')}] ({m.get('role')}) {m['content'].strip()}")
-        history_view = "\n".join(lines)
-    elif isinstance(history, dict):
-        history_view = history.get("content", "")
-    else:
-        history_view = str(history)
+            sent = s.get("sentence", "").strip()
+            slot_name = s.get("slot", "").strip()
+            try:
+                sid = int(s.get("id"))
+            except Exception:
+                continue
+            if not sent or not slot_name:
+                continue
+            norm_slots.append({
+                "sentence": sent,
+                "slot": slot_name,
+                "id": sid
+            })
 
-    topic_description = Semantic_pre_scanning(history=history_view)
-    topic_description = Topic_cleaning(history=history_view,topic_description=topic_description)
+        norm_slots.sort(key=lambda x: x["id"])
 
-    result = Topic_Allocation(history=history_view,topic_description=topic_description)
+        # 6) 严格按你要求的格式写入结果
+        results.append({
+            "topic": topic_name,
+            "slots": norm_slots
+        })
 
-    return result 
+    return results
 
 
 def llm_extract_information_incremental(history_sentences,new_sentence, existing_topics=None): 

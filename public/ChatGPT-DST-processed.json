@@ -1,258 +1,824 @@
 [
   {
-    "topic": "任务衔接与编号一致",
+    "topic": "NLP主题抽取与发展",
     "slots": [
       {
-        "sentence": "任务一提取出的问题必须全部编号，任务二必须使用任务一的编号来归类。",
-        "color": "#B0CFF6"
-      }
-    ],
-    "color": "#1E77E8"
-  },
-  {
-    "topic": "JSON输出与格式规范",
-    "slots": [
-      {
-        "sentence": "输出 JSON 必须是一个有效的对象，键为主题，值为数组，数组元素为 {id, question} 对象。",
-        "color": "#FFC9A9"
-      },
-      {
-        "sentence": "输出层级结构为 DST 格式：{\"domains\": [{\"domain\": \"主题名称\",\"slots\": [ { \"slot\": \"子主题1\" }, { \"slot\": \"子主题2\" } ]}]}",
-        "color": "#FFC9A9"
-      },
-      {
-        "sentence": "输出必须为标准 JSON 对象，不能包含任何代码块标记（如json）。",
-        "color": "#FFC9A9"
-      }
-    ],
-    "color": "#FF660C"
-  },
-  {
-    "topic": "主题和子主题抽取",
-    "slots": [
-      {
-        "sentence": "从对话中抽取讨论的主要主题，并为每个主题提取若干子主题。",
-        "color": "#B4E6B4"
-      },
-      {
-        "sentence": "为每个主题提取若干子主题，子主题必须是从文本对话中的总结，不能虚构。",
-        "color": "#B4E6B4"
-      },
-      {
-        "sentence": "子主题必须从对话文本中总结，不得虚构。",
-        "color": "#B4E6B4"
-      },
-      {
-        "sentence": "保持简洁（主题和子主题尽量 3～8 个字）。",
-        "color": "#B4E6B4"
-      }
-    ],
-    "color": "#2BBA2B"
-  },
-  {
-    "topic": "BERTopic使用",
-    "slots": [
-      {
-        "sentence": "初始化 BERTopic",
-        "color": "#F9B3B3"
-      },
-      {
-        "sentence": "主题模型会自动分簇，把“聚类算法、参数”划分到一个主题，把“吃饭、打球”划分到另一个主题。",
-        "color": "#F9B3B3"
-      },
-      {
-        "sentence": "过滤后你只保留研究相关的几句。",
-        "color": "#F9B3B3"
-      }
-    ],
-    "color": "#EF2628"
-  },
-  {
-    "topic": "人工智能",
-    "slots": [
-      {
-        "sentence": "K-means 算法怎么用？",
-        "color": "#D9C9F0"
-      },
-      {
-        "sentence": "快速排序适合处理大数据吗？",
-        "color": "#D9C9F0"
-      },
-      {
-        "sentence": "决策树和随机森林有什么区别？",
-        "color": "#D9C9F0"
-      },
-      {
-        "sentence": "支持向量机可以做文本分类吗？",
-        "color": "#D9C9F0"
-      },
-      {
-        "sentence": "聚类算法有哪些常见方法？",
-        "color": "#D9C9F0"
-      },
-      {
-        "sentence": "梯度下降会陷入局部最优吗？",
-        "color": "#D9C9F0"
-      },
-      {
-        "sentence": "神经网络的反向传播是怎么计算的？",
-        "color": "#D9C9F0"
-      }
-    ],
-    "color": "#9366D6"
-  },
-  {
-    "topic": "可视化",
-    "slots": [
-      {
-        "sentence": "Python 可以做可视化吗？",
-        "color": "#D6C3BF"
-      }
-    ],
-    "color": "#8C5649"
-  },
-  {
-    "topic": "智慧城市",
-    "slots": [
-      {
-        "sentence": "我想学习 Python 进行数据分析",
+        "sentence": "在对话系统（Dialog System）或对话管理（Dialog Management）领域，DST 通常指 Dialogue State Tracking（对话状态追踪）。",
+        "slot": "对话状态追踪",
+        "id": 2,
         "color": "#F4CFE9"
       },
       {
-        "sentence": "如何用 pandas 处理缺失值？",
+        "sentence": "DST可以持续追踪和更新对话状态，保证系统不会丢失关键信息。",
+        "slot": "对话状态更新",
+        "id": 4,
         "color": "#F4CFE9"
       },
       {
-        "sentence": "Python 的列表推导式怎么写？",
-        "color": "#F4CFE9"
-      },
-      {
-        "sentence": "有没有推荐的机器学习入门书？",
-        "color": "#F4CFE9"
-      },
-      {
-        "sentence": "Jupyter Notebook 怎么安装？",
-        "color": "#F4CFE9"
-      },
-      {
-        "sentence": "写一个爬虫需要注意什么？",
+        "sentence": "DST不仅能追踪已有信息，还能辅助预测用户后续动作或任务完成状态。",
+        "slot": "用户动作预测",
+        "id": 4,
         "color": "#F4CFE9"
       }
     ],
     "color": "#E277C1"
   },
   {
-    "topic": "Vue3与D3结合应用",
+    "topic": "对话状态追踪与长对话分析",
     "slots": [
       {
-        "sentence": "我给你一个 Vue3 + D3 的示例",
-        "color": "#D1D1D1"
-      },
-      {
-        "sentence": "Vue3 + D3 的示例：",
-        "color": "#D1D1D1"
+        "sentence": "DST可以和LLM结合起来吗",
+        "slot": "DST与LLM结合",
+        "id": 5,
+        "color": "#B0CFF6"
       }
     ],
-    "color": "#7C7C7C"
+    "color": "#1E77E8"
   },
   {
-    "topic": "嵌套椭圆可视化",
+    "topic": "大语言模型与子模型结合",
     "slots": [
       {
-        "sentence": "大椭圆里套一个小椭圆",
-        "color": "#E7E7B1"
+        "sentence": "LLM 与 DST 的结合能显著提升对话状态追踪的能力，尤其是在复杂或长对话场景中。",
+        "slot": "LLM与DST结合",
+        "id": 6,
+        "color": "#FFC9A9"
       },
       {
-        "sentence": "在大椭圆里放多个小椭圆",
-        "color": "#E7E7B1"
+        "sentence": "LLM 可以作为“理解和推理引擎”，而 DST 负责“状态管理和结构化存储”，两者互补。",
+        "slot": "LLM与DST互补",
+        "id": 6,
+        "color": "#FFC9A9"
+      },
+      {
+        "sentence": "LLM 直接解析用户输入，输出意图 + 槽位信息",
+        "slot": "LLM解析用户输入",
+        "id": 6,
+        "color": "#FFC9A9"
+      },
+      {
+        "sentence": "DST 维护的历史状态提供给 LLM，辅助生成更准确的理解或回复",
+        "slot": "DST辅助LLM理解",
+        "id": 6,
+        "color": "#FFC9A9"
+      },
+      {
+        "sentence": "LLM 用于复杂信息抽取、隐含问题识别",
+        "slot": "LLM复杂信息抽取",
+        "id": 6,
+        "color": "#FFC9A9"
+      },
+      {
+        "sentence": "LLM 可以提升 DST 的“理解和推理能力”，DST 则保证信息结构化和可追踪性。",
+        "slot": "LLM提升DST能力",
+        "id": 6,
+        "color": "#FFC9A9"
       }
     ],
-    "color": "#BCBC21"
+    "color": "#FF660C"
   },
   {
-    "topic": "鼠标滚轮缩放",
+    "topic": "大模型功能与应用",
     "slots": [
       {
-        "sentence": "支持滚轮缩放大椭圆",
-        "color": "#ADE8ED"
-      },
-      {
-        "sentence": "滚轮缩放控制 <g> 的 scale",
-        "color": "#ADE8ED"
-      }
-    ],
-    "color": "#16BFCE"
-  },
-  {
-    "topic": "颜色管理",
-    "slots": [
-      {
-        "sentence": "每个大椭圆和小椭圆对应的颜色",
-        "color": "#C5B7E4"
-      },
-      {
-        "sentence": "大主题和小主题的颜色色系是相同的",
-        "color": "#C5B7E4"
-      }
-    ],
-    "color": "#5B33B2"
-  },
-  {
-    "topic": "可视化",
-    "slots": [
-      {
-        "sentence": "你可以这样改你的代码：",
+        "sentence": "完全可以，而且这是近年来长对话分析和对话系统研究的一个趋势。",
+        "slot": "长对话分析趋势",
+        "id": 6,
         "color": "#D6C3BF"
       },
       {
-        "sentence": "这样每个大椭圆的中心就会显示 domain 名称，而不需要 tooltip。",
-        "color": "#D6C3BF"
-      },
-      {
-        "sentence": "小椭圆我也想放在中心显示：",
-        "color": "#D6C3BF"
-      },
-      {
-        "sentence": "明白，你想让每个小椭圆的 domain 名称或者 slot 名称 直接显示在小椭圆中心，而不是只显示大椭圆文字或者 tooltip。",
-        "color": "#D6C3BF"
-      },
-      {
-        "sentence": "如果你希望 文字在小椭圆透明渐显时一起显示，可以在 zoom 或者 hover 的 transition 中同时调整 ellipse 和 text 的 opacity。",
-        "color": "#D6C3BF"
-      },
-      {
-        "sentence": "你字体没显示，主要可能有几个原因，结合你提供的代码来看：",
-        "color": "#D6C3BF"
-      },
-      {
-        "sentence": "💡 解决方案示例：",
-        "color": "#D6C3BF"
-      },
-      {
-        "sentence": "slotTexts 和 slotEllipses 同步控制透明度。",
-        "color": "#D6C3BF"
-      },
-      {
-        "sentence": "如果你想，我可以帮你改成 默认就显示文字（不透明），并且缩放时文字大小自适应 的效果，这样小椭圆中心文字始终可见。",
-        "color": "#D6C3BF"
-      },
-      {
-        "sentence": "在 D3 中让文字随缩放自适应，核心思路是不要单独缩放文字的 x/y 坐标，而是用 transform 对整个 g 缩放，然后再动态调整文字 font-size，让它看起来跟椭圆一起缩放，但又不会太大或太小。",
-        "color": "#D6C3BF"
-      },
-      {
-        "sentence": "如果希望文字在放大时稍微变大，但不随椭圆完全缩放，可以调整公式，例如：",
-        "color": "#D6C3BF"
-      },
-      {
-        "sentence": "你希望我帮你把小椭圆和大椭圆的文字都居中且缩放自适应整合成一段完整代码吗？",
-        "color": "#D6C3BF"
-      },
-      {
-        "sentence": "明白，你现在大椭圆是沿着 X 轴依次排列（通过 currentX 递增实现）。如果要改成 沿 Y 轴排列，核心思路是：",
+        "sentence": "LLM 与 DST 的结合能显著提升对话状态追踪的能力，尤其是在复杂或长对话场景中。",
+        "slot": "LLM与DST结合",
+        "id": 6,
         "color": "#D6C3BF"
       }
     ],
     "color": "#8C5649"
+  },
+  {
+    "topic": "NLP主题抽取与发展",
+    "slots": [
+      {
+        "sentence": "LLM 与 DST 的结合能显著提升对话状态追踪的能力，尤其是在复杂或长对话场景中。",
+        "slot": "LLM与DST结合",
+        "id": 6,
+        "color": "#F4CFE9"
+      },
+      {
+        "sentence": "LLM 可以提升 DST 的“理解和推理能力”，DST 则保证信息结构化和可追踪性。",
+        "slot": "LLM提升DST能力",
+        "id": 6,
+        "color": "#F4CFE9"
+      },
+      {
+        "sentence": "LLM 可以作为“理解和推理引擎”，而 DST 负责“状态管理和结构化存储”，两者互补。",
+        "slot": "LLM与DST互补",
+        "id": 6,
+        "color": "#F4CFE9"
+      }
+    ],
+    "color": "#E277C1"
+  },
+  {
+    "topic": "对话状态追踪与长对话分析",
+    "slots": [
+      {
+        "sentence": "DST格式是什么",
+        "slot": "DST格式",
+        "id": 7,
+        "color": "#B0CFF6"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "NLP主题抽取与发展",
+    "slots": [
+      {
+        "sentence": "DST格式本质上是一个字典/JSON形式的层次结构，顶层通常是对话领域，下一层是槽位与值，再加上用户意图信息。",
+        "slot": "DST格式结构",
+        "id": 8,
+        "color": "#F4CFE9"
+      }
+    ],
+    "color": "#E277C1"
+  },
+  {
+    "topic": "对话状态追踪与长对话分析",
+    "slots": [
+      {
+        "sentence": "slot里面会有多个值吗",
+        "slot": "DST槽位多值",
+        "id": 11,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "我可以使用一些子模型与LLM相配合吗，例如主题提取，任务识别这种子模型",
+        "slot": "子模型与LLM结合",
+        "id": 13,
+        "color": "#B0CFF6"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "大语言模型与子模型结合",
+    "slots": [
+      {
+        "sentence": "LLM 和专门的子模型 配合使用，可以在长对话分析中既保证精度，又控制计算成本。",
+        "slot": "LLM与子模型配合",
+        "id": 14,
+        "color": "#FFC9A9"
+      },
+      {
+        "sentence": "LLM 做高层理解和推理，子模型做特定任务抽取和结构化处理。",
+        "slot": "LLM与子模型任务分工",
+        "id": 14,
+        "color": "#FFC9A9"
+      },
+      {
+        "sentence": "LLM 综合上下文 + 子模型输出 → 抽取问题/意图/复杂槽位 → 更新 DST",
+        "slot": "LLM与子模型结合更新DST",
+        "id": 14,
+        "color": "#FFC9A9"
+      }
+    ],
+    "color": "#FF660C"
+  },
+  {
+    "topic": "NLP主题抽取与发展",
+    "slots": [
+      {
+        "sentence": "子模型处理“结构化、规则化任务”，效率高",
+        "slot": "子模型处理任务",
+        "id": 14,
+        "color": "#F4CFE9"
+      },
+      {
+        "sentence": "LLM处理“复杂理解、推理、隐含问题抽取”",
+        "slot": "LLM处理复杂理解",
+        "id": 14,
+        "color": "#F4CFE9"
+      }
+    ],
+    "color": "#E277C1"
+  },
+  {
+    "topic": "对话状态追踪与长对话分析",
+    "slots": [
+      {
+        "sentence": "如果我的方法使用了LLM和子模型还有DST，那整个过程是什么样的",
+        "slot": "LLM与子模型结合流程",
+        "id": 15,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "子模型在LLM抽取之前使用吗？",
+        "slot": "子模型与LLM顺序",
+        "id": 17,
+        "color": "#B0CFF6"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "NLP主题抽取与发展",
+    "slots": [
+      {
+        "sentence": "LLM 用于复杂信息抽取、隐含问题识别",
+        "slot": "LLM信息抽取",
+        "id": 18,
+        "color": "#F4CFE9"
+      }
+    ],
+    "color": "#E277C1"
+  },
+  {
+    "topic": "对话状态追踪与长对话分析",
+    "slots": [
+      {
+        "sentence": "如果我是想对长对话当中的关键信息抽取，子模型在哪里使用会比较好",
+        "slot": "子模型在长对话中的位置",
+        "id": 19,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "给我个例子，说明子模型是如何筛选的，一个长对话的例子",
+        "slot": "子模型筛选示例",
+        "id": 21,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "这个例子中，子模型输入到LLM当中的内容是什么",
+        "slot": "子模型输出给LLM的内容",
+        "id": 23,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "大模型会输出什么",
+        "slot": "大模型输出内容",
+        "id": 25,
+        "color": "#B0CFF6"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "大模型功能与应用",
+    "slots": [
+      {
+        "sentence": "LLM 可以提升 DST 的“理解和推理能力”，DST 则保证信息结构化和可追踪性。",
+        "slot": "LLM提升DST能力",
+        "id": 26,
+        "color": "#D6C3BF"
+      }
+    ],
+    "color": "#8C5649"
+  },
+  {
+    "topic": "对话状态追踪与长对话分析",
+    "slots": [
+      {
+        "sentence": "大模型输出给DST的内容是什么",
+        "slot": "大模型输出给DST",
+        "id": 27,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "所以LLM输出给DST的内容就已经是DST格式的了吗？",
+        "slot": "LLM输出DST格式",
+        "id": 29,
+        "color": "#B0CFF6"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "大语言模型与子模型结合",
+    "slots": [
+      {
+        "sentence": "LLM 抽取并输出 DST格式数据 → DST更新状态",
+        "slot": "LLM输出DST格式",
+        "id": 30,
+        "color": "#FFC9A9"
+      }
+    ],
+    "color": "#FF660C"
+  },
+  {
+    "topic": "大模型功能与应用",
+    "slots": [
+      {
+        "sentence": "LLM 的任务是把长对话中的关键信息理解、抽取并转换成 DST 可直接使用的结构化形式。",
+        "slot": "LLM抽取关键信息",
+        "id": 30,
+        "color": "#D6C3BF"
+      }
+    ],
+    "color": "#8C5649"
+  },
+  {
+    "topic": "对话状态追踪与长对话分析",
+    "slots": [
+      {
+        "sentence": "我想让你帮我模拟生成一段长对话，总体对话轮数在30-50轮左右",
+        "slot": "长对话模拟生成",
+        "id": 33,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "我想你帮我把这段模拟对话当中的关键信息都抽取出来，例如主题，任务，问题。",
+        "slot": "长对话关键信息抽取",
+        "id": 35,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "长对话在会议记录当中有什么作用",
+        "slot": "长对话在会议记录中的作用",
+        "id": 45,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "对这段话进行主题抽取",
+        "slot": "主题抽取",
+        "id": 57,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "这些主题能转换成DST格式吗",
+        "slot": "主题转换为DST格式",
+        "id": 59,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "将每个domain，slots，value都展示出来",
+        "slot": "展示DST结构",
+        "id": 61,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "这段对话传入到小模型（主题模型）当中会将对话的主题抽取出来吗",
+        "slot": "小模型主题抽取",
+        "id": 63,
+        "color": "#B0CFF6"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "NLP主题抽取与发展",
+    "slots": [
+      {
+        "sentence": "小模型（主题模型）先粗分出 主题范围（比如“学业” vs “运动”）。",
+        "slot": "小模型主题粗分",
+        "id": 64,
+        "color": "#F4CFE9"
+      },
+      {
+        "sentence": "LLM 再进一步抽取 具体任务/问题（比如“准备小测”“跑步晨跑还是夜跑”）。",
+        "slot": "LLM任务抽取",
+        "id": 64,
+        "color": "#F4CFE9"
+      }
+    ],
+    "color": "#E277C1"
+  },
+  {
+    "topic": "对话状态追踪与长对话分析",
+    "slots": [
+      {
+        "sentence": "那我将小模型抽取出的结果传入到LLM当中，让其将对话中的关键信息抽取出来，LLM会抽出来什么",
+        "slot": "小模型结果传入LLM",
+        "id": 65,
+        "color": "#B0CFF6"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "大语言模型与子模型结合",
+    "slots": [
+      {
+        "sentence": "LLM 利用主题上下文，抽取 具体问题、任务、槽位信息、状态、情绪。",
+        "slot": "LLM抽取具体信息",
+        "id": 66,
+        "color": "#FFC9A9"
+      }
+    ],
+    "color": "#FF660C"
+  },
+  {
+    "topic": "对话状态追踪与长对话分析",
+    "slots": [
+      {
+        "sentence": "小模型其实并没有将关键的具体信息或者任务抽取出来，只是处理了无关紧要的对话吗",
+        "slot": "小模型处理无关对话",
+        "id": 67,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "小模型怎么和大模型进行结合",
+        "slot": "小模型与大模型结合",
+        "id": 97,
+        "color": "#B0CFF6"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "大模型功能与应用",
+    "slots": [
+      {
+        "sentence": "小模型和大模型结合的方式，其实就是“分工协作”：小模型负责“快而专”，大模型负责“强而全”。",
+        "slot": "小模型与大模型结合",
+        "id": 98,
+        "color": "#D6C3BF"
+      }
+    ],
+    "color": "#8C5649"
+  },
+  {
+    "topic": "对话状态追踪与长对话分析",
+    "slots": [
+      {
+        "sentence": "我可以用大模型的prompt实现小模型＋大模型的效果吗",
+        "slot": "大模型Prompt实现结合",
+        "id": 99,
+        "color": "#B0CFF6"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "大模型功能与应用",
+    "slots": [
+      {
+        "sentence": "可以通过 精心设计 Prompt，让大模型“模拟”小模型的功能。",
+        "slot": "大模型模拟小模型功能",
+        "id": 100,
+        "color": "#D6C3BF"
+      }
+    ],
+    "color": "#8C5649"
+  },
+  {
+    "topic": "对话状态追踪与长对话分析",
+    "slots": [
+      {
+        "sentence": "我想从一段长对话当中先进性小模型（主题模型）进行一个大致的过滤，然后将过滤出来的信息再让大模型进行抽取，这样抽取效果是不是更好一点",
+        "slot": "小模型过滤后大模型抽取",
+        "id": 103,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "小模型过滤你推荐我用那些模型",
+        "slot": "小模型过滤模型推荐",
+        "id": 105,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "我需要BERTopic",
+        "slot": "BERTopic需求",
+        "id": 107,
+        "color": "#B0CFF6"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "Python环境管理与软件配置",
+    "slots": [
+      {
+        "sentence": "我想在anaconda里面创建一个python3.11的环境",
+        "slot": "Anaconda 环境创建",
+        "id": 121,
+        "color": "#F9B3B3"
+      }
+    ],
+    "color": "#EF2628"
+  },
+  {
+    "topic": "对话状态追踪与长对话分析",
+    "slots": [
+      {
+        "sentence": "大模型有记忆裁剪的功能吗",
+        "slot": "大模型记忆裁剪功能",
+        "id": 174,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "大模型API有遗忘功能吗",
+        "slot": "大模型API遗忘功能",
+        "id": 176,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "介绍一下BERTopic",
+        "slot": "BERTopic介绍",
+        "id": 178,
+        "color": "#B0CFF6"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "主题模型与BERTopic应用",
+    "slots": [
+      {
+        "sentence": "BERTopic 是一个基于 Transformers 和 主题建模 (Topic Modeling) 的 Python 库。",
+        "slot": "BERTopic 库介绍",
+        "id": 178,
+        "color": "#B4E6B4"
+      },
+      {
+        "sentence": "它结合了 BERT 等预训练语言模型的文本向量表示 和 聚类方法 (HDBSCAN)，用来自动发现和可视化文档集合中的主题。",
+        "slot": "BERTopic 功能",
+        "id": 178,
+        "color": "#B4E6B4"
+      }
+    ],
+    "color": "#2BBA2B"
+  },
+  {
+    "topic": "大模型功能与应用",
+    "slots": [
+      {
+        "sentence": "BERTopic 是一种基于 BERT 句向量 + 聚类 + 主题归纳 的主题建模方法。",
+        "slot": "BERTopic主题建模",
+        "id": 178,
+        "color": "#D6C3BF"
+      }
+    ],
+    "color": "#8C5649"
+  },
+  {
+    "topic": "NLP主题抽取与发展",
+    "slots": [
+      {
+        "sentence": "BERTopic 是一种基于 BERT 句向量 + 聚类 + 主题归纳 的主题建模方法。",
+        "slot": "BERTopic主题建模",
+        "id": 178,
+        "color": "#F4CFE9"
+      },
+      {
+        "sentence": "BERTopic 的主题建模大致分 4 步：文本嵌入、降维、聚类、主题词提取。",
+        "slot": "BERTopic建模步骤",
+        "id": 178,
+        "color": "#F4CFE9"
+      }
+    ],
+    "color": "#E277C1"
+  },
+  {
+    "topic": "主题模型与BERTopic应用",
+    "slots": [
+      {
+        "sentence": "BERTopic 的主题建模大致分 4 步：文本嵌入 (Embeddings)、降维 (UMAP)、聚类 (HDBSCAN)、主题词提取 (c-TF-IDF)。",
+        "slot": "BERTopic 主题建模流程",
+        "id": 179,
+        "color": "#B4E6B4"
+      },
+      {
+        "sentence": "BERTopic 是一种结合深度学习和主题建模的方法，能更好地从文本中发现和解释主题。",
+        "slot": "BERTopic 结合深度学习",
+        "id": 179,
+        "color": "#B4E6B4"
+      }
+    ],
+    "color": "#2BBA2B"
+  },
+  {
+    "topic": "NLP主题抽取与发展",
+    "slots": [
+      {
+        "sentence": "BERTopic 是一种结合深度学习和主题建模的方法，能更好地从文本中发现和解释主题。",
+        "slot": "BERTopic结合深度学习",
+        "id": 179,
+        "color": "#F4CFE9"
+      }
+    ],
+    "color": "#E277C1"
+  },
+  {
+    "topic": "对话状态追踪与长对话分析",
+    "slots": [
+      {
+        "sentence": "从长对话中抽取主题的这个流程经过了哪些发展过程",
+        "slot": "长对话主题抽取发展过程",
+        "id": 182,
+        "color": "#B0CFF6"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "Python环境管理与软件配置",
+    "slots": [
+      {
+        "sentence": "我想卸载anaconda和python环境，重新下载",
+        "slot": "Anaconda 卸载与重装",
+        "id": 192,
+        "color": "#F9B3B3"
+      },
+      {
+        "sentence": "我准备下载一个py3.12的miniconda",
+        "slot": "Miniconda 下载",
+        "id": 194,
+        "color": "#F9B3B3"
+      },
+      {
+        "sentence": "我需要创建一个虚拟环境吗，不能直接使用base吗",
+        "slot": "虚拟环境创建",
+        "id": 202,
+        "color": "#F9B3B3"
+      },
+      {
+        "sentence": "我想在PATH里面加入pip",
+        "slot": "PATH 配置",
+        "id": 246,
+        "color": "#F9B3B3"
+      }
+    ],
+    "color": "#EF2628"
+  },
+  {
+    "topic": "主题模型与BERTopic应用",
+    "slots": [
+      {
+        "sentence": "BERTopic 默认用 class-based TF-IDF (c-TF-IDF)。",
+        "slot": "BERTopic 关键词提取方法",
+        "id": 281,
+        "color": "#B4E6B4"
+      },
+      {
+        "sentence": "BERTopic 是一个「无监督主题建模」工具，本质上是为了 一堆文档 做聚类和主题总结的。",
+        "slot": "BERTopic 无监督建模",
+        "id": 285,
+        "color": "#B4E6B4"
+      },
+      {
+        "sentence": "BERTopic 提供了 语义空间的初步结构，LLM 不用从零开始整理，能减少成本。",
+        "slot": "BERTopic 语义空间结构",
+        "id": 288,
+        "color": "#B4E6B4"
+      }
+    ],
+    "color": "#2BBA2B"
+  },
+  {
+    "topic": "对话处理与前后端集成",
+    "slots": [
+      {
+        "sentence": "BERTopic 提供了语义空间的初步结构，LLM 不用从零开始整理，能减少成本。",
+        "slot": "语义空间初步结构",
+        "id": 289,
+        "color": "#D9C9F0"
+      }
+    ],
+    "color": "#9366D6"
+  },
+  {
+    "topic": "大模型功能与应用",
+    "slots": [
+      {
+        "sentence": "BERTopic + LLM 的组合能够显著提升长对话中关键信息的抽取效果。",
+        "slot": "BERTopic与LLM结合",
+        "id": 289,
+        "color": "#D6C3BF"
+      },
+      {
+        "sentence": "BERTopic 提供了 语义空间的初步结构，LLM 不用从零开始整理，能减少成本。",
+        "slot": "BERTopic语义结构",
+        "id": 289,
+        "color": "#D6C3BF"
+      }
+    ],
+    "color": "#8C5649"
+  },
+  {
+    "topic": "主题模型与BERTopic应用",
+    "slots": [
+      {
+        "sentence": "BERTopic 的职责其实就是做一个 无监督的语义聚类器。",
+        "slot": "BERTopic 语义聚类",
+        "id": 290,
+        "color": "#B4E6B4"
+      }
+    ],
+    "color": "#2BBA2B"
+  },
+  {
+    "topic": "大语言模型与子模型结合",
+    "slots": [
+      {
+        "sentence": "BERTopic + LLM → 得到簇和关键词 → GPT 自动生成主题名字，并过滤掉无关簇",
+        "slot": "BERTopic与LLM结合",
+        "id": 291,
+        "color": "#FFC9A9"
+      }
+    ],
+    "color": "#FF660C"
+  },
+  {
+    "topic": "主题模型与BERTopic应用",
+    "slots": [
+      {
+        "sentence": "BERTopic 负责“结构化”（帮你把长对话切成几大块，减少 LLM 压力）。",
+        "slot": "BERTopic 结构化功能",
+        "id": 291,
+        "color": "#B4E6B4"
+      }
+    ],
+    "color": "#2BBA2B"
+  },
+  {
+    "topic": "对话处理与前后端集成",
+    "slots": [
+      {
+        "sentence": "BERTopic 的职责其实就是做一个无监督的语义聚类器。",
+        "slot": "无监督语义聚类",
+        "id": 291,
+        "color": "#D9C9F0"
+      },
+      {
+        "sentence": "你可以把每个簇里的句子丢给 LLM，让它判断这些是不是一个潜在的主题。",
+        "slot": "主题判断",
+        "id": 293,
+        "color": "#D9C9F0"
+      }
+    ],
+    "color": "#9366D6"
+  },
+  {
+    "topic": "大语言模型与子模型结合",
+    "slots": [
+      {
+        "sentence": "LLM 可以在 BERTopic 的基础上继续细分主题簇，甚至构建「层级主题树」",
+        "slot": "LLM细分主题簇",
+        "id": 295,
+        "color": "#FFC9A9"
+      }
+    ],
+    "color": "#FF660C"
+  },
+  {
+    "topic": "大模型功能与应用",
+    "slots": [
+      {
+        "sentence": "LLM 可以根据语义对大类进行子主题划分并命名。",
+        "slot": "LLM子主题划分",
+        "id": 295,
+        "color": "#D6C3BF"
+      }
+    ],
+    "color": "#8C5649"
+  },
+  {
+    "topic": "对话处理与前后端集成",
+    "slots": [
+      {
+        "sentence": "前端输入 → BERTopic 预处理",
+        "slot": "前端输入预处理",
+        "id": 299,
+        "color": "#D9C9F0"
+      },
+      {
+        "sentence": "用 BERTopic 对句子做语义聚类（主题分组）。",
+        "slot": "语义聚类",
+        "id": 303,
+        "color": "#D9C9F0"
+      },
+      {
+        "sentence": "用 BERTopic 做初步聚类。",
+        "slot": "初步聚类",
+        "id": 305,
+        "color": "#D9C9F0"
+      },
+      {
+        "sentence": "后端用 BERTopic 先聚类，返回粗聚类结果（你的小模型结果）。",
+        "slot": "后端聚类处理",
+        "id": 315,
+        "color": "#D9C9F0"
+      },
+      {
+        "sentence": "你把整个对话上下文（user + bot）都传给了后端。",
+        "slot": "对话上下文传递",
+        "id": 325,
+        "color": "#D9C9F0"
+      },
+      {
+        "sentence": "前端把所有 user + bot 的消息传过来。",
+        "slot": "前端消息传递",
+        "id": 327,
+        "color": "#D9C9F0"
+      },
+      {
+        "sentence": "用 BERTopic 做主题聚类，减少冗余。",
+        "slot": "主题聚类",
+        "id": 327,
+        "color": "#D9C9F0"
+      }
+    ],
+    "color": "#9366D6"
   }
 ]

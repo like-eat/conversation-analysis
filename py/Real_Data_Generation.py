@@ -1,6 +1,6 @@
 import json
 import os
-from LLM_Extraction import llm_extract_information_incremental, topic_extraction
+from LLM_Extraction import llm_extract_information_incremental, Semantic_pre_scanning, Topic_cleaning, Topic_Allocation
 from Methods import assign_colors, merge_topics_timeline
 
 CHECKPOINT_PATH = "py/conversation_example/ChatGPT-DST-checkpoint.json"
@@ -93,16 +93,112 @@ def parse_conversation(file_path):
 def chunk_text(text, max_chars=40000):
     """把长文本切成安全的多段"""
     chunks = []
-    while len(text) > max_chars:
-        # 尽量在句号后切
-        split_idx = text.rfind("。", 0, max_chars)
-        if split_idx == -1:
-            split_idx = max_chars
-        chunks.append(text[:split_idx+1])
-        text = text[split_idx+1:]
-    if text.strip():
-        chunks.append(text)
+    current_chunk = []
+    current_length = 0
+
+    for line in text.split("\n"):
+        line_length = len(line)
+        if current_length + line_length > max_chars:
+            if current_chunk:
+                chunks.append(current_chunk)
+            current_chunk = [line]
+            current_length = line_length
+        else:
+            current_chunk.append(line)
+            current_length += line_length
+
+    if current_chunk:
+        chunks.append(current_chunk)
+
     return chunks
+
+def segment_by_timeline(topics):
+
+    # 1. 先把所有 slot 打平，变成一个按句子粒度的列表
+    flat_items = []
+    for t in topics:
+        topic_name = t.get("topic")
+        topic_color = t.get("color")
+        for s in t.get("slots", []):
+            flat_items.append({
+                "topic": topic_name,
+                "topic_color": topic_color,
+                "id": int(s["id"]),
+                "sentence": s.get("sentence"),
+                "slot": s.get("slot"),
+                "color": s.get("color"),
+            })
+
+    # 2. 按 id 从小到大排序 —— 严格时间顺序
+    flat_items.sort(key=lambda x: x["id"])
+
+    segments = []
+    current_topic = None
+    current_topic_color = None
+    current_slots = []
+
+    def flush_segment():
+        nonlocal current_topic, current_topic_color, current_slots
+        if not current_topic or not current_slots:
+            return
+        
+        # 段内按 id 再保险排一下，并可选做去重（按 sentence）
+        best_by_slot = {}
+        for s in current_slots:
+            slot_name = s.get("slot")
+            if not slot_name:
+                continue
+            if slot_name not in best_by_slot:
+                best_by_slot[slot_name] = s
+            else:
+                # 如果当前这条的 id 更小，就替换
+                if s["id"] < best_by_slot[slot_name]["id"]:
+                    best_by_slot[slot_name] = s
+                    
+         # 段内按 id 再排一次
+        uniq_slots = sorted(best_by_slot.values(), key=lambda x: x["id"])
+
+        if uniq_slots:
+            segments.append({
+                "topic": current_topic,
+                "slots": uniq_slots,
+                "color": current_topic_color,
+            })
+        current_topic = None
+        current_topic_color = None
+        current_slots = []
+
+    # 3. 沿时间轴扫描，topic 一变就切一段
+    for item in flat_items:
+        t = item["topic"]
+        tc = item["topic_color"]
+        slot = {
+            "sentence": item["sentence"],
+            "slot": item["slot"],
+            "id": item["id"],
+            "color": item["color"],
+        }
+
+        if current_topic is None:
+            # 第一条
+            current_topic = t
+            current_topic_color = tc
+            current_slots = [slot]
+        else:
+            if t == current_topic:
+                # 同一个 topic，归到当前段
+                current_slots.append(slot)
+            else:
+                # topic 发生切换，先收尾前一段，再开新段
+                flush_segment()
+                current_topic = t
+                current_topic_color = tc
+                current_slots = [slot]
+
+    # 收最后一段
+    flush_segment()
+    return segments
+
 
 def process_conversation(file_path):
 
@@ -114,13 +210,32 @@ def process_conversation(file_path):
     
     for i, chunk in enumerate(chunks, 1):
         print(f"🧠 第 {i}/{len(chunks)} 段抽取中...")
-        result = topic_extraction(chunk)            
+        # 生成 chunk 格式保持结构的对话列表
+        chunk_messages = []
+        id_counter = 1
+        for line in chunk:
+            parts = line.split('] (')
+            if len(parts) == 2:
+                id_part, content = parts
+                role = content.split(") ")[0]
+                text = content.split(") ")[1] if len(content.split(") ")) > 1 else ""
+                chunk_messages.append({"id": id_counter, "role": role, "content": text.strip()})
+                id_counter += 1
+        # print("chunk_messages:", chunk_messages)
+        result = Semantic_pre_scanning(chunk_messages)  
+        print("result:", result)        
         all_results.extend(result)
-    colored_results = assign_colors(all_results)        
+    clear_results = Topic_cleaning(messages, all_results)
+    print("clear_results:", clear_results)
+    last_result = Topic_Allocation(messages, clear_results)
+    print("last_result:", last_result)
+    colored_results = assign_colors(last_result)   
+    print("colored_results:", colored_results)
+    segmented_results = segment_by_timeline(colored_results)
     with open(FINAL_PATH, "w", encoding="utf-8") as f:
-        json.dump(colored_results, f, ensure_ascii=False, indent=2)
+        json.dump(segmented_results, f, ensure_ascii=False, indent=2)
     print(f"✅ 处理完成，结果已保存：{FINAL_PATH}")
-    return colored_results
+    return segmented_results
 
 
     # print(f"🧩 共 {total} 条消息，准备从第 {last_id + 1} 条继续。")

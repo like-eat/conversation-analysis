@@ -1,0 +1,188 @@
+[
+  {
+    "topic": "对话状态追踪与长对话分析",
+    "slots": [
+      {
+        "sentence": "DST是什么",
+        "slot": "DST定义",
+        "id": 1,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "在对话系统（Dialog System）或对话管理（Dialog Management）领域，DST 通常指 Dialogue State Tracking（对话状态追踪）。它是对话系统的核心模块之一，主要用于跟踪和维护对话的上下文状态。",
+        "slot": "DST功能",
+        "id": 2,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "对话状态跟踪可以应用到长对话分析中吗",
+        "slot": "DST在长对话中的应用",
+        "id": 3,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "完全可以，而且在长对话分析中，DST（对话状态追踪）非常关键。",
+        "slot": "DST在长对话中的应用",
+        "id": 4,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "DST可以和LLM结合起来吗",
+        "slot": "DST与LLM结合",
+        "id": 5,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "DST格式是什么",
+        "slot": "DST格式",
+        "id": 7,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "DST格式类似于树结构吗，domain是父节点，每个slot是一个子节点",
+        "slot": "DST结构",
+        "id": 9,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "slot里面会有多个值吗",
+        "slot": "DST多值槽位",
+        "id": 11,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "如果我是想对长对话当中的关键信息抽取，子模型在哪里使用会比较好",
+        "slot": "长对话关键信息抽取",
+        "id": 19,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "长对话在会议记录当中有什么作用",
+        "slot": "长对话在会议记录中的作用",
+        "id": 45,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "介绍一下什么是DST",
+        "slot": "DST定义",
+        "id": 77,
+        "color": "#B0CFF6"
+      },
+      {
+        "sentence": "介绍一下DST格式是什么",
+        "slot": "DST格式",
+        "id": 79,
+        "color": "#B0CFF6"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "大语言模型与子模型结合",
+    "slots": [
+      {
+        "sentence": "完全可以，而且这是近年来长对话分析和对话系统研究的一个趋势。",
+        "slot": "LLM与子模型结合趋势",
+        "id": 6,
+        "color": "#FFC9A9"
+      },
+      {
+        "sentence": "小模型在LLM抽取之前使用吗？",
+        "slot": "小模型与LLM的顺序",
+        "id": 17,
+        "color": "#FFC9A9"
+      },
+      {
+        "sentence": "小模型其实并没有将关键的具体信息或者任务抽取出来，只是处理了无关紧要的对话吗",
+        "slot": "小模型功能",
+        "id": 67,
+        "color": "#FFC9A9"
+      },
+      {
+        "sentence": "小模型怎么和大模型进行结合",
+        "slot": "小模型与大模型结合方式",
+        "id": 97,
+        "color": "#FFC9A9"
+      },
+      {
+        "sentence": "我可以用大模型的prompt实现小模型＋大模型的效果吗",
+        "slot": "大模型Prompt实现小模型效果",
+        "id": 99,
+        "color": "#FFC9A9"
+      },
+      {
+        "sentence": "我想从一段长对话当中先进性小模型（主题模型）进行一个大致的过滤，然后将过滤出来的信息再让大模型进行抽取，这样抽取效果是不是更好一点",
+        "slot": "小模型过滤与大模型抽取",
+        "id": 103,
+        "color": "#FFC9A9"
+      }
+    ],
+    "color": "#FF660C"
+  },
+  {
+    "topic": "主题模型与BERTopic",
+    "slots": [
+      {
+        "sentence": "主题模型有哪些",
+        "slot": "主题模型种类",
+        "id": 101,
+        "color": "#B4E6B4"
+      },
+      {
+        "sentence": "我需要BERTopic",
+        "slot": "BERTopic需求",
+        "id": 107,
+        "color": "#B4E6B4"
+      },
+      {
+        "sentence": "ModuleNotFoundError: No module named 'bertopic'",
+        "slot": "BERTopic安装问题",
+        "id": 109,
+        "color": "#B4E6B4"
+      },
+      {
+        "sentence": "ImportError: cannot import name 'HDBSCAN' from 'sklearn.cluster'",
+        "slot": "HDBSCAN导入错误",
+        "id": 111,
+        "color": "#B4E6B4"
+      },
+      {
+        "sentence": "Traceback (most recent call last): File \"c:\\Users\\PC\\Desktop\\code_vis25\\long_conversation\\LLM-long_conversation\\py\\BERTopic.py\", line 1, in from bertopic import BERTopic ModuleNotFoundError: No module named 'bertopic'",
+        "slot": "BERTopic导入错误",
+        "id": 125,
+        "color": "#B4E6B4"
+      }
+    ],
+    "color": "#2BBA2B"
+  },
+  {
+    "topic": "Python环境管理",
+    "slots": [
+      {
+        "sentence": "anconda怎么创建一个虚拟环境",
+        "slot": "Anaconda创建虚拟环境",
+        "id": 119,
+        "color": "#F9B3B3"
+      },
+      {
+        "sentence": "我想在anaconda里面创建一个python3.11的环境",
+        "slot": "Anaconda创建Python3.11环境",
+        "id": 121,
+        "color": "#F9B3B3"
+      },
+      {
+        "sentence": "我创建好了这个虚拟环境，我怎么在VScode里面使用呢",
+        "slot": "VSCode使用虚拟环境",
+        "id": 123,
+        "color": "#F9B3B3"
+      },
+      {
+        "sentence": "vscode里面怎么更换python解释器",
+        "slot": "VSCode更换Python解释器",
+        "id": 127,
+        "color": "#F9B3B3"
+      }
+    ],
+    "color": "#EF2628"
+  }
+]
