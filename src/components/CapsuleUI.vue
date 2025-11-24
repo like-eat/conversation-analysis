@@ -5,7 +5,8 @@
     </div>
     <div ref="UIcontainer" class="capsule-body"></div>
     <button class="bottom-left-btn" @click="ClearLines">清除线条</button>
-    <button class="bottom-right-btn" @click="AddTalk">新开分支</button>
+    <button class="bottom-mid-btn" @click="AddTalk">新开分支</button>
+    <button class="bottom-right-btn" @click="Enlarge">放大区域</button>
   </div>
 </template>
 
@@ -25,6 +26,13 @@ const topicColorMap: Record<string, string> = {}
 //导航栏宽度和中心点x坐标
 const navWidths: Record<string, number> = {}
 const navCentersX: Record<string, number> = {}
+
+let Enlarge = () => {
+  console.log('放大区域：当前还没有初始化画布或未选中 topic')
+}
+
+// 是否处在“放大模式”
+let isLensMode = false
 
 // 存储真实对话
 const data = ref<Conversation[]>([])
@@ -93,7 +101,7 @@ function drawUI(data: Conversation[]) {
   let lensY1 = 300
   let lensY2 = 900
 
-  const LENS_SCALE = 2.5
+  const LENS_SCALE = 3
 
   // 用 canvas 比较稳定地测量文字宽度
   function measureTextWidth(text: string, font = `${navFontSize}px sans-serif`) {
@@ -115,9 +123,9 @@ function drawUI(data: Conversation[]) {
   const lensLayer = g.append('g').attr('class', 'lens-layer') // 放大效果单独一层
 
   const redrawLens = () => {
+    if (!activeTopic || !isLensMode) return
     lensLayer.selectAll('*').remove()
-    if (!activeTopic) return
-    buildOverlay(
+    buildOverlayLens(
       activeTopic,
       lensLayer,
       topicColorMap,
@@ -128,6 +136,7 @@ function drawUI(data: Conversation[]) {
       data,
     )
   }
+
   // 拖拽行为：上下拖动线条，更新 y1 / y2
   function makeLineDrag(which: 'y1' | 'y2') {
     return d3
@@ -150,7 +159,9 @@ function drawUI(data: Conversation[]) {
         d3.select(this).attr('y1', newY).attr('y2', newY)
 
         // 【新增】拖动线时，更新放大层
-        redrawLens()
+        if (isLensMode) {
+          redrawLens()
+        }
       })
   }
   // 在 svg 上画出两条水平线
@@ -352,7 +363,22 @@ function drawUI(data: Conversation[]) {
         if (!activeTopic) {
           hideBase(topicKey)
           activeTopic = topicKey
-          redrawLens()
+
+          // 进入“普通展开模式”
+          isLensMode = false
+          lensLayer.selectAll('*').remove()
+
+          // 画一个不带放大的全屏 overlay
+          buildOverlayFull(
+            topicKey,
+            lensLayer,
+            topicColorMap,
+            lineHeight,
+            fontSize,
+            padding,
+            onSlotClick,
+            data,
+          )
         }
       })
   })
@@ -464,7 +490,91 @@ function drawUI(data: Conversation[]) {
     lensLayer.selectAll(`.overlay-${topicKey}`).remove()
   }
 
-  function buildOverlay(
+  function buildOverlayFull(
+    topicKey: string,
+    g: d3.Selection<SVGGElement, unknown, null, undefined>,
+    topicColorMap: Record<string, string>,
+    lineHeight: number,
+    fontSize: number,
+    padding: number,
+    onSlotClick: (id: number) => void,
+    dataArr: Conversation[],
+  ) {
+    const items = dataArr.filter((d) => d.topic === topicKey)
+    if (!items.length) return
+
+    type SlotEx = Slot & { x?: number; y?: number; rw?: number; rh?: number }
+
+    const allSlots: SlotEx[] = items
+      .flatMap((it) => (it.slots || []).map((s) => ({ ...s }) as SlotEx))
+      .sort((a, b) => (Number(a.id) || 0) - (Number(b.id) || 0))
+
+    if (!allSlots.length) return
+
+    const base = items[0]
+    const cx = base.cx!
+    const rx = base.w!
+
+    const slotRH = (len: number) => (len * fontSize * 1) / 5
+    const slotRW = (len: number, rx: number) => Math.min((len * fontSize * 0.7) / 5, rx * 0.9)
+
+    allSlots.forEach((s) => {
+      const L = s.slot.length
+      s.rw = slotRW(L, rx)
+      s.rh = slotRH(L)
+    })
+
+    // 垂直方向从 topMargin 到 height-bottomMargin 铺满
+    const outerTop = topMargin
+    const outerBottom = height - bottomMargin
+    const outerSpan = outerBottom - outerTop
+    let yCursor = outerTop + padding
+    const totalH =
+      allSlots.reduce((acc, s) => acc + (s.rh || 0) * 2 + padding, 0) + padding || outerSpan
+
+    const scaleY = outerSpan / totalH
+
+    allSlots.forEach((s) => {
+      const h = (s.rh || 0) * 2 + padding
+      const hScaled = h * scaleY
+      s.y = yCursor + hScaled / 2
+      s.x = cx
+      s.rh = (hScaled - padding) / 2
+      yCursor += hScaled
+    })
+
+    const minY = d3.min(allSlots, (s) => s.y!)!
+    const maxY = d3.max(allSlots, (s) => s.y!)!
+    const cy = (minY + maxY) / 2
+    const ry = (maxY - minY) / 2 + padding
+
+    const layer = g.append('g').attr('class', `overlay-${topicKey}`).attr('opacity', 1)
+
+    // 大胶囊：占满整列
+    layer
+      .append('path')
+      .attr('class', 'topic-expanded')
+      .attr('d', capsulePath(cx, cy, rx, ry))
+      .attr('fill', topicColorMap[topicKey])
+      .attr('fill-opacity', 1)
+
+    // 小胶囊
+    layer
+      .selectAll<SVGPathElement, SlotEx>('.slot')
+      .data(allSlots)
+      .enter()
+      .append('path')
+      .attr('class', 'slot')
+      .attr('d', (s) => capsulePath(s.x!, s.y!, s.rw!, s.rh!))
+      .attr('fill', (s) => s.color)
+      .attr('opacity', 0.95)
+      .on('click', (event, s) => {
+        event.stopPropagation()
+        onSlotClick(s.id)
+      })
+  }
+
+  function buildOverlayLens(
     topicKey: string,
     g: d3.Selection<SVGGElement, unknown, null, undefined>,
     topicColorMap: Record<string, string>,
@@ -574,15 +684,6 @@ function drawUI(data: Conversation[]) {
     })
 
     // ------------------- 第 3 步：宽度放大 -------------------
-    // 根据 Y 坐标和放大区域，调整小胶囊的宽度
-
-    allSlots.forEach((s) => {
-      const y = s.y!
-      const inLens = y >= Y1 && y <= Y2 // 只有在放大区域内的才变宽
-      s.rw = (s.baseRw || 0) * (inLens ? LENS_SCALE : 1)
-      s.rh = (s.rh || 0) * (inLens ? LENS_SCALE : 1)
-    })
-
     // 根据变换后的 y，算出大胶囊的中心和半高
     const minY2 = d3.min(allSlots, (s) => s.y!)!
     const maxY2 = d3.max(allSlots, (s) => s.y!)!
@@ -591,6 +692,36 @@ function drawUI(data: Conversation[]) {
 
     // ------------------- 第 4 步：绘制 overlay -------------------
     const layer = g.append('g').attr('class', `overlay-${topicKey}`).attr('opacity', 1)
+    // 给每个小胶囊一个赋值
+    allSlots.forEach((s) => {
+      const y = s.y!
+      const inLens = y >= Y1 && y <= Y2
+      s.rw = (s.baseRw || 0) * (inLens ? LENS_SCALE : 1)
+      s.rh = (s.rh || 0) * (inLens ? LENS_SCALE : 1)
+    })
+
+    // 筛选出放大区域内的小胶囊
+    const slotsInWindow = allSlots.filter((s) => s.y! >= Y1 && s.y! <= Y2)
+
+    const n = slotsInWindow.length
+
+    if (n > 0) {
+      const lensHeight = Y2 - Y1
+      const blockH = lensHeight / n // 每个胶囊占的“格子高度”
+      const capsuleScale = 0.7 // 胶囊本身高度占格子的比例
+      const capsuleH = blockH * capsuleScale
+
+      slotsInWindow.forEach((s, i) => {
+        // 中心位置均匀排布
+        s.y = Y1 + blockH * (i + 0.5)
+
+        // 半高（capsulePath 里 rh 是半高）
+        s.rh = capsuleH / 2
+
+        // 半宽可以稍微放大一点
+        s.rw = (s.baseRw || s.rw || 0 || rx * 0.5) * LENS_SCALE
+      })
+    }
 
     // ===== 3.1 放大区域的“大胶囊容器”（只覆盖 Y1~Y2） =====
     const maxRw = d3.max(allSlots, (s) => s.rw || 0) || rxLens
@@ -615,67 +746,43 @@ function drawUI(data: Conversation[]) {
       .attr('fill', topicColorMap[topicKey])
       .attr('fill-opacity', 1) // 半透明，不要挡住小胶囊
 
-    // ========== 3.3 只给「矩形区域内」的小胶囊加竖排文本 ==========
-    const slotsInLens = allSlots.filter((s) => s.y! >= Y1 && s.y! <= Y2)
-    const lensFontScale = LENS_SCALE
-    const lensFontSize = fontSize * lensFontScale
-    const lensLineHeight = lineHeight * lensFontScale
-
-    // ✅ 让小胶囊高度完全由“文字真实占用空间”决定
-    slotsInLens.forEach((s) => {
-      const charsLen = (s.slot || '').length || 1
-
-      // 竖排文字真实占用的总高度 ≈ (行距 * (n - 1)) + 字体高度
-      const textTotalHeight = (Math.max(charsLen, 1) - 1) * lensLineHeight + lensFontSize
-
-      // 小胶囊半高 = 总高度一半，再稍微乘一点 padding（比如 1.1）
-      const minRh = textTotalHeight / 2
-
-      s.rh = Math.max(s.rh || 0, minRh)
-    })
-
-    // 3.2 小胶囊
+    // ===== 4.4 只画“放大后的小胶囊” =====
     layer
       .selectAll<SVGPathElement, SlotEx>('.slot')
       .data(allSlots)
       .enter()
       .append('path')
       .attr('class', 'slot')
-      .attr('d', (s) => capsulePath(s.x!, s.y!, s.rw!, s.rh!)) // 用 rw（可能被放大）
+      .attr('d', (s) => capsulePath(s.x!, s.y!, s.rw!, s.rh!))
       .attr('fill', (s) => s.color)
       .attr('opacity', 0.95)
       .on('click', (event, s) => {
-        event.stopPropagation() // ⭐ 阻止冒泡到 svg
-        onSlotClick(s.id) // 继续你的定位逻辑
+        event.stopPropagation()
+        onSlotClick(s.id)
       })
+  }
 
-    layer
-      .selectAll<SVGGElement, SlotEx>('.slot-text')
-      .data(slotsInLens)
-      .enter()
-      .append('g')
-      .attr('class', 'slot-text')
-      .attr('transform', (s) => `translate(${s.x}, ${s.y})`)
-      .style('pointer-events', 'none') // 不挡住点击
-      .each(function (s) {
-        const gText = d3.select(this)
-        const chars = (s.slot || '').split('')
+  Enlarge = () => {
+    if (!activeTopic) {
+      console.log('请先点击某个 topic 进行展开，再使用放大区域')
+      return
+    }
 
-        // 竖排：让文本整体在小胶囊内垂直居中
-        const startY = -((chars.length - 1) * lensLineHeight) / 2
+    // 进入放大模式
+    isLensMode = true
 
-        chars.forEach((char, i) => {
-          gText
-            .append('text')
-            .attr('x', 0)
-            .attr('y', startY + i * lensLineHeight)
-            .attr('text-anchor', 'middle')
-            .attr('dominant-baseline', 'middle')
-            .attr('fill', '#fff')
-            .attr('font-size', lensFontSize)
-            .text(char)
-        })
-      })
+    // 清空当前 overlay，重新按 Y1/Y2 画放大版本
+    lensLayer.selectAll('*').remove()
+    buildOverlayLens(
+      activeTopic,
+      lensLayer,
+      topicColorMap,
+      lineHeight,
+      fontSize,
+      padding,
+      onSlotClick,
+      data,
+    )
   }
 }
 // 监听GPT返回内容的变化
@@ -742,7 +849,7 @@ onMounted(async () => {
 .bottom-left-btn {
   position: absolute;
   bottom: 10px;
-  left: 30%;
+  left: 10%;
   transform: translateX(-30%);
   padding: 10px 20px;
   border: none;
@@ -759,11 +866,34 @@ onMounted(async () => {
 .bottom-left-btn:hover {
   background-color: #0056b3;
 }
+
+/* 按钮固定在底部居中 */
+.bottom-mid-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 50%;
+  transform: translateX(-30%);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 9999px;
+  background-color: #007bff;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.bottom-mid-btn:hover {
+  background-color: #0056b3;
+}
+
 /* 按钮固定在底部居中 */
 .bottom-right-btn {
   position: absolute;
   bottom: 10px;
-  right: 30%;
+  right: 10%;
   transform: translateX(-30%);
   padding: 10px 20px;
   border: none;
