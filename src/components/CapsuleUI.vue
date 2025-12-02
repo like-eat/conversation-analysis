@@ -573,7 +573,7 @@ function drawUI(data: Conversation[]) {
         onSlotClick(s.id)
       })
   }
-
+  // 放大镜
   function buildOverlayLens(
     topicKey: string,
     g: d3.Selection<SVGGElement, unknown, null, undefined>,
@@ -803,7 +803,7 @@ watch(
 onMounted(async () => {
   try {
     // 1. 读取JSON文件（注意路径！）
-    const response = await fetch('/ChatGPT-DST-processed.json')
+    const response = await fetch('/ChatGPT-xinli-processed.json')
     console.log('response:', response)
     // 2. 解析为JS对象
     const json: Conversation[] = await response.json()
@@ -893,7 +893,7 @@ onMounted(async () => {
 .bottom-right-btn {
   position: absolute;
   bottom: 10px;
-  right: 10%;
+  right: 30%;
   transform: translateX(-30%);
   padding: 10px 20px;
   border: none;

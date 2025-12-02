@@ -347,6 +347,7 @@ def Topic_Allocation(history, cleaned_topics, top_k_chunks=6):
             - "sentence": 对话中的原文句子（必须与上面某一行的 content 完全一致，可以包含前后少量标点，但不要自行改写）
             - "slot": 该句子对应的二级子主题名称（简短、具体的名词短语或动宾短语）
             - "id": 该句子对应行前面的 id（整数）
+            - "sentiment": 该句子的情绪分数，范围 -1 (最负面，如沮丧、批评) 到 1 (最正面，如赞美、乐观)，0 表示中性。根据 sentence 的整体情感评估，让分数更具区分度（避免过多中性值，如果有强烈情感则偏向极端）。
 
             具体要求：
             1. 只考虑与一级主题 "{topic_name}" 明确相关的句子；
@@ -355,8 +356,8 @@ def Topic_Allocation(history, cleaned_topics, top_k_chunks=6):
             4. 严格输出 JSON 数组，不要包含任何解释性文字，也不要使用代码块标记。
             示例输出（示意）：
             [
-              {{"sentence": "我们需要改进 SWMM 模型的参数校准过程。", "slot": "SWMM 参数校准", "id": 45}},
-              {{"sentence": "本次主要讨论 DrainScope 中的排水风险指标可视分析。", "slot": "排水风险指标可视分析", "id": 52}}
+              {{"sentence": "我们需要改进 SWMM 模型的参数校准过程。", "slot": "SWMM 参数校准", "id": 45, "sentiment": 0.2}},
+              {{"sentence": "本次主要讨论 DrainScope 中的排水风险指标可视分析。", "slot": "排水风险指标可视分析", "id": 52, "sentiment": -0.1}}
             ]
         """
 
@@ -405,12 +406,14 @@ def Topic_Allocation(history, cleaned_topics, top_k_chunks=6):
                 sid = int(s.get("id"))
             except Exception:
                 continue
+            sentiment = s.get("sentiment", 0.0)  # 默认 0，如果缺失
             if not sent or not slot_name:
                 continue
             norm_slots.append({
                 "sentence": sent,
                 "slot": slot_name,
-                "id": sid
+                "id": sid,
+                "sentiment": sentiment  # 新增字段
             })
 
         norm_slots.sort(key=lambda x: x["id"])

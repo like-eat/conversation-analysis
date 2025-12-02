@@ -36,6 +36,15 @@ import { ref, nextTick, watch, onMounted } from 'vue'
 import { useFileStore } from '@/stores/FileInfo'
 import type { MessageItem } from '@/types/index'
 import axios from 'axios'
+import MarkdownIt from 'markdown-it'
+
+const md = new MarkdownIt({
+  breaks: true, // 单行换行变 <br>
+})
+
+const renderMarkdown = (text: string) => {
+  return md.render(text)
+}
 
 const FileStore = useFileStore()
 const seedActive = ref(false) // 正在展示默认初始对话吗？
@@ -213,7 +222,7 @@ watch(
 onMounted(async () => {
   if (messages.value.length > 0) return
   try {
-    const resp = await fetch('/ChatGPT-DST copy.txt')
+    const resp = await fetch('/ChatGPT-xinli.txt')
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
 
     const rawTxt = await resp.text()
@@ -297,6 +306,7 @@ onMounted(async () => {
   border-radius: 10px;
   background: #ddd;
   word-break: break-word;
+  white-space: pre-wrap;
 }
 
 .chat-message.user .bubble {

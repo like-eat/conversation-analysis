@@ -1,5 +1,6 @@
-import json
 import os
+
+import json
 from LLM_Extraction import llm_extract_information_incremental, Semantic_pre_scanning, Topic_cleaning, Topic_Allocation
 from Methods import assign_colors, merge_topics_timeline
 
@@ -127,6 +128,7 @@ def segment_by_timeline(topics):
                 "sentence": s.get("sentence"),
                 "slot": s.get("slot"),
                 "color": s.get("color"),
+                "sentiment": s.get("sentiment"),
             })
 
     # 2. 按 id 从小到大排序 —— 严格时间顺序
@@ -177,6 +179,7 @@ def segment_by_timeline(topics):
             "slot": item["slot"],
             "id": item["id"],
             "color": item["color"],
+            "sentiment": item["sentiment"],
         }
 
         if current_topic is None:
@@ -285,7 +288,8 @@ def process_conversation(file_path):
 
 
 if __name__ == "__main__":
-    file_path = "py/conversation_example/ChatGPT-DST copy.txt"
+    print("🤖 启动对话处理程序...")
+    file_path = "py/conversation_example/ChatGPT-xinli.txt"
     final_data = process_conversation(file_path)
     # 生成之后的数据要转移到public目录下
     # 删掉最外层字典
