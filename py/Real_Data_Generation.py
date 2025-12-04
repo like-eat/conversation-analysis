@@ -4,8 +4,8 @@ import json
 from LLM_Extraction import llm_extract_information_incremental, Semantic_pre_scanning, Topic_cleaning, Topic_Allocation
 from Methods import assign_colors, merge_topics_timeline
 
-CHECKPOINT_PATH = "py/conversation_example/ChatGPT-DST-checkpoint.json"
-FINAL_PATH = "py/conversation_example/ChatGPT-DST-processed.json"
+CHECKPOINT_PATH = "py/conversation_example/ChatGPT-xinli-checkpoint.json"
+FINAL_PATH = "py/conversation_example/ChatGPT-xinli-processed.json"
 
 
 def safe_process_llm_result(result, role, id_counter):
@@ -114,7 +114,6 @@ def chunk_text(text, max_chars=40000):
     return chunks
 
 def segment_by_timeline(topics):
-
     # 1. 先把所有 slot 打平，变成一个按句子粒度的列表
     flat_items = []
     for t in topics:
@@ -129,6 +128,7 @@ def segment_by_timeline(topics):
                 "slot": s.get("slot"),
                 "color": s.get("color"),
                 "sentiment": s.get("sentiment"),
+                "source": s.get("source"),
             })
 
     # 2. 按 id 从小到大排序 —— 严格时间顺序
@@ -180,6 +180,7 @@ def segment_by_timeline(topics):
             "id": item["id"],
             "color": item["color"],
             "sentiment": item["sentiment"],
+            "source": item["source"],
         }
 
         if current_topic is None:

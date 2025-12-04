@@ -1,67 +1,100 @@
 <template>
   <div class="capsule-container">
+    <!-- 只有主画布 -->
     <div ref="UIcontainer" class="capsule-body"></div>
+
     <button class="bottom-left-btn" @click="ClearLines">清除线条</button>
-    <button class="bottom-right-btn" @click="AddTalk">新开分支</button>
+    <button class="bottom-mid-btn" @click="AddTalk">新开分支</button>
+    <button class="bottom-right-btn" @click="Enlarge">放大区域</button>
   </div>
 </template>
 
 <script setup lang="ts">
 import * as d3 from 'd3'
 import { onMounted, ref, watch } from 'vue'
-import type { Conversation, MessageItem, Point, Segment } from '@/types/index'
+import type { Conversation, MessageItem } from '@/types/index'
 import { useFileStore } from '@/stores/FileInfo'
 
 const FileStore = useFileStore()
 const UIcontainer = ref<HTMLElement | null>(null)
-
-//颜色代表图
-const topicColorMap: Record<string, string> = {}
-// KDE 带宽（按你之前 html 的设置）
-const BANDWIDTH = 8
 const ROLE_COLOR = {
   user: '#1976d2', // 你可以换成自己喜欢的 user 颜色
   bot: '#e65100', // bot 的颜色
 }
 
-const onSlotClick = (slotId: number) => {
-  FileStore.selectedSlotId = slotId
-}
+// 颜色代表图
+const topicColorMap: Record<string, string> = {}
+
+// KDE 带宽
+const BANDWIDTH = 8
+
 // 存储真实对话
 const data = ref<Conversation[]>([])
 const selectedTopicMessages = ref<{ id: number; role: string; content: string }[]>([])
 
+const Enlarge = () => {
+  console.log('放大区域：当前版本还没实现放大镜')
+}
+
 // 清空函数
 const clearUI = () => {
-  // 清空画布
-  d3.select(UIcontainer.value).selectAll('*').remove()
-  data.value = []
-  // 清空GPT的对话内容
+  if (UIcontainer.value) d3.select(UIcontainer.value).selectAll('*').remove()
   FileStore.clearGPTContent()
+  data.value = []
 }
-// 清空线条
+
+// 清空线条（现在其实不画 user-line/bot-line，只是占位）
 const ClearLines = () => {
   if (!UIcontainer.value) return
   d3.select(UIcontainer.value).selectAll('.user-line, .bot-line, .topic-connection').remove()
 }
-// 新开分支
+
+// 新开分支：把当前选中的 topic 相关句子作为历史上下文
 const AddTalk = () => {
   if (!selectedTopicMessages.value.length) {
-    console.log('请先点击一个 topic！')
+    console.log('请先点击某个 topic（条带或图例）！')
     return
   }
 
-  // 一、清除绘制内容
   clearUI()
   FileStore.triggerRefresh()
 
-  // 二、将选中的 topic 内容作为历史上下文
   const history = selectedTopicMessages.value.map((m) => ({
     id: m.id,
     from: m.role === 'user' ? 'user' : 'bot',
     text: m.content,
   })) as MessageItem[]
   FileStore.setMessageContent(history)
+}
+
+// 1D KDE
+function computeKDE1D(
+  samples: number[],
+  xs: number[],
+  bandwidth: number,
+): { x: number; value: number }[] {
+  const n = samples.length
+  if (n === 0) {
+    return xs.map((x) => ({ x, value: 0 }))
+  }
+
+  const h = bandwidth
+  const invH = 1 / h
+  const values = xs.map((x) => ({ x, value: 0 }))
+
+  for (const t of samples) {
+    for (const v of values) {
+      const u = (v.x - t) * invH
+      v.value += Math.exp(-0.5 * u * u) // 高斯核
+    }
+  }
+
+  const normFactor = 1 / (n * h * Math.sqrt(2 * Math.PI))
+  for (const v of values) {
+    v.value *= normFactor
+  }
+
+  return values
 }
 
 // 绘制 UI：一个总条带 + 堆叠 topic 山形条带 + 右上角图例 + 全局 slot 云
@@ -72,6 +105,13 @@ function drawUI(dataArr: Conversation[]) {
   d3.select(UIcontainer.value).selectAll('*').remove()
 
   // ===== 1. 从 Conversation[] 抽出点：topic + turn(id) + slot =====
+  type Point = {
+    topic: string
+    slot: string
+    turn: number
+    topicColor: string
+    source: 'user' | 'bot'
+  }
 
   const points: Point[] = []
   const topicsSet = new Set<string>()
@@ -99,7 +139,7 @@ function drawUI(dataArr: Conversation[]) {
       points.push({
         topic,
         slot: s.slot ?? '未标注 Slot',
-        id: s.id,
+        turn: s.id,
         topicColor: conv.color || '#1f77b4',
         source,
       })
@@ -114,8 +154,8 @@ function drawUI(dataArr: Conversation[]) {
 
   const allPoints = points // ⭐ 全局保留，用于 slot 云窗口过滤
 
-  const globalMinTurn = d3.min(points, (d) => d.id) ?? 0
-  const globalMaxTurn = d3.max(points, (d) => d.id) ?? 0
+  const globalMinTurn = d3.min(points, (d) => d.turn) ?? 0
+  const globalMaxTurn = d3.max(points, (d) => d.turn) ?? 0
   const xs = d3.range(globalMinTurn, globalMaxTurn + 1)
 
   // ===== 2. 按 topic 分组，做 KDE =====
@@ -131,15 +171,16 @@ function drawUI(dataArr: Conversation[]) {
 
   nested.forEach((arr, topic) => {
     const topicColor = arr[0]?.topicColor || '#1f77b4'
-    const ids = Array.from(new Set(arr.map((d) => d.id))).sort((a, b) => a - b)
-    const values = computeKDE1D(ids, xs, BANDWIDTH)
+    const turns = Array.from(new Set(arr.map((d) => d.turn))).sort((a, b) => a - b)
+    const values = computeKDE1D(turns, xs, BANDWIDTH)
     topicGroup.set(topic, { color: topicColor, values })
   })
 
   // ===== 3. 主视图布局参数 =====
-  const width = 1400
-  const height = 1000
-  const MARGIN = { top: 20, right: 20, bottom: 40, left: 40 }
+  const width = 1000
+  const height = 900
+
+  const MARGIN = { top: 20, right: 260, bottom: 40, left: 60 }
   const innerWidth = width - MARGIN.left - MARGIN.right
   const innerHeight = height - MARGIN.top - MARGIN.bottom
 
@@ -147,13 +188,13 @@ function drawUI(dataArr: Conversation[]) {
 
   const g = svg.append('g').attr('transform', `translate(${MARGIN.left},${MARGIN.top})`)
 
+  // Y：时间轴
   const yScaleTime = d3.scaleLinear().domain([globalMinTurn, globalMaxTurn]).range([0, innerHeight])
 
-  const yAxis = d3.axisLeft(yScaleTime).ticks(10).tickFormat(d3.format('d')) // 这里 TS 会推断成 Axis<NumberValue>
-
+  const yAxis = d3.axisLeft(yScaleTime).ticks(10).tickFormat(d3.format('d'))
   g.append('g')
     .attr('class', 'axis y-axis')
-    .call(yAxis as d3.Axis<number>)
+    .call(yAxis as any)
 
   g.append('text')
     .attr('class', 'axis-label')
@@ -166,14 +207,20 @@ function drawUI(dataArr: Conversation[]) {
     .text('时间（对话轮次）')
 
   // 总条带宽度（略窄一点，在右侧留空间画图例和 slot 云）
-  const STRIP_WIDTH = Math.min(700, innerWidth - 120)
+  const STRIP_WIDTH = Math.min(540, innerWidth - 120)
   const STRIP_LEFT = 40 // 离 y 轴留一点距离
 
   // ===== 3.1 把每个时间步的总宽按占比分给各个 topic =====
+  type Segment = {
+    turn: number
+    left: number
+    right: number
+  }
+
   const topicBands = new Map<string, Segment[]>()
   topics.forEach((t) => topicBands.set(t, []))
 
-  xs.forEach((id, idx) => {
+  xs.forEach((turn, idx) => {
     const densities = topics.map((t) => topicGroup.get(t)!.values[idx]?.value ?? 0)
     const sum = d3.sum(densities)
     if (!sum || sum <= 0) return
@@ -185,7 +232,7 @@ function drawUI(dataArr: Conversation[]) {
       const w = (v / sum) * STRIP_WIDTH
       const left = cursor
       const right = cursor + w
-      topicBands.get(topic)!.push({ id, left, right })
+      topicBands.get(topic)!.push({ turn, left, right })
       cursor = right
     })
   })
@@ -222,13 +269,13 @@ function drawUI(dataArr: Conversation[]) {
   const topicLegendY = 0
 
   // 角色图例左上角：紧挨着主题图例右侧
-  const roleLegendX = topicLegendX
-  const roleLegendY = topicLegendY + topicLegendHeight + 12
+  const roleLegendX = topicLegendX + legendWidth + 16
+  const roleLegendY = 0
 
-  // ✅ slot 云气泡基准位置：放在两个框整体的底部下面一点
-  const legendBlockBottomY = roleLegendY + roleLegendHeight
+  // ⭐ slot 云气泡基准位置：放在两个小框中高度较高的那个下方
+  const legendBlockBottomY = Math.max(topicLegendHeight, roleLegendHeight)
   const bubbleBaseX = topicLegendX
-  const bubbleBaseY = legendBlockBottomY + 10
+  const bubbleBaseY = topicLegendY + legendBlockBottomY + 10
 
   // ===== 5. 全局 slot 云：根据 (topic, turn) 窗口显示 slot 名称 =====
   function showSlotCloud(topic: string, centerTurn: number, targetX: number, targetY: number) {
@@ -239,14 +286,14 @@ function drawUI(dataArr: Conversation[]) {
 
     // 2) 过滤 slots：同 topic 且 id 在窗口内
     const slotsInWindow = allPoints.filter(
-      (p) => p.topic === topic && p.id >= minTurn && p.id <= maxTurn,
+      (p) => p.topic === topic && p.turn >= minTurn && p.turn <= maxTurn,
     )
 
     // 按 turn 排序，并按 slot 名去重（取最早出现的一条，带 source）
     const slotMap = new Map<string, Point>()
     slotsInWindow
       .slice()
-      .sort((a, b) => a.id - b.id)
+      .sort((a, b) => a.turn - b.turn)
       .forEach((p) => {
         if (!slotMap.has(p.slot)) {
           slotMap.set(p.slot, p)
@@ -266,7 +313,7 @@ function drawUI(dataArr: Conversation[]) {
     let cloudLayer = g.select<SVGGElement>('.slot-global-cloud')
     // 第一次使用时创建图层，后续复用
     if (cloudLayer.empty()) {
-      cloudLayer = g.append('g').attr('class', 'slot-global-cloud').style('pointer-events', 'auto')
+      cloudLayer = g.append('g').attr('class', 'slot-global-cloud').style('pointer-events', 'none')
     }
     cloudLayer.style('display', null)
     cloudLayer.selectAll('*').remove()
@@ -274,8 +321,8 @@ function drawUI(dataArr: Conversation[]) {
     // 3) 计算气泡的位置和大小
     const bubbleWidth = legendWidth + 40 // 比图例稍宽一点
     const lineHeight = 16
-    const fontSize = 15
-    const padding = 10
+    const fontSize = 11
+    const padding = 8
     const bubbleHeight = padding * 2 + (lines.length + 1) * lineHeight // 多 1 行用于标题
 
     const bubbleX = bubbleBaseX
@@ -320,14 +367,6 @@ function drawUI(dataArr: Conversation[]) {
         'transform',
         (_d, i) => `translate(${bubbleX + padding}, ${firstLineY + i * lineHeight})`,
       )
-      .style('cursor', 'pointer')
-      .on('click', (event, d: Point) => {
-        // ✅ 点击事件
-        event.stopPropagation()
-        // 这里 d 里应该有 id / slot / source / sentence
-        console.log('点击 slot：', d.slot, 'id:', d.id, 'source:', d.source)
-        onSlotClick(d.id)
-      })
 
     // 圆点：根据 source 设置颜色
     lineGroups
@@ -335,7 +374,7 @@ function drawUI(dataArr: Conversation[]) {
       .attr('cx', 0)
       .attr('cy', 0)
       .attr('r', 4)
-      .attr('fill', (d: Point) => (d.source === 'bot' ? ROLE_COLOR.bot : ROLE_COLOR.user))
+      .attr('fill', (d: any) => (d.source === 'bot' ? ROLE_COLOR.bot : ROLE_COLOR.user))
 
     // 文本：往右偏一点
     lineGroups
@@ -345,11 +384,11 @@ function drawUI(dataArr: Conversation[]) {
       .attr('dominant-baseline', 'middle')
       .attr('fill', '#555')
       .attr('font-size', fontSize)
-      .text((d: Point) => d.slot)
+      .text((d: any) => d.slot)
 
-    // 箭头：从气泡底部中点连到点击点
-    const arrowStartX = bubbleX + bubbleWidth / 2
-    const arrowStartY = bubbleY + bubbleHeight
+    // 箭头：从气泡右侧中点连到点击点
+    const arrowStartX = bubbleX + bubbleWidth
+    const arrowStartY = bubbleY + bubbleHeight / 2
 
     cloudLayer
       .append('line')
@@ -367,7 +406,7 @@ function drawUI(dataArr: Conversation[]) {
 
     const area = d3
       .area<Segment>()
-      .y((d) => yScaleTime(d.id))
+      .y((d) => yScaleTime(d.turn))
       .x0((d) => STRIP_LEFT + d.left)
       .x1((d) => STRIP_LEFT + d.right)
       .curve(d3.curveBasis)
@@ -375,22 +414,18 @@ function drawUI(dataArr: Conversation[]) {
     g.append('path')
       .datum(segments)
       .attr('class', 'topic-band')
-      .attr('d', (d: Segment[]) => area(d) ?? '')
+      .attr('d', area as any)
       .attr('fill', color)
       .attr('fill-opacity', 0.85)
       .style('cursor', 'pointer')
       .on('click', (event) => {
         event.stopPropagation()
-        console.log('点击 topic：', topic)
         updateSelectedTopic(topic)
 
-        const gNode = g.node() as SVGGElement | null
-        if (!gNode) return
-
         // ⭐ 根据点击位置计算 turn，并显示 slot 云
-        const [mx, my] = d3.pointer(event, gNode)
-        const idFloat = yScaleTime.invert(my)
-        const centerTurn = Math.round(idFloat)
+        const [mx, my] = d3.pointer(event, g.node() as any)
+        const turnFloat = yScaleTime.invert(my)
+        const centerTurn = Math.round(turnFloat)
         showSlotCloud(topic, centerTurn, mx, my)
       })
   })
@@ -521,36 +556,6 @@ function drawUI(dataArr: Conversation[]) {
     .text((d) => d.label)
 }
 
-// 1D KDE
-function computeKDE1D(
-  samples: number[],
-  xs: number[],
-  bandwidth: number,
-): { x: number; value: number }[] {
-  const n = samples.length
-  if (n === 0) {
-    return xs.map((x) => ({ x, value: 0 }))
-  }
-
-  const h = bandwidth
-  const invH = 1 / h
-  const values = xs.map((x) => ({ x, value: 0 }))
-
-  for (const t of samples) {
-    for (const v of values) {
-      const u = (v.x - t) * invH
-      v.value += Math.exp(-0.5 * u * u) // 高斯核
-    }
-  }
-
-  const normFactor = 1 / (n * h * Math.sqrt(2 * Math.PI))
-  for (const v of values) {
-    v.value *= normFactor
-  }
-
-  return values
-}
-
 // 监听 GPT 返回内容的变化
 watch(
   () => FileStore.GPTContent,
@@ -580,6 +585,7 @@ onMounted(async () => {
   }
 })
 </script>
+
 <style scoped>
 .capsule-container {
   display: flex;
@@ -613,6 +619,26 @@ onMounted(async () => {
   z-index: 10;
 }
 .bottom-left-btn:hover {
+  background-color: #0056b3;
+}
+
+.bottom-mid-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 50%;
+  transform: translateX(-30%);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 9999px;
+  background-color: #007bff;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+.bottom-mid-btn:hover {
   background-color: #0056b3;
 }
 

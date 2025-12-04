@@ -52,7 +52,6 @@ const uploadFile = async () => {
 
   try {
     const response = await axios.post('http://localhost:5000/save_json', formData)
-    FileStore.FileContent = response.data
   } catch (error) {
     console.error('发送 JSON 数据失败:', error)
   }

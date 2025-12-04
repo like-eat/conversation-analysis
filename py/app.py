@@ -8,9 +8,8 @@ import colorsys
 import uuid
 import matplotlib.pyplot as plt
 
-from LLM_Extraction import llm_extract_information_incremental, talk_to_chatbot
-from BERT_Extraction import bertopic_extraction_information
-from Methods import assign_colors, merge_domains_timeline
+from LLM_Extraction import talk_to_chatbot, Semantic_pre_scanning, Topic_cleaning, Topic_Allocation
+from Methods import assign_colors, merge_topics_timeline
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
@@ -33,14 +32,6 @@ def back_message():
     
         # 接收完整历史
         history_msgs = data.get('history', [])
-        # # -------------------------
-        # # 获取用户 ID
-        # # 优先使用前端传来的 user_id
-        # user_id = data.get('user_id')
-        # if not user_id:
-        #     # 如果前端没有传，生成新的 UUID，返回给前端保存
-        #     user_id = str(uuid.uuid4())
-        # # -------------------------
         print("history_msgs:", history_msgs)
         result = talk_to_chatbot(user_id, user_query, user_from, history_msgs)
 
@@ -81,43 +72,30 @@ def extract():
 
         new_results = []
         # 小数据：直接 LLM 处理
-        if len(messages) < 100:
-            # 只处理最新一轮对话
-            latest_msgs = messages[-2:]  # 最后两条：user + bot
-            for msg in latest_msgs:
-                id = msg.get("id", "")
-                role = msg.get("role", "user")
-                text = msg.get("content", "").strip()
-                if not text:
-                    continue
+        # 只处理最新一轮对话
+        latest_msgs = messages[-2:]  # 最后两条：user + bot
+        for msg in latest_msgs:
+            id = msg.get("id", "")
+            role = msg.get("role", "user")
+            text = msg.get("content", "").strip()
+            if not text:
+                continue
 
-                # 小数据直接 LLM，大数据可扩展为批处理
-                result = llm_extract_information_incremental(history_msgs,text, existing_domains=merged_results_global)
+            # 小数据直接 LLM，大数据可扩展为批处理
+            result = llm_extract_information_incremental(history_msgs,text, existing_domains=merged_results_global)
 
-                # 给每个 slot 添加来源标识
-                for domain in result:
-                    for slot in domain.get("slots", []):
-                        slot["source"] = role  # user 或 bot
+            # 给每个 slot 添加来源标识
+            for domain in result:
+                for slot in domain.get("slots", []):
+                    slot["source"] = role  # user 或 bot
 
-                # 给每个 slot 添加id
-                for domain in result:
-                    for slot in domain.get("slots", []):
-                        slot["id"] = id  # 给每个 slot 赋予唯一 id
+            # 给每个 slot 添加id
+            for domain in result:
+                for slot in domain.get("slots", []):
+                    slot["id"] = id  # 给每个 slot 赋予唯一 id
 
-                new_results.append(result)
-        else:
-            # 大数据：先 BERTopic，再 LLM
-            clustered = bertopic_extraction_information(docs=messages, keep_noise=True)
-            print("主题聚类结果：", clustered)
-
-            for cluster in clustered:
-                content = json.dumps(cluster, ensure_ascii=False, indent=2)
-                result = llm_extract_information_incremental(content, existing_domains=merged_results_global)
-                # 给结果的每个 slot 添加来源标识
-                for domain in result:
-                    for slot in domain.get("slots", []):
-                        slot["source"] = role  # user 或 bot
-                new_results.append(result)
+            new_results.append(result)
+    
 
         # 先扁平化 results
         flat_new_results = []
@@ -130,7 +108,7 @@ def extract():
         # 把新结果合并到全局
         all_results = merged_results_global + flat_new_results
         # print("扁平化结果：", flat_new_results)
-        merged_results_global = merge_domains_timeline(all_results)
+        merged_results_global = merge_topics_timeline(all_results)
         print("合并结果:", merged_results_global)
         colored_results = assign_colors(merged_results_global)
         # print("带颜色的抽取结果：", colored_results)

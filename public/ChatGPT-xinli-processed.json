@@ -1,942 +1,958 @@
 [
   {
-    "topic": "自我价值感与自信",
+    "topic": "自我价值与形象",
     "slots": [
       {
         "sentence": "我是不是就是个废物？别人一战就上岸，我考了四年才勉强考上，现在还是个普通一本，我这辈子是不是完了？",
-        "slot": "自我否定",
+        "slot": "自我怀疑",
         "id": 1,
-        "color": "#B0CFF6"
+        "color": "#B0CFF6",
+        "sentiment": -0.9,
+        "source": "user"
+      },
+      {
+        "sentence": "你绝对不是废物。",
+        "slot": "自我肯定",
+        "id": 2,
+        "color": "#B0CFF6",
+        "sentiment": 0.8,
+        "source": "bot"
+      },
+      {
+        "sentence": "我现在学的是计算机专业，我感觉未来找工作好困难，我怕毕业就失业了",
+        "slot": "就业焦虑",
+        "id": 3,
+        "color": "#B0CFF6",
+        "sentiment": -0.8,
+        "source": "user"
       }
     ],
     "color": "#1E77E8"
   },
   {
-    "topic": "自我形象",
+    "topic": "就业与经济压力",
     "slots": [
-      {
-        "sentence": "我是不是就是个废物？别人一战就上岸，我考了四年才勉强考上，现在还是个普通一本，我这辈子是不是完了？",
-        "slot": "自我否定",
-        "id": 1,
-        "color": "#D6C3BF"
-      }
-    ],
-    "color": "#8C5649"
-  },
-  {
-    "topic": "自我价值感与自信",
-    "slots": [
-      {
-        "sentence": "你对自己很狠，评价的时候只看“比别人差”，不看“自己扛过了什么”。",
-        "slot": "自我评价标准",
-        "id": 2,
-        "color": "#B0CFF6"
-      },
-      {
-        "sentence": "你现在有几个典型的“心里陷阱”：",
-        "slot": "心理陷阱",
-        "id": 2,
-        "color": "#B0CFF6"
-      },
-      {
-        "sentence": "把“起点”当成“终局”",
-        "slot": "起点与终局",
-        "id": 2,
-        "color": "#B0CFF6"
-      },
-      {
-        "sentence": "把“慢”自动等价成“废”",
-        "slot": "速度与价值",
-        "id": 2,
-        "color": "#B0CFF6"
-      },
-      {
-        "sentence": "你真正值得骄傲的地方",
-        "slot": "自我骄傲点",
-        "id": 2,
-        "color": "#B0CFF6"
-      },
-      {
-        "sentence": "允许自己难过，但别在“完了”这一步卡死",
-        "slot": "情绪管理",
-        "id": 2,
-        "color": "#B0CFF6"
-      },
-      {
-        "sentence": "你不是废物，你只是走了一条更辛苦、更慢热的路线。",
-        "slot": "自我认知",
-        "id": 2,
-        "color": "#B0CFF6"
-      },
       {
         "sentence": "我感觉未来找工作好困难，我怕毕业就失业了",
-        "slot": "就业焦虑",
+        "slot": "毕业失业担忧",
         "id": 3,
-        "color": "#B0CFF6"
-      },
-      {
-        "sentence": "我现在学的是计算机专业，我感觉未来找工作好困难，我怕毕业就失业了",
-        "slot": "职业焦虑",
-        "id": 3,
-        "color": "#B0CFF6"
+        "color": "#FFC9A9",
+        "sentiment": -0.8,
+        "source": "user"
       }
     ],
-    "color": "#1E77E8"
+    "color": "#FF660C"
   },
   {
-    "topic": "恋爱与孤独",
+    "topic": "健身与心理健康",
     "slots": [
       {
         "sentence": "我现在学的是计算机专业，我感觉未来找工作好困难，我怕毕业就失业了",
-        "slot": "毕业失业恐惧",
+        "slot": "毕业后就业焦虑",
         "id": 3,
-        "color": "#F9B3B3"
-      }
-    ],
-    "color": "#EF2628"
-  },
-  {
-    "topic": "身体健康与减肥",
-    "slots": [
-      {
-        "sentence": "我现在学的是计算机专业，我感觉未来找工作好困难，我怕毕业就失业了",
-        "slot": "毕业失业焦虑",
-        "id": 3,
-        "color": "#D9C9F0"
-      }
-    ],
-    "color": "#9366D6"
-  },
-  {
-    "topic": "自我形象",
-    "slots": [
-      {
-        "sentence": "我现在学的是计算机专业，我感觉未来找工作好困难，我怕毕业就失业了",
-        "slot": "就业焦虑",
-        "id": 3,
-        "color": "#D6C3BF"
+        "color": "#D6C3BF",
+        "sentiment": -0.8,
+        "source": "user"
       }
     ],
     "color": "#8C5649"
   },
   {
-    "topic": "自我价值感与自信",
+    "topic": "自我价值与形象",
     "slots": [
       {
         "sentence": "你现在害怕的，其实不是“必然失业”，而是“我会不会什么都不会、跟别人比没有优势”。",
-        "slot": "能力与竞争",
+        "slot": "自我怀疑",
         "id": 4,
-        "color": "#B0CFF6"
-      },
+        "color": "#B0CFF6",
+        "sentiment": -0.6,
+        "source": "bot"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "就业与经济压力",
+    "slots": [
       {
-        "sentence": "你现在焦虑，是因为你在乎自己的未来，这不是坏事。",
-        "slot": "未来焦虑",
-        "id": 6,
-        "color": "#B0CFF6"
-      },
+        "sentence": "计算机现在确实比几年前更卷了，但远远没到“毕业=失业”的程度。",
+        "slot": "计算机行业竞争",
+        "id": 4,
+        "color": "#FFC9A9",
+        "sentiment": 0.1,
+        "source": "bot"
+      }
+    ],
+    "color": "#FF660C"
+  },
+  {
+    "topic": "健身与心理健康",
+    "slots": [
       {
-        "sentence": "你现在的状态，是典型的：“想做这行 + 又害怕做了会后悔。”",
-        "slot": "职业选择犹豫",
-        "id": 6,
-        "color": "#B0CFF6"
-      },
+        "sentence": "计算机现在确实比几年前更卷了，但远远没到“毕业=失业”的程度。",
+        "slot": "计算机行业就业现状",
+        "id": 4,
+        "color": "#D6C3BF",
+        "sentiment": 0.2,
+        "source": "bot"
+      }
+    ],
+    "color": "#8C5649"
+  },
+  {
+    "topic": "自我价值与形象",
+    "slots": [
       {
         "sentence": "我看到身边的同学每个人都收到大厂的offer和工作，压力好大，我怕每次我毕业之后啥也找不到，就失业，辜负父母的期待。",
         "slot": "同辈压力",
         "id": 7,
-        "color": "#B0CFF6"
+        "color": "#B0CFF6",
+        "sentiment": -0.9,
+        "source": "user"
       }
     ],
     "color": "#1E77E8"
   },
   {
-    "topic": "人际关系与社交技巧",
+    "topic": "就业与经济压力",
     "slots": [
       {
         "sentence": "我看到身边的同学每个人都收到大厂的offer和工作，压力好大，我怕每次我毕业之后啥也找不到，就失业，辜负父母的期待。",
-        "slot": "同辈压力与社交焦虑",
+        "slot": "同龄人压力",
         "id": 7,
-        "color": "#B4E6B4"
+        "color": "#FFC9A9",
+        "sentiment": -0.9,
+        "source": "user"
       }
     ],
-    "color": "#2BBA2B"
+    "color": "#FF660C"
   },
   {
     "topic": "恋爱与孤独",
     "slots": [
       {
         "sentence": "我看到身边的同学每个人都收到大厂的offer和工作，压力好大，我怕每次我毕业之后啥也找不到，就失业，辜负父母的期待。",
-        "slot": "就业压力与父母期待",
+        "slot": "同龄人压力与孤独感",
         "id": 7,
-        "color": "#F9B3B3"
+        "color": "#F9B3B3",
+        "sentiment": -0.9,
+        "source": "user"
       }
     ],
     "color": "#EF2628"
   },
   {
-    "topic": "身体健康与减肥",
+    "topic": "健身与心理健康",
     "slots": [
       {
         "sentence": "我看到身边的同学每个人都收到大厂的offer和工作，压力好大，我怕每次我毕业之后啥也找不到，就失业，辜负父母的期待。",
-        "slot": "毕业失业焦虑",
+        "slot": "同龄人压力",
         "id": 7,
-        "color": "#D9C9F0"
-      }
-    ],
-    "color": "#9366D6"
-  },
-  {
-    "topic": "自我价值感与自信",
-    "slots": [
-      {
-        "sentence": "你现在不是在单纯“找工作”，你是在和“自尊 + 未来 + 家庭期待”一起打仗，当然会觉得喘不过气。",
-        "slot": "多重压力",
-        "id": 8,
-        "color": "#B0CFF6"
-      },
-      {
-        "sentence": "别人都有大厂 offer，就只有我完了",
-        "slot": "同辈比较",
-        "id": 8,
-        "color": "#B0CFF6"
-      }
-    ],
-    "color": "#1E77E8"
-  },
-  {
-    "topic": "自我形象",
-    "slots": [
-      {
-        "sentence": "别人都说考研上岸就解放了，为什么我上岸了反而更绝望？",
-        "slot": "考研后的失落",
-        "id": 9,
-        "color": "#D6C3BF"
+        "color": "#D6C3BF",
+        "sentiment": -0.9,
+        "source": "user"
       }
     ],
     "color": "#8C5649"
   },
   {
-    "topic": "自我价值感与自信",
+    "topic": "自我价值与形象",
+    "slots": [
+      {
+        "sentence": "别人都有大厂 offer，就只有我完了",
+        "slot": "同辈压力",
+        "id": 8,
+        "color": "#B0CFF6",
+        "sentiment": -0.8,
+        "source": "bot"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "健身与心理健康",
+    "slots": [
+      {
+        "sentence": "你现在肩上至少有三块石头：同龄人的对比压力，别人已经成型的未来，对父母期待的罪恶感。",
+        "slot": "心理压力来源",
+        "id": 8,
+        "color": "#D6C3BF",
+        "sentiment": -0.8,
+        "source": "bot"
+      }
+    ],
+    "color": "#8C5649"
+  },
+  {
+    "topic": "就业与经济压力",
+    "slots": [
+      {
+        "sentence": "别人都说考研上岸就解放了，为什么我上岸了反而更绝望？",
+        "slot": "考研上岸后的绝望",
+        "id": 9,
+        "color": "#FFC9A9",
+        "sentiment": -0.9,
+        "source": "user"
+      }
+    ],
+    "color": "#FF660C"
+  },
+  {
+    "topic": "自我价值与形象",
     "slots": [
       {
         "sentence": "我特别怕毕业那天一个人搬行李回老家，我怕我爸妈看到我还是这个死样子会失望死，我该怎么办？",
         "slot": "家庭期待",
         "id": 11,
-        "color": "#B0CFF6"
+        "color": "#B0CFF6",
+        "sentiment": -0.9,
+        "source": "user"
       }
     ],
     "color": "#1E77E8"
+  },
+  {
+    "topic": "就业与经济压力",
+    "slots": [
+      {
+        "sentence": "我特别怕毕业那天一个人搬行李回老家，我怕我爸妈看到我还是这个死样子会失望死，我该怎么办？",
+        "slot": "毕业回家恐惧",
+        "id": 11,
+        "color": "#FFC9A9",
+        "sentiment": -0.9,
+        "source": "user"
+      }
+    ],
+    "color": "#FF660C"
   },
   {
     "topic": "恋爱与孤独",
     "slots": [
       {
         "sentence": "我特别怕毕业那天一个人搬行李回老家，我怕我爸妈看到我还是这个死样子会失望死，我该怎么办？",
-        "slot": "毕业后的孤独与父母失望",
+        "slot": "毕业后的孤独与恐惧",
         "id": 11,
-        "color": "#F9B3B3"
+        "color": "#F9B3B3",
+        "sentiment": -0.9,
+        "source": "user"
       }
     ],
     "color": "#EF2628"
   },
   {
-    "topic": "自我形象",
+    "topic": "自我价值与形象",
     "slots": [
       {
-        "sentence": "我特别怕毕业那天一个人搬行李回老家，我怕我爸妈看到我还是这个死样子会失望死，我该怎么办？",
-        "slot": "对父母的期待感到压力",
-        "id": 11,
-        "color": "#D6C3BF"
-      }
-    ],
-    "color": "#8C5649"
-  },
-  {
-    "topic": "身体健康与减肥",
-    "slots": [
-      {
-        "sentence": "我怕我连自杀都不敢，我怕我死了我妈会疯，我怕我连死都做不好。",
-        "slot": "自杀念头",
+        "sentence": "我确实有想过一死了之，但是我连自杀都不敢，我怕我死了我妈会疯，我怕我连死都做不好。",
+        "slot": "自我否定",
         "id": 13,
-        "color": "#D9C9F0"
+        "color": "#B0CFF6",
+        "sentiment": -1.0,
+        "source": "user"
       }
     ],
-    "color": "#9366D6"
+    "color": "#1E77E8"
   },
   {
-    "topic": "自我形象",
+    "topic": "就业与经济压力",
     "slots": [
       {
         "sentence": "我确实有想过一死了之，但是我连自杀都不敢，我怕我死了我妈会疯，我怕我连死都做不好。",
         "slot": "自杀念头",
         "id": 13,
-        "color": "#D6C3BF"
-      },
+        "color": "#FFC9A9",
+        "sentiment": -1,
+        "source": "user"
+      }
+    ],
+    "color": "#FF660C"
+  },
+  {
+    "topic": "恋爱与孤独",
+    "slots": [
       {
-        "sentence": "我在学校也没什么朋友，我跟同学之间的关系也不好，平时也没有什么活动可以参加，我不知道跟谁说内心的话",
-        "slot": "社交孤立",
-        "id": 15,
-        "color": "#D6C3BF"
+        "sentence": "我确实有想过一死了之，但是我连自杀都不敢，我怕我死了我妈会疯，我怕我连死都做不好。",
+        "slot": "极端孤独与绝望",
+        "id": 13,
+        "color": "#F9B3B3",
+        "sentiment": -1,
+        "source": "user"
+      }
+    ],
+    "color": "#EF2628"
+  },
+  {
+    "topic": "健身与心理健康",
+    "slots": [
+      {
+        "sentence": "你现在没有去自杀，不是“连死都做不好”，而是你心里那部分还在拼命保护你和你妈。",
+        "slot": "自杀念头",
+        "id": 14,
+        "color": "#D6C3BF",
+        "sentiment": -0.9,
+        "source": "bot"
       }
     ],
     "color": "#8C5649"
   },
   {
-    "topic": "自我价值感与自信",
+    "topic": "自我价值与形象",
     "slots": [
       {
-        "sentence": "我长相普通，家里也没什么钱，我还很胖，我在学校里面不敢跟别人打招呼说话",
-        "slot": "外貌与自信",
-        "id": 17,
-        "color": "#B0CFF6"
+        "sentence": "我在学校也没什么朋友，我跟同学之间的关系也不好，平时也没有什么活动可以参加，我不知道跟谁说内心的话",
+        "slot": "社交孤立",
+        "id": 15,
+        "color": "#B0CFF6",
+        "sentiment": -0.8,
+        "source": "user"
       }
     ],
     "color": "#1E77E8"
   },
   {
-    "topic": "自我形象",
+    "topic": "就业与经济压力",
+    "slots": [
+      {
+        "sentence": "我在学校也没什么朋友，我跟同学之间的关系也不好，平时也没有什么活动可以参加，我不知道跟谁说内心的话",
+        "slot": "社交孤立",
+        "id": 15,
+        "color": "#FFC9A9",
+        "sentiment": -0.8,
+        "source": "user"
+      }
+    ],
+    "color": "#FF660C"
+  },
+  {
+    "topic": "恋爱与孤独",
+    "slots": [
+      {
+        "sentence": "我在学校也没什么朋友，我跟同学之间的关系也不好，平时也没有什么活动可以参加，我不知道跟谁说内心的话",
+        "slot": "缺乏社交与孤独",
+        "id": 15,
+        "color": "#F9B3B3",
+        "sentiment": -0.9,
+        "source": "user"
+      }
+    ],
+    "color": "#EF2628"
+  },
+  {
+    "topic": "自我价值与形象",
     "slots": [
       {
         "sentence": "其实是因为，我长相普通，家里也没什么钱，我还很胖，我在学校里面不敢跟别人打招呼说话",
-        "slot": "外貌和经济自卑",
+        "slot": "自我形象",
         "id": 17,
-        "color": "#D6C3BF"
+        "color": "#B0CFF6",
+        "sentiment": -0.9,
+        "source": "user"
       }
     ],
-    "color": "#8C5649"
+    "color": "#1E77E8"
   },
   {
-    "topic": "自我价值感与自信",
+    "topic": "恋爱与孤独",
+    "slots": [
+      {
+        "sentence": "我长相普通，家里也没什么钱，我还很胖，我在学校里面不敢跟别人打招呼说话",
+        "slot": "外貌与自卑导致的孤独",
+        "id": 17,
+        "color": "#F9B3B3",
+        "sentiment": -0.8,
+        "source": "user"
+      }
+    ],
+    "color": "#EF2628"
+  },
+  {
+    "topic": "自我价值与形象",
+    "slots": [
+      {
+        "sentence": "我长这么大从来没有谈过恋爱，甚至女生的手都没有牵过，我也很少有女性朋友，其实我是很想去谈恋爱，但是我根本找不到",
+        "slot": "恋爱焦虑",
+        "id": 19,
+        "color": "#B0CFF6",
+        "sentiment": -0.8,
+        "source": "user"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "就业与经济压力",
+    "slots": [
+      {
+        "sentence": "我长这么大从来没有谈过恋爱，甚至女生的手都没有牵过，我也很少有女性朋友，其实我是很想去谈恋爱，但是我根本找不到",
+        "slot": "恋爱缺失",
+        "id": 19,
+        "color": "#FFC9A9",
+        "sentiment": -0.9,
+        "source": "user"
+      }
+    ],
+    "color": "#FF660C"
+  },
+  {
+    "topic": "恋爱与孤独",
+    "slots": [
+      {
+        "sentence": "我长这么大从来没有谈过恋爱，甚至女生的手都没有牵过，我也很少有女性朋友，其实我是很想去谈恋爱，但是我根本找不到",
+        "slot": "缺乏恋爱经验",
+        "id": 19,
+        "color": "#F9B3B3",
+        "sentiment": -0.8,
+        "source": "user"
+      }
+    ],
+    "color": "#EF2628"
+  },
+  {
+    "topic": "英语学习与自信展示",
     "slots": [
       {
         "sentence": "我长这么大从来没有谈过恋爱，甚至女生的手都没有牵过，我也很少有女性朋友，其实我是很想去谈恋爱，但是我根本找不到",
         "slot": "恋爱与自信",
         "id": 19,
-        "color": "#B0CFF6"
+        "color": "#F4CFE9",
+        "sentiment": -0.7,
+        "source": "user"
       }
     ],
-    "color": "#1E77E8"
+    "color": "#E277C1"
   },
   {
-    "topic": "恋爱与孤独",
+    "topic": "自我价值与形象",
     "slots": [
       {
-        "sentence": "我长这么大从来没有谈过恋爱，甚至女生的手都没有牵过，我也很少有女性朋友，其实我是很想去谈恋爱，但是我根本找不到",
-        "slot": "未曾恋爱的孤独",
-        "id": 19,
-        "color": "#F9B3B3"
-      }
-    ],
-    "color": "#EF2628"
-  },
-  {
-    "topic": "身体健康与减肥",
-    "slots": [
-      {
-        "sentence": "我长这么大从来没有谈过恋爱，甚至女生的手都没有牵过，我也很少有女性朋友，其实我是很想去谈恋爱，但是我根本找不到",
-        "slot": "恋爱缺失",
-        "id": 19,
-        "color": "#D9C9F0"
-      }
-    ],
-    "color": "#9366D6"
-  },
-  {
-    "topic": "自我形象",
-    "slots": [
-      {
-        "sentence": "我长这么大从来没有谈过恋爱，甚至女生的手都没有牵过，我也很少有女性朋友，其实我是很想去谈恋爱，但是我根本找不到",
-        "slot": "恋爱缺失",
-        "id": 19,
-        "color": "#D6C3BF"
-      }
-    ],
-    "color": "#8C5649"
-  },
-  {
-    "topic": "自我价值感与自信",
-    "slots": [
-      {
-        "sentence": "我平常没有课的时候，我就只会在宿舍呆着打游戏，也不想去别的地方。",
-        "slot": "社交回避",
+        "sentence": "我没什么特长，我平常没有课的时候，我就只会在宿舍呆着打游戏，也不想去别的地方。",
+        "slot": "自我怀疑",
         "id": 21,
-        "color": "#B0CFF6"
+        "color": "#B0CFF6",
+        "sentiment": -0.7,
+        "source": "user"
       }
     ],
     "color": "#1E77E8"
   },
   {
-    "topic": "身体健康与减肥",
+    "topic": "就业与经济压力",
     "slots": [
       {
         "sentence": "我没什么特长，我平常没有课的时候，我就只会在宿舍呆着打游戏，也不想去别的地方。",
         "slot": "缺乏特长",
         "id": 21,
-        "color": "#D9C9F0"
+        "color": "#FFC9A9",
+        "sentiment": -0.8,
+        "source": "user"
       }
     ],
-    "color": "#9366D6"
+    "color": "#FF660C"
   },
   {
-    "topic": "自我形象",
+    "topic": "恋爱与孤独",
     "slots": [
       {
-        "sentence": "我平常没有课的时候，我就只会在宿舍呆着打游戏，也不想去别的地方。",
-        "slot": "社交回避",
+        "sentence": "我没什么特长，我平常没有课的时候，我就只会在宿舍呆着打游戏，也不想去别的地方。",
+        "slot": "孤独与宅生活",
         "id": 21,
-        "color": "#D6C3BF"
+        "color": "#F9B3B3",
+        "sentiment": -0.7,
+        "source": "user"
       }
     ],
-    "color": "#8C5649"
+    "color": "#EF2628"
   },
   {
-    "topic": "身体健康与减肥",
+    "topic": "自我价值与形象",
     "slots": [
+      {
+        "sentence": "我看到别人情侣一块，我会很羡慕",
+        "slot": "恋爱焦虑",
+        "id": 25,
+        "color": "#B0CFF6",
+        "sentiment": -0.6,
+        "source": "user"
+      },
       {
         "sentence": "我想减肥，你觉得我应该怎么做，我现在170cm，180斤",
-        "slot": "减肥计划",
+        "slot": "自我形象",
         "id": 27,
-        "color": "#D9C9F0"
-      }
-    ],
-    "color": "#9366D6"
-  },
-  {
-    "topic": "自我形象",
-    "slots": [
-      {
-        "sentence": "我想减肥，你觉得我应该怎么做，我现在170cm，180斤",
-        "slot": "减肥计划",
-        "id": 27,
-        "color": "#D6C3BF"
-      }
-    ],
-    "color": "#8C5649"
-  },
-  {
-    "topic": "身体健康与减肥",
-    "slots": [
-      {
-        "sentence": "有没有快速减肥的方法，能够快一点瘦下来",
-        "slot": "快速减肥方法",
-        "id": 31,
-        "color": "#D9C9F0"
-      }
-    ],
-    "color": "#9366D6"
-  },
-  {
-    "topic": "自我价值感与自信",
-    "slots": [
-      {
-        "sentence": "我感觉我的长相普通，甚至说有点丑，我感觉世界是一个巨大的卡颜局，对外貌不好的人来说，恶意真的太大了。",
-        "slot": "外貌焦虑",
-        "id": 35,
-        "color": "#B0CFF6"
+        "color": "#B0CFF6",
+        "sentiment": -0.5,
+        "source": "user"
       }
     ],
     "color": "#1E77E8"
   },
   {
-    "topic": "身体健康与减肥",
+    "topic": "就业与经济压力",
+    "slots": [
+      {
+        "sentence": "我想减肥，你觉得我应该怎么做，我现在170cm，180斤",
+        "slot": "减肥计划",
+        "id": 27,
+        "color": "#FFC9A9",
+        "sentiment": -0.2,
+        "source": "user"
+      }
+    ],
+    "color": "#FF660C"
+  },
+  {
+    "topic": "自我价值与形象",
     "slots": [
       {
         "sentence": "我感觉我的长相普通，甚至说有点丑，我感觉世界是一个巨大的卡颜局，对外貌不好的人来说，恶意真的太大了。",
         "slot": "外貌焦虑",
         "id": 35,
-        "color": "#D9C9F0"
-      }
-    ],
-    "color": "#9366D6"
-  },
-  {
-    "topic": "自我形象",
-    "slots": [
-      {
-        "sentence": "我感觉我的长相普通，甚至说有点丑，我感觉世界是一个巨大的卡颜局，对外貌不好的人来说，恶意真的太大了。",
-        "slot": "外貌焦虑",
-        "id": 35,
-        "color": "#D6C3BF"
-      }
-    ],
-    "color": "#8C5649"
-  },
-  {
-    "topic": "英语学习",
-    "slots": [
-      {
-        "sentence": "我感觉我的长相普通，甚至说有点丑，我感觉世界是一个巨大的卡颜局，对外貌不好的人来说，恶意真的太大了。",
-        "slot": "英语口语不自信",
-        "id": 35,
-        "color": "#E7E7B1"
-      }
-    ],
-    "color": "#BCBC21"
-  },
-  {
-    "topic": "自我价值感与自信",
-    "slots": [
-      {
-        "sentence": "我刷到别人说‘长得丑就是原罪’，我一照镜子就想把自己脸抓花，我是不是真的没资格被爱？",
-        "slot": "自我价值感",
-        "id": 37,
-        "color": "#B0CFF6"
+        "color": "#B0CFF6",
+        "sentiment": -0.9,
+        "source": "user"
       }
     ],
     "color": "#1E77E8"
   },
   {
-    "topic": "身体健康与减肥",
+    "topic": "英语学习与自信展示",
+    "slots": [
+      {
+        "sentence": "我感觉我的长相普通，甚至说有点丑，我感觉世界是一个巨大的卡颜局，对外貌不好的人来说，恶意真的太大了。",
+        "slot": "外貌与自信",
+        "id": 35,
+        "color": "#F4CFE9",
+        "sentiment": -0.8,
+        "source": "user"
+      }
+    ],
+    "color": "#E277C1"
+  },
+  {
+    "topic": "自我价值与形象",
     "slots": [
       {
         "sentence": "我刷到别人说‘长得丑就是原罪’，我一照镜子就想把自己脸抓花，我是不是真的没资格被爱？",
         "slot": "外貌焦虑",
         "id": 37,
-        "color": "#D9C9F0"
+        "color": "#B0CFF6",
+        "sentiment": -1.0,
+        "source": "user"
       }
     ],
-    "color": "#9366D6"
+    "color": "#1E77E8"
   },
   {
-    "topic": "自我形象",
+    "topic": "就业与经济压力",
     "slots": [
       {
         "sentence": "我刷到别人说‘长得丑就是原罪’，我一照镜子就想把自己脸抓花，我是不是真的没资格被爱？",
-        "slot": "自我厌恶",
+        "slot": "外貌自卑",
         "id": 37,
-        "color": "#D6C3BF"
+        "color": "#FFC9A9",
+        "sentiment": -1,
+        "source": "user"
+      }
+    ],
+    "color": "#FF660C"
+  },
+  {
+    "topic": "恋爱与孤独",
+    "slots": [
+      {
+        "sentence": "我刷到别人说‘长得丑就是原罪’，我一照镜子就想把自己脸抓花，我是不是真的没资格被爱？",
+        "slot": "外貌焦虑与孤独感",
+        "id": 37,
+        "color": "#F9B3B3",
+        "sentiment": -1,
+        "source": "user"
+      }
+    ],
+    "color": "#EF2628"
+  },
+  {
+    "topic": "健身与心理健康",
+    "slots": [
+      {
+        "sentence": "我看到别人说‘长得丑就是原罪’，我一照镜子就想把自己脸抓花，我是不是真的没资格被爱？",
+        "slot": "外貌自卑",
+        "id": 37,
+        "color": "#D6C3BF",
+        "sentiment": -1,
+        "source": "user"
       }
     ],
     "color": "#8C5649"
   },
   {
-    "topic": "自我价值感与自信",
+    "topic": "自我价值与形象",
     "slots": [
       {
         "sentence": "我一照镜子就觉得自己好丑，穿的也土，人也胖",
         "slot": "自我形象",
         "id": 39,
-        "color": "#B0CFF6"
+        "color": "#B0CFF6",
+        "sentiment": -0.9,
+        "source": "user"
       }
     ],
     "color": "#1E77E8"
   },
   {
-    "topic": "身体健康与减肥",
-    "slots": [
-      {
-        "sentence": "我一照镜子就觉得自己好丑，穿的也土，人也胖",
-        "slot": "外貌焦虑",
-        "id": 39,
-        "color": "#D9C9F0"
-      }
-    ],
-    "color": "#9366D6"
-  },
-  {
-    "topic": "自我形象",
+    "topic": "就业与经济压力",
     "slots": [
       {
         "sentence": "我一照镜子就觉得自己好丑，穿的也土，人也胖",
         "slot": "外貌自卑",
         "id": 39,
-        "color": "#D6C3BF"
+        "color": "#FFC9A9",
+        "sentiment": -1,
+        "source": "user"
       }
     ],
-    "color": "#8C5649"
+    "color": "#FF660C"
   },
   {
-    "topic": "人际关系与社交技巧",
+    "topic": "英语学习与自信展示",
+    "slots": [
+      {
+        "sentence": "我一照镜子就觉得自己好丑，穿的也土，人也胖",
+        "slot": "外貌与自信",
+        "id": 39,
+        "color": "#F4CFE9",
+        "sentiment": -0.9,
+        "source": "user"
+      }
+    ],
+    "color": "#E277C1"
+  },
+  {
+    "topic": "人际关系与社交",
     "slots": [
       {
         "sentence": "我想和女生谈恋爱，但是我不知道怎么跟她们交流，以及去哪里认识女生",
-        "slot": "认识女生的途径",
+        "slot": "与女生交流和认识",
         "id": 45,
-        "color": "#B4E6B4"
-      }
-    ],
-    "color": "#2BBA2B"
-  },
-  {
-    "topic": "恋爱与孤独",
-    "slots": [
-      {
-        "sentence": "我想和女生谈恋爱，但是我不知道怎么跟她们交流，以及去哪里认识女生",
-        "slot": "与女生交流困难",
-        "id": 45,
-        "color": "#F9B3B3"
-      }
-    ],
-    "color": "#EF2628"
-  },
-  {
-    "topic": "自我价值感与自信",
-    "slots": [
-      {
-        "sentence": "我现在还没有毕业，相亲的时候总是被女方嫌弃",
-        "slot": "相亲压力",
-        "id": 49,
-        "color": "#B0CFF6"
-      }
-    ],
-    "color": "#1E77E8"
-  },
-  {
-    "topic": "恋爱与孤独",
-    "slots": [
+        "color": "#B4E6B4",
+        "sentiment": -0.5,
+        "source": "user"
+      },
       {
         "sentence": "我现在还没有毕业，相亲的时候总是被女方嫌弃",
         "slot": "相亲被嫌弃",
         "id": 49,
-        "color": "#F9B3B3"
-      },
-      {
-        "sentence": "我现在比较内向，我应该怎么改善一下，让我自己外向一点",
-        "slot": "改善内向性格",
-        "id": 53,
-        "color": "#F9B3B3"
-      },
-      {
-        "sentence": "我其实很想学唱歌和乐器，但是我唱歌很难听，我总是不太敢在别人面前唱",
-        "slot": "对唱歌的自卑",
-        "id": 61,
-        "color": "#F9B3B3"
+        "color": "#B4E6B4",
+        "sentiment": -0.8,
+        "source": "user"
       }
     ],
-    "color": "#EF2628"
+    "color": "#2BBA2B"
   },
   {
-    "topic": "英语学习",
+    "topic": "健身与心理健康",
     "slots": [
       {
-        "sentence": "我其实很想学唱歌和乐器，但是我唱歌很难听，我总是不太敢在别人面前唱",
-        "slot": "英语口语不自信",
-        "id": 61,
-        "color": "#E7E7B1"
+        "sentence": "你现在的状态，是典型的：想做这行 + 又害怕做了会后悔。",
+        "slot": "职业选择焦虑",
+        "id": 54,
+        "color": "#D6C3BF",
+        "sentiment": -0.7,
+        "source": "bot"
       }
     ],
-    "color": "#BCBC21"
+    "color": "#8C5649"
   },
   {
-    "topic": "自我价值感与自信",
+    "topic": "自我价值与形象",
     "slots": [
       {
-        "sentence": "我平均生活费1500只有，每天吃饭开销就要40块",
-        "slot": "经济压力",
-        "id": 65,
-        "color": "#B0CFF6"
+        "sentence": "我很想学唱歌和乐器，但是我唱歌很难听，我总是不太敢在别人面前唱",
+        "slot": "自我怀疑",
+        "id": 61,
+        "color": "#B0CFF6",
+        "sentiment": -0.7,
+        "source": "user"
       }
     ],
     "color": "#1E77E8"
   },
   {
-    "topic": "健身与心情改善",
+    "topic": "人际关系与社交",
     "slots": [
       {
-        "sentence": "运动完之后，心情会好一点",
-        "slot": "运动与心情改善",
-        "id": 77,
-        "color": "#F4CFE9"
+        "sentence": "我其实很想学唱歌和乐器，但是我唱歌很难听，我总是不太敢在别人面前唱",
+        "slot": "学习唱歌和乐器",
+        "id": 61,
+        "color": "#B4E6B4",
+        "sentiment": -0.3,
+        "source": "user"
+      }
+    ],
+    "color": "#2BBA2B"
+  },
+  {
+    "topic": "自我价值与形象",
+    "slots": [
+      {
+        "sentence": "其实我还有点自卑是因为我没有很多钱，当别人叫我出去吃饭的时候，我觉得花销会很大，但是我又很想和别人一起出去玩，不想自己宅在宿舍里面。",
+        "slot": "经济压力",
+        "id": 63,
+        "color": "#B0CFF6",
+        "sentiment": -0.8,
+        "source": "user"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "英语学习与自信展示",
+    "slots": [
+      {
+        "sentence": "我没有很多钱，当别人叫我出去吃饭的时候，我觉得花销会很大，但是我又很想和别人一起出去玩，不想自己宅在宿舍里面。",
+        "slot": "经济状况与社交",
+        "id": 64,
+        "color": "#F4CFE9",
+        "sentiment": -0.6,
+        "source": "user"
       }
     ],
     "color": "#E277C1"
   },
   {
-    "topic": "人际关系与社交技巧",
+    "topic": "人际关系与社交",
     "slots": [
       {
-        "sentence": "今天吃饭的时候跟朋友一起，我旁边做了一个女生，但是我不知道怎么开口跟她讲话比较好",
-        "slot": "与异性开场白",
-        "id": 81,
-        "color": "#B4E6B4"
+        "sentence": "我平均生活费1500只有，每天吃饭开销就要40块",
+        "slot": "生活费与社交压力",
+        "id": 65,
+        "color": "#B4E6B4",
+        "sentiment": -0.4,
+        "source": "user"
+      }
+    ],
+    "color": "#2BBA2B"
+  },
+  {
+    "topic": "自我价值与形象",
+    "slots": [
+      {
+        "sentence": "你就是废物",
+        "slot": "自我否定",
+        "id": 67,
+        "color": "#B0CFF6",
+        "sentiment": -1.0,
+        "source": "user"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "健身与心理健康",
+    "slots": [
+      {
+        "sentence": "昨天听了你的建议去健身房，今天练完之后全身酸痛",
+        "slot": "运动后的身体反应",
+        "id": 69,
+        "color": "#D6C3BF",
+        "sentiment": -0.3,
+        "source": "user"
+      }
+    ],
+    "color": "#8C5649"
+  },
+  {
+    "topic": "就业与经济压力",
+    "slots": [
+      {
+        "sentence": "我看到别人重量都好大，我根本举不起来，像是哑铃我只能据5kg的",
+        "slot": "健身自卑",
+        "id": 71,
+        "color": "#FFC9A9",
+        "sentiment": -0.8,
+        "source": "user"
+      }
+    ],
+    "color": "#FF660C"
+  },
+  {
+    "topic": "健身与心理健康",
+    "slots": [
+      {
+        "sentence": "运动的时候，你的大脑会分泌让人舒服的物质（内啡肽、多巴胺之类），就像给大脑洗个澡。",
+        "slot": "运动对心理的积极影响",
+        "id": 78,
+        "color": "#D6C3BF",
+        "sentiment": 0.8,
+        "source": "bot"
       },
       {
-        "sentence": "那怎么说话才能不刻意让她觉得我追她呢，我其实就是想和女同学说说话，并不是想当舔狗去追人家",
-        "slot": "与异性正常交流",
-        "id": 83,
-        "color": "#B4E6B4"
-      },
+        "sentence": "运动和改善心情有帮助吗",
+        "slot": "运动与心理健康",
+        "id": 79,
+        "color": "#D6C3BF",
+        "sentiment": 0.1,
+        "source": "user"
+      }
+    ],
+    "color": "#8C5649"
+  },
+  {
+    "topic": "人际关系与社交",
+    "slots": [
       {
         "sentence": "有没有一些不需要花很多钱就可以参加的社交活动，我也很想交朋友，有人陪我说话",
         "slot": "低成本社交活动",
         "id": 85,
-        "color": "#B4E6B4"
+        "color": "#B4E6B4",
+        "sentiment": 0.2,
+        "source": "user"
       },
       {
         "sentence": "我怎么约其他人打呢，就是哪些平时交流比较少的朋友，可以直接叫人家去吗",
-        "slot": "约人参加活动",
+        "slot": "约人打羽毛球",
         "id": 89,
-        "color": "#B4E6B4"
+        "color": "#B4E6B4",
+        "sentiment": 0.1,
+        "source": "user"
       }
     ],
     "color": "#2BBA2B"
   },
   {
-    "topic": "自我形象",
+    "topic": "健身与心理健康",
     "slots": [
       {
-        "sentence": "我怎么约其他人打呢，就是哪些平时交流比较少的朋友，可以直接叫人家去吗",
-        "slot": "社交障碍",
-        "id": 89,
-        "color": "#D6C3BF"
+        "sentence": "我昨天去健身房练了一下，现在腿还酸",
+        "slot": "运动后的身体反应",
+        "id": 90,
+        "color": "#D6C3BF",
+        "sentiment": -0.2,
+        "source": "user"
       }
     ],
     "color": "#8C5649"
   },
   {
-    "topic": "健身与心情改善",
+    "topic": "英语学习与自信展示",
     "slots": [
       {
-        "sentence": "我最近想多运动减肥，准备常去打打，有空的话一起去玩一场？",
-        "slot": "运动与社交",
-        "id": 92,
-        "color": "#F4CFE9"
+        "sentence": "有些方法能够提升我英语水平的，特别是口语和听力",
+        "slot": "英语学习方法",
+        "id": 95,
+        "color": "#F4CFE9",
+        "sentiment": 0.5,
+        "source": "user"
       }
     ],
     "color": "#E277C1"
   },
   {
-    "topic": "自我形象",
+    "topic": "人际关系与社交",
     "slots": [
       {
-        "sentence": "其实我的英语水平也不行，我口语很烂，我平常不敢跟人交流，用英语更加不会了",
-        "slot": "语言自卑",
-        "id": 93,
-        "color": "#D6C3BF"
-      }
-    ],
-    "color": "#8C5649"
-  },
-  {
-    "topic": "英语学习",
-    "slots": [
-      {
-        "sentence": "其实我的英语水平也不行，我口语很烂，我平常不敢跟人交流，用英语更加不会了",
-        "slot": "英语口语不自信",
-        "id": 93,
-        "color": "#E7E7B1"
-      },
-      {
-        "sentence": "我直接给你一个能落地的方案，不讲废话。核心目标就两件事：听得懂一点 + 说得出口一点。",
-        "slot": "英语听力和口语提升方案",
-        "id": 95,
-        "color": "#E7E7B1"
-      },
-      {
-        "sentence": "听力：让耳朵先习惯英语的声音，知道对方大概在说啥。",
-        "slot": "英语听力练习",
-        "id": 95,
-        "color": "#E7E7B1"
-      },
-      {
-        "sentence": "口语：先能说出“短而常用”的句子，不追求高级，先流畅。",
-        "slot": "英语口语练习",
-        "id": 95,
-        "color": "#E7E7B1"
-      },
-      {
-        "sentence": "你可以把这当做给自己装两个“插件”：每天 15–30 分钟就够；别想着一周飞跃，按月来算进步。",
-        "slot": "英语学习时间管理",
-        "id": 95,
-        "color": "#E7E7B1"
-      },
-      {
-        "sentence": "从最简单的开始：英语学习类频道 / 美剧片段 / vlog，只要有英文字幕就行。",
-        "slot": "英语听力材料选择",
-        "id": 95,
-        "color": "#E7E7B1"
-      },
-      {
-        "sentence": "每次听 3–5 分钟就行，不用太长。",
-        "slot": "英语听力练习时长",
-        "id": 95,
-        "color": "#E7E7B1"
-      },
-      {
-        "sentence": "先准备几套“万能句型”（背下来就能用）",
-        "slot": "英语口语句型准备",
-        "id": 95,
-        "color": "#E7E7B1"
-      },
-      {
-        "sentence": "你可以把这些写到备忘录里，闲着没事就翻一翻、念两遍。",
-        "slot": "英语口语练习方法",
-        "id": 95,
-        "color": "#E7E7B1"
-      },
-      {
-        "sentence": "你听别人说一句，立刻跟着说一句：",
-        "slot": "英语口语跟读练习",
-        "id": 95,
-        "color": "#E7E7B1"
-      },
-      {
-        "sentence": "你可以每天花 5 分钟，在宿舍 / 路上 / 厕所里，练这个：",
-        "slot": "英语口语自言自语练习",
-        "id": 95,
-        "color": "#E7E7B1"
-      }
-    ],
-    "color": "#BCBC21"
-  },
-  {
-    "topic": "自我形象",
-    "slots": [
-      {
-        "sentence": "我感觉我没有在其他人面前展示自己的信心，当然也没有啥可以展示的，例如每次点到我上去介绍自己或者表演节目，我都是摆摆手",
-        "slot": "自信缺失",
+        "sentence": "我感觉我没有在其他人面前展示自己的信心，当然也没有啥可以展示的",
+        "slot": "展示自信与特长",
         "id": 97,
-        "color": "#D6C3BF"
-      }
-    ],
-    "color": "#8C5649"
-  },
-  {
-    "topic": "人际关系与社交技巧",
-    "slots": [
-      {
-        "sentence": "我和别人说话的时候或者在讲台上的时候，有什么动作可以让我看起来自信一点",
-        "slot": "提升自信的肢体语言",
-        "id": 99,
-        "color": "#B4E6B4"
+        "color": "#B4E6B4",
+        "sentiment": -0.6,
+        "source": "user"
       }
     ],
     "color": "#2BBA2B"
   },
   {
-    "topic": "恋爱与孤独",
+    "topic": "英语学习与自信展示",
+    "slots": [
+      {
+        "sentence": "我感觉我没有在其他人面前展示自己的信心，当然也没有啥可以展示的，例如每次点到我上去介绍自己或者表演节目，我都是摆摆手",
+        "slot": "自信展示",
+        "id": 97,
+        "color": "#F4CFE9",
+        "sentiment": -0.8,
+        "source": "user"
+      }
+    ],
+    "color": "#E277C1"
+  },
+  {
+    "topic": "人际关系与社交",
     "slots": [
       {
         "sentence": "我和别人说话的时候或者在讲台上的时候，有什么动作可以让我看起来自信一点",
         "slot": "提升自信的肢体语言",
         "id": 99,
-        "color": "#F9B3B3"
+        "color": "#B4E6B4",
+        "sentiment": 0.1,
+        "source": "user"
       }
     ],
-    "color": "#EF2628"
+    "color": "#2BBA2B"
   },
   {
-    "topic": "自我价值感与自信",
+    "topic": "自我价值与形象",
     "slots": [
       {
         "sentence": "我晚上很容易失眠",
         "slot": "睡眠问题",
         "id": 103,
-        "color": "#B0CFF6"
+        "color": "#B0CFF6",
+        "sentiment": -0.7,
+        "source": "user"
       }
     ],
     "color": "#1E77E8"
   },
   {
-    "topic": "人际关系与社交技巧",
+    "topic": "就业与经济压力",
     "slots": [
       {
         "sentence": "我晚上很容易失眠",
-        "slot": "失眠与社交压力",
+        "slot": "失眠问题",
         "id": 103,
-        "color": "#B4E6B4"
+        "color": "#FFC9A9",
+        "sentiment": -0.7,
+        "source": "user"
+      }
+    ],
+    "color": "#FF660C"
+  },
+  {
+    "topic": "人际关系与社交",
+    "slots": [
+      {
+        "sentence": "我晚上很容易失眠",
+        "slot": "失眠与压力",
+        "id": 103,
+        "color": "#B4E6B4",
+        "sentiment": -0.7,
+        "source": "user"
       }
     ],
     "color": "#2BBA2B"
   },
   {
-    "topic": "身体健康与减肥",
-    "slots": [
-      {
-        "sentence": "我晚上很容易失眠",
-        "slot": "失眠问题",
-        "id": 103,
-        "color": "#D9C9F0"
-      }
-    ],
-    "color": "#9366D6"
-  },
-  {
-    "topic": "失眠与压力管理",
-    "slots": [
-      {
-        "sentence": "我晚上很容易失眠",
-        "slot": "失眠",
-        "id": 103,
-        "color": "#ADE8ED"
-      }
-    ],
-    "color": "#16BFCE"
-  },
-  {
-    "topic": "自我价值感与自信",
-    "slots": [
-      {
-        "sentence": "我很容易睡觉的时候乱想，尤其是想我为什么这么普通，过得生活很没有意义",
-        "slot": "存在焦虑",
-        "id": 105,
-        "color": "#B0CFF6"
-      }
-    ],
-    "color": "#1E77E8"
-  },
-  {
     "topic": "恋爱与孤独",
     "slots": [
       {
-        "sentence": "我很容易睡觉的时候乱想，尤其是想我为什么这么普通，过得生活很没有意义",
-        "slot": "睡前胡思乱想",
-        "id": 105,
-        "color": "#F9B3B3"
+        "sentence": "我晚上很容易失眠",
+        "slot": "失眠与孤独",
+        "id": 103,
+        "color": "#F9B3B3",
+        "sentiment": -0.7,
+        "source": "user"
       }
     ],
     "color": "#EF2628"
   },
   {
-    "topic": "身体健康与减肥",
+    "topic": "英语学习与自信展示",
     "slots": [
       {
-        "sentence": "我很容易睡觉的时候乱想，尤其是想我为什么这么普通，过得生活很没有意义，然后我对茶和咖啡也比较容易过敏，很容易睡不着",
-        "slot": "失眠问题",
-        "id": 105,
-        "color": "#D9C9F0"
-      }
-    ],
-    "color": "#9366D6"
-  },
-  {
-    "topic": "失眠与压力管理",
-    "slots": [
-      {
-        "sentence": "我很容易睡觉的时候乱想，尤其是想我为什么这么普通，过得生活很没有意义",
-        "slot": "睡前胡思乱想",
-        "id": 105,
-        "color": "#ADE8ED"
-      },
-      {
-        "sentence": "我对茶和咖啡也比较容易过敏，很容易睡不着",
-        "slot": "咖啡因敏感",
-        "id": 105,
-        "color": "#ADE8ED"
-      }
-    ],
-    "color": "#16BFCE"
-  },
-  {
-    "topic": "英语学习",
-    "slots": [
-      {
-        "sentence": "你可以每天只给自己定 1～2 个小任务，做完就算赢，别一下给自己 10 个。",
-        "slot": "英语学习任务管理",
-        "id": 107,
-        "color": "#E7E7B1"
-      }
-    ],
-    "color": "#BCBC21"
-  },
-  {
-    "topic": "健身与心情改善",
-    "slots": [
-      {
-        "sentence": "你已经发现：运动完心情会好一点，这太重要了。",
-        "slot": "运动与心情改善",
-        "id": 108,
-        "color": "#F4CFE9"
+        "sentence": "我晚上很容易失眠",
+        "slot": "失眠与压力",
+        "id": 103,
+        "color": "#F4CFE9",
+        "sentiment": -0.7,
+        "source": "user"
       }
     ],
     "color": "#E277C1"
@@ -945,12 +961,120 @@
     "topic": "失眠与压力管理",
     "slots": [
       {
-        "sentence": "有时候会想到不太好的事情，我有点怕自己。",
-        "slot": "极端想法",
-        "id": 108,
-        "color": "#ADE8ED"
+        "sentence": "我晚上很容易失眠",
+        "slot": "失眠问题",
+        "id": 103,
+        "color": "#D1D1D1",
+        "sentiment": -0.8,
+        "source": "user"
       }
     ],
-    "color": "#16BFCE"
+    "color": "#7C7C7C"
+  },
+  {
+    "topic": "自我价值与形象",
+    "slots": [
+      {
+        "sentence": "我很容易睡觉的时候乱想，尤其是想我为什么这么普通，过得生活很没有意义，然后我对茶和咖啡也比较容易过敏，很容易睡不着",
+        "slot": "睡眠问题",
+        "id": 105,
+        "color": "#B0CFF6",
+        "sentiment": -0.9,
+        "source": "user"
+      }
+    ],
+    "color": "#1E77E8"
+  },
+  {
+    "topic": "就业与经济压力",
+    "slots": [
+      {
+        "sentence": "我很容易睡觉的时候乱想，尤其是想我为什么这么普通，过得生活很没有意义，然后我对茶和咖啡也比较容易过敏，很容易睡不着",
+        "slot": "睡前焦虑",
+        "id": 105,
+        "color": "#FFC9A9",
+        "sentiment": -0.9,
+        "source": "user"
+      }
+    ],
+    "color": "#FF660C"
+  },
+  {
+    "topic": "人际关系与社交",
+    "slots": [
+      {
+        "sentence": "我很容易睡觉的时候乱想，尤其是想我为什么这么普通，过得生活很没有意义",
+        "slot": "睡前胡思乱想",
+        "id": 105,
+        "color": "#B4E6B4",
+        "sentiment": -0.9,
+        "source": "user"
+      }
+    ],
+    "color": "#2BBA2B"
+  },
+  {
+    "topic": "恋爱与孤独",
+    "slots": [
+      {
+        "sentence": "我很容易睡觉的时候乱想，尤其是想我为什么这么普通，过得生活很没有意义，然后我对茶和咖啡也比较容易过敏，很容易睡不着",
+        "slot": "睡前焦虑与孤独感",
+        "id": 105,
+        "color": "#F9B3B3",
+        "sentiment": -0.8,
+        "source": "user"
+      }
+    ],
+    "color": "#EF2628"
+  },
+  {
+    "topic": "健身与心理健康",
+    "slots": [
+      {
+        "sentence": "我很容易睡觉的时候乱想，尤其是想我为什么这么普通，过得生活很没有意义，然后我对茶和咖啡也比较容易过敏，很容易睡不着",
+        "slot": "睡前焦虑",
+        "id": 105,
+        "color": "#D6C3BF",
+        "sentiment": -0.8,
+        "source": "user"
+      }
+    ],
+    "color": "#8C5649"
+  },
+  {
+    "topic": "英语学习与自信展示",
+    "slots": [
+      {
+        "sentence": "我很容易睡觉的时候乱想，尤其是想我为什么这么普通，过得生活很没有意义，然后我对茶和咖啡也比较容易过敏，很容易睡不着",
+        "slot": "失眠与压力",
+        "id": 105,
+        "color": "#F4CFE9",
+        "sentiment": -0.8,
+        "source": "user"
+      }
+    ],
+    "color": "#E277C1"
+  },
+  {
+    "topic": "失眠与压力管理",
+    "slots": [
+      {
+        "sentence": "我很容易睡觉的时候乱想，尤其是想我为什么这么普通，过得生活很没有意义",
+        "slot": "睡前胡思乱想",
+        "id": 105,
+        "color": "#D1D1D1",
+        "sentiment": -0.9,
+        "source": "user"
+      },
+      {
+        "sentence": "有时候会胡思乱想，有时候会想到不太好的事情，我有点怕自己。",
+        "slot": "胡思乱想与焦虑",
+        "id": 108,
+        "color": "#D1D1D1",
+        "sentiment": -0.9,
+        "source": "user"
+      }
+    ],
+    "color": "#7C7C7C"
   }
 ]

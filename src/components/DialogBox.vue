@@ -17,9 +17,7 @@
         <div class="avatar">
           <span>{{ msg.from === 'user' ? '👤' : '🤖' }}</span>
         </div>
-        <div class="bubble">
-          {{ msg.text }}
-        </div>
+        <div class="bubble" v-html="renderMarkdown(msg.text)"></div>
       </div>
     </div>
 
@@ -41,7 +39,6 @@ import MarkdownIt from 'markdown-it'
 const md = new MarkdownIt({
   breaks: true, // 单行换行变 <br>
 })
-
 const renderMarkdown = (text: string) => {
   return md.render(text)
 }
@@ -222,7 +219,7 @@ watch(
 onMounted(async () => {
   if (messages.value.length > 0) return
   try {
-    const resp = await fetch('/ChatGPT-xinli.txt')
+    const resp = await fetch('/ChatGPT-xinli.md')
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
 
     const rawTxt = await resp.text()
@@ -306,7 +303,6 @@ onMounted(async () => {
   border-radius: 10px;
   background: #ddd;
   word-break: break-word;
-  white-space: pre-wrap;
 }
 
 .chat-message.user .bubble {

@@ -14,6 +14,7 @@
 <script setup lang="ts">
 import DialogBox from './DialogBox.vue'
 import CapsuleUI from './CapsuleUI.vue'
+import GlobalTopicStripView from './GlobalTopicStripView.vue'
 </script>
 
 <style>

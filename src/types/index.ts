@@ -25,3 +25,17 @@ export interface MessageItem {
   text: string
   from: 'user' | 'bot'
 }
+
+export interface Point {
+  topic: string
+  slot: string
+  id: number
+  topicColor: string
+  source: 'user' | 'bot'
+}
+
+export interface Segment {
+  id: number
+  left: number
+  right: number
+}

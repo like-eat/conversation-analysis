@@ -15,11 +15,14 @@ export const useCounterStore = defineStore('counter', () => {
 export const useFileStore = defineStore('refileInfo', {
   state() {
     return {
+      // 历史对话内容
       MessageContent: [] as MessageItem[],
+      // GPT生成的对话内容
       GPTContent: [] as Conversation[],
-      FileContent: '',
+      // 选中的slot id来定位对话
       selectedSlotId: null as number | null,
-      refreshKey: 0, // 控制左侧对话更新
+      // 控制左侧是否刷新
+      refreshKey: 0,
     }
   },
   actions: {

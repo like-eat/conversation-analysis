@@ -299,11 +299,6 @@ def Topic_cleaning(history,topic_description,min_support=2):
     return result
 
 def Topic_Allocation(history, cleaned_topics, top_k_chunks=6):
-    """
-    - 不再从全文“盲扫”；
-    - 对每个 topic，使用 (topic + support_examples) 作为 query，
-      在对话向量库里检索相关片段，然后在这些片段里抽取二级子主题（slots）。
-    """
 
     # 0. 构建对话向量库
     if not (isinstance(history, list) and history):
@@ -347,17 +342,23 @@ def Topic_Allocation(history, cleaned_topics, top_k_chunks=6):
             - "sentence": 对话中的原文句子（必须与上面某一行的 content 完全一致，可以包含前后少量标点，但不要自行改写）
             - "slot": 该句子对应的二级子主题名称（简短、具体的名词短语或动宾短语）
             - "id": 该句子对应行前面的 id（整数）
-            - "sentiment": 该句子的情绪分数，范围 -1 (最负面，如沮丧、批评) 到 1 (最正面，如赞美、乐观)，0 表示中性。根据 sentence 的整体情感评估，让分数更具区分度（避免过多中性值，如果有强烈情感则偏向极端）。
+            - "sentiment": 该句子的情绪分数，范围 -1 (最负面，如沮丧、批评) 到 1 (最正面，如赞美、乐观)，0 表示中性。
+            - "source": 说话人角色，只能是 "user" 或 "bot"：
+                * 如果该行的 [role] 表示来访者 / 用户（例如包含 "user"、"User"、"用户" 等），请填 "user"；
+                * 如果该行的 [role] 表示助理 / AI（例如包含 "assistant"、"Assistant"、"bot"、"助手" 等），请填 "bot"。
 
             具体要求：
             1. 只考虑与一级主题 "{topic_name}" 明确相关的句子；
-            2. 每条 sentence 最多对应一个 slot；
-            3. 如果多句表达完全相同的二级子主题，可只保留信息更完整的句子；
-            4. 严格输出 JSON 数组，不要包含任何解释性文字，也不要使用代码块标记。
+            2. 对于同一个 id，只能在输出数组中出现一次：
+               - 如果你认为同一个 id 的句子涉及多个子主题，请只选择你认为“最核心”的一个作为 slot；
+               - 严禁为同一个 id 输出多条记录。
+            3. 每条 sentence 最多对应一个 slot
+            4. 如果多句表达完全相同的二级子主题，可只保留信息更完整的句子；
+            5. 严格输出 JSON 数组，不要包含任何解释性文字，也不要使用代码块标记。
             示例输出（示意）：
             [
-              {{"sentence": "我们需要改进 SWMM 模型的参数校准过程。", "slot": "SWMM 参数校准", "id": 45, "sentiment": 0.2}},
-              {{"sentence": "本次主要讨论 DrainScope 中的排水风险指标可视分析。", "slot": "排水风险指标可视分析", "id": 52, "sentiment": -0.1}}
+              {{"sentence": "我们需要改进 SWMM 模型的参数校准过程。", "slot": "SWMM 参数校准", "id": 45, "sentiment": 0.2, "source": "user"}},
+              {{"sentence": "本次主要讨论 DrainScope 中的排水风险指标可视分析。", "slot": "排水风险指标可视分析", "id": 52, "sentiment": -0.1, "source": "bot"}}
             ]
         """
 
@@ -397,6 +398,8 @@ def Topic_Allocation(history, cleaned_topics, top_k_chunks=6):
 
         # 5) 规范化 & 排序（按 id 时间顺序）
         norm_slots = []
+        seen_ids = set()
+
         for s in slots:
             if not isinstance(s, dict):
                 continue
@@ -407,13 +410,30 @@ def Topic_Allocation(history, cleaned_topics, top_k_chunks=6):
             except Exception:
                 continue
             sentiment = s.get("sentiment", 0.0)  # 默认 0，如果缺失
+
+            raw_source = (s.get("source") or "").strip().lower()
+            if raw_source in ["user", "u", "client", "来访者", "用户"]:
+                source = "user"
+            elif raw_source in ["bot", "assistant", "ai", "助手", "系统"]:
+                source = "bot"
+            else:
+                source = "user"  # 实在不确定就默认 user，或者你可以改成 None
+
             if not sent or not slot_name:
                 continue
+
+            # ✅ 去重：同一个 topic 里，一个 id 只保留一次
+            if sid in seen_ids:
+                # 如果你以后想换策略（比如选情绪更强的那条），可以在这里改逻辑
+                continue
+            seen_ids.add(sid)
+
             norm_slots.append({
                 "sentence": sent,
                 "slot": slot_name,
                 "id": sid,
-                "sentiment": sentiment  # 新增字段
+                "sentiment": sentiment,  # 新增字段
+                "source": source
             })
 
         norm_slots.sort(key=lambda x: x["id"])
@@ -427,94 +447,94 @@ def Topic_Allocation(history, cleaned_topics, top_k_chunks=6):
     return results
 
 
-def llm_extract_information_incremental(history_sentences,new_sentence, existing_topics=None): 
+# def llm_extract_information_incremental(history_sentences,new_sentence, existing_topics=None): 
     
-    """
-    对新句子进行主题抽取，并与已有抽取结果合并
-    """
-    existing_topics = existing_topics or []
+#     """
+#     对新句子进行主题抽取，并与已有抽取结果合并
+#     """
+#     existing_topics = existing_topics or []
 
-    # 👉 支持 dict 或 str
-    if isinstance(new_sentence, dict):
-        sentence_text = new_sentence.get("content", "")
-    else:
-        sentence_text = str(new_sentence)
-        history_sentences = str(history_sentences)
+#     # 👉 支持 dict 或 str
+#     if isinstance(new_sentence, dict):
+#         sentence_text = new_sentence.get("content", "")
+#     else:
+#         sentence_text = str(new_sentence)
+#         history_sentences = str(history_sentences)
 
-    prompt = f"""请完成以下任务：
+#     prompt = f"""请完成以下任务：
 
-        任务：首先你需要将新的一句对话中无关紧要的信息进行过滤，然后对这句对话进行主题抽取。
-        历史对话:{history_sentences}
+#         任务：首先你需要将新的一句对话中无关紧要的信息进行过滤，然后对这句对话进行主题抽取。
+#         历史对话:{history_sentences}
 
-        新的对话：{new_sentence}
+#         新的对话：{new_sentence}
 
-        新的句子: {sentence_text}
+#         新的句子: {sentence_text}
 
-        已有主题: {json.dumps(existing_topics, ensure_ascii=False)}
+#         已有主题: {json.dumps(existing_topics, ensure_ascii=False)}
 
-        抽取主题过程要按照下面三步来进行：
-        Step 1：理解整轮语义背景
-        请先阅读历史对话内容，理解整轮对话的主要语义焦点或讨论方向。
+#         抽取主题过程要按照下面三步来进行：
+#         Step 1：理解整轮语义背景
+#         请先阅读历史对话内容，理解整轮对话的主要语义焦点或讨论方向。
 
-        Step 2：聚焦当前轮的前10句
-        从当前对话中选取**新的句子: {sentence_text}的前10句**（若不足10句则全部使用），
-        和它们的主题。
+#         Step 2：聚焦当前轮的前10句
+#         从当前对话中选取**新的句子: {sentence_text}的前10句**（若不足10句则全部使用），
+#         和它们的主题。
 
-        Step 3：主题抽取与输出
-        结合 Step 1 的全局语义理解与 Step 2 的局部焦点，抽取出本轮对话的主题，请只输出新句子的主题 JSON，不修改已有主题。
+#         Step 3：主题抽取与输出
+#         结合 Step 1 的全局语义理解与 Step 2 的局部焦点，抽取出本轮对话的主题，请只输出新句子的主题 JSON，不修改已有主题。
 
-        输出要求：
-        1. 输出必须是标准 JSON 对象，严禁包含代码块标记（如```json）或多余文字。
-        2. 每个主题包含字段：
-        - "topic": 主题名称（最高层领域名，如“人工智能”“可视化”“智慧城市”），为名词短语。
-        - "slots": 一个数组，每个元素包含 {{ "sentence": 原始句子, "slot": 对应的子主题}}
-        3. slot必须是**简洁、具体、可落地的名词短语或动宾短语**，能指向一个清晰的关注点。
-        4. 保持主题与子主题表述简洁。
-        5. 输出的标准 JSON 格式：
-        [
-            {{
-                "topic": "主题名称",
-                "slots": [
-                    {{"sentence": "原始句子", "slot": "子主题"}}
-                ]
-            }}
-        ]
-        例子：
-        [
-            {{
-                "topic": "人工智能",
-                "slots": [
-                    {{"sentence": "人工智能伦理关注的不仅是算法的公平性与隐私保护，还包括数据使用的透明度、模型决策的可解释性。", "slot": "人工智能伦理"}}
-                ]
-            }}
-        ]
+#         输出要求：
+#         1. 输出必须是标准 JSON 对象，严禁包含代码块标记（如```json）或多余文字。
+#         2. 每个主题包含字段：
+#         - "topic": 主题名称（最高层领域名，如“人工智能”“可视化”“智慧城市”），为名词短语。
+#         - "slots": 一个数组，每个元素包含 {{ "sentence": 原始句子, "slot": 对应的子主题}}
+#         3. slot必须是**简洁、具体、可落地的名词短语或动宾短语**，能指向一个清晰的关注点。
+#         4. 保持主题与子主题表述简洁。
+#         5. 输出的标准 JSON 格式：
+#         [
+#             {{
+#                 "topic": "主题名称",
+#                 "slots": [
+#                     {{"sentence": "原始句子", "slot": "子主题"}}
+#                 ]
+#             }}
+#         ]
+#         例子：
+#         [
+#             {{
+#                 "topic": "人工智能",
+#                 "slots": [
+#                     {{"sentence": "人工智能伦理关注的不仅是算法的公平性与隐私保护，还包括数据使用的透明度、模型决策的可解释性。", "slot": "人工智能伦理"}}
+#                 ]
+#             }}
+#         ]
 
 
-        规则补充：
-        1. 所有问题首先要识别最高层的大主题，作为唯一的topic。
-        2. 若句子涉及多个内容，请提炼出最核心的主题。
-        3. slot **禁止**空泛/笼统/抽象指代，例如只写“研究”“问题”“应用”“方法论”“影响”“发展”“现状”“讨论”等泛词。
-        4. topic只表示核心领域，slots 负责细分问题。
-        5. 大部分时间bot的回复是根据user的问题来的，所以大部分时间bot回复的主题和user的问题的主题是一致的。
-        """
+#         规则补充：
+#         1. 所有问题首先要识别最高层的大主题，作为唯一的topic。
+#         2. 若句子涉及多个内容，请提炼出最核心的主题。
+#         3. slot **禁止**空泛/笼统/抽象指代，例如只写“研究”“问题”“应用”“方法论”“影响”“发展”“现状”“讨论”等泛词。
+#         4. topic只表示核心领域，slots 负责细分问题。
+#         5. 大部分时间bot的回复是根据user的问题来的，所以大部分时间bot回复的主题和user的问题的主题是一致的。
+#         """
     
-    completion = openai.chat.completions.create(
-        model="gpt-4o",
-        temperature=0.5,
-        messages=[
-            {"role": "system", "content": "你是一名对话分析助手，擅长从对话中提取出用户的对话主题并合并到已有主题。"},
-            {"role": "user", "content": prompt }
-            ],)
+#     completion = openai.chat.completions.create(
+#         model="gpt-4o",
+#         temperature=0.5,
+#         messages=[
+#             {"role": "system", "content": "你是一名对话分析助手，擅长从对话中提取出用户的对话主题并合并到已有主题。"},
+#             {"role": "user", "content": prompt }
+#             ],)
     
-    try:
-        result = json.loads(completion.choices[0].message.content)
-    except json.JSONDecodeError:
-        result = []
+#     try:
+#         result = json.loads(completion.choices[0].message.content)
+#     except json.JSONDecodeError:
+#         result = []
 
-    print("抽取结果：")
-    print(result)
+#     print("抽取结果：")
+#     print(result)
 
-    return result
+#     return result
 
 # 生成 embedding
 def get_embedding(text):
@@ -594,13 +614,6 @@ def extract_memory_from_text(user_id, new_sentence):
 
 # ===== GPT + Memory + RAG函数 =====
 def talk_to_chatbot(user_id, content, source, history_msgs, top_k=3):
-    """
-    content: 本轮用户问题
-    source: 消息来源，可传入
-    history_msgs: 短期对话列表 [{"role": "user"/"assistant", "content": "..."}]
-    index: FAISS 索引对象，用于存储长期记忆
-    top_k: RAG 检索数量
-    """
     global index
 
     # 1. 先检索Memory
