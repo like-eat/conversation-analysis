@@ -1,0 +1,216 @@
+[
+  {
+    "topic": "自我价值怀疑",
+    "slots": [
+      {
+        "sentence": "我是不是就是个废物？别人一战就上岸，我考了四年才勉强考上，现在还是个普通一本，我这辈子是不是完了？",
+        "slot": "自我否定",
+        "id": 1,
+        "sentiment": -0.9,
+        "source": "user",
+        "is_question": true,
+        "resolved": true
+      },
+      {
+        "sentence": "我现在学的是计算机专业，我感觉未来找工作好困难，我怕毕业就失业了",
+        "slot": "就业焦虑",
+        "id": 3,
+        "sentiment": -0.8,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "我看到身边的同学每个人都收到大厂的offer和工作，压力好大，我怕每次我毕业之后啥也找不到，就失业，辜负父母的期待。",
+        "slot": "同辈压力",
+        "id": 7,
+        "sentiment": -0.9,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "别人都说考研上岸就解放了，为什么我上岸了反而更绝望？",
+        "slot": "考研后失落",
+        "id": 9,
+        "sentiment": -0.8,
+        "source": "user",
+        "is_question": true,
+        "resolved": true
+      },
+      {
+        "sentence": "我特别怕毕业那天一个人搬行李回老家，我怕我爸妈看到我还是这个死样子会失望死，我该怎么办？",
+        "slot": "家庭期待压力",
+        "id": 11,
+        "sentiment": -0.9,
+        "source": "user",
+        "is_question": true,
+        "resolved": true
+      },
+      {
+        "sentence": "我确实有想过一死了之，但是我连自杀都不敢，我怕我死了我妈会疯，我怕我连死都做不好。",
+        "slot": "自杀念头",
+        "id": 13,
+        "sentiment": -1.0,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "我在学校也没什么朋友，我跟同学之间的关系也不好，平时也没有什么活动可以参加，我不知道跟谁说内心的话",
+        "slot": "社交孤立",
+        "id": 15,
+        "sentiment": -0.8,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "我长相普通，家里也没什么钱，我还很胖，我在学校里面不敢跟别人打招呼说话",
+        "slot": "外貌自卑",
+        "id": 17,
+        "sentiment": -0.9,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "我长这么大从来没有谈过恋爱，甚至女生的手都没有牵过，我也很少有女性朋友，其实我是很想去谈恋爱，但是我根本找不到",
+        "slot": "恋爱挫败感",
+        "id": 19,
+        "sentiment": -0.8,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "我没什么特长，我平常没有课的时候，我就只会在宿舍呆着打游戏，也不想去别的地方。",
+        "slot": "缺乏特长",
+        "id": 21,
+        "sentiment": -0.7,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "我感觉我的长相普通，甚至说有点丑，我感觉世界是一个巨大的卡颜局，对外貌不好的人来说，恶意真的太大了。",
+        "slot": "外貌焦虑",
+        "id": 35,
+        "sentiment": -0.9,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "我刷到别人说‘长得丑就是原罪’，我一照镜子就想把自己脸抓花，我是不是真的没资格被爱？",
+        "slot": "自我厌恶",
+        "id": 37,
+        "sentiment": -1.0,
+        "source": "user",
+        "is_question": true,
+        "resolved": true
+      },
+      {
+        "sentence": "我一照镜子就觉得自己好丑，穿的也土，人也胖",
+        "slot": "外貌自卑",
+        "id": 39,
+        "sentiment": -0.9,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "我现在还没有毕业，相亲的时候总是被女方嫌弃",
+        "slot": "相亲挫败感",
+        "id": 49,
+        "sentiment": -0.8,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      }
+    ]
+  },
+  {
+    "topic": "就业压力",
+    "slots": [
+      {
+        "sentence": "其实我挺害怕回家的，因为每次回家家里人都会催我相亲",
+        "slot": "家庭压力",
+        "id": 47,
+        "sentiment": -0.6,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      }
+    ]
+  },
+  {
+    "topic": "父母期望压力",
+    "slots": [
+      {
+        "sentence": "你最近有没有出现那种“想消失”“不想活了”“想伤害自己”的冲动？",
+        "slot": "担心自伤风险",
+        "id": 14,
+        "sentiment": -0.9,
+        "source": "bot",
+        "is_question": true,
+        "resolved": true
+      },
+      {
+        "sentence": "总觉得比别人慢几步的自己；",
+        "slot": "与他人对比的压力",
+        "id": 40,
+        "sentiment": -0.7,
+        "source": "bot",
+        "is_question": false,
+        "resolved": false
+      }
+    ]
+  },
+  {
+    "topic": "心理健康问题",
+    "slots": [
+      {
+        "sentence": "你绝对不是废物。",
+        "slot": "自我肯定",
+        "id": 2,
+        "sentiment": 0.8,
+        "source": "bot",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "你现在害怕的，其实不是“必然失业”，而是“我会不会什么都不会、跟别人比没有优势”。",
+        "slot": "能力焦虑",
+        "id": 4,
+        "sentiment": -0.7,
+        "source": "bot",
+        "is_question": false,
+        "resolved": false
+      }
+    ]
+  },
+  {
+    "topic": "职业发展规划",
+    "slots": [
+      {
+        "sentence": "我想减肥，你觉得我应该怎么做，我现在170cm，180斤",
+        "slot": "减肥计划",
+        "id": 27,
+        "sentiment": 0.1,
+        "source": "user",
+        "is_question": true,
+        "resolved": true
+      },
+      {
+        "sentence": "我想和女生谈恋爱，但是我不知道怎么跟她们交流，以及去哪里认识女生",
+        "slot": "恋爱交流",
+        "id": 45,
+        "sentiment": -0.5,
+        "source": "user",
+        "is_question": true,
+        "resolved": true
+      }
+    ]
+  }
+]

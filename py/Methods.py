@@ -3,7 +3,6 @@ import colorsys
 import re
 import json
 from copy import deepcopy
-from LLM_Extraction import Semantic_pre_scanning, Topic_cleaning, Topic_Allocation
 # 自定义颜色调色板，深色系，每个元素是 (r,g,b)，范围 0~1
 color_palette = [
     (0.12, 0.47, 0.91),  # 深蓝
@@ -204,39 +203,109 @@ def segment_by_timeline(topics):
     flush_segment()
     return segments
 
-def pipeline_on_messages(messages):
+def parse_conversation(file_path):
+    """读取对话文本，生成消息列表"""
+    messages = []
+    id_counter = 1
+    role = None
+    content = ""
 
-    # 1. 如果没有 id，就顺手补一遍递增 id，保证后面能用 id 做时间轴
-    normalized_messages = []
-    for idx, m in enumerate(messages, start=1):
-        normalized_messages.append({
-            "id": m.get("id", idx),
-            "role": m.get("role") or m.get("from") or "user",
-            "content": (m.get("content") or m.get("text") or "").strip()
+    with open(file_path, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    for line in lines:
+        line = line.strip()
+        if line.startswith("## Prompt:") or line.startswith("## Prompt："):
+            if content and role:
+                messages.append({"id": id_counter, "role": role, "content": content.strip()})
+                id_counter += 1
+                content = ""
+            role = "user"
+            continue
+
+        elif line.startswith("## Response:") or line.startswith("## Response："):
+            if content and role:
+                messages.append({"id": id_counter, "role": role, "content": content.strip()})
+                id_counter += 1
+                content = ""
+            role = "bot"
+            continue
+
+        if role:
+            content += line + "\n"
+
+    if content and role:
+        messages.append({"id": id_counter, "role": role, "content": content.strip()})
+    return messages
+
+def parse_meeting_conversation(file_path):
+    """读取会议对话文本，生成消息列表"""
+    messages = []
+    current_id = None
+    current_role = None
+    content_lines = []
+
+    with open(file_path, "r", encoding="utf-8") as f:
+        for raw in f:
+            line = raw.rstrip("\n")
+            stripped = line.strip()
+
+            # 空行直接跳过（但不立刻 flush，id/内容逻辑还是看下面）
+            if not stripped:
+                continue
+
+            # 如果这一行是纯数字 -> 说明是一个新的 id
+            if stripped.isdigit():
+                # 先把上一个说话人收尾
+                if current_id is not None and current_role and content_lines:
+                    messages.append({
+                        "id": current_id,
+                        "role": current_role,
+                        "content": "\n".join(content_lines).strip(),
+                    })
+                # 开启下一条
+                current_id = int(stripped)
+                current_role = None
+                content_lines = []
+                continue
+
+            # 尝试匹配 [说话人]内容
+            m = re.match(r'^\[(.+?)\](.*)$', stripped)
+            if m:
+                # 开启这个 id 对应的第一句
+                current_role = m.group(1).strip() or "Unknown"
+                first_text = m.group(2).lstrip()
+                if first_text:
+                  content_lines.append(first_text)
+            else:
+                # 没有中括号，则视为当前说话人的后续内容
+                if current_id is not None:
+                    content_lines.append(stripped)
+                # 否则（连 id 都没有），直接忽略
+
+    # 文件结束，把最后一条补上
+    if current_id is not None and current_role and content_lines:
+        messages.append({
+            "id": current_id,
+            "role": current_role,
+            "content": "\n".join(content_lines).strip(),
         })
 
-    # 2. 这里你有两种选择：
-    #    A) 和 process_conversation 一样，先拼成大文本 + chunk_text 再丢给 Semantic_pre_scanning
-    #    B) 直接把 normalized_messages 丢给 Semantic_pre_scanning（对话不是特别长时更简单）
-    #
-    # 先给你一个简单版：直接对整段对话做 Semantic_pre_scanning
-    # 如果你确实需要像 process_conversation 那样分 chunk，再照你上面的 chunk_text 那套改就行。
+    return messages
 
-    # 🧠 第一步：语义预扫描（粗抽）
-    pre_scan_result = Semantic_pre_scanning(normalized_messages)
-    # pre_scan_result 结构应该就是你之前 all_results 的那一类 topic/slots 列表
-
-    # 🧹 第二步：主题清洗 / 去噪 / 合并
-    cleaned_topics = Topic_cleaning(normalized_messages, pre_scan_result)
-
-    # 🎯 第三步：把 slot 重新对齐到具体的消息 / turn 上
-    allocated_topics = Topic_Allocation(normalized_messages, cleaned_topics)
-
-    # 🎨 第四步：给每个 topic 分配颜色
-    colored_results = assign_colors(allocated_topics)
-
-    # ⛰️ 第五步：按时间轴切段，给前端画带状图
-    segmented_results = segment_by_timeline(colored_results)
-
-    return segmented_results
-
+def split_history_by_turns(history, max_turns=80):
+    """
+    history: [{id, role, content}, ...]
+    按条数把对话切成多个小段，每段最多 max_turns 条。
+    不改动原来的 id。
+    """
+    chunks = []
+    cur = []
+    for m in history:
+        cur.append(m)
+        if len(cur) >= max_turns:
+            chunks.append(cur)
+            cur = []
+    if cur:
+        chunks.append(cur)
+    return chunks

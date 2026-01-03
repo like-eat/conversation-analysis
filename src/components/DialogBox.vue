@@ -12,12 +12,23 @@
         v-for="(msg, index) in messages"
         :key="index"
         :ref="(el) => (messageRefs[index] = el as HTMLElement | null)"
-        :class="['chat-message', msg.from]"
+        :class="['chat-message', isSelf(msg) ? 'self' : 'other']"
       >
-        <div class="avatar">
-          <span>{{ msg.from === 'user' ? '👤' : '🤖' }}</span>
+        <!-- 左侧 / 右侧：头像（固定宽度） -->
+        <div class="avatar-wrapper">
+          <div class="avatar" :class="{ 'avatar-self': isSelf(msg) }">
+            <span>{{ getEmojiForSpeaker(msg.from) }}</span>
+          </div>
         </div>
-        <div class="bubble" v-html="renderMarkdown(msg.text)"></div>
+
+        <!-- 右侧：名字 + 气泡 -->
+        <div class="message-body">
+          <!-- 名字：仿微信群聊，一般只给别人显示，你可以按需调整逻辑 -->
+          <div class="speaker-name" v-if="msg.from !== 'user' || !primarySpeaker">
+            {{ displayName(msg.from) }}
+          </div>
+          <div class="bubble" v-html="renderMarkdown(msg.text)"></div>
+        </div>
       </div>
     </div>
 
@@ -60,9 +71,63 @@ const scrollToMessage = (index: number) => {
     el.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 }
+
+const SPEAKER_EMOJIS = ['🧑', '🧑‍💼', '🧑‍🎤', '🧑‍🏫', '🧑‍💻'] as const
+
+// 记住“某个名字” → “分到哪个 emoji”
+const speakerEmojiCache = new Map<string, string>()
+
+function displayName(from: string): string {
+  if (from === 'user') return '我'
+  if (from === 'bot') return '助手'
+  return from || '未知'
+}
+
+function getEmojiForSpeaker(from: string): string {
+  // 先处理 user / bot
+  if (from === 'user') return '👤'
+  if (from === 'bot') return '🤖'
+
+  // 多人会议：如果之前给他分配过 emoji，直接复用
+  const cached = speakerEmojiCache.get(from)
+  if (cached) return cached
+
+  // 没分配过，就按当前 cache 的大小轮流分配一个
+  const idx = speakerEmojiCache.size % SPEAKER_EMOJIS.length
+  const emoji = SPEAKER_EMOJIS[idx]
+  speakerEmojiCache.set(from, emoji)
+  return emoji
+}
+
+const primarySpeaker = ref<string | null>(null)
+
+function initPrimarySpeaker(messages: MessageItem[]) {
+  if (primarySpeaker.value) return
+  // 优先兼容旧格式：如果有 user，就直接用 user
+  const hasUser = messages.find((m) => m.from === 'user')
+  if (hasUser) {
+    primarySpeaker.value = 'user'
+    return
+  }
+  // 否则就是多人会议：取第一条有 from 的作为“我”
+  const first = messages.find((m) => !!m.from)
+  primarySpeaker.value = first?.from ?? null
+}
+
+// 判断某条消息是不是“我说的”
+function isSelf(msg: MessageItem): boolean {
+  // 旧的 LLM 对话：user 在右，bot 在左
+  if (msg.from === 'user') return true
+  if (msg.from === 'bot') return false
+
+  // 多人会议：from 等于 primarySpeaker 就算“我”
+  if (!primarySpeaker.value) return false
+  return msg.from === primarySpeaker.value
+}
+
 let globalId = 1 // 全局自增
 let reset_flag = false
-let allMessages: { id: number; role: 'user' | 'bot'; content: string }[] = []
+let allMessages: { id: number; role: string; content: string }[] = []
 const sendMessage = async () => {
   const text = input.value.trim()
   if (!text) return
@@ -185,6 +250,76 @@ function parseConversationFromText(raw: string): MessageItem[] {
   return result
 }
 
+function parseMeetingConversationFromText(raw: string): MessageItem[] {
+  const result: MessageItem[] = []
+
+  let currentId: number | null = null
+  let currentSpeaker: string | null = null
+  let contentLines: string[] = []
+
+  const lines = raw.split(/\r?\n/)
+
+  // 小工具：把当前缓存的这条消息 push 进去
+  const flushCurrent = () => {
+    if (currentId != null && currentSpeaker && contentLines.length > 0) {
+      result.push({
+        id: currentId,
+        from: currentSpeaker,
+        text: contentLines.join('\n').trim(),
+      })
+    }
+    contentLines = []
+  }
+
+  for (const line of lines) {
+    const trimmed = line.trim()
+    if (!trimmed) {
+      // 空行直接跳过，不当成内容
+      continue
+    }
+
+    // 1) 纯数字行：表示一个新的发言 id
+    if (/^\d+$/.test(trimmed)) {
+      // 先把上一条完整消息收尾
+      flushCurrent()
+
+      currentId = parseInt(trimmed, 10)
+      currentSpeaker = null
+      continue
+    }
+
+    // 2) [说话人]内容
+    const match = trimmed.match(/^\[(.+?)\](.*)$/)
+    if (match) {
+      // 理论上每个 id 对应一次 speaker 行，这里也先 flush 一下以防同 id 多 speaker 的奇怪情况
+      flushCurrent()
+
+      if (currentId == null) {
+        // 如果文本坏掉了，没有 id 就出现了说话人，就临时给个 id
+        currentId = result.length + 1
+      }
+
+      currentSpeaker = match[1].trim() || 'Unknown'
+      const firstText = match[2].trim()
+      if (firstText) {
+        contentLines.push(firstText)
+      }
+      continue
+    }
+
+    // 3) 其他普通文本行：视为当前发言的后续内容
+    if (currentId != null) {
+      contentLines.push(trimmed)
+    }
+    // 如果连 currentId 都没有，就忽略这行
+  }
+
+  // 文件结束，处理最后一条
+  flushCurrent()
+
+  return result
+}
+
 watch(
   () => FileStore.selectedSlotId,
   (slotId) => {
@@ -219,13 +354,16 @@ watch(
 onMounted(async () => {
   if (messages.value.length > 0) return
   try {
-    const resp = await fetch('/ChatGPT-xinli.md')
+    const resp = await fetch('/meeting_talk.txt')
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
 
     const rawTxt = await resp.text()
-    const parsed = parseConversationFromText(rawTxt)
+    const parsed = parseMeetingConversationFromText(rawTxt)
 
     messages.value = parsed
+
+    // ⭐ 这里初始化“第一人称”
+    initPrimarySpeaker(parsed)
 
     // 计算全局 id 起点，避免后续新增消息冲突
     const maxId = parsed.reduce((mx, m) => Math.max(mx, m.id), 0)
@@ -268,8 +406,8 @@ onMounted(async () => {
   flex: 1;
   padding: 15px;
   overflow-y: auto;
-  scrollbar-width: none; /* Firefox 隐藏滚动条 */
-  -ms-overflow-style: none; /* IE 和 Edge 隐藏滚动条 */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .chat-window::-webkit-scrollbar {
@@ -279,11 +417,20 @@ onMounted(async () => {
 .chat-message {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 
-.chat-message.user {
+/* 自己在右边：整行反转 */
+.chat-message.self {
   flex-direction: row-reverse;
+}
+
+/* 头像外层：固定宽度，保证气泡起点对齐 */
+.avatar-wrapper {
+  width: 40px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
 }
 
 .avatar {
@@ -294,20 +441,43 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 10px;
 }
 
+.avatar-self {
+  background: #36ae44;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* 名字 + 气泡的容器 */
+.message-body {
+  max-width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 名字在气泡上方，宽度随气泡，但不影响头像 */
+.speaker-name {
+  font-size: 12px;
+  color: #666;
+  margin: 0 4px 4px 4px;
+}
+
+/* 气泡 */
 .bubble {
-  max-width: 60%;
-  padding: 10px;
-  border-radius: 10px;
+  align-self: flex-start;
+  max-width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
   background: #ddd;
   word-break: break-word;
 }
 
-.chat-message.user .bubble {
+/* 自己说的话的气泡颜色 + 右对齐 */
+.chat-message.self .bubble {
   background: #36ae44;
   color: #fff;
+  align-self: flex-end; /* 让气泡贴近右边 */
 }
 
 .chat-input {

@@ -3,11 +3,14 @@ export interface Slot {
   sentence: string
   slot: string
   color: string
-  source: 'user' | 'bot'
+  source: string
   x?: number // 新增
   y?: number // 新增
   rw?: number // 新增
   rh?: number // 新增
+  is_question?: boolean
+  resolved?: boolean
+  info_score?: number
 }
 export interface Conversation {
   id: number
@@ -23,7 +26,7 @@ export interface Conversation {
 export interface MessageItem {
   id: number
   text: string
-  from: 'user' | 'bot'
+  from: string
 }
 
 export interface Point {
@@ -31,7 +34,11 @@ export interface Point {
   slot: string
   id: number
   topicColor: string
-  source: 'user' | 'bot'
+  source: string
+  sentence?: string
+  is_question?: boolean
+  resolved?: boolean
+  info_score?: number
 }
 
 export interface Segment {
