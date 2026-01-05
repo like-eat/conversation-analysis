@@ -2,10 +2,10 @@
   <div class="page-container">
     <div class="content-container">
       <div class="dialog-container">
-        <DialogBox />
+        <DialogBox :dataset-key="datasetKey" />
       </div>
       <div class="capsule-graph-container">
-        <CapsuleUI />
+        <CapsuleUI :dataset-key="datasetKey" @toggle-dataset="toggleDataset" />
       </div>
     </div>
   </div>
@@ -14,7 +14,14 @@
 <script setup lang="ts">
 import DialogBox from './DialogBox.vue'
 import CapsuleUI from './CapsuleUI.vue'
-import GlobalTopicStripView from './GlobalTopicStripView.vue'
+import { ref } from 'vue'
+
+type DatasetKey = 'meeting' | 'xinli'
+const datasetKey = ref<DatasetKey>('meeting')
+
+function toggleDataset() {
+  datasetKey.value = datasetKey.value === 'meeting' ? 'xinli' : 'meeting'
+}
 </script>
 
 <style>

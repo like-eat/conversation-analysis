@@ -8,7 +8,7 @@ import colorsys
 import uuid
 import matplotlib.pyplot as plt
 
-from LLM_Extraction import talk_to_chatbot, Semantic_pre_scanning, Topic_cleaning, Topic_Allocation
+from LLM_Extraction import talk_to_chatbot, pipeline_on_messages
 from Methods import assign_colors, merge_topics_timeline
 
 app = Flask(__name__)
@@ -82,7 +82,7 @@ def extract():
                 continue
 
             # 小数据直接 LLM，大数据可扩展为批处理
-            result = llm_extract_information_incremental(history_msgs,text, existing_domains=merged_results_global)
+            result = pipeline_on_messages(history_msgs,text, existing_domains=merged_results_global)
 
             # 给每个 slot 添加来源标识
             for domain in result:
@@ -117,74 +117,6 @@ def extract():
         return jsonify(colored_results), 200
    except Exception as e:
         return jsonify({'error': '抽取失败，添加颜色失败', 'details': str(e)}), 500
-   
-# 测试路由
-@app.route('/test_extract', methods=['GET'])
-def test_extract():
-   try:
-        user_sentences = []
-
-        with open("py/conversation_example/ChatGPT-DST.txt", "r", encoding="utf-8") as f:
-            lines = f.readlines()
-
-            for i, line in enumerate(lines):
-                line = line.strip()
-                if line.startswith("## Prompt:") or line.startswith("## Prompt："):
-                    # 取下一行，确保索引不越界
-                    if i + 1 < len(lines):
-                        next_line = lines[i+1].strip()
-                        if next_line:  # 避免空行
-                            user_sentences.append(next_line)
-        print("User Sentences:")
-        print(user_sentences)
-        
-        docs = user_sentences
-
-        new_results = []
-        latest_msgs = messages[-2:]  # 最后两条：user + bot
-        for msg in latest_msgs:
-            id = msg.get("id", "")
-            role = msg.get("role", "user")
-            text = msg.get("content", "").strip()
-            if not text:
-                continue
-
-            # 小数据直接 LLM，大数据可扩展为批处理
-            result = llm_extract_information_incremental(text, existing_domains=merged_results_global)
-
-            # 给每个 slot 添加来源标识
-            for domain in result:
-                for slot in domain.get("slots", []):
-                    slot["source"] = role  # user 或 bot
-
-            # 给每个 slot 添加id
-            for domain in result:
-                for slot in domain.get("slots", []):
-                    slot["id"] = id  # 给每个 slot 赋予唯一 id
-
-            new_results.append(result)
-
-        # 先扁平化 results
-        flat_new_results = []
-        for r in new_results:
-            if isinstance(r, list):
-                flat_new_results.extend(r)
-            else:
-                flat_new_results.append(r)
-
-        # 把新结果合并到全局
-        all_results = merged_results_global + flat_new_results
-        # print("扁平化结果：", flat_new_results)
-        merged_results_global = merge_domains_timeline(all_results)
-        print("合并结果:", merged_results_global)
-        colored_results = assign_colors(merged_results_global)
-        # print("带颜色的抽取结果：", colored_results)
-    
-        # Step 5: 返回 JSON 给前端
-        return jsonify(colored_results), 200
-   except Exception as e:
-        return jsonify({'error': '抽取失败，添加颜色失败', 'details': str(e)}), 500
-        
-
+         
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)

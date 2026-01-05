@@ -1,14 +1,15 @@
 <template>
   <div class="capsule-container">
     <div ref="UIcontainer" class="capsule-body"></div>
-    <button class="bottom-left-btn">清除线条</button>
-    <button class="bottom-right-btn" @click="AddTalk">新开分支</button>
+    <button class="bottom-left-btn" @click="DeleteLine">清除线条</button>
+    <button class="bottom-mid-btn" @click="AddTalk">新开分支</button>
+    <button class="bottom-right-btn" @click="emit('toggle-dataset')">切换数据</button>
   </div>
 </template>
 
 <script setup lang="ts">
 import * as d3 from 'd3'
-import { onMounted, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import type { Conversation, MessageItem, Point, Segment } from '@/types/index'
 import { useFileStore } from '@/stores/FileInfo'
 
@@ -21,50 +22,44 @@ const topicColorMap: Record<string, string> = {}
 // KDE 带宽（按你之前 html 的设置）
 const BANDWIDTH = 8
 // 每个发言人一个颜色
-const SPEAKER_PALETTE = [
-  '#1976d2', // 蓝
-  '#e65100', // 橙
-  '#7b1fa2', // 紫
-  '#00897b', // 青
-  '#f9a825', // 黄
-  '#d81b60', // 粉
-  '#5d4037', // 棕
-]
+const SPEAKER_PALETTE = ['#14B8A6', '#A3E635', '#C026D3', '#FB7185', '#0F172A']
 
+// 存储真实对话
 const speakerColorMap: Record<string, string> = {} // 发言人 -> 颜色
 const turnScoreMap = new Map<number, number>() // turn id -> 信息量评分
+const data = ref<Conversation[]>([])
+const selectedTopicMessages = ref<{ id: number; role: string; content: string }[]>([])
 
 const onSlotClick = (slotId: number) => {
   FileStore.selectedSlotId = slotId
 }
-// 存储真实对话
-const data = ref<Conversation[]>([])
-const selectedTopicMessages = ref<{ id: number; role: string; content: string }[]>([])
 
 // 清空函数
 const clearUI = () => {
-  // 清空画布
-  // d3.select(UIcontainer.value).selectAll('*').remove()
   data.value = []
-  // 清空GPT的对话内容，监听GPT内容，会重新绘制空白画布
-  // FileStore.clearGPTContent()
 }
+
 // 高亮选中 topic 带
 const highlightTopicBands = (activeTopic: string | null) => {
   // 选中所有 topic 带
   const bands = d3.selectAll<SVGPathElement, Segment[]>('path.topic-band')
 
   bands
+    .interrupt() // 先打断旧动画，避免叠加
     .transition()
-    .duration(200)
+    .duration(400)
+    .ease(d3.easeCubicInOut)
     .attr('fill-opacity', function () {
-      const t = (this as SVGPathElement).getAttribute('data-topic')
-      if (!activeTopic) {
-        // 没有选中任何 topic，全部恢复正常不变淡
-        return 0.85
+      const t = d3.select(this).attr('data-topic')
+      if (!activeTopic) return 0.85
+      return t === activeTopic ? 1.0 : 0.2
+    })
+    .attr('transform', function () {
+      const t = d3.select(this).attr('data-topic')
+      if (!activeTopic || t !== activeTopic) {
+        return 'translate(0,0) scale(1,1)'
       }
-      // 选中的 topic 保持原 opacity，其它变淡
-      return t === activeTopic ? 0.85 : 0.15
+      return 'translate(0,0) scale(1,1)'
     })
 }
 
@@ -93,54 +88,46 @@ const AddTalk = () => {
   }
 }
 
-function smoothScoreMap(
-  turnIds: number[],
-  rawMap: Map<number, number>,
-  windowSize: number,
-): Map<number, number> {
-  const half = Math.floor(windowSize / 2)
+// 清除线条
+const DeleteLine = () => {
+  d3.select('.slot-global-cloud').selectAll('.speaker-slot-line').remove()
+}
 
-  // 先取原始分数数组（保证每个 id 有值）
-  const rawVals: number[] = turnIds.map((id) => rawMap.get(id) ?? 0.5)
-  const rawMin = d3.min(rawVals) ?? 0.2
-  const rawMax = d3.max(rawVals) ?? 1.0
+// 切换数据
+type DatasetKey = 'meeting' | 'xinli'
+const props = defineProps<{ datasetKey: DatasetKey }>()
+const emit = defineEmits<{ (e: 'toggle-dataset'): void }>()
 
-  // 第一步：局部最大（max pooling）
-  const pooled: number[] = []
-  for (let i = 0; i < turnIds.length; i++) {
-    let localMax = -Infinity
-    for (let j = i - half; j <= i + half; j++) {
-      if (j < 0 || j >= turnIds.length) continue
-      const v = rawVals[j]
-      if (v > localMax) localMax = v
-    }
-    if (!Number.isFinite(localMax)) {
-      localMax = rawVals[i] ?? 0.5
-    }
-    pooled.push(localMax)
-  }
+const DATASETS: Record<DatasetKey, { convUrl: string; scoreUrl: string }> = {
+  meeting: {
+    convUrl: '/meeting_processed.json',
+    scoreUrl: '/meeting_score.json',
+  },
+  xinli: {
+    convUrl: '/xinli_result.json',
+    scoreUrl: '/xinli_score.json',
+  },
+}
+async function loadAndDraw(key: DatasetKey) {
+  const { convUrl, scoreUrl } = DATASETS[key]
 
-  // 第二步：把 pooled 再线性拉回到 [rawMin, rawMax]，保留原始的动态范围
-  const pooledMin = d3.min(pooled) ?? rawMin
-  const pooledMax = d3.max(pooled) ?? rawMax
+  const convResp = await fetch(convUrl)
+  const convJson: Conversation[] = await convResp.json()
 
-  const result = new Map<number, number>()
+  const scoreResp = await fetch(scoreUrl)
+  const scoreJson: Array<{ id: number; info_score: number }> = await scoreResp.json()
 
-  if (pooledMax === pooledMin) {
-    // 极端情况：全都一样，就直接用原始分数
-    turnIds.forEach((id, idx) => {
-      result.set(id, rawVals[idx] ?? rawMin)
-    })
-  } else {
-    turnIds.forEach((id, idx) => {
-      const v = pooled[idx]
-      const norm = (v - pooledMin) / (pooledMax - pooledMin) // [0,1]
-      const rescaled = rawMin + norm * (rawMax - rawMin) // 映射回原区间
-      result.set(id, rescaled)
-    })
-  }
+  turnScoreMap.clear()
+  scoreJson.forEach((item) => turnScoreMap.set(item.id, item.info_score))
 
-  return result
+  // （建议）清掉旧的颜色/高亮状态，避免残留
+  activeTopicKey.value = null
+  selectedTopicMessages.value = []
+  Object.keys(topicColorMap).forEach((k) => delete topicColorMap[k])
+  Object.keys(speakerColorMap).forEach((k) => delete speakerColorMap[k])
+
+  data.value = convJson
+  drawUI(convJson, turnScoreMap)
 }
 
 // 绘制 UI：一个总条带 + 堆叠 topic 山形条带 + 右上角图例 + 全局 slot 云
@@ -182,41 +169,12 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
   })
 
   const topics = Array.from(topicsSet)
-  if (!points.length) {
-    console.error('当前数据中没有有效的 slots.id')
-    return
-  }
-
-  // 所有 turn id
-  const turnIds = Array.from(new Set(points.map((p) => p.id))).sort((a, b) => a - b)
-
-  // 原始 score 映射
-  const rawTurnScoreMap = new Map<number, number>()
-  turnIds.forEach((id) => {
-    const related = points.filter((p) => p.id === id)
-    if (related.length > 0) {
-      const avg = related.reduce((acc, p) => acc + (p.info_score ?? 0.5), 0) / related.length
-      rawTurnScoreMap.set(id, avg)
-    } else {
-      rawTurnScoreMap.set(id, 0.5)
-    }
-  })
-
-  // ⭐ 用新的平滑函数（windowSize 可以先用 5，看效果不够顺再试 7）
-  const smoothedScoreMap = smoothScoreMap(turnIds, rawTurnScoreMap, 3)
-
-  // 宽度缩放：这里可以给稍微大一点的动态范围，比如 [0.5, 1.2]
-  const rawScores: number[] = turnIds
-    .map((id) => rawTurnScoreMap.get(id))
-    .filter((v): v is number => typeof v === 'number')
 
   const scores = points.map((p) => p.info_score ?? 0.5)
-
   const scoreMin = d3.min(scores) ?? 0.2
   const scoreMax = d3.max(scores) ?? 1.0
 
-  const widthScale = d3.scaleLinear().domain([scoreMin, scoreMax]).range([0.6, 1]) // 想更夸张就改成 [0.4, 1.4] 之类
-
+  const widthScale = d3.scaleLinear().domain([scoreMin, scoreMax]).range([0.3, 1]) // 想更夸张就改成 [0.4, 1.4] 之类
   const getTurnWidthFactor = (id: number) => {
     const s = turnScoreMap.get(id)
     const score = s ?? (scoreMin + scoreMax) / 2
@@ -225,8 +183,6 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
 
   // ===== 2.x 为每个发言人分配颜色 =====
   const speakers = Array.from(new Set(points.map((p) => p.source).filter((name) => !!name)))
-
-  // 可以先排序一下，让图例更稳定
   speakers.sort()
 
   speakers.forEach((name, idx) => {
@@ -236,6 +192,7 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
     }
   })
 
+  //
   const allPoints = points // ⭐ 全局保留，用于 slot 云窗口过滤
 
   const globalMinTurn = d3.min(points, (d) => d.id) ?? 0
@@ -268,11 +225,9 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
   const innerHeight = height - MARGIN.top - MARGIN.bottom
 
   const svg = d3.select(UIcontainer.value).append('svg').attr('width', width).attr('height', height)
-
   const g = svg.append('g').attr('transform', `translate(${MARGIN.left},${MARGIN.top})`)
 
   const yScaleTime = d3.scaleLinear().domain([globalMinTurn, globalMaxTurn]).range([0, innerHeight])
-
   const yAxis = d3.axisLeft(yScaleTime).ticks(10).tickFormat(d3.format('d')) // 这里 TS 会推断成 Axis<NumberValue>
 
   g.append('g')
@@ -294,31 +249,117 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
   const STRIP_LEFT = 40 // 离 y 轴留一点距离
   const STRIP_CENTER = STRIP_LEFT + STRIP_WIDTH / 2
 
+  // ===== 3.0 统一生成“每一行的宽度”：块均值 + 块内插值 =====
+  const totalSteps = xs.length
+  const NUM_WIDTH_BLOCKS = Math.min(10, totalSteps)
+  const BLOCK_SIZE = Math.ceil(totalSteps / NUM_WIDTH_BLOCKS)
+
+  const rowProfile = new Map<number, { rowWidth: number; stripLeft: number; stripRight: number }>()
+
+  // 先：每块的平均 factor
+  const blockAvg: number[] = new Array(NUM_WIDTH_BLOCKS).fill(NaN)
+
+  for (let bi = 0; bi < NUM_WIDTH_BLOCKS; bi++) {
+    const startIdx = bi * BLOCK_SIZE
+    const endIdx = Math.min(startIdx + BLOCK_SIZE, totalSteps)
+    if (startIdx >= endIdx) break
+
+    const blockIds = xs.slice(startIdx, endIdx)
+    if (!blockIds.length) continue
+
+    let sumFactor = 0
+    let cnt = 0
+    for (const id of blockIds) {
+      const f = getTurnWidthFactor(id)
+      if (Number.isFinite(f)) {
+        sumFactor += f
+        cnt++
+      }
+    }
+
+    // 如果这一块全是 NaN，就用 1（或用邻近块）兜底
+    blockAvg[bi] = cnt ? sumFactor / cnt : 1
+  }
+
+  // 再：把块内每个 id 用 “cur -> next” 插值填进 rowProfile
+  for (let bi = 0; bi < NUM_WIDTH_BLOCKS; bi++) {
+    const startIdx = bi * BLOCK_SIZE
+    const endIdx = Math.min(startIdx + BLOCK_SIZE, totalSteps)
+    if (startIdx >= endIdx) break
+
+    const blockIds = xs.slice(startIdx, endIdx)
+    if (!blockIds.length) continue
+
+    const cur = Number.isFinite(blockAvg[bi]) ? blockAvg[bi] : 1
+    const nextIdx = Math.min(bi + 1, NUM_WIDTH_BLOCKS - 1)
+    const next = Number.isFinite(blockAvg[nextIdx]) ? blockAvg[nextIdx] : cur
+
+    const L = blockIds.length
+
+    for (let k = 0; k < L; k++) {
+      const id = blockIds[k]
+
+      const t = L <= 1 ? 0 : k / (L - 1)
+      const tt = t * t * (3 - 2 * t) // smoothstep（更像河流的过渡）
+
+      const factor = cur + (next - cur) * tt
+
+      const rowWidth = STRIP_WIDTH * factor
+      const halfWidth = rowWidth / 2
+      const stripLeft = STRIP_CENTER - halfWidth
+      const stripRight = STRIP_CENTER + halfWidth
+
+      rowProfile.set(id, { rowWidth, stripLeft, stripRight })
+    }
+  }
+
+  console.log('rowProfile:', rowProfile)
+
   // ===== 3.1 把每个时间步的总宽按占比分给各个 topic =====
   const topicBands = new Map<string, Segment[]>()
   topics.forEach((t) => topicBands.set(t, []))
 
   xs.forEach((id, idx) => {
-    const f = getTurnWidthFactor(id) // ⭐ 每一轮的宽度系数
-    const localWidth = STRIP_WIDTH * f // ⭐ 实际宽度
+    const rp = rowProfile.get(id)
+    if (!rp) return // 有可能少数 id 不在任何块里，安全起见判断下
 
-    const stripLeft = STRIP_CENTER - localWidth / 2
-    const stripRight = STRIP_CENTER + localWidth / 2
+    const localWidth = rp.rowWidth
+    const stripLeft = rp.stripLeft
+    const stripRight = rp.stripRight
 
     const densities = topics.map((t) => topicGroup.get(t)!.values[idx]?.value ?? 0)
-    const sum = d3.sum(densities)
-    if (!sum || sum <= 0) return
+
+    const sumDensity = d3.sum(densities)
+    if (!sumDensity || sumDensity <= 0) return
+
+    const ALPHA = 2
+    let weighted = densities.map((v) => (v > 0 ? Math.pow(v, ALPHA) : 0))
+    let sumWeighted = d3.sum(weighted)
+    // ⭐ fallback：如果这一行 KDE 全为 0，就平均分（或沿用上一行）
+    if (!sumWeighted || sumWeighted <= 0) {
+      weighted = topics.map(() => 1)
+      sumWeighted = topics.length
+    }
 
     let cursor = stripLeft
+
     topics.forEach((topic, ti) => {
-      const v = densities[ti]
-      if (v <= 0) return
-      const wTopic = (v / sum) * localWidth
+      const wv = weighted[ti]
+      if (wv <= 0) return
+
+      const wTopic = (wv / sumWeighted) * localWidth
       const left = cursor
       const right = cursor + wTopic
+
+      // ⭐ 不要跳过，保证每个 topic 每行都有点（哪怕 wTopic=0）
       topicBands.get(topic)!.push({ id, left, right })
       cursor = right
     })
+
+    // ⭐ 防止累计误差：把最后一个 topic 的 right 强行贴到 stripRight
+    const lastTopic = topics[topics.length - 1]
+    const arr = topicBands.get(lastTopic)!
+    arr[arr.length - 1].right = stripRight
   })
 
   // 一个帮助函数：选中某个 topic 时，更新 selectedTopicMessages
@@ -377,53 +418,15 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
     if (cloudLayer.empty()) {
       cloudLayer = g.append('g').attr('class', 'slot-global-cloud')
     }
-    cloudLayer.style('display', null)
+
+    // ⭐ 每次出现前：打断旧动画 + 先变成透明并稍微下移缩小一点
+    cloudLayer
+      .interrupt()
+      .style('display', null)
+      .style('opacity', 0)
+      .attr('transform', 'translate(0, 12) scale(0.96)')
+
     cloudLayer.selectAll('*').remove()
-
-    // const halfWindow = 20
-    // const minTurn = Math.max(globalMinTurn, centerTurn - halfWindow)
-    // const maxTurn = Math.min(globalMaxTurn, centerTurn + halfWindow)
-
-    // // 1) 过滤同 topic、且 id 在窗口内的所有 slot
-    // const slotsInWindow = allPoints.filter(
-    //   (p) => p.topic === topic && p.id >= minTurn && p.id <= maxTurn,
-    // )
-
-    // // 2) 去重：按 id 排序，同名 slot 只保留第一次出现的
-    // const slotMap = new Map<string, Point>()
-    // slotsInWindow
-    //   .slice()
-    //   .sort((a, b) => a.id - b.id)
-    //   .forEach((p) => {
-    //     if (!slotMap.has(p.slot)) {
-    //       slotMap.set(p.slot, p)
-    //     }
-    //   })
-
-    // let allSlots = Array.from(slotMap.values())
-    // if (!allSlots.length) {
-    //   const emptyLayer = g.select<SVGGElement>('.slot-global-cloud')
-    //   if (!emptyLayer.empty()) emptyLayer.style('display', 'none')
-    //   return
-    // }
-
-    // // 3) 根据距离 centerTurn 的远近排序：越近越重要
-    // allSlots = allSlots.sort((a, b) => {
-    //   const da = Math.abs(a.id - centerTurn)
-    //   const db = Math.abs(b.id - centerTurn)
-    //   return da - db
-    // })
-
-    // const maxSlots = 12 // 条带内部可以稍微多一点
-    // const lines = allSlots.slice(0, maxSlots)
-
-    // // 4) 初始化 / 清空图层
-    // let cloudLayer = g.select<SVGGElement>('.slot-global-cloud')
-    // if (cloudLayer.empty()) {
-    //   cloudLayer = g.append('g').attr('class', 'slot-global-cloud')
-    // }
-    // cloudLayer.style('display', null)
-    // cloudLayer.selectAll('*').remove()
 
     // 5) 在条带内部布局：沿 y = 时间轴，x 在条带内左右“飘散”
     const paddingX = 12
@@ -463,8 +466,12 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
 
         // 再次 clamp，避免出条带
         x = Math.max(minX, Math.min(x, maxX))
-
         const y = yScaleTime(d.id)
+
+        // ⭐ 把全局坐标存到数据里，方便后面连线用
+        ;(d as any)._x = x
+        ;(d as any)._y = y
+
         return `translate(${x}, ${y})`
       })
       .style('cursor', 'pointer')
@@ -473,6 +480,40 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
         console.log('点击 slot：', d.slot, 'id:', d.id, 'source:', d.source)
         onSlotClick(d.id)
       })
+
+    // ===== 在这里给同一发言者的 slot 画连接线 =====
+    const lineGen = d3
+      .line<[number, number]>()
+      .x((p) => p[0])
+      .y((p) => p[1])
+      .curve(d3.curveMonotoneY) // 或者 Basis，看你喜欢
+
+    // 按发言者分组
+    const bySpeaker = d3.group(lines, (d) => d.source)
+
+    bySpeaker.forEach((slotsOfSpeaker, speakerName) => {
+      if (!speakerName) return
+      if (!slotsOfSpeaker || slotsOfSpeaker.length < 2) return // 至少两点才连线
+
+      // 按 id 排序，保证线是从早到晚
+      const sorted = slotsOfSpeaker
+        .slice()
+        .sort((a, b) => a.id - b.id)
+        .filter((d) => (d as any)._x != null && (d as any)._y != null)
+
+      if (sorted.length < 2) return
+
+      const coords: [number, number][] = sorted.map((d) => [(d as any)._x, (d as any)._y])
+
+      cloudLayer
+        .append('path')
+        .attr('class', 'speaker-slot-line')
+        .attr('d', lineGen(coords)!)
+        .attr('fill', 'none')
+        .attr('stroke', speakerColorMap[speakerName] || '#999')
+        .attr('stroke-width', 2)
+        .attr('stroke-opacity', 1)
+    })
 
     // 圆点
     slotGroups
@@ -485,9 +526,6 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
         // 按顺序稍微衰减一下透明度，让上面的更突出（可选）
         const t = lines.length <= 1 ? 1 : 1 - i / (lines.length - 1)
         return minOpacity + t * (maxOpacity - minOpacity)
-        // const dist = Math.abs(d.id - centerTurn)
-        // const norm = Math.max(0, 1 - dist / halfWindow)
-        // return minOpacity + norm * (maxOpacity - minOpacity)
       })
 
     // 文本
@@ -501,25 +539,77 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
       .attr('font-size', (d: Point, i) => {
         const t = lines.length <= 1 ? 1 : 1 - i / (lines.length - 1)
         return minFont + t * (maxFont - minFont)
-        // const dist = Math.abs(d.id - centerTurn)
-        // const norm = Math.max(0, 1 - dist / halfWindow)
-        // return minFont + norm * (maxFont - minFont)
       })
-      .attr('fill-opacity', (d: Point, i) => {
-        const t = lines.length <= 1 ? 1 : 1 - i / (lines.length - 1)
-        return minOpacity + t * (maxOpacity - minOpacity)
-        // const dist = Math.abs(d.id - centerTurn)
-        // const norm = Math.max(0, 1 - dist / halfWindow)
-        // return minOpacity + norm * (maxOpacity - minOpacity)
-      })
+      .attr('fill-opacity', 1)
       .text((d: Point) => (d.is_question && d.resolved ? `${d.slot} ✅️` : d.slot))
 
-    // 点击外部清除
+    // ⭐ 淡入 + 位移动画
+    cloudLayer
+      .transition()
+      .duration(450) // 可以再加大一点比如 600
+      .ease(d3.easeCubicOut)
+      .style('opacity', 1)
+      .attr('transform', 'translate(0, 0) scale(1)')
+
+    // 点击外部清除：淡出后再清空
     svg.on('click', () => {
       activeTopicKey.value = null
       highlightTopicBands(null)
-      cloudLayer.selectAll('*').remove()
+      cloudLayer
+        .interrupt()
+        .transition()
+        .duration(300)
+        .ease(d3.easeCubicIn)
+        .style('opacity', 0)
+        .on('end', () => {
+          cloudLayer.selectAll('*').remove()
+        })
     })
+  }
+
+  // 总条带边框
+  if (rowProfile.size > 0) {
+    // 为了控制控制点数量，我们按步长抽几个 id 出来
+    const idsArray = Array.from(rowProfile.keys()).sort((a, b) => a - b)
+
+    const MAX_POINTS = 30 // 最多 30 个控制点就够流畅了
+    const STEP = Math.max(1, Math.floor(idsArray.length / MAX_POINTS))
+
+    const sampledIds: number[] = []
+    for (let i = 0; i < idsArray.length; i += STEP) {
+      sampledIds.push(idsArray[i])
+    }
+    // 确保最后一个也在
+    if (sampledIds[sampledIds.length - 1] !== idsArray[idsArray.length - 1]) {
+      sampledIds.push(idsArray[idsArray.length - 1])
+    }
+
+    const leftEdge: [number, number][] = sampledIds.map((id) => {
+      const rp = rowProfile.get(id)!
+      return [rp.stripLeft, yScaleTime(id)]
+    })
+    const rightEdge: [number, number][] = sampledIds
+      .slice()
+      .reverse()
+      .map((id) => {
+        const rp = rowProfile.get(id)!
+        return [rp.stripRight, yScaleTime(id)]
+      })
+
+    const outlineLine = d3
+      .line<[number, number]>()
+      .x((p) => p[0])
+      .y((p) => p[1])
+      .curve(d3.curveCatmullRom.alpha(0.5))
+
+    const outlinePathData = outlineLine([...leftEdge, ...rightEdge, leftEdge[0]])
+
+    g.append('path')
+      .attr('class', 'strip-outline')
+      .attr('d', outlinePathData!)
+      .attr('fill', 'none')
+      .attr('stroke', '#e0e0e0')
+      .attr('stroke-width', 1.2)
   }
 
   // ===== 6. 为每个 topic 画一条连续山形条带，并绑定点击事件 =====
@@ -567,42 +657,6 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
         }
       })
   })
-
-  // 总条带边框
-  // === 建一个“河流轮廓”的 path，左右对称 ===
-  const profile = xs.map((id) => {
-    const widthFactor = getTurnWidthFactor(id)
-    const rowWidth = STRIP_WIDTH * widthFactor
-    const halfWidth = rowWidth / 2
-    const y = yScaleTime(id)
-    return {
-      id,
-      y,
-      leftX: STRIP_CENTER - halfWidth,
-      rightX: STRIP_CENTER + halfWidth,
-    }
-  })
-
-  const leftEdge: [number, number][] = profile.map((d) => [d.leftX, d.y])
-  const rightEdge: [number, number][] = profile
-    .slice()
-    .reverse()
-    .map((d) => [d.rightX, d.y])
-
-  const outlineLine = d3
-    .line<[number, number]>()
-    .x((p) => p[0])
-    .y((p) => p[1])
-    .curve(d3.curveBasis)
-
-  const outlinePathData = outlineLine([...leftEdge, ...rightEdge, leftEdge[0]])
-
-  g.append('path')
-    .attr('class', 'strip-outline')
-    .attr('d', outlinePathData!)
-    .attr('fill', 'none')
-    .attr('stroke', '#e0e0e0')
-    .attr('stroke-width', 1.2)
 
   // ===== 7. 主题图例框（左侧） =====
   const topicLegendG = g
@@ -760,29 +814,13 @@ watch(
   { immediate: true },
 )
 
-onMounted(async () => {
-  try {
-    // 1. 先加载对话数据
-    const convResp = await fetch('/meeting_processed.json')
-    // const convResp = await fetch('/xinli-processed.json')
-    console.log('response:', convResp)
-    const convJson: Conversation[] = await convResp.json()
-    data.value = convJson
-    console.log('data:', data.value)
-
-    // 2. 再加载打分文件
-    const scoreResp = await fetch('/meeting_score.json')
-    // const scoreResp = await fetch('/xinli_score.json')
-    const scoreJson: Array<{ id: number; info_score: number }> = await scoreResp.json()
-    scoreJson.forEach((item) => {
-      turnScoreMap.set(item.id, item.info_score)
-    })
-
-    drawUI(data.value, turnScoreMap)
-  } catch (error) {
-    console.error('加载 JSON 文件失败：', error)
-  }
-})
+watch(
+  () => props.datasetKey,
+  (key) => {
+    loadAndDraw(key).catch((e) => console.error('加载可视化数据失败：', e))
+  },
+  { immediate: true },
+)
 </script>
 <style scoped>
 .capsule-container {
@@ -803,8 +841,8 @@ onMounted(async () => {
 .bottom-left-btn {
   position: absolute;
   bottom: 10px;
-  left: 10%;
-  transform: translateX(-30%);
+  right: 70%;
+  transform: translateX(-70%);
   padding: 10px 20px;
   border: none;
   border-radius: 9999px;
@@ -820,11 +858,31 @@ onMounted(async () => {
   background-color: #0056b3;
 }
 
+.bottom-mid-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 40%;
+  transform: translateX(-40%);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 9999px;
+  background-color: #007bff;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+.bottom-mid-btn:hover {
+  background-color: #0056b3;
+}
+
 .bottom-right-btn {
   position: absolute;
   bottom: 10px;
-  right: 30%;
-  transform: translateX(-30%);
+  right: 10%;
+  transform: translateX(-10%);
   padding: 10px 20px;
   border: none;
   border-radius: 9999px;

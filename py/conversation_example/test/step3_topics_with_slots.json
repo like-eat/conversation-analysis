@@ -1,6 +1,6 @@
 [
   {
-    "topic": "自我价值怀疑",
+    "topic": "自我价值感",
     "slots": [
       {
         "sentence": "我是不是就是个废物？别人一战就上岸，我考了四年才勉强考上，现在还是个普通一本，我这辈子是不是完了？",
@@ -12,8 +12,58 @@
         "resolved": true
       },
       {
-        "sentence": "我现在学的是计算机专业，我感觉未来找工作好困难，我怕毕业就失业了",
-        "slot": "就业焦虑",
+        "sentence": "别人的人生已经成型了，而我一无所有。",
+        "slot": "人生落差感",
+        "id": 8,
+        "sentiment": -0.9,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "别人都说考研上岸就解放了，为什么我上岸了反而更绝望？",
+        "slot": "考研焦虑",
+        "id": 9,
+        "sentiment": -0.8,
+        "source": "user",
+        "is_question": true,
+        "resolved": true
+      },
+      {
+        "sentence": "我再也不会感觉到我被需要。",
+        "slot": "被需要感缺失",
+        "id": 29,
+        "sentiment": -1,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "我感觉我没有在其他人面前展示自己的信心，当然也没有啥可以展示的，例如每次点到我上去介绍自己或者表演节目，我都是摆摆手",
+        "slot": "缺乏自信",
+        "id": 97,
+        "sentiment": -0.7,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "自卑、觉得自己不够好、怕被比较",
+        "slot": "自卑心理",
+        "id": 103,
+        "sentiment": -0.8,
+        "source": "bot",
+        "is_question": false,
+        "resolved": false
+      }
+    ]
+  },
+  {
+    "topic": "就业压力",
+    "slots": [
+      {
+        "sentence": "我感觉未来找工作好困难，我怕毕业就失业了",
+        "slot": "毕业失业担忧",
         "id": 3,
         "sentiment": -0.8,
         "source": "user",
@@ -30,17 +80,8 @@
         "resolved": false
       },
       {
-        "sentence": "别人都说考研上岸就解放了，为什么我上岸了反而更绝望？",
-        "slot": "考研后失落",
-        "id": 9,
-        "sentiment": -0.8,
-        "source": "user",
-        "is_question": true,
-        "resolved": true
-      },
-      {
         "sentence": "我特别怕毕业那天一个人搬行李回老家，我怕我爸妈看到我还是这个死样子会失望死，我该怎么办？",
-        "slot": "家庭期待压力",
+        "slot": "父母失望担忧",
         "id": 11,
         "sentiment": -0.9,
         "source": "user",
@@ -48,19 +89,60 @@
         "resolved": true
       },
       {
-        "sentence": "我确实有想过一死了之，但是我连自杀都不敢，我怕我死了我妈会疯，我怕我连死都做不好。",
-        "slot": "自杀念头",
-        "id": 13,
-        "sentiment": -1.0,
+        "sentence": "我在学校也没什么朋友，我跟同学之间的关系也不好，平时也没有什么活动可以参加，我不知道跟谁说内心的话",
+        "slot": "社交孤立",
+        "id": 15,
+        "sentiment": -0.8,
         "source": "user",
         "is_question": false,
         "resolved": false
       },
       {
-        "sentence": "我在学校也没什么朋友，我跟同学之间的关系也不好，平时也没有什么活动可以参加，我不知道跟谁说内心的话",
-        "slot": "社交孤立",
-        "id": 15,
+        "sentence": "我长这么大从来没有谈过恋爱，甚至女生的手都没有牵过，我也很少有女性朋友，其实我是很想去谈恋爱，但是我根本找不到",
+        "slot": "恋爱困境",
+        "id": 19,
+        "sentiment": -0.7,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "我没什么特长，我平常没有课的时候，我就只会在宿舍呆着打游戏，也不想去别的地方。",
+        "slot": "缺乏特长",
+        "id": 21,
+        "sentiment": -0.6,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "我看到别人举的重量都好大，我根本举不起来，像是哑铃我只能据5kg的",
+        "slot": "自我怀疑",
+        "id": 71,
+        "sentiment": -0.5,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "我很容易睡觉的时候乱想，尤其是想我为什么这么普通，过得生活很没有意义，然后我对茶和咖啡也比较容易过敏，很容易睡不着",
+        "slot": "失眠困扰",
+        "id": 105,
         "sentiment": -0.8,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      }
+    ]
+  },
+  {
+    "topic": "身体形象焦虑",
+    "slots": [
+      {
+        "sentence": "我确实有想过一死了之，但是我连自杀都不敢，我怕我死了我妈会疯，我怕我连死都做不好。",
+        "slot": "自杀念头",
+        "id": 13,
+        "sentiment": -1,
         "source": "user",
         "is_question": false,
         "resolved": false
@@ -75,26 +157,8 @@
         "resolved": false
       },
       {
-        "sentence": "我长这么大从来没有谈过恋爱，甚至女生的手都没有牵过，我也很少有女性朋友，其实我是很想去谈恋爱，但是我根本找不到",
-        "slot": "恋爱挫败感",
-        "id": 19,
-        "sentiment": -0.8,
-        "source": "user",
-        "is_question": false,
-        "resolved": false
-      },
-      {
-        "sentence": "我没什么特长，我平常没有课的时候，我就只会在宿舍呆着打游戏，也不想去别的地方。",
-        "slot": "缺乏特长",
-        "id": 21,
-        "sentiment": -0.7,
-        "source": "user",
-        "is_question": false,
-        "resolved": false
-      },
-      {
         "sentence": "我感觉我的长相普通，甚至说有点丑，我感觉世界是一个巨大的卡颜局，对外貌不好的人来说，恶意真的太大了。",
-        "slot": "外貌焦虑",
+        "slot": "外貌歧视感",
         "id": 35,
         "sentiment": -0.9,
         "source": "user",
@@ -103,65 +167,19 @@
       },
       {
         "sentence": "我刷到别人说‘长得丑就是原罪’，我一照镜子就想把自己脸抓花，我是不是真的没资格被爱？",
-        "slot": "自我厌恶",
+        "slot": "外貌原罪感",
         "id": 37,
-        "sentiment": -1.0,
+        "sentiment": -1,
         "source": "user",
-        "is_question": true,
-        "resolved": true
+        "is_question": false,
+        "resolved": false
       },
       {
         "sentence": "我一照镜子就觉得自己好丑，穿的也土，人也胖",
-        "slot": "外貌自卑",
+        "slot": "镜子自我厌恶",
         "id": 39,
         "sentiment": -0.9,
         "source": "user",
-        "is_question": false,
-        "resolved": false
-      },
-      {
-        "sentence": "我现在还没有毕业，相亲的时候总是被女方嫌弃",
-        "slot": "相亲挫败感",
-        "id": 49,
-        "sentiment": -0.8,
-        "source": "user",
-        "is_question": false,
-        "resolved": false
-      }
-    ]
-  },
-  {
-    "topic": "就业压力",
-    "slots": [
-      {
-        "sentence": "其实我挺害怕回家的，因为每次回家家里人都会催我相亲",
-        "slot": "家庭压力",
-        "id": 47,
-        "sentiment": -0.6,
-        "source": "user",
-        "is_question": false,
-        "resolved": false
-      }
-    ]
-  },
-  {
-    "topic": "父母期望压力",
-    "slots": [
-      {
-        "sentence": "你最近有没有出现那种“想消失”“不想活了”“想伤害自己”的冲动？",
-        "slot": "担心自伤风险",
-        "id": 14,
-        "sentiment": -0.9,
-        "source": "bot",
-        "is_question": true,
-        "resolved": true
-      },
-      {
-        "sentence": "总觉得比别人慢几步的自己；",
-        "slot": "与他人对比的压力",
-        "id": 40,
-        "sentiment": -0.7,
-        "source": "bot",
         "is_question": false,
         "resolved": false
       }
@@ -171,27 +189,68 @@
     "topic": "心理健康问题",
     "slots": [
       {
-        "sentence": "你绝对不是废物。",
-        "slot": "自我肯定",
+        "sentence": "你就自动跳出一个等式：别人一战上岸 = 优秀，我四年才上岸 = 废物",
+        "slot": "自我否定",
         "id": 2,
-        "sentiment": 0.8,
+        "sentiment": -0.85,
         "source": "bot",
         "is_question": false,
         "resolved": false
       },
       {
-        "sentence": "你现在害怕的，其实不是“必然失业”，而是“我会不会什么都不会、跟别人比没有优势”。",
-        "slot": "能力焦虑",
-        "id": 4,
-        "sentiment": -0.7,
+        "sentence": "最近有没有出现那种“想消失”“不想活了”“想伤害自己”的冲动？",
+        "slot": "自杀念头",
+        "id": 6,
+        "sentiment": -0.8,
         "source": "bot",
+        "is_question": true,
+        "resolved": true
+      },
+      {
+        "sentence": "我就是废物",
+        "slot": "自我贬低",
+        "id": 67,
+        "sentiment": -1,
+        "source": "user",
         "is_question": false,
         "resolved": false
       }
     ]
   },
   {
-    "topic": "职业发展规划",
+    "topic": "恋爱人际关系",
+    "slots": [
+      {
+        "sentence": "我想和女生谈恋爱，但是我不知道怎么跟她们交流，以及去哪里认识女生",
+        "slot": "交流困难",
+        "id": 45,
+        "sentiment": -0.6,
+        "source": "user",
+        "is_question": true,
+        "resolved": true
+      },
+      {
+        "sentence": "其实我挺害怕回家的，因为每次回家家里人都会催我相亲",
+        "slot": "相亲压力",
+        "id": 47,
+        "sentiment": -0.9,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "我现在还没有毕业，相亲的时候总是被女方嫌弃",
+        "slot": "相亲被拒",
+        "id": 49,
+        "sentiment": -0.8,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      }
+    ]
+  },
+  {
+    "topic": "经济压力",
     "slots": [
       {
         "sentence": "我想减肥，你觉得我应该怎么做，我现在170cm，180斤",
@@ -203,13 +262,155 @@
         "resolved": true
       },
       {
-        "sentence": "我想和女生谈恋爱，但是我不知道怎么跟她们交流，以及去哪里认识女生",
-        "slot": "恋爱交流",
-        "id": 45,
-        "sentiment": -0.5,
+        "sentence": "有没有快速减肥的方法，能够快一点瘦下来",
+        "slot": "快速减肥方法",
+        "id": 31,
+        "sentiment": 0,
         "source": "user",
         "is_question": true,
         "resolved": true
+      }
+    ]
+  },
+  {
+    "topic": "社交焦虑",
+    "slots": [
+      {
+        "sentence": "我平均生活费1500只有，每天吃饭开销就要40块",
+        "slot": "经济压力",
+        "id": 65,
+        "sentiment": -0.6,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      }
+    ]
+  },
+  {
+    "topic": "健身健康",
+    "slots": [
+      {
+        "sentence": "昨天听了你的建议去健身房，今天练完之后全身酸痛",
+        "slot": "健身酸痛",
+        "id": 69,
+        "sentiment": 0.2,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "我用这么小的重量，大家看到会不会嘲笑我，我有的时候都不敢跟别人对视",
+        "slot": "健身自卑",
+        "id": 73,
+        "sentiment": -0.7,
+        "source": "user",
+        "is_question": true,
+        "resolved": true
+      },
+      {
+        "sentence": "但是我感觉确实，运动完之后，心情会好一点",
+        "slot": "运动心情改善",
+        "id": 77,
+        "sentiment": 0.5,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "运动和改善心情有帮助吗",
+        "slot": "运动效果",
+        "id": 79,
+        "sentiment": 0.3,
+        "source": "user",
+        "is_question": true,
+        "resolved": true
+      }
+    ]
+  },
+  {
+    "topic": "英语口语提升",
+    "slots": [
+      {
+        "sentence": "我现在比较内向，我应该怎么改善一下，让我自己外向一点",
+        "slot": "性格改善",
+        "id": 53,
+        "sentiment": 0,
+        "source": "user",
+        "is_question": true,
+        "resolved": true
+      },
+      {
+        "sentence": "其实我很想跟别人说话，把心里的话说出来就好受了很多",
+        "slot": "表达欲望",
+        "id": 55,
+        "sentiment": 0.3,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "我其实很想学唱歌和乐器，但是我唱歌很难听，我总是不太敢在别人面前唱",
+        "slot": "才艺学习",
+        "id": 61,
+        "sentiment": -0.2,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "我和别人说话的时候或者在讲台上的时候，有什么动作可以让我看起来自信一点",
+        "slot": "自信表现",
+        "id": 99,
+        "sentiment": 0,
+        "source": "user",
+        "is_question": true,
+        "resolved": true
+      },
+      {
+        "sentence": "有哪些舒缓压力的方法呢",
+        "slot": "压力缓解",
+        "id": 107,
+        "sentiment": 0,
+        "source": "user",
+        "is_question": true,
+        "resolved": true
+      }
+    ]
+  },
+  {
+    "topic": "压力管理",
+    "slots": [
+      {
+        "sentence": "你现在脑子里的逻辑大概是：长相普通 + 家里没钱 + 很胖 + 社恐 + 0 恋爱经验 = 女生肯定不会看上我 = 我根本找不到对象",
+        "slot": "自卑心理",
+        "id": 20,
+        "sentiment": -0.9,
+        "source": "bot",
+        "is_question": false,
+        "resolved": false
+      },
+      {
+        "sentence": "有时候会想到不太好的事情，我有点怕自己。",
+        "slot": "极端想法",
+        "id": 106,
+        "sentiment": -0.9,
+        "source": "bot",
+        "is_question": false,
+        "resolved": false
+      }
+    ]
+  },
+  {
+    "topic": "饮食问题",
+    "slots": [
+      {
+        "sentence": "我平均生活费1500只有，每天吃饭开销就要40块",
+        "slot": "餐费预算",
+        "id": 66,
+        "sentiment": -0.5,
+        "source": "user",
+        "is_question": false,
+        "resolved": false
       }
     ]
   }

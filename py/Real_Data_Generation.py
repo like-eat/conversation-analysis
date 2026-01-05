@@ -9,53 +9,10 @@ CHECKPOINT_PATH = "py/conversation_example/ChatGPT-xinli_result.json"
 FINAL_PATH = "py/conversation_example/ChatGPT-xinli_processed.json"
 FINAL_PATH_SCORE = "py/conversation_example/meeting_score.json"
 
-
-def safe_process_llm_result(result, role, id_counter):
-    """确保 LLM 返回结果是列表字典，并给每个 slot 添加 source 和 id"""
-    if isinstance(result, str):
-        try:
-            result = json.loads(result)
-        except json.JSONDecodeError:
-            print("⚠️ 警告：LLM 返回的字符串无法解析为 JSON，将作为单条文本处理")
-            result = [{"topic": "unknown", "slots": [{"slot": result, "source": role, "id": id_counter}]}]
-
-    if isinstance(result, dict):
-        result = [result]
-
-    for topic in result:
-        slots = topic.get("slots", [])
-        if not isinstance(slots, list):
-            slots = []
-            topic["slots"] = slots
-        for slot in slots:
-            slot["source"] = role
-            slot["id"] = id_counter
-
-    return result
-
-
-def load_checkpoint():
-    """加载中断点文件"""
-    if os.path.exists(CHECKPOINT_PATH):
-        try:
-            with open(CHECKPOINT_PATH, "r", encoding="utf-8") as f:
-                checkpoint = json.load(f)
-            print(f"✅ 已加载中断点，恢复到第 {checkpoint.get('last_id', 0)} 条记录。")
-            return checkpoint
-        except Exception as e:
-            print("⚠️ 加载中断点失败，重新开始:", e)
-    return {"merged_results_global": [], "last_id": 0}
-
-
-def save_checkpoint(merged_results_global, last_id):
-    """保存中断点（包含已合并并分配颜色的完整结果）"""
-    checkpoint_data = {
-        "merged_results_global": merged_results_global,
-        "last_id": last_id
-    }
-    with open(CHECKPOINT_PATH, "w", encoding="utf-8") as f:
-        json.dump(checkpoint_data, f, ensure_ascii=False, indent=2)
-    print(f"💾 已保存中断点（含颜色）：处理到第 {last_id} 条消息。")
+STEP1_PATH = "py/conversation_example/test/step1_topics_raw.json"
+STEP2_PATH = "py/conversation_example/test/step2_topics_clean.json"
+STEP3_PATH = "py/conversation_example/test/step3_topics_with_slots.json"
+FINAL_PATH = "py/conversation_example/test/final_result.json"
 
 def chunk_text(text, max_chars=40000):
     """把长文本切成安全的多段"""
@@ -197,8 +154,6 @@ def process_score(file_path):
     print(f"✅ 处理完成，结果已保存：{FINAL_PATH_SCORE}")
     return scored_all
 
-
-
 def process_conversation(file_path):
     # user和llm的对话模式
     messages = parse_conversation(file_path)       # list[dict]: {id, role, content}
@@ -256,10 +211,49 @@ def process_conversation(file_path):
     
     return segmented_results
 
-STEP1_PATH = "py/conversation_example/test/step1_topics_raw.json"
-STEP2_PATH = "py/conversation_example/test/step2_topics_clean.json"
-STEP3_PATH = "py/conversation_example/test/step3_topics_with_slots.json"
-FINAL_PATH = "py/conversation_example/test/final_result.json"
+def postprocess_topics_unique_and_prune(topics: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """
+    对 Topic_Allocation + refine_slot_resolution 的结果做两件事：
+      1）全局去重：同一个 id 只保留在第一个出现的 topic 中；
+      2）自动丢掉 slots 为空的 topic。
+
+    输入结构示例：
+    [
+      {"topic": "...", "slots": [ {...}, {...} ]},
+      {"topic": "...", "slots": [ {...} ]},
+      ...
+    ]
+    """
+    used_ids = set()
+    new_topics: List[Dict[str, Any]] = []
+
+    for t in topics:
+        slots = t.get("slots") or []
+        if not isinstance(slots, list):
+            slots = []
+
+        uniq_slots = []
+        for s in slots:
+            if not isinstance(s, dict):
+                continue
+            sid = s.get("id")
+            if not isinstance(sid, int):
+                # id 异常的直接丢掉
+                continue
+            if sid in used_ids:
+                # 这个 id 已经被前面的 topic 占了，跳过
+                continue
+            used_ids.add(sid)
+            uniq_slots.append(s)
+
+        # 如果这个 topic 经过去重后还有 slot，就保留；否则丢掉
+        if uniq_slots:
+            t_new = dict(t)      # 拷一份，避免原地修改
+            # 按 id 排个序，时间顺序更稳定
+            t_new["slots"] = sorted(uniq_slots, key=lambda x: x["id"])
+            new_topics.append(t_new)
+
+    return new_topics
 
 def run_step1_semantic_scan(file_path: str, out_path: str = STEP1_PATH):
     messages = parse_conversation(file_path)   # [{id, role, content}]
@@ -321,51 +315,6 @@ def run_step2_topic_clean(file_path: str,
         json.dump(clear_results, f, ensure_ascii=False, indent=2)
     print(f"✅ [Step2] 主题清洗完成，结果已保存：{out_path}")
 
-def postprocess_topics_unique_and_prune(topics: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """
-    对 Topic_Allocation + refine_slot_resolution 的结果做两件事：
-      1）全局去重：同一个 id 只保留在第一个出现的 topic 中；
-      2）自动丢掉 slots 为空的 topic。
-
-    输入结构示例：
-    [
-      {"topic": "...", "slots": [ {...}, {...} ]},
-      {"topic": "...", "slots": [ {...} ]},
-      ...
-    ]
-    """
-    used_ids = set()
-    new_topics: List[Dict[str, Any]] = []
-
-    for t in topics:
-        slots = t.get("slots") or []
-        if not isinstance(slots, list):
-            slots = []
-
-        uniq_slots = []
-        for s in slots:
-            if not isinstance(s, dict):
-                continue
-            sid = s.get("id")
-            if not isinstance(sid, int):
-                # id 异常的直接丢掉
-                continue
-            if sid in used_ids:
-                # 这个 id 已经被前面的 topic 占了，跳过
-                continue
-            used_ids.add(sid)
-            uniq_slots.append(s)
-
-        # 如果这个 topic 经过去重后还有 slot，就保留；否则丢掉
-        if uniq_slots:
-            t_new = dict(t)      # 拷一份，避免原地修改
-            # 按 id 排个序，时间顺序更稳定
-            t_new["slots"] = sorted(uniq_slots, key=lambda x: x["id"])
-            new_topics.append(t_new)
-
-    return new_topics
-
-
 def run_step3_slots_and_resolution(file_path: str,
                                    step2_path: str = STEP2_PATH,
                                    out_path: str = STEP3_PATH):
@@ -408,12 +357,12 @@ def run_step4_segment_and_color(step3_path: str = STEP3_PATH,
 
 if __name__ == "__main__":
     print("🤖 启动对话处理程序...")
-    file_path = "py/conversation_example/xinli-test.txt"
+    file_path = "py/conversation_example/ChatGPT-xinli.txt"
     # run_step1_semantic_scan(file_path)
     # run_step2_topic_clean(file_path=file_path, step1_path=STEP1_PATH,out_path=STEP2_PATH)
     # run_step3_slots_and_resolution(file_path=file_path,step2_path=STEP2_PATH,out_path=STEP3_PATH)
-    # run_step4_segment_and_color(step3_path=STEP3_PATH, out_path=FINAL_PATH)
-    
+    run_step4_segment_and_color(step3_path=STEP3_PATH, out_path=FINAL_PATH)
+
     # final_data = process_conversation(file_path)
     # final_data = process_score(file_path)
 

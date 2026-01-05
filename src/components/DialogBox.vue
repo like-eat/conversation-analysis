@@ -14,16 +14,13 @@
         :ref="(el) => (messageRefs[index] = el as HTMLElement | null)"
         :class="['chat-message', isSelf(msg) ? 'self' : 'other']"
       >
-        <!-- 左侧 / 右侧：头像（固定宽度） -->
         <div class="avatar-wrapper">
           <div class="avatar" :class="{ 'avatar-self': isSelf(msg) }">
             <span>{{ getEmojiForSpeaker(msg.from) }}</span>
           </div>
         </div>
 
-        <!-- 右侧：名字 + 气泡 -->
         <div class="message-body">
-          <!-- 名字：仿微信群聊，一般只给别人显示，你可以按需调整逻辑 -->
           <div class="speaker-name" v-if="msg.from !== 'user' || !primarySpeaker">
             {{ displayName(msg.from) }}
           </div>
@@ -41,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick, watch, onMounted } from 'vue'
+import { ref, nextTick, watch } from 'vue'
 import { useFileStore } from '@/stores/FileInfo'
 import type { MessageItem } from '@/types/index'
 import axios from 'axios'
@@ -55,7 +52,7 @@ const renderMarkdown = (text: string) => {
 }
 
 const FileStore = useFileStore()
-const seedActive = ref(false) // 正在展示默认初始对话吗？
+const seedActive = ref(false)
 
 const messages = ref<MessageItem[]>([])
 const messageRefs = ref<(HTMLElement | null)[]>([])
@@ -74,7 +71,6 @@ const scrollToMessage = (index: number) => {
 
 const SPEAKER_EMOJIS = ['🧑', '🧑‍💼', '🧑‍🎤', '🧑‍🏫', '🧑‍💻'] as const
 
-// 记住“某个名字” → “分到哪个 emoji”
 const speakerEmojiCache = new Map<string, string>()
 
 function displayName(from: string): string {
@@ -126,8 +122,8 @@ function isSelf(msg: MessageItem): boolean {
 }
 
 let globalId = 1 // 全局自增
-let reset_flag = false
-let allMessages: { id: number; role: string; content: string }[] = []
+// let reset_flag = false
+// let allMessages: { id: number; role: string; content: string }[] = []
 const sendMessage = async () => {
   const text = input.value.trim()
   if (!text) return
@@ -135,9 +131,9 @@ const sendMessage = async () => {
   // ⛳ 第一次真实输入：清掉默认消息，不影响 Pinia
   if (seedActive.value) {
     messages.value = []
-    allMessages = []
+    // allMessages = []
     globalId = 1
-    reset_flag = true // 首条作为新会话
+    // reset_flag = true // 首条作为新会话
     seedActive.value = false
   }
 
@@ -161,22 +157,22 @@ const sendMessage = async () => {
     FileStore.MessageContent.push(botMsg)
     scrollToBottom()
     // 构建用户 + bot 消息数组，传给 /extract
-    allMessages = FileStore.MessageContent.map((msg) => ({
-      id: msg.id,
-      role: msg.from,
-      content: msg.text,
-    }))
+    // allMessages = FileStore.MessageContent.map((msg) => ({
+    //   id: msg.id,
+    //   role: msg.from,
+    //   content: msg.text,
+    // }))
 
-    // 把用户和模型的消息抽传给后端
-    console.log('发送到 /extract 的内容:', allMessages)
+    // // 把用户和模型的消息抽传给后端
+    // console.log('发送到 /extract 的内容:', allMessages)
 
-    const extractResponse = await axios.post('http://localhost:5000/extract', {
-      content: allMessages,
-      reset: reset_flag,
-      history: FileStore.MessageContent,
-    })
-    FileStore.GPTContent = extractResponse.data
-    reset_flag = false // ✅ 立刻复位！否则每次都会清空后端聚合
+    // const extractResponse = await axios.post('http://localhost:5000/extract', {
+    //   content: allMessages,
+    //   reset: reset_flag,
+    //   history: FileStore.MessageContent,
+    // })
+    // FileStore.GPTContent = extractResponse.data
+    // reset_flag = false // ✅ 立刻复位！否则每次都会清空后端聚合
   } catch (error) {
     console.error('发送 JSON 数据失败:', error)
   } finally {
@@ -191,6 +187,40 @@ const scrollToBottom = () => {
   if (el) {
     el.scrollTop = el.scrollHeight
   }
+}
+
+type DatasetKey = 'meeting' | 'xinli'
+type Message = ReturnType<typeof parseMeetingConversationFromText>[number]
+const props = defineProps<{ datasetKey: DatasetKey }>()
+
+const TALK_DATASETS: Record<DatasetKey, { url: string; parse: (raw: string) => Message[] }> = {
+  meeting: {
+    url: '/meeting_talk.txt',
+    parse: parseMeetingConversationFromText,
+  },
+  xinli: {
+    url: '/ChatGPT-xinli.md',
+    parse: parseConversationFromText, // ⭐ 你原来注释的那个
+  },
+}
+async function loadTalk(key: DatasetKey) {
+  const { url, parse } = TALK_DATASETS[key]
+
+  const resp = await fetch(url)
+  if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
+
+  const rawTxt = await resp.text()
+  const parsed = parse(rawTxt)
+
+  messages.value = parsed
+  initPrimarySpeaker(parsed)
+
+  const maxId = parsed.reduce((mx, m) => Math.max(mx, m.id), 0)
+  globalId = Math.max(maxId + 1, 1)
+
+  seedActive.value = true
+  await nextTick()
+  scrollToBottom()
 }
 
 function parseConversationFromText(raw: string): MessageItem[] {
@@ -336,14 +366,14 @@ watch(
     if (newVal !== oldVal) {
       // ✅ 清空当前对话消息
       messages.value = []
-      allMessages = []
+      // allMessages = []
 
       // ✅ 可选：重置输入框等状态
       input.value = ''
       output.value = ''
 
       globalId = 1
-      reset_flag = true
+      // reset_flag = true
 
       // ✅ 清空界面滚动
       nextTick(scrollToBottom)
@@ -351,31 +381,16 @@ watch(
     }
   },
 )
-onMounted(async () => {
-  if (messages.value.length > 0) return
-  try {
-    const resp = await fetch('/meeting_talk.txt')
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
-
-    const rawTxt = await resp.text()
-    const parsed = parseMeetingConversationFromText(rawTxt)
-
-    messages.value = parsed
-
-    // ⭐ 这里初始化“第一人称”
-    initPrimarySpeaker(parsed)
-
-    // 计算全局 id 起点，避免后续新增消息冲突
-    const maxId = parsed.reduce((mx, m) => Math.max(mx, m.id), 0)
-    globalId = Math.max(maxId + 1, 1)
-
-    seedActive.value = true
-    await nextTick()
-    scrollToBottom()
-  } catch (e) {
-    console.error('加载默认对话失败：', e)
-  }
-})
+watch(
+  () => props.datasetKey,
+  (key) => {
+    // 切换时建议清一下旧状态（可选但稳）
+    messages.value = []
+    seedActive.value = false
+    loadTalk(key).catch((e) => console.error('加载对话失败：', e))
+  },
+  { immediate: true },
+)
 </script>
 <style scoped>
 .chat-app {
