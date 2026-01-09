@@ -6,7 +6,6 @@
         "sentence": "我是不是就是个废物？别人一战就上岸，我考了四年才勉强考上，现在还是个普通一本，我这辈子是不是完了？",
         "slot": "自我否定",
         "id": 1,
-        "color": "#B0CFF6",
         "sentiment": -0.9,
         "source": "user",
         "is_question": true,
@@ -93,410 +92,11 @@
             "weight": 0.58
           }
         ]
-      }
-    ],
-    "color": "#1E77E8"
-  },
-  {
-    "topic": "心理健康问题",
-    "slots": [
-      {
-        "sentence": "你就自动跳出一个等式：别人一战上岸 = 优秀，我四年才上岸 = 废物",
-        "slot": "自我否定",
-        "id": 2,
-        "color": "#F9B3B3",
-        "sentiment": -0.85,
-        "source": "bot",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "自我否定",
-            "weight": 0.95
-          },
-          {
-            "word": "心理健康",
-            "weight": 0.92
-          },
-          {
-            "word": "毕业失业",
-            "weight": 0.9
-          },
-          {
-            "word": "考研上岸",
-            "weight": 0.88
-          },
-          {
-            "word": "大厂压力",
-            "weight": 0.85
-          },
-          {
-            "word": "父母期待",
-            "weight": 0.83
-          },
-          {
-            "word": "前端方向",
-            "weight": 0.8
-          },
-          {
-            "word": "项目经验",
-            "weight": 0.78
-          },
-          {
-            "word": "技术能力",
-            "weight": 0.76
-          },
-          {
-            "word": "情绪管理",
-            "weight": 0.74
-          },
-          {
-            "word": "职业规划",
-            "weight": 0.72
-          },
-          {
-            "word": "抗打击能力",
-            "weight": 0.7
-          },
-          {
-            "word": "心理咨询",
-            "weight": 0.68
-          },
-          {
-            "word": "就业机会",
-            "weight": 0.66
-          },
-          {
-            "word": "学校名气",
-            "weight": 0.64
-          },
-          {
-            "word": "幸存者偏差",
-            "weight": 0.62
-          },
-          {
-            "word": "实习经历",
-            "weight": 0.6
-          },
-          {
-            "word": "目标感",
-            "weight": 0.58
-          },
-          {
-            "word": "复原力",
-            "weight": 0.56
-          },
-          {
-            "word": "意志力",
-            "weight": 0.54
-          }
-        ]
-      }
-    ],
-    "color": "#EF2628"
-  },
-  {
-    "topic": "就业压力",
-    "slots": [
-      {
-        "sentence": "我感觉未来找工作好困难，我怕毕业就失业了",
-        "slot": "毕业失业担忧",
-        "id": 3,
-        "color": "#FFC9A9",
-        "sentiment": -0.8,
-        "source": "user",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "就业压力",
-            "weight": 0.95
-          },
-          {
-            "word": "毕业失业",
-            "weight": 0.92
-          },
-          {
-            "word": "找工作",
-            "weight": 0.9
-          },
-          {
-            "word": "大厂offer",
-            "weight": 0.88
-          },
-          {
-            "word": "父母期待",
-            "weight": 0.87
-          },
-          {
-            "word": "前端方向",
-            "weight": 0.85
-          },
-          {
-            "word": "考研上岸",
-            "weight": 0.84
-          },
-          {
-            "word": "技术能力",
-            "weight": 0.83
-          },
-          {
-            "word": "心理压力",
-            "weight": 0.82
-          },
-          {
-            "word": "项目经验",
-            "weight": 0.81
-          },
-          {
-            "word": "自我否定",
-            "weight": 0.8
-          },
-          {
-            "word": "普通一本",
-            "weight": 0.79
-          },
-          {
-            "word": "实习经历",
-            "weight": 0.78
-          },
-          {
-            "word": "未来规划",
-            "weight": 0.77
-          },
-          {
-            "word": "自杀念头",
-            "weight": 0.76
-          },
-          {
-            "word": "心理咨询",
-            "weight": 0.75
-          },
-          {
-            "word": "职业选择",
-            "weight": 0.74
-          },
-          {
-            "word": "生活质量",
-            "weight": 0.73
-          },
-          {
-            "word": "抗打击能力",
-            "weight": 0.72
-          },
-          {
-            "word": "同龄人对比",
-            "weight": 0.71
-          }
-        ]
-      }
-    ],
-    "color": "#FF660C"
-  },
-  {
-    "topic": "心理健康问题",
-    "slots": [
-      {
-        "sentence": "最近有没有出现那种“想消失”“不想活了”“想伤害自己”的冲动？",
-        "slot": "自杀念头",
-        "id": 6,
-        "color": "#F9B3B3",
-        "sentiment": -0.8,
-        "source": "bot",
-        "is_question": true,
-        "resolved": true,
-        "wordcloud": [
-          {
-            "word": "心理健康",
-            "weight": 0.95
-          },
-          {
-            "word": "自杀念头",
-            "weight": 0.92
-          },
-          {
-            "word": "毕业焦虑",
-            "weight": 0.88
-          },
-          {
-            "word": "就业压力",
-            "weight": 0.85
-          },
-          {
-            "word": "父母期待",
-            "weight": 0.83
-          },
-          {
-            "word": "孤独感",
-            "weight": 0.8
-          },
-          {
-            "word": "前端开发",
-            "weight": 0.78
-          },
-          {
-            "word": "大厂offer",
-            "weight": 0.76
-          },
-          {
-            "word": "心理咨询",
-            "weight": 0.74
-          },
-          {
-            "word": "职业规划",
-            "weight": 0.72
-          },
-          {
-            "word": "自我否定",
-            "weight": 0.7
-          },
-          {
-            "word": "项目经验",
-            "weight": 0.68
-          },
-          {
-            "word": "社交困难",
-            "weight": 0.66
-          },
-          {
-            "word": "未来不确定",
-            "weight": 0.64
-          },
-          {
-            "word": "学校关系",
-            "weight": 0.62
-          },
-          {
-            "word": "生活压力",
-            "weight": 0.6
-          },
-          {
-            "word": "求助热线",
-            "weight": 0.58
-          },
-          {
-            "word": "情绪崩溃",
-            "weight": 0.56
-          },
-          {
-            "word": "自我保护",
-            "weight": 0.54
-          },
-          {
-            "word": "人生规划",
-            "weight": 0.52
-          }
-        ]
-      }
-    ],
-    "color": "#EF2628"
-  },
-  {
-    "topic": "就业压力",
-    "slots": [
-      {
-        "sentence": "我看到身边的同学每个人都收到大厂的offer和工作，压力好大，我怕每次我毕业之后啥也找不到，就失业，辜负父母的期待。",
-        "slot": "同辈压力",
-        "id": 7,
-        "color": "#FFC9A9",
-        "sentiment": -0.9,
-        "source": "user",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "就业压力",
-            "weight": 0.95
-          },
-          {
-            "word": "同辈压力",
-            "weight": 0.92
-          },
-          {
-            "word": "大厂offer",
-            "weight": 0.87
-          },
-          {
-            "word": "失业恐惧",
-            "weight": 0.91
-          },
-          {
-            "word": "父母期待",
-            "weight": 0.88
-          },
-          {
-            "word": "普通一本",
-            "weight": 0.84
-          },
-          {
-            "word": "心理负担",
-            "weight": 0.89
-          },
-          {
-            "word": "考研上岸",
-            "weight": 0.79
-          },
-          {
-            "word": "自我怀疑",
-            "weight": 0.85
-          },
-          {
-            "word": "技术能力",
-            "weight": 0.83
-          },
-          {
-            "word": "未来规划",
-            "weight": 0.78
-          },
-          {
-            "word": "项目经验",
-            "weight": 0.81
-          },
-          {
-            "word": "自杀念头",
-            "weight": 0.95
-          },
-          {
-            "word": "心理支持",
-            "weight": 0.82
-          },
-          {
-            "word": "简单项目",
-            "weight": 0.77
-          },
-          {
-            "word": "简历准备",
-            "weight": 0.8
-          },
-          {
-            "word": "专业倾听",
-            "weight": 0.76
-          },
-          {
-            "word": "孤单无助",
-            "weight": 0.86
-          },
-          {
-            "word": "社交恐惧",
-            "weight": 0.79
-          },
-          {
-            "word": "相貌普通",
-            "weight": 0.74
-          }
-        ]
-      }
-    ],
-    "color": "#FF660C"
-  },
-  {
-    "topic": "自我价值感",
-    "slots": [
+      },
       {
         "sentence": "别人的人生已经成型了，而我一无所有。",
         "slot": "人生落差感",
         "id": 8,
-        "color": "#B0CFF6",
         "sentiment": -0.9,
         "source": "user",
         "is_question": false,
@@ -588,7 +188,6 @@
         "sentence": "别人都说考研上岸就解放了，为什么我上岸了反而更绝望？",
         "slot": "考研焦虑",
         "id": 9,
-        "color": "#B0CFF6",
         "sentiment": -0.8,
         "source": "user",
         "is_question": true,
@@ -675,802 +274,11 @@
             "weight": 0.4
           }
         ]
-      }
-    ],
-    "color": "#1E77E8"
-  },
-  {
-    "topic": "就业压力",
-    "slots": [
-      {
-        "sentence": "我特别怕毕业那天一个人搬行李回老家，我怕我爸妈看到我还是这个死样子会失望死，我该怎么办？",
-        "slot": "父母失望担忧",
-        "id": 11,
-        "color": "#FFC9A9",
-        "sentiment": -0.9,
-        "source": "user",
-        "is_question": true,
-        "resolved": true,
-        "wordcloud": [
-          {
-            "word": "就业压力",
-            "weight": 0.9
-          },
-          {
-            "word": "父母期待",
-            "weight": 0.85
-          },
-          {
-            "word": "失业恐惧",
-            "weight": 0.83
-          },
-          {
-            "word": "自我否定",
-            "weight": 0.82
-          },
-          {
-            "word": "普通一本",
-            "weight": 0.8
-          },
-          {
-            "word": "未来规划",
-            "weight": 0.78
-          },
-          {
-            "word": "心理支持",
-            "weight": 0.77
-          },
-          {
-            "word": "计算机专业",
-            "weight": 0.76
-          },
-          {
-            "word": "前端开发",
-            "weight": 0.74
-          },
-          {
-            "word": "社交恐惧",
-            "weight": 0.73
-          },
-          {
-            "word": "独处孤独",
-            "weight": 0.71
-          },
-          {
-            "word": "恋爱渴望",
-            "weight": 0.7
-          },
-          {
-            "word": "身体状态",
-            "weight": 0.69
-          },
-          {
-            "word": "项目经验",
-            "weight": 0.68
-          },
-          {
-            "word": "胖",
-            "weight": 0.67
-          },
-          {
-            "word": "学校生活",
-            "weight": 0.65
-          },
-          {
-            "word": "能力认可",
-            "weight": 0.64
-          },
-          {
-            "word": "求职",
-            "weight": 0.63
-          },
-          {
-            "word": "在线求助",
-            "weight": 0.62
-          },
-          {
-            "word": "游戏平台",
-            "weight": 0.6
-          }
-        ]
-      }
-    ],
-    "color": "#FF660C"
-  },
-  {
-    "topic": "身体形象焦虑",
-    "slots": [
-      {
-        "sentence": "我确实有想过一死了之，但是我连自杀都不敢，我怕我死了我妈会疯，我怕我连死都做不好。",
-        "slot": "自杀念头",
-        "id": 13,
-        "color": "#B4E6B4",
-        "sentiment": -1,
-        "source": "user",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "身体形象焦虑",
-            "weight": 0.95
-          },
-          {
-            "word": "自杀念头",
-            "weight": 0.9
-          },
-          {
-            "word": "计算机专业",
-            "weight": 0.85
-          },
-          {
-            "word": "毕业失业",
-            "weight": 0.88
-          },
-          {
-            "word": "大厂压力",
-            "weight": 0.87
-          },
-          {
-            "word": "前端方向",
-            "weight": 0.84
-          },
-          {
-            "word": "项目经验",
-            "weight": 0.83
-          },
-          {
-            "word": "学校影响",
-            "weight": 0.82
-          },
-          {
-            "word": "父母期待",
-            "weight": 0.89
-          },
-          {
-            "word": "社交恐惧",
-            "weight": 0.86
-          },
-          {
-            "word": "心理支持",
-            "weight": 0.91
-          },
-          {
-            "word": "情绪低落",
-            "weight": 0.92
-          },
-          {
-            "word": "自我否定",
-            "weight": 0.88
-          },
-          {
-            "word": "职业规划",
-            "weight": 0.84
-          },
-          {
-            "word": "学习计划",
-            "weight": 0.83
-          },
-          {
-            "word": "技术能力",
-            "weight": 0.85
-          },
-          {
-            "word": "项目展示",
-            "weight": 0.81
-          },
-          {
-            "word": "社交练习",
-            "weight": 0.82
-          },
-          {
-            "word": "心理咨询",
-            "weight": 0.9
-          },
-          {
-            "word": "生活调整",
-            "weight": 0.8
-          }
-        ]
-      }
-    ],
-    "color": "#2BBA2B"
-  },
-  {
-    "topic": "就业压力",
-    "slots": [
-      {
-        "sentence": "我在学校也没什么朋友，我跟同学之间的关系也不好，平时也没有什么活动可以参加，我不知道跟谁说内心的话",
-        "slot": "社交孤立",
-        "id": 15,
-        "color": "#FFC9A9",
-        "sentiment": -0.8,
-        "source": "user",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "就业压力",
-            "weight": 0.95
-          },
-          {
-            "word": "社交孤立",
-            "weight": 0.88
-          },
-          {
-            "word": "前端方向",
-            "weight": 0.85
-          },
-          {
-            "word": "毕业失业",
-            "weight": 0.9
-          },
-          {
-            "word": "996",
-            "weight": 0.8
-          },
-          {
-            "word": "身体健康",
-            "weight": 0.82
-          },
-          {
-            "word": "大厂",
-            "weight": 0.87
-          },
-          {
-            "word": "项目经验",
-            "weight": 0.83
-          },
-          {
-            "word": "技术能力",
-            "weight": 0.86
-          },
-          {
-            "word": "父母期待",
-            "weight": 0.84
-          },
-          {
-            "word": "考研上岸",
-            "weight": 0.81
-          },
-          {
-            "word": "自杀念头",
-            "weight": 0.89
-          },
-          {
-            "word": "心理支持",
-            "weight": 0.78
-          },
-          {
-            "word": "孤单",
-            "weight": 0.77
-          },
-          {
-            "word": "恋爱",
-            "weight": 0.79
-          },
-          {
-            "word": "自卑",
-            "weight": 0.76
-          },
-          {
-            "word": "胖",
-            "weight": 0.75
-          },
-          {
-            "word": "没特长",
-            "weight": 0.74
-          },
-          {
-            "word": "打游戏",
-            "weight": 0.73
-          },
-          {
-            "word": "情侣",
-            "weight": 0.72
-          }
-        ]
-      }
-    ],
-    "color": "#FF660C"
-  },
-  {
-    "topic": "身体形象焦虑",
-    "slots": [
-      {
-        "sentence": "我长相普通，家里也没什么钱，我还很胖，我在学校里面不敢跟别人打招呼说话",
-        "slot": "外貌自卑",
-        "id": 17,
-        "color": "#B4E6B4",
-        "sentiment": -0.9,
-        "source": "user",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "身体形象焦虑",
-            "weight": 0.95
-          },
-          {
-            "word": "外貌自卑",
-            "weight": 0.92
-          },
-          {
-            "word": "普通长相",
-            "weight": 0.85
-          },
-          {
-            "word": "家境一般",
-            "weight": 0.8
-          },
-          {
-            "word": "体重问题",
-            "weight": 0.88
-          },
-          {
-            "word": "社交恐惧",
-            "weight": 0.87
-          },
-          {
-            "word": "自尊心",
-            "weight": 0.83
-          },
-          {
-            "word": "未来恐惧",
-            "weight": 0.82
-          },
-          {
-            "word": "家庭期待",
-            "weight": 0.81
-          },
-          {
-            "word": "就业压力",
-            "weight": 0.84
-          },
-          {
-            "word": "自杀念头",
-            "weight": 0.9
-          },
-          {
-            "word": "心理支持",
-            "weight": 0.78
-          },
-          {
-            "word": "恋爱渴望",
-            "weight": 0.86
-          },
-          {
-            "word": "孤独感",
-            "weight": 0.79
-          },
-          {
-            "word": "自我否定",
-            "weight": 0.89
-          },
-          {
-            "word": "情绪低落",
-            "weight": 0.77
-          },
-          {
-            "word": "减肥计划",
-            "weight": 0.83
-          },
-          {
-            "word": "自我改善",
-            "weight": 0.8
-          },
-          {
-            "word": "社交练习",
-            "weight": 0.76
-          },
-          {
-            "word": "生活计划",
-            "weight": 0.75
-          }
-        ]
-      }
-    ],
-    "color": "#2BBA2B"
-  },
-  {
-    "topic": "就业压力",
-    "slots": [
-      {
-        "sentence": "我长这么大从来没有谈过恋爱，甚至女生的手都没有牵过，我也很少有女性朋友，其实我是很想去谈恋爱，但是我根本找不到",
-        "slot": "恋爱困境",
-        "id": 19,
-        "color": "#FFC9A9",
-        "sentiment": -0.7,
-        "source": "user",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "就业压力",
-            "weight": 0.95
-          },
-          {
-            "word": "恋爱困境",
-            "weight": 0.92
-          },
-          {
-            "word": "考研上岸",
-            "weight": 0.88
-          },
-          {
-            "word": "绝望感",
-            "weight": 0.85
-          },
-          {
-            "word": "心理反应",
-            "weight": 0.83
-          },
-          {
-            "word": "现实问题",
-            "weight": 0.82
-          },
-          {
-            "word": "自我否定",
-            "weight": 0.8
-          },
-          {
-            "word": "父母期待",
-            "weight": 0.78
-          },
-          {
-            "word": "职业规划",
-            "weight": 0.77
-          },
-          {
-            "word": "情绪管理",
-            "weight": 0.76
-          },
-          {
-            "word": "心理咨询",
-            "weight": 0.75
-          },
-          {
-            "word": "自杀念头",
-            "weight": 0.74
-          },
-          {
-            "word": "社交恐惧",
-            "weight": 0.73
-          },
-          {
-            "word": "自尊心",
-            "weight": 0.72
-          },
-          {
-            "word": "身体健康",
-            "weight": 0.71
-          },
-          {
-            "word": "饮食调整",
-            "weight": 0.7
-          },
-          {
-            "word": "运动计划",
-            "weight": 0.69
-          },
-          {
-            "word": "情绪低落",
-            "weight": 0.68
-          },
-          {
-            "word": "自我保护",
-            "weight": 0.67
-          },
-          {
-            "word": "健身房",
-            "weight": 0.66
-          }
-        ]
-      }
-    ],
-    "color": "#FF660C"
-  },
-  {
-    "topic": "压力管理",
-    "slots": [
-      {
-        "sentence": "你现在脑子里的逻辑大概是：长相普通 + 家里没钱 + 很胖 + 社恐 + 0 恋爱经验 = 女生肯定不会看上我 = 我根本找不到对象",
-        "slot": "自卑心理",
-        "id": 20,
-        "color": "#ADE8ED",
-        "sentiment": -0.9,
-        "source": "bot",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "压力管理",
-            "weight": 0.9
-          },
-          {
-            "word": "自卑心理",
-            "weight": 0.85
-          },
-          {
-            "word": "考试压力",
-            "weight": 0.83
-          },
-          {
-            "word": "落实差距",
-            "weight": 0.82
-          },
-          {
-            "word": "家庭期待",
-            "weight": 0.8
-          },
-          {
-            "word": "选择困难",
-            "weight": 0.78
-          },
-          {
-            "word": "情绪疲惫",
-            "weight": 0.77
-          },
-          {
-            "word": "实现愿景",
-            "weight": 0.76
-          },
-          {
-            "word": "沟通问题",
-            "weight": 0.74
-          },
-          {
-            "word": "未来不确定",
-            "weight": 0.72
-          },
-          {
-            "word": "身体健康",
-            "weight": 0.71
-          },
-          {
-            "word": "社区支持",
-            "weight": 0.69
-          },
-          {
-            "word": "健康饮食",
-            "weight": 0.68
-          },
-          {
-            "word": "运动策略",
-            "weight": 0.67
-          },
-          {
-            "word": "心理咨询",
-            "weight": 0.65
-          },
-          {
-            "word": "求助热线",
-            "weight": 0.64
-          },
-          {
-            "word": "习惯养成",
-            "weight": 0.62
-          },
-          {
-            "word": "时间管理",
-            "weight": 0.61
-          },
-          {
-            "word": "情绪整理",
-            "weight": 0.59
-          },
-          {
-            "word": "自我价值",
-            "weight": 0.58
-          }
-        ]
-      }
-    ],
-    "color": "#16BFCE"
-  },
-  {
-    "topic": "就业压力",
-    "slots": [
-      {
-        "sentence": "我没什么特长，我平常没有课的时候，我就只会在宿舍呆着打游戏，也不想去别的地方。",
-        "slot": "缺乏特长",
-        "id": 21,
-        "color": "#FFC9A9",
-        "sentiment": -0.6,
-        "source": "user",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "就业压力",
-            "weight": 0.95
-          },
-          {
-            "word": "缺乏特长",
-            "weight": 0.88
-          },
-          {
-            "word": "毕业恐惧",
-            "weight": 0.85
-          },
-          {
-            "word": "自我怀疑",
-            "weight": 0.82
-          },
-          {
-            "word": "心理支持",
-            "weight": 0.8
-          },
-          {
-            "word": "社交恐惧",
-            "weight": 0.78
-          },
-          {
-            "word": "自杀念头",
-            "weight": 0.77
-          },
-          {
-            "word": "父母期望",
-            "weight": 0.76
-          },
-          {
-            "word": "孤独感",
-            "weight": 0.75
-          },
-          {
-            "word": "自我改善",
-            "weight": 0.74
-          },
-          {
-            "word": "减肥计划",
-            "weight": 0.73
-          },
-          {
-            "word": "健身房",
-            "weight": 0.72
-          },
-          {
-            "word": "饮食调整",
-            "weight": 0.71
-          },
-          {
-            "word": "运动习惯",
-            "weight": 0.7
-          },
-          {
-            "word": "情绪低落",
-            "weight": 0.69
-          },
-          {
-            "word": "恋爱渴望",
-            "weight": 0.68
-          },
-          {
-            "word": "自我价值",
-            "weight": 0.67
-          },
-          {
-            "word": "生活目标",
-            "weight": 0.66
-          },
-          {
-            "word": "自我接纳",
-            "weight": 0.65
-          },
-          {
-            "word": "心理咨询",
-            "weight": 0.64
-          }
-        ]
-      }
-    ],
-    "color": "#FF660C"
-  },
-  {
-    "topic": "经济压力",
-    "slots": [
-      {
-        "sentence": "我想减肥，你觉得我应该怎么做，我现在170cm，180斤",
-        "slot": "减肥计划",
-        "id": 27,
-        "color": "#D6C3BF",
-        "sentiment": 0.1,
-        "source": "user",
-        "is_question": true,
-        "resolved": true,
-        "wordcloud": [
-          {
-            "word": "经济压力",
-            "weight": 0.85
-          },
-          {
-            "word": "减肥计划",
-            "weight": 0.8
-          },
-          {
-            "word": "长相普通",
-            "weight": 0.75
-          },
-          {
-            "word": "家里没钱",
-            "weight": 0.7
-          },
-          {
-            "word": "很胖",
-            "weight": 0.75
-          },
-          {
-            "word": "学校",
-            "weight": 0.65
-          },
-          {
-            "word": "不敢说话",
-            "weight": 0.6
-          },
-          {
-            "word": "标签",
-            "weight": 0.55
-          },
-          {
-            "word": "自我判死刑",
-            "weight": 0.65
-          },
-          {
-            "word": "羞耻感",
-            "weight": 0.6
-          },
-          {
-            "word": "聚光灯效应",
-            "weight": 0.55
-          },
-          {
-            "word": "外貌",
-            "weight": 0.7
-          },
-          {
-            "word": "家境",
-            "weight": 0.65
-          },
-          {
-            "word": "身材",
-            "weight": 0.7
-          },
-          {
-            "word": "社交",
-            "weight": 0.6
-          },
-          {
-            "word": "恋爱",
-            "weight": 0.75
-          },
-          {
-            "word": "女性朋友",
-            "weight": 0.65
-          },
-          {
-            "word": "自卑",
-            "weight": 0.7
-          },
-          {
-            "word": "抑郁",
-            "weight": 0.65
-          },
-          {
-            "word": "自杀",
-            "weight": 0.6
-          }
-        ]
-      }
-    ],
-    "color": "#8C5649"
-  },
-  {
-    "topic": "自我价值感",
-    "slots": [
+      },
       {
         "sentence": "我再也不会感觉到我被需要。",
         "slot": "被需要感缺失",
         "id": 29,
-        "color": "#B0CFF6",
         "sentiment": -1,
         "source": "user",
         "is_question": false,
@@ -1557,116 +365,1109 @@
             "weight": 0.6
           }
         ]
+      },
+      {
+        "sentence": "我感觉我没有在其他人面前展示自己的信心，当然也没有啥可以展示的，例如每次点到我上去介绍自己或者表演节目，我都是摆摆手",
+        "slot": "缺乏自信",
+        "id": 97,
+        "sentiment": -0.7,
+        "source": "user",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "自我价值感",
+            "weight": 0.95
+          },
+          {
+            "word": "缺乏自信",
+            "weight": 0.9
+          },
+          {
+            "word": "羽毛球",
+            "weight": 0.85
+          },
+          {
+            "word": "运动减肥",
+            "weight": 0.82
+          },
+          {
+            "word": "社交模式",
+            "weight": 0.8
+          },
+          {
+            "word": "英语口语",
+            "weight": 0.78
+          },
+          {
+            "word": "睡眠问题",
+            "weight": 0.76
+          },
+          {
+            "word": "失眠",
+            "weight": 0.74
+          },
+          {
+            "word": "压力",
+            "weight": 0.72
+          },
+          {
+            "word": "焦虑",
+            "weight": 0.7
+          },
+          {
+            "word": "自我介绍",
+            "weight": 0.68
+          },
+          {
+            "word": "健身房",
+            "weight": 0.66
+          },
+          {
+            "word": "内向",
+            "weight": 0.64
+          },
+          {
+            "word": "自我保护",
+            "weight": 0.62
+          },
+          {
+            "word": "普通",
+            "weight": 0.6
+          },
+          {
+            "word": "生活意义",
+            "weight": 0.58
+          },
+          {
+            "word": "咖啡因",
+            "weight": 0.56
+          },
+          {
+            "word": "舒缓压力",
+            "weight": 0.54
+          },
+          {
+            "word": "身体放松",
+            "weight": 0.52
+          },
+          {
+            "word": "深呼吸",
+            "weight": 0.5
+          }
+        ]
+      },
+      {
+        "sentence": "自卑、觉得自己不够好、怕被比较",
+        "slot": "自卑心理",
+        "id": 103,
+        "sentiment": -0.8,
+        "source": "bot",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "自卑心理",
+            "weight": 0.95
+          },
+          {
+            "word": "英语水平",
+            "weight": 0.85
+          },
+          {
+            "word": "口语练习",
+            "weight": 0.82
+          },
+          {
+            "word": "自我介绍",
+            "weight": 0.8
+          },
+          {
+            "word": "心理咨询",
+            "weight": 0.78
+          },
+          {
+            "word": "压力舒缓",
+            "weight": 0.77
+          },
+          {
+            "word": "失眠问题",
+            "weight": 0.75
+          },
+          {
+            "word": "健身房",
+            "weight": 0.74
+          },
+          {
+            "word": "自信提升",
+            "weight": 0.73
+          },
+          {
+            "word": "情绪管理",
+            "weight": 0.72
+          },
+          {
+            "word": "日常习惯",
+            "weight": 0.7
+          },
+          {
+            "word": "睡眠质量",
+            "weight": 0.68
+          },
+          {
+            "word": "内心独白",
+            "weight": 0.67
+          },
+          {
+            "word": "社交技巧",
+            "weight": 0.66
+          },
+          {
+            "word": "生活意义",
+            "weight": 0.65
+          },
+          {
+            "word": "自我价值",
+            "weight": 0.64
+          },
+          {
+            "word": "英语听力",
+            "weight": 0.63
+          },
+          {
+            "word": "身体放松",
+            "weight": 0.62
+          },
+          {
+            "word": "情绪垃圾桶",
+            "weight": 0.61
+          },
+          {
+            "word": "呼吸减速法",
+            "weight": 0.6
+          }
+        ]
       }
-    ],
-    "color": "#1E77E8"
+    ]
   },
   {
-    "topic": "经济压力",
+    "topic": "就业压力",
     "slots": [
       {
-        "sentence": "有没有快速减肥的方法，能够快一点瘦下来",
-        "slot": "快速减肥方法",
-        "id": 31,
-        "color": "#D6C3BF",
-        "sentiment": 0,
+        "sentence": "我感觉未来找工作好困难，我怕毕业就失业了",
+        "slot": "毕业失业担忧",
+        "id": 3,
+        "sentiment": -0.8,
+        "source": "user",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "就业压力",
+            "weight": 0.95
+          },
+          {
+            "word": "毕业失业",
+            "weight": 0.92
+          },
+          {
+            "word": "找工作",
+            "weight": 0.9
+          },
+          {
+            "word": "大厂offer",
+            "weight": 0.88
+          },
+          {
+            "word": "父母期待",
+            "weight": 0.87
+          },
+          {
+            "word": "前端方向",
+            "weight": 0.85
+          },
+          {
+            "word": "考研上岸",
+            "weight": 0.84
+          },
+          {
+            "word": "技术能力",
+            "weight": 0.83
+          },
+          {
+            "word": "心理压力",
+            "weight": 0.82
+          },
+          {
+            "word": "项目经验",
+            "weight": 0.81
+          },
+          {
+            "word": "自我否定",
+            "weight": 0.8
+          },
+          {
+            "word": "普通一本",
+            "weight": 0.79
+          },
+          {
+            "word": "实习经历",
+            "weight": 0.78
+          },
+          {
+            "word": "未来规划",
+            "weight": 0.77
+          },
+          {
+            "word": "自杀念头",
+            "weight": 0.76
+          },
+          {
+            "word": "心理咨询",
+            "weight": 0.75
+          },
+          {
+            "word": "职业选择",
+            "weight": 0.74
+          },
+          {
+            "word": "生活质量",
+            "weight": 0.73
+          },
+          {
+            "word": "抗打击能力",
+            "weight": 0.72
+          },
+          {
+            "word": "同龄人对比",
+            "weight": 0.71
+          }
+        ]
+      },
+      {
+        "sentence": "我看到身边的同学每个人都收到大厂的offer和工作，压力好大，我怕每次我毕业之后啥也找不到，就失业，辜负父母的期待。",
+        "slot": "同辈压力",
+        "id": 7,
+        "sentiment": -0.9,
+        "source": "user",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "就业压力",
+            "weight": 0.95
+          },
+          {
+            "word": "同辈压力",
+            "weight": 0.92
+          },
+          {
+            "word": "大厂offer",
+            "weight": 0.87
+          },
+          {
+            "word": "失业恐惧",
+            "weight": 0.91
+          },
+          {
+            "word": "父母期待",
+            "weight": 0.88
+          },
+          {
+            "word": "普通一本",
+            "weight": 0.84
+          },
+          {
+            "word": "心理负担",
+            "weight": 0.89
+          },
+          {
+            "word": "考研上岸",
+            "weight": 0.79
+          },
+          {
+            "word": "自我怀疑",
+            "weight": 0.85
+          },
+          {
+            "word": "技术能力",
+            "weight": 0.83
+          },
+          {
+            "word": "未来规划",
+            "weight": 0.78
+          },
+          {
+            "word": "项目经验",
+            "weight": 0.81
+          },
+          {
+            "word": "自杀念头",
+            "weight": 0.95
+          },
+          {
+            "word": "心理支持",
+            "weight": 0.82
+          },
+          {
+            "word": "简单项目",
+            "weight": 0.77
+          },
+          {
+            "word": "简历准备",
+            "weight": 0.8
+          },
+          {
+            "word": "专业倾听",
+            "weight": 0.76
+          },
+          {
+            "word": "孤单无助",
+            "weight": 0.86
+          },
+          {
+            "word": "社交恐惧",
+            "weight": 0.79
+          },
+          {
+            "word": "相貌普通",
+            "weight": 0.74
+          }
+        ]
+      },
+      {
+        "sentence": "我特别怕毕业那天一个人搬行李回老家，我怕我爸妈看到我还是这个死样子会失望死，我该怎么办？",
+        "slot": "父母失望担忧",
+        "id": 11,
+        "sentiment": -0.9,
         "source": "user",
         "is_question": true,
         "resolved": true,
         "wordcloud": [
           {
-            "word": "经济压力",
+            "word": "就业压力",
+            "weight": 0.9
+          },
+          {
+            "word": "父母期待",
             "weight": 0.85
           },
           {
-            "word": "快速减肥",
+            "word": "失业恐惧",
+            "weight": 0.83
+          },
+          {
+            "word": "自我否定",
+            "weight": 0.82
+          },
+          {
+            "word": "普通一本",
             "weight": 0.8
           },
           {
-            "word": "抑郁",
+            "word": "未来规划",
             "weight": 0.78
+          },
+          {
+            "word": "心理支持",
+            "weight": 0.77
+          },
+          {
+            "word": "计算机专业",
+            "weight": 0.76
+          },
+          {
+            "word": "前端开发",
+            "weight": 0.74
+          },
+          {
+            "word": "社交恐惧",
+            "weight": 0.73
+          },
+          {
+            "word": "独处孤独",
+            "weight": 0.71
+          },
+          {
+            "word": "恋爱渴望",
+            "weight": 0.7
+          },
+          {
+            "word": "身体状态",
+            "weight": 0.69
+          },
+          {
+            "word": "项目经验",
+            "weight": 0.68
+          },
+          {
+            "word": "胖",
+            "weight": 0.67
+          },
+          {
+            "word": "学校生活",
+            "weight": 0.65
+          },
+          {
+            "word": "能力认可",
+            "weight": 0.64
+          },
+          {
+            "word": "求职",
+            "weight": 0.63
+          },
+          {
+            "word": "在线求助",
+            "weight": 0.62
+          },
+          {
+            "word": "游戏平台",
+            "weight": 0.6
+          }
+        ]
+      },
+      {
+        "sentence": "我在学校也没什么朋友，我跟同学之间的关系也不好，平时也没有什么活动可以参加，我不知道跟谁说内心的话",
+        "slot": "社交孤立",
+        "id": 15,
+        "sentiment": -0.8,
+        "source": "user",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "就业压力",
+            "weight": 0.95
+          },
+          {
+            "word": "社交孤立",
+            "weight": 0.88
+          },
+          {
+            "word": "前端方向",
+            "weight": 0.85
+          },
+          {
+            "word": "毕业失业",
+            "weight": 0.9
+          },
+          {
+            "word": "996",
+            "weight": 0.8
+          },
+          {
+            "word": "身体健康",
+            "weight": 0.82
+          },
+          {
+            "word": "大厂",
+            "weight": 0.87
+          },
+          {
+            "word": "项目经验",
+            "weight": 0.83
+          },
+          {
+            "word": "技术能力",
+            "weight": 0.86
+          },
+          {
+            "word": "父母期待",
+            "weight": 0.84
+          },
+          {
+            "word": "考研上岸",
+            "weight": 0.81
+          },
+          {
+            "word": "自杀念头",
+            "weight": 0.89
+          },
+          {
+            "word": "心理支持",
+            "weight": 0.78
+          },
+          {
+            "word": "孤单",
+            "weight": 0.77
+          },
+          {
+            "word": "恋爱",
+            "weight": 0.79
+          },
+          {
+            "word": "自卑",
+            "weight": 0.76
+          },
+          {
+            "word": "胖",
+            "weight": 0.75
+          },
+          {
+            "word": "没特长",
+            "weight": 0.74
+          },
+          {
+            "word": "打游戏",
+            "weight": 0.73
+          },
+          {
+            "word": "情侣",
+            "weight": 0.72
+          }
+        ]
+      },
+      {
+        "sentence": "我长这么大从来没有谈过恋爱，甚至女生的手都没有牵过，我也很少有女性朋友，其实我是很想去谈恋爱，但是我根本找不到",
+        "slot": "恋爱困境",
+        "id": 19,
+        "sentiment": -0.7,
+        "source": "user",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "就业压力",
+            "weight": 0.95
+          },
+          {
+            "word": "恋爱困境",
+            "weight": 0.92
+          },
+          {
+            "word": "考研上岸",
+            "weight": 0.88
+          },
+          {
+            "word": "绝望感",
+            "weight": 0.85
+          },
+          {
+            "word": "心理反应",
+            "weight": 0.83
+          },
+          {
+            "word": "现实问题",
+            "weight": 0.82
+          },
+          {
+            "word": "自我否定",
+            "weight": 0.8
+          },
+          {
+            "word": "父母期待",
+            "weight": 0.78
+          },
+          {
+            "word": "职业规划",
+            "weight": 0.77
+          },
+          {
+            "word": "情绪管理",
+            "weight": 0.76
+          },
+          {
+            "word": "心理咨询",
+            "weight": 0.75
+          },
+          {
+            "word": "自杀念头",
+            "weight": 0.74
+          },
+          {
+            "word": "社交恐惧",
+            "weight": 0.73
+          },
+          {
+            "word": "自尊心",
+            "weight": 0.72
+          },
+          {
+            "word": "身体健康",
+            "weight": 0.71
+          },
+          {
+            "word": "饮食调整",
+            "weight": 0.7
+          },
+          {
+            "word": "运动计划",
+            "weight": 0.69
+          },
+          {
+            "word": "情绪低落",
+            "weight": 0.68
+          },
+          {
+            "word": "自我保护",
+            "weight": 0.67
+          },
+          {
+            "word": "健身房",
+            "weight": 0.66
+          }
+        ]
+      },
+      {
+        "sentence": "我没什么特长，我平常没有课的时候，我就只会在宿舍呆着打游戏，也不想去别的地方。",
+        "slot": "缺乏特长",
+        "id": 21,
+        "sentiment": -0.6,
+        "source": "user",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "就业压力",
+            "weight": 0.95
+          },
+          {
+            "word": "缺乏特长",
+            "weight": 0.88
+          },
+          {
+            "word": "毕业恐惧",
+            "weight": 0.85
+          },
+          {
+            "word": "自我怀疑",
+            "weight": 0.82
+          },
+          {
+            "word": "心理支持",
+            "weight": 0.8
+          },
+          {
+            "word": "社交恐惧",
+            "weight": 0.78
+          },
+          {
+            "word": "自杀念头",
+            "weight": 0.77
+          },
+          {
+            "word": "父母期望",
+            "weight": 0.76
+          },
+          {
+            "word": "孤独感",
+            "weight": 0.75
+          },
+          {
+            "word": "自我改善",
+            "weight": 0.74
+          },
+          {
+            "word": "减肥计划",
+            "weight": 0.73
+          },
+          {
+            "word": "健身房",
+            "weight": 0.72
+          },
+          {
+            "word": "饮食调整",
+            "weight": 0.71
+          },
+          {
+            "word": "运动习惯",
+            "weight": 0.7
+          },
+          {
+            "word": "情绪低落",
+            "weight": 0.69
+          },
+          {
+            "word": "恋爱渴望",
+            "weight": 0.68
+          },
+          {
+            "word": "自我价值",
+            "weight": 0.67
+          },
+          {
+            "word": "生活目标",
+            "weight": 0.66
+          },
+          {
+            "word": "自我接纳",
+            "weight": 0.65
+          },
+          {
+            "word": "心理咨询",
+            "weight": 0.64
+          }
+        ]
+      },
+      {
+        "sentence": "我看到别人举的重量都好大，我根本举不起来，像是哑铃我只能据5kg的",
+        "slot": "自我怀疑",
+        "id": 71,
+        "sentiment": -0.5,
+        "source": "user",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "就业压力",
+            "weight": 0.95
+          },
+          {
+            "word": "自我怀疑",
+            "weight": 0.9
+          },
+          {
+            "word": "唱歌难听",
+            "weight": 0.85
+          },
+          {
+            "word": "不敢唱歌",
+            "weight": 0.8
+          },
+          {
+            "word": "社恐友好",
+            "weight": 0.75
+          },
+          {
+            "word": "乐器入门",
+            "weight": 0.7
+          },
+          {
+            "word": "尤克里里",
+            "weight": 0.65
+          },
+          {
+            "word": "低成本社交",
+            "weight": 0.6
+          },
+          {
+            "word": "手头紧",
+            "weight": 0.55
+          },
+          {
+            "word": "社交预算",
+            "weight": 0.5
+          },
+          {
+            "word": "健身房",
+            "weight": 0.45
+          },
+          {
+            "word": "肌肉酸痛",
+            "weight": 0.4
+          },
+          {
+            "word": "哑铃重量",
+            "weight": 0.35
+          },
+          {
+            "word": "新手训练",
+            "weight": 0.3
+          },
+          {
+            "word": "运动心情",
+            "weight": 0.25
+          },
+          {
+            "word": "改善心情",
+            "weight": 0.2
+          },
+          {
+            "word": "社交尴尬",
+            "weight": 0.15
+          },
+          {
+            "word": "女生交流",
+            "weight": 0.1
+          },
+          {
+            "word": "开口讲话",
+            "weight": 0.05
+          }
+        ]
+      },
+      {
+        "sentence": "我很容易睡觉的时候乱想，尤其是想我为什么这么普通，过得生活很没有意义，然后我对茶和咖啡也比较容易过敏，很容易睡不着",
+        "slot": "失眠困扰",
+        "id": 105,
+        "sentiment": -0.8,
+        "source": "user",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "失眠",
+            "weight": 0.95
+          },
+          {
+            "word": "睡不着",
+            "weight": 0.92
+          },
+          {
+            "word": "乱想",
+            "weight": 0.87
+          },
+          {
+            "word": "普通",
+            "weight": 0.85
+          },
+          {
+            "word": "过敏",
+            "weight": 0.83
+          },
+          {
+            "word": "自我怀疑",
+            "weight": 0.82
+          },
+          {
+            "word": "生活意义",
+            "weight": 0.8
+          },
+          {
+            "word": "压力",
+            "weight": 0.78
+          },
+          {
+            "word": "大脑停不下来",
+            "weight": 0.77
+          },
+          {
+            "word": "情绪",
+            "weight": 0.76
+          },
+          {
+            "word": "身体反应",
+            "weight": 0.75
+          },
+          {
+            "word": "咖啡因敏感",
+            "weight": 0.74
+          },
+          {
+            "word": "午夜焦虑",
+            "weight": 0.72
+          },
+          {
+            "word": "心理健康",
+            "weight": 0.71
+          },
+          {
+            "word": "缺乏信心",
+            "weight": 0.7
+          },
+          {
+            "word": "自我反思",
+            "weight": 0.68
+          },
+          {
+            "word": "解决问题",
+            "weight": 0.67
+          },
+          {
+            "word": "夜晚思考",
+            "weight": 0.66
+          },
+          {
+            "word": "价值感",
+            "weight": 0.65
+          },
+          {
+            "word": "日常调整",
+            "weight": 0.64
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "身体形象焦虑",
+    "slots": [
+      {
+        "sentence": "我确实有想过一死了之，但是我连自杀都不敢，我怕我死了我妈会疯，我怕我连死都做不好。",
+        "slot": "自杀念头",
+        "id": 13,
+        "sentiment": -1,
+        "source": "user",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "身体形象焦虑",
+            "weight": 0.95
+          },
+          {
+            "word": "自杀念头",
+            "weight": 0.9
+          },
+          {
+            "word": "计算机专业",
+            "weight": 0.85
+          },
+          {
+            "word": "毕业失业",
+            "weight": 0.88
+          },
+          {
+            "word": "大厂压力",
+            "weight": 0.87
+          },
+          {
+            "word": "前端方向",
+            "weight": 0.84
+          },
+          {
+            "word": "项目经验",
+            "weight": 0.83
+          },
+          {
+            "word": "学校影响",
+            "weight": 0.82
+          },
+          {
+            "word": "父母期待",
+            "weight": 0.89
+          },
+          {
+            "word": "社交恐惧",
+            "weight": 0.86
+          },
+          {
+            "word": "心理支持",
+            "weight": 0.91
+          },
+          {
+            "word": "情绪低落",
+            "weight": 0.92
+          },
+          {
+            "word": "自我否定",
+            "weight": 0.88
+          },
+          {
+            "word": "职业规划",
+            "weight": 0.84
+          },
+          {
+            "word": "学习计划",
+            "weight": 0.83
+          },
+          {
+            "word": "技术能力",
+            "weight": 0.85
+          },
+          {
+            "word": "项目展示",
+            "weight": 0.81
+          },
+          {
+            "word": "社交练习",
+            "weight": 0.82
+          },
+          {
+            "word": "心理咨询",
+            "weight": 0.9
+          },
+          {
+            "word": "生活调整",
+            "weight": 0.8
+          }
+        ]
+      },
+      {
+        "sentence": "我长相普通，家里也没什么钱，我还很胖，我在学校里面不敢跟别人打招呼说话",
+        "slot": "外貌自卑",
+        "id": 17,
+        "sentiment": -0.9,
+        "source": "user",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "身体形象焦虑",
+            "weight": 0.95
+          },
+          {
+            "word": "外貌自卑",
+            "weight": 0.92
+          },
+          {
+            "word": "普通长相",
+            "weight": 0.85
+          },
+          {
+            "word": "家境一般",
+            "weight": 0.8
+          },
+          {
+            "word": "体重问题",
+            "weight": 0.88
+          },
+          {
+            "word": "社交恐惧",
+            "weight": 0.87
+          },
+          {
+            "word": "自尊心",
+            "weight": 0.83
+          },
+          {
+            "word": "未来恐惧",
+            "weight": 0.82
+          },
+          {
+            "word": "家庭期待",
+            "weight": 0.81
+          },
+          {
+            "word": "就业压力",
+            "weight": 0.84
+          },
+          {
+            "word": "自杀念头",
+            "weight": 0.9
+          },
+          {
+            "word": "心理支持",
+            "weight": 0.78
+          },
+          {
+            "word": "恋爱渴望",
+            "weight": 0.86
+          },
+          {
+            "word": "孤独感",
+            "weight": 0.79
+          },
+          {
+            "word": "自我否定",
+            "weight": 0.89
           },
           {
             "word": "情绪低落",
             "weight": 0.77
           },
           {
-            "word": "自我厌恶",
+            "word": "减肥计划",
+            "weight": 0.83
+          },
+          {
+            "word": "自我改善",
+            "weight": 0.8
+          },
+          {
+            "word": "社交练习",
             "weight": 0.76
           },
           {
-            "word": "饮食调整",
+            "word": "生活计划",
             "weight": 0.75
-          },
-          {
-            "word": "运动计划",
-            "weight": 0.74
-          },
-          {
-            "word": "心理支持",
-            "weight": 0.73
-          },
-          {
-            "word": "社交恐惧",
-            "weight": 0.72
-          },
-          {
-            "word": "外貌焦虑",
-            "weight": 0.71
-          },
-          {
-            "word": "自残倾向",
-            "weight": 0.7
-          },
-          {
-            "word": "健身房",
-            "weight": 0.69
-          },
-          {
-            "word": "作息调整",
-            "weight": 0.68
-          },
-          {
-            "word": "饮料控制",
-            "weight": 0.67
-          },
-          {
-            "word": "情绪整理",
-            "weight": 0.66
-          },
-          {
-            "word": "自我保护",
-            "weight": 0.65
-          },
-          {
-            "word": "心理危机",
-            "weight": 0.64
-          },
-          {
-            "word": "外形调整",
-            "weight": 0.63
-          },
-          {
-            "word": "穿搭建议",
-            "weight": 0.62
-          },
-          {
-            "word": "自我提升",
-            "weight": 0.61
           }
         ]
-      }
-    ],
-    "color": "#8C5649"
-  },
-  {
-    "topic": "身体形象焦虑",
-    "slots": [
+      },
       {
         "sentence": "我感觉我的长相普通，甚至说有点丑，我感觉世界是一个巨大的卡颜局，对外貌不好的人来说，恶意真的太大了。",
         "slot": "外貌歧视感",
         "id": 35,
-        "color": "#B4E6B4",
         "sentiment": -0.9,
         "source": "user",
         "is_question": false,
@@ -1754,7 +1555,6 @@
         "sentence": "我刷到别人说‘长得丑就是原罪’，我一照镜子就想把自己脸抓花，我是不是真的没资格被爱？",
         "slot": "外貌原罪感",
         "id": 37,
-        "color": "#B4E6B4",
         "sentiment": -1,
         "source": "user",
         "is_question": false,
@@ -1846,7 +1646,6 @@
         "sentence": "我一照镜子就觉得自己好丑，穿的也土，人也胖",
         "slot": "镜子自我厌恶",
         "id": 39,
-        "color": "#B4E6B4",
         "sentiment": -0.9,
         "source": "user",
         "is_question": false,
@@ -1934,8 +1733,285 @@
           }
         ]
       }
-    ],
-    "color": "#2BBA2B"
+    ]
+  },
+  {
+    "topic": "心理健康问题",
+    "slots": [
+      {
+        "sentence": "你就自动跳出一个等式：别人一战上岸 = 优秀，我四年才上岸 = 废物",
+        "slot": "自我否定",
+        "id": 2,
+        "sentiment": -0.85,
+        "source": "bot",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "自我否定",
+            "weight": 0.95
+          },
+          {
+            "word": "心理健康",
+            "weight": 0.92
+          },
+          {
+            "word": "毕业失业",
+            "weight": 0.9
+          },
+          {
+            "word": "考研上岸",
+            "weight": 0.88
+          },
+          {
+            "word": "大厂压力",
+            "weight": 0.85
+          },
+          {
+            "word": "父母期待",
+            "weight": 0.83
+          },
+          {
+            "word": "前端方向",
+            "weight": 0.8
+          },
+          {
+            "word": "项目经验",
+            "weight": 0.78
+          },
+          {
+            "word": "技术能力",
+            "weight": 0.76
+          },
+          {
+            "word": "情绪管理",
+            "weight": 0.74
+          },
+          {
+            "word": "职业规划",
+            "weight": 0.72
+          },
+          {
+            "word": "抗打击能力",
+            "weight": 0.7
+          },
+          {
+            "word": "心理咨询",
+            "weight": 0.68
+          },
+          {
+            "word": "就业机会",
+            "weight": 0.66
+          },
+          {
+            "word": "学校名气",
+            "weight": 0.64
+          },
+          {
+            "word": "幸存者偏差",
+            "weight": 0.62
+          },
+          {
+            "word": "实习经历",
+            "weight": 0.6
+          },
+          {
+            "word": "目标感",
+            "weight": 0.58
+          },
+          {
+            "word": "复原力",
+            "weight": 0.56
+          },
+          {
+            "word": "意志力",
+            "weight": 0.54
+          }
+        ]
+      },
+      {
+        "sentence": "最近有没有出现那种“想消失”“不想活了”“想伤害自己”的冲动？",
+        "slot": "自杀念头",
+        "id": 6,
+        "sentiment": -0.8,
+        "source": "bot",
+        "is_question": true,
+        "resolved": true,
+        "wordcloud": [
+          {
+            "word": "心理健康",
+            "weight": 0.95
+          },
+          {
+            "word": "自杀念头",
+            "weight": 0.92
+          },
+          {
+            "word": "毕业焦虑",
+            "weight": 0.88
+          },
+          {
+            "word": "就业压力",
+            "weight": 0.85
+          },
+          {
+            "word": "父母期待",
+            "weight": 0.83
+          },
+          {
+            "word": "孤独感",
+            "weight": 0.8
+          },
+          {
+            "word": "前端开发",
+            "weight": 0.78
+          },
+          {
+            "word": "大厂offer",
+            "weight": 0.76
+          },
+          {
+            "word": "心理咨询",
+            "weight": 0.74
+          },
+          {
+            "word": "职业规划",
+            "weight": 0.72
+          },
+          {
+            "word": "自我否定",
+            "weight": 0.7
+          },
+          {
+            "word": "项目经验",
+            "weight": 0.68
+          },
+          {
+            "word": "社交困难",
+            "weight": 0.66
+          },
+          {
+            "word": "未来不确定",
+            "weight": 0.64
+          },
+          {
+            "word": "学校关系",
+            "weight": 0.62
+          },
+          {
+            "word": "生活压力",
+            "weight": 0.6
+          },
+          {
+            "word": "求助热线",
+            "weight": 0.58
+          },
+          {
+            "word": "情绪崩溃",
+            "weight": 0.56
+          },
+          {
+            "word": "自我保护",
+            "weight": 0.54
+          },
+          {
+            "word": "人生规划",
+            "weight": 0.52
+          }
+        ]
+      },
+      {
+        "sentence": "我就是废物",
+        "slot": "自我贬低",
+        "id": 67,
+        "sentiment": -1,
+        "source": "user",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "心理健康",
+            "weight": 0.95
+          },
+          {
+            "word": "自我贬低",
+            "weight": 0.9
+          },
+          {
+            "word": "嘲笑",
+            "weight": 0.85
+          },
+          {
+            "word": "难受",
+            "weight": 0.82
+          },
+          {
+            "word": "自卑",
+            "weight": 0.8
+          },
+          {
+            "word": "社交",
+            "weight": 0.78
+          },
+          {
+            "word": "健身房",
+            "weight": 0.75
+          },
+          {
+            "word": "酸痛",
+            "weight": 0.73
+          },
+          {
+            "word": "重量",
+            "weight": 0.7
+          },
+          {
+            "word": "特长",
+            "weight": 0.68
+          },
+          {
+            "word": "唱歌",
+            "weight": 0.65
+          },
+          {
+            "word": "乐器",
+            "weight": 0.63
+          },
+          {
+            "word": "闪光点",
+            "weight": 0.6
+          },
+          {
+            "word": "生活费",
+            "weight": 0.58
+          },
+          {
+            "word": "预算",
+            "weight": 0.55
+          },
+          {
+            "word": "自我保护",
+            "weight": 0.53
+          },
+          {
+            "word": "情绪反应",
+            "weight": 0.5
+          },
+          {
+            "word": "沟通",
+            "weight": 0.48
+          },
+          {
+            "word": "运动",
+            "weight": 0.45
+          },
+          {
+            "word": "心情好",
+            "weight": 0.43
+          }
+        ]
+      }
+    ]
   },
   {
     "topic": "恋爱人际关系",
@@ -1944,7 +2020,6 @@
         "sentence": "我想和女生谈恋爱，但是我不知道怎么跟她们交流，以及去哪里认识女生",
         "slot": "交流困难",
         "id": 45,
-        "color": "#D9C9F0",
         "sentiment": -0.6,
         "source": "user",
         "is_question": true,
@@ -2036,7 +2111,6 @@
         "sentence": "其实我挺害怕回家的，因为每次回家家里人都会催我相亲",
         "slot": "相亲压力",
         "id": 47,
-        "color": "#D9C9F0",
         "sentiment": -0.9,
         "source": "user",
         "is_question": false,
@@ -2128,7 +2202,6 @@
         "sentence": "我现在还没有毕业，相亲的时候总是被女方嫌弃",
         "slot": "相亲被拒",
         "id": 49,
-        "color": "#D9C9F0",
         "sentiment": -0.8,
         "source": "user",
         "is_question": false,
@@ -2216,290 +2289,194 @@
           }
         ]
       }
-    ],
-    "color": "#9366D6"
+    ]
   },
   {
-    "topic": "英语口语提升",
+    "topic": "经济压力",
     "slots": [
       {
-        "sentence": "我现在比较内向，我应该怎么改善一下，让我自己外向一点",
-        "slot": "性格改善",
-        "id": 53,
-        "color": "#E7E7B1",
-        "sentiment": 0,
+        "sentence": "我想减肥，你觉得我应该怎么做，我现在170cm，180斤",
+        "slot": "减肥计划",
+        "id": 27,
+        "sentiment": 0.1,
         "source": "user",
         "is_question": true,
         "resolved": true,
         "wordcloud": [
           {
-            "word": "英语口语提升",
-            "weight": 0.95
-          },
-          {
-            "word": "性格改善",
-            "weight": 0.9
-          },
-          {
-            "word": "内向",
+            "word": "经济压力",
             "weight": 0.85
           },
           {
-            "word": "外向",
-            "weight": 0.85
-          },
-          {
-            "word": "自卑",
+            "word": "减肥计划",
             "weight": 0.8
           },
           {
-            "word": "羡慕",
+            "word": "长相普通",
             "weight": 0.75
           },
           {
-            "word": "减肥",
+            "word": "家里没钱",
             "weight": 0.7
           },
           {
-            "word": "穿搭",
+            "word": "很胖",
+            "weight": 0.75
+          },
+          {
+            "word": "学校",
+            "weight": 0.65
+          },
+          {
+            "word": "不敢说话",
+            "weight": 0.6
+          },
+          {
+            "word": "标签",
+            "weight": 0.55
+          },
+          {
+            "word": "自我判死刑",
+            "weight": 0.65
+          },
+          {
+            "word": "羞耻感",
+            "weight": 0.6
+          },
+          {
+            "word": "聚光灯效应",
+            "weight": 0.55
+          },
+          {
+            "word": "外貌",
             "weight": 0.7
           },
           {
-            "word": "恋爱",
+            "word": "家境",
             "weight": 0.65
           },
           {
-            "word": "相亲",
-            "weight": 0.65
+            "word": "身材",
+            "weight": 0.7
           },
           {
             "word": "社交",
             "weight": 0.6
           },
           {
-            "word": "兼职",
-            "weight": 0.6
-          },
-          {
-            "word": "沟通",
-            "weight": 0.55
-          },
-          {
-            "word": "特长",
-            "weight": 0.55
-          },
-          {
-            "word": "唱歌",
-            "weight": 0.5
-          },
-          {
-            "word": "乐器",
-            "weight": 0.5
-          },
-          {
-            "word": "自救",
-            "weight": 0.45
-          },
-          {
-            "word": "闪光点",
-            "weight": 0.45
-          },
-          {
-            "word": "经济压力",
-            "weight": 0.4
-          },
-          {
-            "word": "社恐",
-            "weight": 0.4
-          }
-        ]
-      },
-      {
-        "sentence": "其实我很想跟别人说话，把心里的话说出来就好受了很多",
-        "slot": "表达欲望",
-        "id": 55,
-        "color": "#E7E7B1",
-        "sentiment": 0.3,
-        "source": "user",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "英语口语提升",
-            "weight": 0.95
-          },
-          {
-            "word": "表达欲望",
-            "weight": 0.88
-          },
-          {
-            "word": "相亲",
-            "weight": 0.85
-          },
-          {
-            "word": "社交焦虑",
-            "weight": 0.82
-          },
-          {
-            "word": "自卑",
-            "weight": 0.8
-          },
-          {
-            "word": "兼职",
-            "weight": 0.78
-          },
-          {
-            "word": "生活费",
-            "weight": 0.76
-          },
-          {
-            "word": "内向",
-            "weight": 0.74
-          },
-          {
-            "word": "唱歌",
-            "weight": 0.72
-          },
-          {
-            "word": "乐器",
-            "weight": 0.7
-          },
-          {
-            "word": "社交技能",
-            "weight": 0.68
-          },
-          {
-            "word": "摄影",
-            "weight": 0.66
-          },
-          {
-            "word": "尤克里里",
-            "weight": 0.64
-          },
-          {
-            "word": "健身",
-            "weight": 0.62
-          },
-          {
-            "word": "沟通",
-            "weight": 0.6
-          },
-          {
-            "word": "自我保护",
-            "weight": 0.58
-          },
-          {
-            "word": "心理咨询",
-            "weight": 0.56
-          },
-          {
-            "word": "情绪管理",
-            "weight": 0.54
-          },
-          {
-            "word": "经济压力",
-            "weight": 0.52
-          },
-          {
-            "word": "社交预算",
-            "weight": 0.5
-          }
-        ]
-      },
-      {
-        "sentence": "我其实很想学唱歌和乐器，但是我唱歌很难听，我总是不太敢在别人面前唱",
-        "slot": "才艺学习",
-        "id": 61,
-        "color": "#E7E7B1",
-        "sentiment": -0.2,
-        "source": "user",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "兼职",
-            "weight": 0.85
-          },
-          {
-            "word": "生活费",
-            "weight": 0.8
-          },
-          {
-            "word": "责任感",
+            "word": "恋爱",
             "weight": 0.75
           },
           {
-            "word": "学校兼职",
-            "weight": 0.78
-          },
-          {
-            "word": "线上兼职",
-            "weight": 0.72
-          },
-          {
-            "word": "家教",
-            "weight": 0.7
-          },
-          {
-            "word": "编程项目",
-            "weight": 0.68
-          },
-          {
-            "word": "社交压力",
+            "word": "女性朋友",
             "weight": 0.65
           },
           {
-            "word": "自信",
+            "word": "自卑",
+            "weight": 0.7
+          },
+          {
+            "word": "抑郁",
+            "weight": 0.65
+          },
+          {
+            "word": "自杀",
             "weight": 0.6
+          }
+        ]
+      },
+      {
+        "sentence": "有没有快速减肥的方法，能够快一点瘦下来",
+        "slot": "快速减肥方法",
+        "id": 31,
+        "sentiment": 0,
+        "source": "user",
+        "is_question": true,
+        "resolved": true,
+        "wordcloud": [
+          {
+            "word": "经济压力",
+            "weight": 0.85
           },
           {
-            "word": "内向",
-            "weight": 0.62
+            "word": "快速减肥",
+            "weight": 0.8
           },
           {
-            "word": "外向技能",
-            "weight": 0.58
+            "word": "抑郁",
+            "weight": 0.78
           },
           {
-            "word": "唱歌",
-            "weight": 0.9
+            "word": "情绪低落",
+            "weight": 0.77
           },
           {
-            "word": "乐器",
-            "weight": 0.88
+            "word": "自我厌恶",
+            "weight": 0.76
           },
           {
-            "word": "尤克里里",
-            "weight": 0.82
+            "word": "饮食调整",
+            "weight": 0.75
           },
           {
-            "word": "健身房",
+            "word": "运动计划",
             "weight": 0.74
           },
           {
-            "word": "肌肉酸痛",
-            "weight": 0.66
+            "word": "心理支持",
+            "weight": 0.73
           },
           {
-            "word": "社交预算",
-            "weight": 0.64
+            "word": "社交恐惧",
+            "weight": 0.72
           },
           {
-            "word": "食堂",
-            "weight": 0.63
+            "word": "外貌焦虑",
+            "weight": 0.71
           },
           {
-            "word": "低成本社交",
+            "word": "自残倾向",
+            "weight": 0.7
+          },
+          {
+            "word": "健身房",
+            "weight": 0.69
+          },
+          {
+            "word": "作息调整",
+            "weight": 0.68
+          },
+          {
+            "word": "饮料控制",
             "weight": 0.67
           },
           {
-            "word": "自卑",
+            "word": "情绪整理",
+            "weight": 0.66
+          },
+          {
+            "word": "自我保护",
+            "weight": 0.65
+          },
+          {
+            "word": "心理危机",
+            "weight": 0.64
+          },
+          {
+            "word": "外形调整",
+            "weight": 0.63
+          },
+          {
+            "word": "穿搭建议",
+            "weight": 0.62
+          },
+          {
+            "word": "自我提升",
             "weight": 0.61
           }
         ]
       }
-    ],
-    "color": "#BCBC21"
+    ]
   },
   {
     "topic": "社交焦虑",
@@ -2508,7 +2485,6 @@
         "sentence": "我平均生活费1500只有，每天吃饭开销就要40块",
         "slot": "经济压力",
         "id": 65,
-        "color": "#F4CFE9",
         "sentiment": -0.6,
         "source": "user",
         "is_question": false,
@@ -2596,204 +2572,7 @@
           }
         ]
       }
-    ],
-    "color": "#E277C1"
-  },
-  {
-    "topic": "饮食问题",
-    "slots": [
-      {
-        "sentence": "我平均生活费1500只有，每天吃饭开销就要40块",
-        "slot": "餐费预算",
-        "id": 66,
-        "color": "#C5B7E4",
-        "sentiment": -0.5,
-        "source": "user",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "饮食问题",
-            "weight": 0.95
-          },
-          {
-            "word": "餐费预算",
-            "weight": 0.92
-          },
-          {
-            "word": "生活费",
-            "weight": 0.88
-          },
-          {
-            "word": "社交压力",
-            "weight": 0.85
-          },
-          {
-            "word": "健身房",
-            "weight": 0.83
-          },
-          {
-            "word": "自我保护",
-            "weight": 0.82
-          },
-          {
-            "word": "自卑",
-            "weight": 0.8
-          },
-          {
-            "word": "特长学习",
-            "weight": 0.78
-          },
-          {
-            "word": "心理咨询",
-            "weight": 0.76
-          },
-          {
-            "word": "情绪表达",
-            "weight": 0.75
-          },
-          {
-            "word": "自救",
-            "weight": 0.74
-          },
-          {
-            "word": "社交方式",
-            "weight": 0.73
-          },
-          {
-            "word": "预算管理",
-            "weight": 0.72
-          },
-          {
-            "word": "饮食开销",
-            "weight": 0.7
-          },
-          {
-            "word": "身体酸痛",
-            "weight": 0.68
-          },
-          {
-            "word": "自我提升",
-            "weight": 0.67
-          },
-          {
-            "word": "社交活动",
-            "weight": 0.66
-          },
-          {
-            "word": "自我攻击",
-            "weight": 0.65
-          },
-          {
-            "word": "求助渠道",
-            "weight": 0.64
-          },
-          {
-            "word": "自我反省",
-            "weight": 0.63
-          }
-        ]
-      }
-    ],
-    "color": "#5B33B2"
-  },
-  {
-    "topic": "心理健康问题",
-    "slots": [
-      {
-        "sentence": "我就是废物",
-        "slot": "自我贬低",
-        "id": 67,
-        "color": "#F9B3B3",
-        "sentiment": -1,
-        "source": "user",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "心理健康",
-            "weight": 0.95
-          },
-          {
-            "word": "自我贬低",
-            "weight": 0.9
-          },
-          {
-            "word": "嘲笑",
-            "weight": 0.85
-          },
-          {
-            "word": "难受",
-            "weight": 0.82
-          },
-          {
-            "word": "自卑",
-            "weight": 0.8
-          },
-          {
-            "word": "社交",
-            "weight": 0.78
-          },
-          {
-            "word": "健身房",
-            "weight": 0.75
-          },
-          {
-            "word": "酸痛",
-            "weight": 0.73
-          },
-          {
-            "word": "重量",
-            "weight": 0.7
-          },
-          {
-            "word": "特长",
-            "weight": 0.68
-          },
-          {
-            "word": "唱歌",
-            "weight": 0.65
-          },
-          {
-            "word": "乐器",
-            "weight": 0.63
-          },
-          {
-            "word": "闪光点",
-            "weight": 0.6
-          },
-          {
-            "word": "生活费",
-            "weight": 0.58
-          },
-          {
-            "word": "预算",
-            "weight": 0.55
-          },
-          {
-            "word": "自我保护",
-            "weight": 0.53
-          },
-          {
-            "word": "情绪反应",
-            "weight": 0.5
-          },
-          {
-            "word": "沟通",
-            "weight": 0.48
-          },
-          {
-            "word": "运动",
-            "weight": 0.45
-          },
-          {
-            "word": "心情好",
-            "weight": 0.43
-          }
-        ]
-      }
-    ],
-    "color": "#EF2628"
+    ]
   },
   {
     "topic": "健身健康",
@@ -2802,7 +2581,6 @@
         "sentence": "昨天听了你的建议去健身房，今天练完之后全身酸痛",
         "slot": "健身酸痛",
         "id": 69,
-        "color": "#D1D1D1",
         "sentiment": 0.2,
         "source": "user",
         "is_question": false,
@@ -2889,112 +2667,11 @@
             "weight": 0.35
           }
         ]
-      }
-    ],
-    "color": "#7C7C7C"
-  },
-  {
-    "topic": "就业压力",
-    "slots": [
-      {
-        "sentence": "我看到别人举的重量都好大，我根本举不起来，像是哑铃我只能据5kg的",
-        "slot": "自我怀疑",
-        "id": 71,
-        "color": "#FFC9A9",
-        "sentiment": -0.5,
-        "source": "user",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "就业压力",
-            "weight": 0.95
-          },
-          {
-            "word": "自我怀疑",
-            "weight": 0.9
-          },
-          {
-            "word": "唱歌难听",
-            "weight": 0.85
-          },
-          {
-            "word": "不敢唱歌",
-            "weight": 0.8
-          },
-          {
-            "word": "社恐友好",
-            "weight": 0.75
-          },
-          {
-            "word": "乐器入门",
-            "weight": 0.7
-          },
-          {
-            "word": "尤克里里",
-            "weight": 0.65
-          },
-          {
-            "word": "低成本社交",
-            "weight": 0.6
-          },
-          {
-            "word": "手头紧",
-            "weight": 0.55
-          },
-          {
-            "word": "社交预算",
-            "weight": 0.5
-          },
-          {
-            "word": "健身房",
-            "weight": 0.45
-          },
-          {
-            "word": "肌肉酸痛",
-            "weight": 0.4
-          },
-          {
-            "word": "哑铃重量",
-            "weight": 0.35
-          },
-          {
-            "word": "新手训练",
-            "weight": 0.3
-          },
-          {
-            "word": "运动心情",
-            "weight": 0.25
-          },
-          {
-            "word": "改善心情",
-            "weight": 0.2
-          },
-          {
-            "word": "社交尴尬",
-            "weight": 0.15
-          },
-          {
-            "word": "女生交流",
-            "weight": 0.1
-          },
-          {
-            "word": "开口讲话",
-            "weight": 0.05
-          }
-        ]
-      }
-    ],
-    "color": "#FF660C"
-  },
-  {
-    "topic": "健身健康",
-    "slots": [
+      },
       {
         "sentence": "我用这么小的重量，大家看到会不会嘲笑我，我有的时候都不敢跟别人对视",
         "slot": "健身自卑",
         "id": 73,
-        "color": "#D1D1D1",
         "sentiment": -0.7,
         "source": "user",
         "is_question": true,
@@ -3086,7 +2763,6 @@
         "sentence": "但是我感觉确实，运动完之后，心情会好一点",
         "slot": "运动心情改善",
         "id": 77,
-        "color": "#D1D1D1",
         "sentiment": 0.5,
         "source": "user",
         "is_question": false,
@@ -3178,7 +2854,6 @@
         "sentence": "运动和改善心情有帮助吗",
         "slot": "运动效果",
         "id": 79,
-        "color": "#D1D1D1",
         "sentiment": 0.3,
         "source": "user",
         "is_question": true,
@@ -3266,115 +2941,288 @@
           }
         ]
       }
-    ],
-    "color": "#7C7C7C"
-  },
-  {
-    "topic": "自我价值感",
-    "slots": [
-      {
-        "sentence": "我感觉我没有在其他人面前展示自己的信心，当然也没有啥可以展示的，例如每次点到我上去介绍自己或者表演节目，我都是摆摆手",
-        "slot": "缺乏自信",
-        "id": 97,
-        "color": "#B0CFF6",
-        "sentiment": -0.7,
-        "source": "user",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "自我价值感",
-            "weight": 0.95
-          },
-          {
-            "word": "缺乏自信",
-            "weight": 0.9
-          },
-          {
-            "word": "羽毛球",
-            "weight": 0.85
-          },
-          {
-            "word": "运动减肥",
-            "weight": 0.82
-          },
-          {
-            "word": "社交模式",
-            "weight": 0.8
-          },
-          {
-            "word": "英语口语",
-            "weight": 0.78
-          },
-          {
-            "word": "睡眠问题",
-            "weight": 0.76
-          },
-          {
-            "word": "失眠",
-            "weight": 0.74
-          },
-          {
-            "word": "压力",
-            "weight": 0.72
-          },
-          {
-            "word": "焦虑",
-            "weight": 0.7
-          },
-          {
-            "word": "自我介绍",
-            "weight": 0.68
-          },
-          {
-            "word": "健身房",
-            "weight": 0.66
-          },
-          {
-            "word": "内向",
-            "weight": 0.64
-          },
-          {
-            "word": "自我保护",
-            "weight": 0.62
-          },
-          {
-            "word": "普通",
-            "weight": 0.6
-          },
-          {
-            "word": "生活意义",
-            "weight": 0.58
-          },
-          {
-            "word": "咖啡因",
-            "weight": 0.56
-          },
-          {
-            "word": "舒缓压力",
-            "weight": 0.54
-          },
-          {
-            "word": "身体放松",
-            "weight": 0.52
-          },
-          {
-            "word": "深呼吸",
-            "weight": 0.5
-          }
-        ]
-      }
-    ],
-    "color": "#1E77E8"
+    ]
   },
   {
     "topic": "英语口语提升",
     "slots": [
       {
+        "sentence": "我现在比较内向，我应该怎么改善一下，让我自己外向一点",
+        "slot": "性格改善",
+        "id": 53,
+        "sentiment": 0,
+        "source": "user",
+        "is_question": true,
+        "resolved": true,
+        "wordcloud": [
+          {
+            "word": "英语口语提升",
+            "weight": 0.95
+          },
+          {
+            "word": "性格改善",
+            "weight": 0.9
+          },
+          {
+            "word": "内向",
+            "weight": 0.85
+          },
+          {
+            "word": "外向",
+            "weight": 0.85
+          },
+          {
+            "word": "自卑",
+            "weight": 0.8
+          },
+          {
+            "word": "羡慕",
+            "weight": 0.75
+          },
+          {
+            "word": "减肥",
+            "weight": 0.7
+          },
+          {
+            "word": "穿搭",
+            "weight": 0.7
+          },
+          {
+            "word": "恋爱",
+            "weight": 0.65
+          },
+          {
+            "word": "相亲",
+            "weight": 0.65
+          },
+          {
+            "word": "社交",
+            "weight": 0.6
+          },
+          {
+            "word": "兼职",
+            "weight": 0.6
+          },
+          {
+            "word": "沟通",
+            "weight": 0.55
+          },
+          {
+            "word": "特长",
+            "weight": 0.55
+          },
+          {
+            "word": "唱歌",
+            "weight": 0.5
+          },
+          {
+            "word": "乐器",
+            "weight": 0.5
+          },
+          {
+            "word": "自救",
+            "weight": 0.45
+          },
+          {
+            "word": "闪光点",
+            "weight": 0.45
+          },
+          {
+            "word": "经济压力",
+            "weight": 0.4
+          },
+          {
+            "word": "社恐",
+            "weight": 0.4
+          }
+        ]
+      },
+      {
+        "sentence": "其实我很想跟别人说话，把心里的话说出来就好受了很多",
+        "slot": "表达欲望",
+        "id": 55,
+        "sentiment": 0.3,
+        "source": "user",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "英语口语提升",
+            "weight": 0.95
+          },
+          {
+            "word": "表达欲望",
+            "weight": 0.88
+          },
+          {
+            "word": "相亲",
+            "weight": 0.85
+          },
+          {
+            "word": "社交焦虑",
+            "weight": 0.82
+          },
+          {
+            "word": "自卑",
+            "weight": 0.8
+          },
+          {
+            "word": "兼职",
+            "weight": 0.78
+          },
+          {
+            "word": "生活费",
+            "weight": 0.76
+          },
+          {
+            "word": "内向",
+            "weight": 0.74
+          },
+          {
+            "word": "唱歌",
+            "weight": 0.72
+          },
+          {
+            "word": "乐器",
+            "weight": 0.7
+          },
+          {
+            "word": "社交技能",
+            "weight": 0.68
+          },
+          {
+            "word": "摄影",
+            "weight": 0.66
+          },
+          {
+            "word": "尤克里里",
+            "weight": 0.64
+          },
+          {
+            "word": "健身",
+            "weight": 0.62
+          },
+          {
+            "word": "沟通",
+            "weight": 0.6
+          },
+          {
+            "word": "自我保护",
+            "weight": 0.58
+          },
+          {
+            "word": "心理咨询",
+            "weight": 0.56
+          },
+          {
+            "word": "情绪管理",
+            "weight": 0.54
+          },
+          {
+            "word": "经济压力",
+            "weight": 0.52
+          },
+          {
+            "word": "社交预算",
+            "weight": 0.5
+          }
+        ]
+      },
+      {
+        "sentence": "我其实很想学唱歌和乐器，但是我唱歌很难听，我总是不太敢在别人面前唱",
+        "slot": "才艺学习",
+        "id": 61,
+        "sentiment": -0.2,
+        "source": "user",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "兼职",
+            "weight": 0.85
+          },
+          {
+            "word": "生活费",
+            "weight": 0.8
+          },
+          {
+            "word": "责任感",
+            "weight": 0.75
+          },
+          {
+            "word": "学校兼职",
+            "weight": 0.78
+          },
+          {
+            "word": "线上兼职",
+            "weight": 0.72
+          },
+          {
+            "word": "家教",
+            "weight": 0.7
+          },
+          {
+            "word": "编程项目",
+            "weight": 0.68
+          },
+          {
+            "word": "社交压力",
+            "weight": 0.65
+          },
+          {
+            "word": "自信",
+            "weight": 0.6
+          },
+          {
+            "word": "内向",
+            "weight": 0.62
+          },
+          {
+            "word": "外向技能",
+            "weight": 0.58
+          },
+          {
+            "word": "唱歌",
+            "weight": 0.9
+          },
+          {
+            "word": "乐器",
+            "weight": 0.88
+          },
+          {
+            "word": "尤克里里",
+            "weight": 0.82
+          },
+          {
+            "word": "健身房",
+            "weight": 0.74
+          },
+          {
+            "word": "肌肉酸痛",
+            "weight": 0.66
+          },
+          {
+            "word": "社交预算",
+            "weight": 0.64
+          },
+          {
+            "word": "食堂",
+            "weight": 0.63
+          },
+          {
+            "word": "低成本社交",
+            "weight": 0.67
+          },
+          {
+            "word": "自卑",
+            "weight": 0.61
+          }
+        ]
+      },
+      {
         "sentence": "我和别人说话的时候或者在讲台上的时候，有什么动作可以让我看起来自信一点",
         "slot": "自信表现",
         "id": 99,
-        "color": "#E7E7B1",
         "sentiment": 0,
         "source": "user",
         "is_question": true,
@@ -3461,312 +3309,11 @@
             "weight": 0.52
           }
         ]
-      }
-    ],
-    "color": "#BCBC21"
-  },
-  {
-    "topic": "自我价值感",
-    "slots": [
-      {
-        "sentence": "自卑、觉得自己不够好、怕被比较",
-        "slot": "自卑心理",
-        "id": 103,
-        "color": "#B0CFF6",
-        "sentiment": -0.8,
-        "source": "bot",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "自卑心理",
-            "weight": 0.95
-          },
-          {
-            "word": "英语水平",
-            "weight": 0.85
-          },
-          {
-            "word": "口语练习",
-            "weight": 0.82
-          },
-          {
-            "word": "自我介绍",
-            "weight": 0.8
-          },
-          {
-            "word": "心理咨询",
-            "weight": 0.78
-          },
-          {
-            "word": "压力舒缓",
-            "weight": 0.77
-          },
-          {
-            "word": "失眠问题",
-            "weight": 0.75
-          },
-          {
-            "word": "健身房",
-            "weight": 0.74
-          },
-          {
-            "word": "自信提升",
-            "weight": 0.73
-          },
-          {
-            "word": "情绪管理",
-            "weight": 0.72
-          },
-          {
-            "word": "日常习惯",
-            "weight": 0.7
-          },
-          {
-            "word": "睡眠质量",
-            "weight": 0.68
-          },
-          {
-            "word": "内心独白",
-            "weight": 0.67
-          },
-          {
-            "word": "社交技巧",
-            "weight": 0.66
-          },
-          {
-            "word": "生活意义",
-            "weight": 0.65
-          },
-          {
-            "word": "自我价值",
-            "weight": 0.64
-          },
-          {
-            "word": "英语听力",
-            "weight": 0.63
-          },
-          {
-            "word": "身体放松",
-            "weight": 0.62
-          },
-          {
-            "word": "情绪垃圾桶",
-            "weight": 0.61
-          },
-          {
-            "word": "呼吸减速法",
-            "weight": 0.6
-          }
-        ]
-      }
-    ],
-    "color": "#1E77E8"
-  },
-  {
-    "topic": "就业压力",
-    "slots": [
-      {
-        "sentence": "我很容易睡觉的时候乱想，尤其是想我为什么这么普通，过得生活很没有意义，然后我对茶和咖啡也比较容易过敏，很容易睡不着",
-        "slot": "失眠困扰",
-        "id": 105,
-        "color": "#FFC9A9",
-        "sentiment": -0.8,
-        "source": "user",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "失眠",
-            "weight": 0.95
-          },
-          {
-            "word": "睡不着",
-            "weight": 0.92
-          },
-          {
-            "word": "乱想",
-            "weight": 0.87
-          },
-          {
-            "word": "普通",
-            "weight": 0.85
-          },
-          {
-            "word": "过敏",
-            "weight": 0.83
-          },
-          {
-            "word": "自我怀疑",
-            "weight": 0.82
-          },
-          {
-            "word": "生活意义",
-            "weight": 0.8
-          },
-          {
-            "word": "压力",
-            "weight": 0.78
-          },
-          {
-            "word": "大脑停不下来",
-            "weight": 0.77
-          },
-          {
-            "word": "情绪",
-            "weight": 0.76
-          },
-          {
-            "word": "身体反应",
-            "weight": 0.75
-          },
-          {
-            "word": "咖啡因敏感",
-            "weight": 0.74
-          },
-          {
-            "word": "午夜焦虑",
-            "weight": 0.72
-          },
-          {
-            "word": "心理健康",
-            "weight": 0.71
-          },
-          {
-            "word": "缺乏信心",
-            "weight": 0.7
-          },
-          {
-            "word": "自我反思",
-            "weight": 0.68
-          },
-          {
-            "word": "解决问题",
-            "weight": 0.67
-          },
-          {
-            "word": "夜晚思考",
-            "weight": 0.66
-          },
-          {
-            "word": "价值感",
-            "weight": 0.65
-          },
-          {
-            "word": "日常调整",
-            "weight": 0.64
-          }
-        ]
-      }
-    ],
-    "color": "#FF660C"
-  },
-  {
-    "topic": "压力管理",
-    "slots": [
-      {
-        "sentence": "有时候会想到不太好的事情，我有点怕自己。",
-        "slot": "极端想法",
-        "id": 106,
-        "color": "#ADE8ED",
-        "sentiment": -0.9,
-        "source": "bot",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "压力管理",
-            "weight": 0.95
-          },
-          {
-            "word": "极端想法",
-            "weight": 0.88
-          },
-          {
-            "word": "失眠",
-            "weight": 0.85
-          },
-          {
-            "word": "自我保护机制",
-            "weight": 0.82
-          },
-          {
-            "word": "自我介绍",
-            "weight": 0.8
-          },
-          {
-            "word": "身体放松",
-            "weight": 0.78
-          },
-          {
-            "word": "呼吸减速法",
-            "weight": 0.77
-          },
-          {
-            "word": "情绪垃圾桶",
-            "weight": 0.75
-          },
-          {
-            "word": "运动",
-            "weight": 0.74
-          },
-          {
-            "word": "睡前乱想",
-            "weight": 0.73
-          },
-          {
-            "word": "普通",
-            "weight": 0.72
-          },
-          {
-            "word": "意义",
-            "weight": 0.7
-          },
-          {
-            "word": "咖啡因过敏",
-            "weight": 0.69
-          },
-          {
-            "word": "自信",
-            "weight": 0.68
-          },
-          {
-            "word": "展示自己",
-            "weight": 0.67
-          },
-          {
-            "word": "心理咨询",
-            "weight": 0.66
-          },
-          {
-            "word": "生活压力",
-            "weight": 0.65
-          },
-          {
-            "word": "情绪管理",
-            "weight": 0.64
-          },
-          {
-            "word": "自我攻击",
-            "weight": 0.63
-          },
-          {
-            "word": "睡眠问题",
-            "weight": 0.62
-          }
-        ]
-      }
-    ],
-    "color": "#16BFCE"
-  },
-  {
-    "topic": "英语口语提升",
-    "slots": [
+      },
       {
         "sentence": "有哪些舒缓压力的方法呢",
         "slot": "压力缓解",
         "id": 107,
-        "color": "#E7E7B1",
         "sentiment": 0,
         "source": "user",
         "is_question": true,
@@ -3854,7 +3401,289 @@
           }
         ]
       }
-    ],
-    "color": "#BCBC21"
+    ]
+  },
+  {
+    "topic": "压力管理",
+    "slots": [
+      {
+        "sentence": "你现在脑子里的逻辑大概是：长相普通 + 家里没钱 + 很胖 + 社恐 + 0 恋爱经验 = 女生肯定不会看上我 = 我根本找不到对象",
+        "slot": "自卑心理",
+        "id": 20,
+        "sentiment": -0.9,
+        "source": "bot",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "压力管理",
+            "weight": 0.9
+          },
+          {
+            "word": "自卑心理",
+            "weight": 0.85
+          },
+          {
+            "word": "考试压力",
+            "weight": 0.83
+          },
+          {
+            "word": "落实差距",
+            "weight": 0.82
+          },
+          {
+            "word": "家庭期待",
+            "weight": 0.8
+          },
+          {
+            "word": "选择困难",
+            "weight": 0.78
+          },
+          {
+            "word": "情绪疲惫",
+            "weight": 0.77
+          },
+          {
+            "word": "实现愿景",
+            "weight": 0.76
+          },
+          {
+            "word": "沟通问题",
+            "weight": 0.74
+          },
+          {
+            "word": "未来不确定",
+            "weight": 0.72
+          },
+          {
+            "word": "身体健康",
+            "weight": 0.71
+          },
+          {
+            "word": "社区支持",
+            "weight": 0.69
+          },
+          {
+            "word": "健康饮食",
+            "weight": 0.68
+          },
+          {
+            "word": "运动策略",
+            "weight": 0.67
+          },
+          {
+            "word": "心理咨询",
+            "weight": 0.65
+          },
+          {
+            "word": "求助热线",
+            "weight": 0.64
+          },
+          {
+            "word": "习惯养成",
+            "weight": 0.62
+          },
+          {
+            "word": "时间管理",
+            "weight": 0.61
+          },
+          {
+            "word": "情绪整理",
+            "weight": 0.59
+          },
+          {
+            "word": "自我价值",
+            "weight": 0.58
+          }
+        ]
+      },
+      {
+        "sentence": "有时候会想到不太好的事情，我有点怕自己。",
+        "slot": "极端想法",
+        "id": 106,
+        "sentiment": -0.9,
+        "source": "bot",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "压力管理",
+            "weight": 0.95
+          },
+          {
+            "word": "极端想法",
+            "weight": 0.88
+          },
+          {
+            "word": "失眠",
+            "weight": 0.85
+          },
+          {
+            "word": "自我保护机制",
+            "weight": 0.82
+          },
+          {
+            "word": "自我介绍",
+            "weight": 0.8
+          },
+          {
+            "word": "身体放松",
+            "weight": 0.78
+          },
+          {
+            "word": "呼吸减速法",
+            "weight": 0.77
+          },
+          {
+            "word": "情绪垃圾桶",
+            "weight": 0.75
+          },
+          {
+            "word": "运动",
+            "weight": 0.74
+          },
+          {
+            "word": "睡前乱想",
+            "weight": 0.73
+          },
+          {
+            "word": "普通",
+            "weight": 0.72
+          },
+          {
+            "word": "意义",
+            "weight": 0.7
+          },
+          {
+            "word": "咖啡因过敏",
+            "weight": 0.69
+          },
+          {
+            "word": "自信",
+            "weight": 0.68
+          },
+          {
+            "word": "展示自己",
+            "weight": 0.67
+          },
+          {
+            "word": "心理咨询",
+            "weight": 0.66
+          },
+          {
+            "word": "生活压力",
+            "weight": 0.65
+          },
+          {
+            "word": "情绪管理",
+            "weight": 0.64
+          },
+          {
+            "word": "自我攻击",
+            "weight": 0.63
+          },
+          {
+            "word": "睡眠问题",
+            "weight": 0.62
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "饮食问题",
+    "slots": [
+      {
+        "sentence": "我平均生活费1500只有，每天吃饭开销就要40块",
+        "slot": "餐费预算",
+        "id": 66,
+        "sentiment": -0.5,
+        "source": "user",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "饮食问题",
+            "weight": 0.95
+          },
+          {
+            "word": "餐费预算",
+            "weight": 0.92
+          },
+          {
+            "word": "生活费",
+            "weight": 0.88
+          },
+          {
+            "word": "社交压力",
+            "weight": 0.85
+          },
+          {
+            "word": "健身房",
+            "weight": 0.83
+          },
+          {
+            "word": "自我保护",
+            "weight": 0.82
+          },
+          {
+            "word": "自卑",
+            "weight": 0.8
+          },
+          {
+            "word": "特长学习",
+            "weight": 0.78
+          },
+          {
+            "word": "心理咨询",
+            "weight": 0.76
+          },
+          {
+            "word": "情绪表达",
+            "weight": 0.75
+          },
+          {
+            "word": "自救",
+            "weight": 0.74
+          },
+          {
+            "word": "社交方式",
+            "weight": 0.73
+          },
+          {
+            "word": "预算管理",
+            "weight": 0.72
+          },
+          {
+            "word": "饮食开销",
+            "weight": 0.7
+          },
+          {
+            "word": "身体酸痛",
+            "weight": 0.68
+          },
+          {
+            "word": "自我提升",
+            "weight": 0.67
+          },
+          {
+            "word": "社交活动",
+            "weight": 0.66
+          },
+          {
+            "word": "自我攻击",
+            "weight": 0.65
+          },
+          {
+            "word": "求助渠道",
+            "weight": 0.64
+          },
+          {
+            "word": "自我反省",
+            "weight": 0.63
+          }
+        ]
+      }
+    ]
   }
 ]

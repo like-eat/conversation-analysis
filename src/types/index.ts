@@ -11,6 +11,7 @@ export interface Slot {
   is_question?: boolean
   resolved?: boolean
   info_score?: number
+  wordcloud?: { word: string; weight: number }[] // 新增
 }
 export interface Conversation {
   id: number
@@ -39,6 +40,7 @@ export interface Point {
   is_question?: boolean
   resolved?: boolean
   info_score?: number
+  wordcloud?: { word: string; weight: number }[] // 新增
 }
 
 export interface Segment {

@@ -2,17 +2,18 @@ import os
 
 import json
 from typing import Any, Dict, List
-from LLM_Extraction import Score_turn_importance ,Semantic_pre_scanning, Topic_cleaning, Topic_Allocation,refine_slot_resolution
+from LLM_Extraction import Score_turn_importance ,Semantic_pre_scanning, Topic_cleaning, Topic_Allocation,refine_slot_resolution, extract_wordcloud
 from Methods import assign_colors, parse_conversation, parse_meeting_conversation, split_history_by_turns
 
 CHECKPOINT_PATH = "py/conversation_example/ChatGPT-xinli_result.json"
 FINAL_PATH = "py/conversation_example/ChatGPT-xinli_processed.json"
 FINAL_PATH_SCORE = "py/conversation_example/meeting_score.json"
 
-STEP1_PATH = "py/conversation_example/test/step1_topics_raw.json"
-STEP2_PATH = "py/conversation_example/test/step2_topics_clean.json"
-STEP3_PATH = "py/conversation_example/test/step3_topics_with_slots.json"
-FINAL_PATH = "py/conversation_example/test/final_result.json"
+STEP1_PATH = "py/conversation_example/xinli_content/step1_topics_raw.json"
+STEP2_PATH = "py/conversation_example/xinli_content/step2_topics_clean.json"
+STEP3_PATH = "py/conversation_example/meeting_content/step3_topics_with_slots.json"
+STEP4_PATH = "py/conversation_example/meeting_content/step4_slot_with_wordcloud.json"
+FINAL_PATH = "py/conversation_example/meeting_content/final_result.json"
 
 def chunk_text(text, max_chars=40000):
     """把长文本切成安全的多段"""
@@ -54,6 +55,7 @@ def segment_by_timeline(topics):
                 "source": s.get("source"),
                 "is_question": s.get("is_question", False),
                 "resolved": s.get("resolved", False),
+                "wordcloud": s.get("wordcloud", []),
             })
 
     # 2. 按 id 从小到大排序 —— 严格时间顺序
@@ -108,6 +110,7 @@ def segment_by_timeline(topics):
             "source": item["source"],
             "is_question": item.get("is_question", False),
             "resolved": item.get("resolved", False),
+            "wordcloud": item.get("wordcloud", []),
         }
 
         if current_topic is None:
@@ -339,29 +342,48 @@ def run_step3_slots_and_resolution(file_path: str,
         json.dump(result, f, ensure_ascii=False, indent=2)
     print(f"✅ [Step3] slot + resolved 结果已保存：{out_path}")
 
-def run_step4_segment_and_color(step3_path: str = STEP3_PATH,
-                                out_path: str = FINAL_PATH):
+def run_step4_slot_with_wordcloud(file_path: str,
+                                  step3_path: str = STEP3_PATH,
+                                  out_path: str = STEP4_PATH):
+    messages = parse_meeting_conversation(file_path)
+
     with open(step3_path, "r", encoding="utf-8") as f:
         topics_with_slots = json.load(f)
 
-    print(f"🧠 [Step4] assign_colors 中...")
-    colored_results = assign_colors(topics_with_slots)
+    print(f"🧠 [Step4] extract_wordcloud 中...")
+    slot_with_wordcloud = extract_wordcloud(messages, topics_with_slots,
+                                            max_words=20)
+    print(f"🧠 [Step4] extract_wordcloud 完成")
 
-    print(f"🧠 [Step4] segment_by_timeline 中...")
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(slot_with_wordcloud, f, ensure_ascii=False, indent=2)
+    print(f"✅ [Step4] slot + wordcloud 结果已保存：{out_path}")
+
+def run_step5_segment_and_color(step4_path: str = STEP4_PATH,
+                                out_path: str = FINAL_PATH):
+    with open(step4_path, "r", encoding="utf-8") as f:
+        slots_with_wordcloud = json.load(f)
+
+    print(f"🧠 [Step5] assign_colors 中...")
+    colored_results = assign_colors(slots_with_wordcloud)
+
+    print(f"🧠 [Step5] segment_by_timeline 中...")
     segmented_results = segment_by_timeline(colored_results)
 
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(segmented_results, f, ensure_ascii=False, indent=2)
-    print(f"✅ [Step4] 最终结果已保存：{out_path}")
+    print(f"✅ [Step5] 最终结果已保存：{out_path}")
 
 if __name__ == "__main__":
     print("🤖 启动对话处理程序...")
-    file_path = "py/conversation_example/ChatGPT-xinli.txt"
+    file_path = "py/conversation_example/meeting_talk.txt"
     # run_step1_semantic_scan(file_path)
     # run_step2_topic_clean(file_path=file_path, step1_path=STEP1_PATH,out_path=STEP2_PATH)
     # run_step3_slots_and_resolution(file_path=file_path,step2_path=STEP2_PATH,out_path=STEP3_PATH)
-    run_step4_segment_and_color(step3_path=STEP3_PATH, out_path=FINAL_PATH)
+    # run_step4_slot_with_wordcloud(file_path=file_path,step3_path=STEP3_PATH,out_path=STEP4_PATH)
+    run_step5_segment_and_color(step4_path=STEP4_PATH, out_path=FINAL_PATH)
 
     # final_data = process_conversation(file_path)
     # final_data = process_score(file_path)

@@ -5,7 +5,7 @@ import openai
 import faiss
 import numpy as np
 from datetime import datetime
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from Methods import *
 openai.api_key = "sk-3fk05T3Cme02GzUGBc56BaBfA7Ff4dCa9d7dE5AeA689913c"
 
@@ -911,6 +911,143 @@ def refine_slot_resolution(history, topics_with_slots,
 
     return refined
 
+def extract_wordcloud(
+    history: List[Dict[str, Any]],
+    topics_with_slots: List[Dict[str, Any]],
+    max_words: int = 20,
+    window_size: int = 10,
+    limit_slots: Optional[int] = None,
+):
+    """
+    极简版：给每个 slot 增加 slot["wordcloud"] = [{"word":..., "weight":...}, ...]
+
+    - history: [{id, role, content}, ...]  （按你的 parse_conversation 输出）
+    - topics_with_slots: [{"topic": "...", "slots":[{"id":..., "slot":..., "sentence":...}, ...]}, ...]
+    - max_words: 每个 slot 最多多少关键词（建议 10~30）
+    - window_size: slot 的局部窗口半径（前后各多少句）
+    - limit_slots: 只抽前 N 个 slot（测试用，防止太慢）
+    """
+
+    # 1) history 排序 + id -> index
+    hist = sorted(history, key=lambda m: int(m.get("id", 0)))
+    id2idx = {int(m["id"]): i for i, m in enumerate(hist) if "id" in m}
+
+    def build_local_ctx(center_id: int) -> str:
+        if center_id not in id2idx:
+            return ""
+        c = id2idx[center_id]
+        s = max(0, c - window_size)
+        e = min(len(hist), c + window_size + 1)
+        lines = []
+        for m in hist[s:e]:
+            mid = int(m.get("id", 0))
+            role = m.get("role", "user")
+            text = (m.get("content", "") or "").replace("\n", " ").strip()
+            if text:
+                lines.append(f"[{mid}][{role}]: {text}")
+        return "\n".join(lines)
+
+    def parse_json_array(raw: str):
+        if not raw:
+            return []
+        raw = raw.strip()
+        l = raw.find("[")
+        r = raw.rfind("]")
+        if l != -1 and r != -1 and r > l:
+            raw = raw[l : r + 1]
+        try:
+            arr = json.loads(raw)
+            return arr if isinstance(arr, list) else []
+        except Exception:
+            return []
+
+    # 2) 主循环：slot -> 调用 LLM 抽词云
+    done = 0
+    for topic_obj in topics_with_slots:
+        topic_name = (topic_obj.get("topic") or "").strip()
+        slots = topic_obj.get("slots") or []
+        if not isinstance(slots, list):
+            continue
+
+        for s in slots:
+            if not isinstance(s, dict):
+                continue
+
+            # 测试限额
+            if limit_slots is not None and done >= limit_slots:
+                return topics_with_slots
+
+            # 跳过已存在
+            if isinstance(s.get("wordcloud"), list) and len(s["wordcloud"]) > 0:
+                continue
+
+            try:
+                sid = int(s.get("id"))
+            except Exception:
+                continue
+
+            slot_name = (s.get("slot") or "").strip()
+            sentence = (s.get("sentence") or "").strip()
+            local_ctx = build_local_ctx(sid) or sentence
+
+            k = max(8, min(int(max_words), 40))
+
+            prompt = f"""你是一名严格的关键词抽取助手，只输出 JSON 数组。
+            为下面的局部对话片段生成词云关键词。
+
+            【一级主题】{topic_name}
+            【当前slot】{slot_name}
+            【slot原句】{sentence}
+
+            【局部对话片段】
+            {local_ctx}
+
+            要求：
+            - 抽取不超过 {k} 个关键词/短语（中文为主，2~6 个字为主，别整句）
+            - 过滤虚词（如 我们/你们/然后/就是/其实/可能/大家 等）
+            - 每个词给权重 weight（0~1）
+
+            严格输出 JSON 数组，例如：
+            [{{"word":"婚姻观念","weight":0.92}},{{"word":"离婚成本","weight":0.76}}]
+            """
+
+            # --- 调 OpenAI ---
+            completion = openai.chat.completions.create(
+                model="gpt-4o",
+                temperature=0.2,
+                messages=[
+                    {"role": "system", "content": "你是一名严格的关键词抽取助手，只输出 JSON。"},
+                    {"role": "user", "content": prompt},
+                ],
+            )
+
+            raw = (completion.choices[0].message.content or "").strip()
+            arr = parse_json_array(raw)
+
+            # 3) 轻度校验 + 去重 + 截断
+            out = []
+            seen = set()
+            for it in arr:
+                if not isinstance(it, dict):
+                    continue
+                w = str(it.get("word", "")).strip()
+                if not w or w in seen:
+                    continue
+                try:
+                    weight = float(it.get("weight", 0.0))
+                except Exception:
+                    weight = 0.0
+                weight = max(0.0, min(1.0, weight))
+                out.append({"word": w, "weight": weight})
+                seen.add(w)
+                if len(out) >= k:
+                    break
+
+            s["wordcloud"] = out
+            done += 1
+
+    return topics_with_slots
+
 def pipeline_on_messages(messages):
 
     # 1. 如果没有 id，就顺手补一遍递增 id，保证后面能用 id 做时间轴
@@ -935,8 +1072,7 @@ def pipeline_on_messages(messages):
 
     # 🌈 第四步：是否解决问题
     refined_result = refine_slot_resolution(messages, allocated_topics,
-                                        max_slots=80,   # 按你能接受的调用量调
-                                        only_user=True)
+                                        max_slots=50)
 
     # 🎨 第五步：给每个 topic 分配颜色
     colored_results = assign_colors(refined_result)
