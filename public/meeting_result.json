@@ -18,79 +18,79 @@
           },
           {
             "word": "婚姻观念",
-            "weight": 0.88
+            "weight": 0.9
           },
           {
             "word": "粉丝互动",
-            "weight": 0.82
+            "weight": 0.85
           },
           {
-            "word": "播客",
+            "word": "柠檬精",
             "weight": 0.8
-          },
-          {
-            "word": "私人订制",
-            "weight": 0.78
-          },
-          {
-            "word": "非众老友局",
-            "weight": 0.76
           },
           {
             "word": "年龄",
             "weight": 0.75
           },
           {
-            "word": "结婚",
-            "weight": 0.74
-          },
-          {
             "word": "谈恋爱",
-            "weight": 0.72
-          },
-          {
-            "word": "压力",
             "weight": 0.7
           },
           {
-            "word": "动力",
-            "weight": 0.68
-          },
-          {
-            "word": "东北好朋友",
-            "weight": 0.67
-          },
-          {
-            "word": "B站",
+            "word": "博客",
             "weight": 0.65
           },
           {
-            "word": "二创",
-            "weight": 0.64
-          },
-          {
-            "word": "柠檬",
-            "weight": 0.62
-          },
-          {
-            "word": "邮件",
+            "word": "视频",
             "weight": 0.6
           },
           {
-            "word": "连线",
-            "weight": 0.58
+            "word": "房地产",
+            "weight": 0.55
           },
           {
-            "word": "对象",
-            "weight": 0.56
+            "word": "私信",
+            "weight": 0.5
           },
           {
-            "word": "评论区",
-            "weight": 0.54
+            "word": "压力",
+            "weight": 0.45
           },
           {
-            "word": "共鸣",
-            "weight": 0.52
+            "word": "动力",
+            "weight": 0.4
+          },
+          {
+            "word": "东北好朋友",
+            "weight": 0.35
+          },
+          {
+            "word": "二创",
+            "weight": 0.3
+          },
+          {
+            "word": "单身标签",
+            "weight": 0.25
+          },
+          {
+            "word": "未来",
+            "weight": 0.2
+          },
+          {
+            "word": "酸",
+            "weight": 0.15
+          },
+          {
+            "word": "开心",
+            "weight": 0.1
+          },
+          {
+            "word": "活动",
+            "weight": 0.05
+          },
+          {
+            "word": "邮件",
+            "weight": 0.05
           }
         ]
       },
@@ -106,67 +106,83 @@
         "wordcloud": [
           {
             "word": "单身标签",
-            "weight": 0.85
-          },
-          {
-            "word": "粉丝",
-            "weight": 0.8
+            "weight": 0.95
           },
           {
             "word": "柠檬精",
+            "weight": 0.88
+          },
+          {
+            "word": "私人订制",
+            "weight": 0.82
+          },
+          {
+            "word": "粉丝互动",
+            "weight": 0.8
+          },
+          {
+            "word": "单身粉丝",
             "weight": 0.78
           },
           {
-            "word": "私信",
-            "weight": 0.75
+            "word": "结婚观念",
+            "weight": 0.76
           },
           {
-            "word": "对象",
+            "word": "离婚成本",
+            "weight": 0.74
+          },
+          {
+            "word": "婚姻状态",
             "weight": 0.72
           },
           {
-            "word": "40岁",
+            "word": "在线征婚",
             "weight": 0.7
           },
           {
-            "word": "安慰",
+            "word": "单身现象",
             "weight": 0.68
           },
           {
-            "word": "柠檬叔",
+            "word": "传统观念",
             "weight": 0.66
           },
           {
-            "word": "单身时间",
+            "word": "日本文化",
             "weight": 0.64
           },
           {
-            "word": "女朋友",
+            "word": "单身人口",
             "weight": 0.62
           },
           {
-            "word": "成家",
+            "word": "婚姻简单",
             "weight": 0.6
           },
           {
-            "word": "评论区",
+            "word": "生孩子",
             "weight": 0.58
           },
           {
-            "word": "柠檬表情",
+            "word": "谈恋爱",
             "weight": 0.56
           },
           {
-            "word": "暖心",
+            "word": "年龄影响",
             "weight": 0.54
           },
           {
-            "word": "未来",
+            "word": "生活态度",
             "weight": 0.52
           },
           {
-            "word": "开心",
+            "word": "粉丝共鸣",
             "weight": 0.5
+          },
+          {
+            "word": "婚姻选择",
+            "weight": 0.48
           }
         ]
       },
@@ -181,84 +197,84 @@
         "resolved": false,
         "wordcloud": [
           {
-            "word": "单身",
-            "weight": 0.9
-          },
-          {
-            "word": "结婚",
+            "word": "单身标签",
             "weight": 0.85
           },
           {
-            "word": "离婚",
+            "word": "柠檬精",
             "weight": 0.8
           },
           {
-            "word": "孩子",
+            "word": "离婚复杂性",
+            "weight": 0.78
+          },
+          {
+            "word": "结婚顺其自然",
             "weight": 0.75
           },
           {
+            "word": "单身状态",
+            "weight": 0.74
+          },
+          {
             "word": "婚姻观念",
+            "weight": 0.72
+          },
+          {
+            "word": "离婚麻烦",
             "weight": 0.7
           },
           {
-            "word": "顺其自然",
+            "word": "独居家庭",
             "weight": 0.68
           },
           {
-            "word": "传统",
+            "word": "未婚同居",
+            "weight": 0.67
+          },
+          {
+            "word": "单身人口",
             "weight": 0.65
           },
           {
-            "word": "日本",
-            "weight": 0.6
+            "word": "传统观念",
+            "weight": 0.64
+          },
+          {
+            "word": "日本文化",
+            "weight": 0.63
           },
           {
             "word": "征婚",
+            "weight": 0.62
+          },
+          {
+            "word": "单身快乐",
+            "weight": 0.61
+          },
+          {
+            "word": "离婚率",
+            "weight": 0.6
+          },
+          {
+            "word": "婚姻状态",
+            "weight": 0.59
+          },
+          {
+            "word": "东京生活",
             "weight": 0.58
           },
           {
-            "word": "粉丝",
+            "word": "大阪旅行",
+            "weight": 0.57
+          },
+          {
+            "word": "机票便宜",
+            "weight": 0.56
+          },
+          {
+            "word": "酒店价格",
             "weight": 0.55
-          },
-          {
-            "word": "成家",
-            "weight": 0.5
-          },
-          {
-            "word": "未婚",
-            "weight": 0.48
-          },
-          {
-            "word": "离婚复杂性",
-            "weight": 0.47
-          },
-          {
-            "word": "谈恋爱",
-            "weight": 0.45
-          },
-          {
-            "word": "家庭构成",
-            "weight": 0.44
-          },
-          {
-            "word": "成年人口",
-            "weight": 0.43
-          },
-          {
-            "word": "柠檬叔",
-            "weight": 0.42
-          },
-          {
-            "word": "在线征婚",
-            "weight": 0.41
-          },
-          {
-            "word": "独居",
-            "weight": 0.4
-          },
-          {
-            "word": "东京",
-            "weight": 0.39
           }
         ]
       }
@@ -280,83 +296,71 @@
         "wordcloud": [
           {
             "word": "婚姻观念",
-            "weight": 0.9
+            "weight": 0.95
           },
           {
             "word": "离婚成本",
             "weight": 0.85
           },
           {
-            "word": "单身状态",
+            "word": "单身标签",
             "weight": 0.8
           },
           {
-            "word": "结婚压力",
-            "weight": 0.78
-          },
-          {
-            "word": "日本文化",
+            "word": "柠檬精",
             "weight": 0.75
           },
           {
             "word": "传统观念",
-            "weight": 0.72
-          },
-          {
-            "word": "独居家庭",
             "weight": 0.7
           },
           {
-            "word": "社会压力",
-            "weight": 0.68
-          },
-          {
-            "word": "孩子",
+            "word": "独居家庭",
             "weight": 0.65
           },
           {
-            "word": "标签",
+            "word": "结婚生子",
             "weight": 0.6
           },
           {
-            "word": "征婚",
-            "weight": 0.58
-          },
-          {
-            "word": "单身人口",
+            "word": "社会压力",
             "weight": 0.55
           },
           {
-            "word": "未婚同居",
-            "weight": 0.53
-          },
-          {
-            "word": "家庭构成",
+            "word": "日本文化",
             "weight": 0.5
           },
           {
-            "word": "离婚率",
-            "weight": 0.48
-          },
-          {
-            "word": "东京",
+            "word": "征婚",
             "weight": 0.45
           },
           {
-            "word": "粉丝互动",
-            "weight": 0.42
-          },
-          {
-            "word": "社会现象",
+            "word": "未婚同居",
             "weight": 0.4
           },
           {
-            "word": "年龄",
-            "weight": 0.38
+            "word": "单身状态",
+            "weight": 0.35
           },
           {
-            "word": "生活方式",
-            "weight": 0.35
+            "word": "离婚率",
+            "weight": 0.3
+          },
+          {
+            "word": "东京生活",
+            "weight": 0.25
+          },
+          {
+            "word": "大阪",
+            "weight": 0.2
+          },
+          {
+            "word": "机票",
+            "weight": 0.15
+          },
+          {
+            "word": "酒店价格",
+            "weight": 0.1
           }
         ]
       },
@@ -371,84 +375,84 @@
         "resolved": false,
         "wordcloud": [
           {
-            "word": "传统婚姻观",
-            "weight": 0.95
-          },
-          {
-            "word": "单身状态",
-            "weight": 0.88
-          },
-          {
-            "word": "结婚生子",
+            "word": "日本文化",
             "weight": 0.85
           },
           {
-            "word": "离婚复杂",
-            "weight": 0.82
+            "word": "传统婚姻观",
+            "weight": 0.9
           },
           {
-            "word": "日本文化",
-            "weight": 0.8
-          },
-          {
-            "word": "社会压力",
+            "word": "单身标签",
             "weight": 0.78
           },
           {
+            "word": "柠檬精",
+            "weight": 0.65
+          },
+          {
+            "word": "结婚生子",
+            "weight": 0.88
+          },
+          {
+            "word": "社会压力",
+            "weight": 0.82
+          },
+          {
+            "word": "离婚成本",
+            "weight": 0.8
+          },
+          {
             "word": "独居家庭",
-            "weight": 0.76
+            "weight": 0.75
           },
           {
-            "word": "东京单身",
-            "weight": 0.74
+            "word": "单身生活",
+            "weight": 0.83
           },
           {
-            "word": "未婚同居",
-            "weight": 0.72
-          },
-          {
-            "word": "婚姻成本",
+            "word": "东京",
             "weight": 0.7
           },
           {
-            "word": "人口数据",
-            "weight": 0.68
-          },
-          {
-            "word": "结婚意愿",
-            "weight": 0.66
-          },
-          {
-            "word": "家庭构成",
-            "weight": 0.64
-          },
-          {
-            "word": "单身普遍",
-            "weight": 0.62
-          },
-          {
-            "word": "生育观念",
+            "word": "大阪",
             "weight": 0.6
           },
           {
-            "word": "社会现象",
-            "weight": 0.58
+            "word": "征婚",
+            "weight": 0.68
           },
           {
-            "word": "婚姻选择",
-            "weight": 0.56
+            "word": "草食",
+            "weight": 0.55
           },
           {
-            "word": "日本人口",
-            "weight": 0.54
+            "word": "机票",
+            "weight": 0.5
           },
           {
-            "word": "婚姻状态",
+            "word": "酒店价格",
             "weight": 0.52
           },
           {
-            "word": "传统观念",
-            "weight": 0.5
+            "word": "未婚同居",
+            "weight": 0.77
+          },
+          {
+            "word": "成年人口",
+            "weight": 0.72
+          },
+          {
+            "word": "社会现象",
+            "weight": 0.74
+          },
+          {
+            "word": "生活状态",
+            "weight": 0.66
+          },
+          {
+            "word": "婚姻成本",
+            "weight": 0.79
           }
         ]
       }
@@ -469,84 +473,84 @@
         "resolved": false,
         "wordcloud": [
           {
-            "word": "单身",
+            "word": "单身生活",
             "weight": 0.85
           },
           {
-            "word": "结婚",
-            "weight": 0.9
+            "word": "婚姻观念",
+            "weight": 0.92
           },
           {
-            "word": "离婚",
+            "word": "结婚",
             "weight": 0.88
           },
           {
-            "word": "传统观念",
-            "weight": 0.75
-          },
-          {
-            "word": "孩子",
+            "word": "离婚",
             "weight": 0.8
           },
           {
-            "word": "日本",
+            "word": "柠檬精",
             "weight": 0.7
           },
           {
-            "word": "独居家庭",
+            "word": "单身标签",
+            "weight": 0.75
+          },
+          {
+            "word": "草食男子",
             "weight": 0.78
           },
           {
-            "word": "未婚同居",
-            "weight": 0.72
-          },
-          {
-            "word": "婚姻差异",
+            "word": "独居家庭",
             "weight": 0.82
           },
           {
-            "word": "成年人口",
-            "weight": 0.68
+            "word": "传统观念",
+            "weight": 0.77
           },
           {
-            "word": "阿根廷",
-            "weight": 0.65
-          },
-          {
-            "word": "美国",
-            "weight": 0.67
-          },
-          {
-            "word": "欧盟",
-            "weight": 0.6
-          },
-          {
-            "word": "东京",
+            "word": "未婚同居",
             "weight": 0.74
           },
           {
-            "word": "大阪",
-            "weight": 0.62
+            "word": "单身人口",
+            "weight": 0.81
           },
           {
-            "word": "粉丝互动",
-            "weight": 0.55
+            "word": "婚姻成本",
+            "weight": 0.79
           },
           {
-            "word": "数据",
-            "weight": 0.58
+            "word": "征婚",
+            "weight": 0.68
           },
           {
-            "word": "生活状态",
-            "weight": 0.64
+            "word": "安慰",
+            "weight": 0.65
           },
           {
             "word": "恋爱",
+            "weight": 0.72
+          },
+          {
+            "word": "伴侣",
+            "weight": 0.67
+          },
+          {
+            "word": "积极",
             "weight": 0.66
           },
           {
-            "word": "家庭构成",
-            "weight": 0.7
+            "word": "被动",
+            "weight": 0.64
+          },
+          {
+            "word": "日本年轻人",
+            "weight": 0.73
+          },
+          {
+            "word": "东京",
+            "weight": 0.69
           }
         ]
       }
@@ -567,84 +571,84 @@
         "resolved": false,
         "wordcloud": [
           {
-            "word": "结婚观念",
+            "word": "未婚同居",
+            "weight": 0.95
+          },
+          {
+            "word": "单身生活",
+            "weight": 0.9
+          },
+          {
+            "word": "结婚意愿",
             "weight": 0.88
           },
           {
-            "word": "未婚同居",
+            "word": "离婚率",
             "weight": 0.85
           },
           {
-            "word": "离婚成本",
-            "weight": 0.8
+            "word": "草食男子",
+            "weight": 0.83
           },
           {
-            "word": "单身状态",
+            "word": "独居家庭",
             "weight": 0.82
           },
           {
-            "word": "传统家庭",
-            "weight": 0.75
+            "word": "婚姻成本",
+            "weight": 0.8
           },
           {
-            "word": "独居率",
+            "word": "女性地位",
             "weight": 0.78
           },
           {
-            "word": "人口普查",
+            "word": "单身人口",
             "weight": 0.77
           },
           {
-            "word": "阿根廷单身",
-            "weight": 0.7
+            "word": "婚姻传统",
+            "weight": 0.75
           },
           {
-            "word": "日本传统",
+            "word": "日本文化",
             "weight": 0.74
           },
           {
-            "word": "东京家庭",
-            "weight": 0.73
-          },
-          {
-            "word": "欧盟成员",
-            "weight": 0.68
-          },
-          {
-            "word": "东京独居",
+            "word": "粉丝互动",
             "weight": 0.72
           },
           {
-            "word": "生育观念",
-            "weight": 0.71
+            "word": "征婚",
+            "weight": 0.7
           },
           {
-            "word": "征婚互动",
-            "weight": 0.69
-          },
-          {
-            "word": "未婚生子",
-            "weight": 0.67
+            "word": "东京生活",
+            "weight": 0.68
           },
           {
             "word": "大阪旅游",
-            "weight": 0.64
-          },
-          {
-            "word": "成年人比例",
             "weight": 0.66
           },
           {
-            "word": "全球单身",
+            "word": "酒店价格",
             "weight": 0.65
           },
           {
-            "word": "结婚率",
-            "weight": 0.79
+            "word": "机票",
+            "weight": 0.64
           },
           {
-            "word": "家庭构成",
-            "weight": 0.76
+            "word": "男女平等",
+            "weight": 0.63
+          },
+          {
+            "word": "女性首相",
+            "weight": 0.62
+          },
+          {
+            "word": "NHK电视剧",
+            "weight": 0.6
           }
         ]
       }
@@ -669,80 +673,80 @@
             "weight": 0.95
           },
           {
-            "word": "结婚顺其自然",
+            "word": "单身生活",
             "weight": 0.88
           },
           {
-            "word": "离婚麻烦",
+            "word": "草食男子",
             "weight": 0.85
           },
           {
-            "word": "传统观念",
-            "weight": 0.82
+            "word": "婚姻观念",
+            "weight": 0.92
           },
           {
-            "word": "单身状态",
-            "weight": 0.8
-          },
-          {
-            "word": "东京生活",
-            "weight": 0.78
-          },
-          {
-            "word": "未婚同居",
+            "word": "离婚成本",
             "weight": 0.76
           },
           {
-            "word": "单身普遍",
-            "weight": 0.74
+            "word": "东京",
+            "weight": 0.83
           },
           {
-            "word": "成年人口",
+            "word": "大阪",
             "weight": 0.72
           },
           {
+            "word": "女性地位",
+            "weight": 0.89
+          },
+          {
+            "word": "男女平等",
+            "weight": 0.84
+          },
+          {
+            "word": "大男子主义",
+            "weight": 0.81
+          },
+          {
             "word": "社会压力",
-            "weight": 0.7
+            "weight": 0.87
+          },
+          {
+            "word": "单身比例",
+            "weight": 0.91
+          },
+          {
+            "word": "传统观念",
+            "weight": 0.78
+          },
+          {
+            "word": "征婚",
+            "weight": 0.67
+          },
+          {
+            "word": "未婚同居",
+            "weight": 0.74
           },
           {
             "word": "家庭构成",
-            "weight": 0.68
+            "weight": 0.82
           },
           {
-            "word": "人口数据",
-            "weight": 0.66
+            "word": "日本文化",
+            "weight": 0.9
           },
           {
-            "word": "婚姻成本",
-            "weight": 0.64
+            "word": "结婚意愿",
+            "weight": 0.79
           },
           {
-            "word": "传统国家",
-            "weight": 0.62
+            "word": "女性首相",
+            "weight": 0.77
           },
           {
-            "word": "结婚生子",
-            "weight": 0.6
-          },
-          {
-            "word": "机票便宜",
-            "weight": 0.58
-          },
-          {
-            "word": "大阪旅游",
-            "weight": 0.56
-          },
-          {
-            "word": "农村生活",
-            "weight": 0.54
-          },
-          {
-            "word": "阿根廷单身",
-            "weight": 0.52
-          },
-          {
-            "word": "美国人口普查",
-            "weight": 0.5
+            "word": "酒店价格",
+            "weight": 0.65
           }
         ]
       }
@@ -767,60 +771,80 @@
             "weight": 0.95
           },
           {
-            "word": "结婚顺其自然",
+            "word": "柠檬叔",
+            "weight": 0.85
+          },
+          {
+            "word": "结婚观念",
+            "weight": 0.88
+          },
+          {
+            "word": "离婚复杂",
             "weight": 0.82
           },
           {
-            "word": "离婚成本",
+            "word": "独居家庭",
+            "weight": 0.87
+          },
+          {
+            "word": "东京",
+            "weight": 0.8
+          },
+          {
+            "word": "草食男子",
+            "weight": 0.83
+          },
+          {
+            "word": "女性地位",
+            "weight": 0.9
+          },
+          {
+            "word": "大男子主义",
             "weight": 0.78
           },
           {
+            "word": "单身生活",
+            "weight": 0.84
+          },
+          {
+            "word": "婚姻状态",
+            "weight": 0.81
+          },
+          {
             "word": "传统观念",
-            "weight": 0.75
+            "weight": 0.76
+          },
+          {
+            "word": "日本首相",
+            "weight": 0.79
+          },
+          {
+            "word": "男女平等",
+            "weight": 0.86
+          },
+          {
+            "word": "征婚",
+            "weight": 0.77
+          },
+          {
+            "word": "阿根廷",
+            "weight": 0.74
+          },
+          {
+            "word": "中国单身人口",
+            "weight": 0.89
           },
           {
             "word": "未婚同居",
-            "weight": 0.72
+            "weight": 0.75
           },
           {
-            "word": "独居家庭",
+            "word": "大阪",
             "weight": 0.7
           },
           {
-            "word": "成年人口",
-            "weight": 0.68
-          },
-          {
-            "word": "单身普遍",
-            "weight": 0.67
-          },
-          {
-            "word": "东京生活",
-            "weight": 0.65
-          },
-          {
-            "word": "机票便宜",
-            "weight": 0.6
-          },
-          {
-            "word": "酒店价格",
-            "weight": 0.58
-          },
-          {
-            "word": "阿根廷单身",
-            "weight": 0.55
-          },
-          {
-            "word": "日本人口",
-            "weight": 0.54
-          },
-          {
-            "word": "欧盟数据",
-            "weight": 0.52
-          },
-          {
-            "word": "大阪旅游",
-            "weight": 0.5
+            "word": "女性话题",
+            "weight": 0.73
           }
         ]
       }
@@ -845,79 +869,79 @@
             "weight": 0.95
           },
           {
-            "word": "单身生活",
+            "word": "单身现象",
             "weight": 0.88
           },
           {
-            "word": "女性地位",
-            "weight": 0.85
+            "word": "日本文化",
+            "weight": 0.84
           },
           {
-            "word": "男女平等",
+            "word": "社会压力",
             "weight": 0.82
           },
           {
-            "word": "大男子主义",
+            "word": "女性地位",
             "weight": 0.8
           },
           {
-            "word": "日本女足",
+            "word": "大男子主义",
             "weight": 0.78
           },
           {
-            "word": "世界杯冠军",
+            "word": "独居家庭",
             "weight": 0.76
           },
           {
-            "word": "东京",
+            "word": "东京生活",
             "weight": 0.74
           },
           {
-            "word": "机票",
+            "word": "婚姻状态",
             "weight": 0.72
           },
           {
-            "word": "酒店",
+            "word": "女足冠军",
             "weight": 0.7
           },
           {
-            "word": "年轻人",
+            "word": "yamato a disco",
             "weight": 0.68
           },
           {
-            "word": "伴侣",
+            "word": "贤惠妻子",
             "weight": 0.66
           },
           {
-            "word": "积极",
+            "word": "亚洲国家",
             "weight": 0.64
           },
           {
-            "word": "被动",
+            "word": "传统概念",
             "weight": 0.62
           },
           {
-            "word": "NHK",
+            "word": "未婚同居",
             "weight": 0.6
           },
           {
-            "word": "电视剧",
+            "word": "日本首相",
             "weight": 0.58
           },
           {
-            "word": "yamato a disco",
+            "word": "NHK频道",
             "weight": 0.56
           },
           {
-            "word": "魅力",
+            "word": "阿根廷单身",
             "weight": 0.54
           },
           {
-            "word": "亚洲国家",
+            "word": "欧洲同居",
             "weight": 0.52
           },
           {
-            "word": "历史",
+            "word": "中国单身",
             "weight": 0.5
           }
         ]
@@ -937,10 +961,6 @@
             "weight": 0.85
           },
           {
-            "word": "社会压力",
-            "weight": 0.8
-          },
-          {
             "word": "女性地位",
             "weight": 0.95
           },
@@ -950,23 +970,19 @@
           },
           {
             "word": "草食男子",
+            "weight": 0.8
+          },
+          {
+            "word": "独居家庭",
             "weight": 0.82
           },
           {
-            "word": "大男子主义",
+            "word": "东京",
             "weight": 0.78
           },
           {
-            "word": "日本首相",
-            "weight": 0.9
-          },
-          {
-            "word": "NHK频道",
+            "word": "大男子主义",
             "weight": 0.7
-          },
-          {
-            "word": "单身生活",
-            "weight": 0.75
           },
           {
             "word": "日本女足",
@@ -974,43 +990,51 @@
           },
           {
             "word": "世界杯冠军",
-            "weight": 0.87
+            "weight": 0.75
           },
           {
             "word": "yamato a disco",
-            "weight": 0.65
-          },
-          {
-            "word": "日本魅力",
-            "weight": 0.72
-          },
-          {
-            "word": "亚洲国家",
             "weight": 0.68
           },
           {
-            "word": "酒店价格",
-            "weight": 0.6
+            "word": "贤惠",
+            "weight": 0.72
           },
           {
-            "word": "年轻人",
-            "weight": 0.66
-          },
-          {
-            "word": "积极主动",
+            "word": "早餐",
             "weight": 0.74
           },
           {
-            "word": "历史传统",
-            "weight": 0.62
+            "word": "未婚同居",
+            "weight": 0.77
           },
           {
-            "word": "运动表现",
-            "weight": 0.64
+            "word": "社会压力",
+            "weight": 0.81
           },
           {
-            "word": "中国印象",
-            "weight": 0.58
+            "word": "NHK",
+            "weight": 0.66
+          },
+          {
+            "word": "电视剧",
+            "weight": 0.65
+          },
+          {
+            "word": "亚洲国家",
+            "weight": 0.69
+          },
+          {
+            "word": "魅力",
+            "weight": 0.67
+          },
+          {
+            "word": "足球",
+            "weight": 0.71
+          },
+          {
+            "word": "日本首相",
+            "weight": 0.73
           }
         ]
       },
@@ -1030,79 +1054,79 @@
           },
           {
             "word": "社会压力",
-            "weight": 0.8
+            "weight": 0.82
           },
           {
             "word": "孤独对策",
-            "weight": 0.78
+            "weight": 0.88
           },
           {
-            "word": "单身",
-            "weight": 0.75
-          },
-          {
-            "word": "政府部门",
-            "weight": 0.72
+            "word": "单身人口",
+            "weight": 0.8
           },
           {
             "word": "孤独老人",
-            "weight": 0.7
+            "weight": 0.78
           },
           {
             "word": "老龄化",
-            "weight": 0.68
+            "weight": 0.75
           },
           {
             "word": "长寿",
-            "weight": 0.65
+            "weight": 0.7
           },
           {
-            "word": "平均寿命",
-            "weight": 0.63
+            "word": "女性地位",
+            "weight": 0.72
           },
           {
-            "word": "孤立担当",
-            "weight": 0.6
+            "word": "工作压力",
+            "weight": 0.83
           },
           {
-            "word": "日本女生",
-            "weight": 0.58
+            "word": "生活节奏",
+            "weight": 0.77
           },
           {
-            "word": "日本男生",
-            "weight": 0.55
+            "word": "东京生活",
+            "weight": 0.74
           },
           {
-            "word": "愤怒",
-            "weight": 0.53
+            "word": "住房压力",
+            "weight": 0.76
           },
           {
-            "word": "主动",
-            "weight": 0.5
+            "word": "地铁拥挤",
+            "weight": 0.73
           },
           {
-            "word": "深沉",
-            "weight": 0.48
+            "word": "政府部门",
+            "weight": 0.79
           },
           {
-            "word": "矛盾",
-            "weight": 0.45
+            "word": "年轻人",
+            "weight": 0.81
           },
           {
-            "word": "新闻",
-            "weight": 0.43
+            "word": "主动约会",
+            "weight": 0.69
           },
           {
-            "word": "咖啡",
-            "weight": 0.4
+            "word": "生活习惯",
+            "weight": 0.68
           },
           {
-            "word": "职务",
-            "weight": 0.38
+            "word": "职务担当",
+            "weight": 0.71
           },
           {
-            "word": "死亡率",
-            "weight": 0.35
+            "word": "大阪",
+            "weight": 0.67
+          },
+          {
+            "word": "房地产",
+            "weight": 0.66
           }
         ]
       },
@@ -1125,76 +1149,76 @@
             "weight": 0.9
           },
           {
-            "word": "生活节奏",
+            "word": "孤独老人",
             "weight": 0.85
           },
           {
-            "word": "东京",
+            "word": "生活节奏",
             "weight": 0.8
           },
           {
-            "word": "大阪",
+            "word": "东京压力",
+            "weight": 0.78
+          },
+          {
+            "word": "大城市",
             "weight": 0.75
           },
           {
             "word": "生活空间",
-            "weight": 0.7
+            "weight": 0.72
           },
           {
             "word": "房地产",
-            "weight": 0.65
+            "weight": 0.7
           },
           {
             "word": "长寿",
-            "weight": 0.6
+            "weight": 0.68
           },
           {
-            "word": "平均寿命",
-            "weight": 0.55
+            "word": "老龄化",
+            "weight": 0.65
           },
           {
             "word": "工作压力",
+            "weight": 0.63
+          },
+          {
+            "word": "单身率",
+            "weight": 0.6
+          },
+          {
+            "word": "虚拟恋人",
+            "weight": 0.58
+          },
+          {
+            "word": "动漫文化",
+            "weight": 0.55
+          },
+          {
+            "word": "结婚成本",
+            "weight": 0.53
+          },
+          {
+            "word": "一兰拉面",
             "weight": 0.5
           },
           {
-            "word": "996",
+            "word": "地铁拥挤",
+            "weight": 0.48
+          },
+          {
+            "word": "健康生活",
             "weight": 0.45
           },
           {
-            "word": "地铁",
+            "word": "住房面积",
+            "weight": 0.43
+          },
+          {
+            "word": "年轻人",
             "weight": 0.4
-          },
-          {
-            "word": "拥挤",
-            "weight": 0.35
-          },
-          {
-            "word": "健康",
-            "weight": 0.3
-          },
-          {
-            "word": "结婚",
-            "weight": 0.25
-          },
-          {
-            "word": "买房子",
-            "weight": 0.2
-          },
-          {
-            "word": "买车",
-            "weight": 0.15
-          },
-          {
-            "word": "生活习惯",
-            "weight": 0.1
-          },
-          {
-            "word": "应酬",
-            "weight": 0.05
-          },
-          {
-            "word": "喝酒",
-            "weight": 0.05
           }
         ]
       },
@@ -1209,84 +1233,84 @@
         "resolved": false,
         "wordcloud": [
           {
-            "word": "日本社会压力",
-            "weight": 0.85
+            "word": "日本文化",
+            "weight": 0.95
+          },
+          {
+            "word": "社会压力",
+            "weight": 0.9
           },
           {
             "word": "虚拟关系",
             "weight": 0.88
           },
           {
-            "word": "动漫文化",
-            "weight": 0.8
+            "word": "科技发达",
+            "weight": 0.85
           },
           {
-            "word": "单身率",
+            "word": "动漫",
             "weight": 0.82
           },
           {
-            "word": "生活空间",
-            "weight": 0.75
+            "word": "单身率",
+            "weight": 0.8
           },
           {
-            "word": "地铁通勤",
-            "weight": 0.7
-          },
-          {
-            "word": "婚姻观念",
+            "word": "生活习惯",
             "weight": 0.78
           },
           {
-            "word": "经济压力",
-            "weight": 0.65
+            "word": "工作压力",
+            "weight": 0.76
           },
           {
-            "word": "心理压力",
-            "weight": 0.9
-          },
-          {
-            "word": "科技发展",
-            "weight": 0.83
-          },
-          {
-            "word": "一兰拉面",
-            "weight": 0.68
-          },
-          {
-            "word": "单独隔间",
-            "weight": 0.72
-          },
-          {
-            "word": "大学统计",
-            "weight": 0.66
-          },
-          {
-            "word": "结婚条件",
+            "word": "生活节奏",
             "weight": 0.74
           },
           {
-            "word": "东京生活",
-            "weight": 0.79
+            "word": "东京",
+            "weight": 0.72
           },
           {
-            "word": "推人现象",
+            "word": "住房压力",
+            "weight": 0.7
+          },
+          {
+            "word": "地铁拥挤",
+            "weight": 0.68
+          },
+          {
+            "word": "结婚观念",
+            "weight": 0.66
+          },
+          {
+            "word": "经济压力",
             "weight": 0.64
           },
           {
-            "word": "拉面馆体验",
-            "weight": 0.71
+            "word": "虚拟男友",
+            "weight": 0.62
           },
           {
-            "word": "大阪美食",
-            "weight": 0.67
+            "word": "虚拟女友",
+            "weight": 0.6
           },
           {
-            "word": "无人恋爱",
-            "weight": 0.86
+            "word": "一兰拉面",
+            "weight": 0.58
           },
           {
-            "word": "happy life",
-            "weight": 0.69
+            "word": "大阪",
+            "weight": 0.56
+          },
+          {
+            "word": "拉面馆",
+            "weight": 0.54
+          },
+          {
+            "word": "方便面",
+            "weight": 0.52
           }
         ]
       }
@@ -1311,80 +1335,80 @@
             "weight": 0.95
           },
           {
-            "word": "动漫",
-            "weight": 0.85
-          },
-          {
-            "word": "单身率",
-            "weight": 0.9
-          },
-          {
             "word": "生活压力",
             "weight": 0.88
           },
           {
-            "word": "东京地铁",
-            "weight": 0.8
+            "word": "科技发达",
+            "weight": 0.85
           },
           {
-            "word": "结婚成本",
+            "word": "单身比率",
             "weight": 0.82
           },
           {
-            "word": "一兰拉面",
-            "weight": 0.75
-          },
-          {
-            "word": "健康生活",
-            "weight": 0.78
-          },
-          {
-            "word": "大学毕业",
-            "weight": 0.7
-          },
-          {
-            "word": "心理压力",
-            "weight": 0.77
-          },
-          {
-            "word": "经济因素",
-            "weight": 0.74
-          },
-          {
-            "word": "拉面馆",
-            "weight": 0.72
-          },
-          {
-            "word": "大阪美食",
-            "weight": 0.73
-          },
-          {
-            "word": "单独隔间",
-            "weight": 0.68
-          },
-          {
-            "word": "金龙拉面",
-            "weight": 0.71
-          },
-          {
-            "word": "未婚人口",
-            "weight": 0.76
-          },
-          {
-            "word": "科技发展",
-            "weight": 0.79
-          },
-          {
-            "word": "人口统计",
-            "weight": 0.67
-          },
-          {
-            "word": "幸福生活",
-            "weight": 0.69
+            "word": "东京生活",
+            "weight": 0.8
           },
           {
             "word": "工作压力",
-            "weight": 0.81
+            "weight": 0.78
+          },
+          {
+            "word": "动漫文化",
+            "weight": 0.76
+          },
+          {
+            "word": "结婚成本",
+            "weight": 0.74
+          },
+          {
+            "word": "一兰拉面",
+            "weight": 0.72
+          },
+          {
+            "word": "地铁拥挤",
+            "weight": 0.7
+          },
+          {
+            "word": "房地产公司",
+            "weight": 0.68
+          },
+          {
+            "word": "健康生活",
+            "weight": 0.66
+          },
+          {
+            "word": "拉面馆",
+            "weight": 0.64
+          },
+          {
+            "word": "自助拉面",
+            "weight": 0.62
+          },
+          {
+            "word": "大阪生活",
+            "weight": 0.6
+          },
+          {
+            "word": "未婚群体",
+            "weight": 0.58
+          },
+          {
+            "word": "隔间设计",
+            "weight": 0.56
+          },
+          {
+            "word": "人口密度",
+            "weight": 0.54
+          },
+          {
+            "word": "心理压力",
+            "weight": 0.52
+          },
+          {
+            "word": "饮食习惯",
+            "weight": 0.5
           }
         ]
       }
@@ -1406,83 +1430,83 @@
         "wordcloud": [
           {
             "word": "单身",
-            "weight": 0.85
-          },
-          {
-            "word": "宠物",
-            "weight": 0.8
+            "weight": 0.95
           },
           {
             "word": "结婚",
+            "weight": 0.93
+          },
+          {
+            "word": "孤独",
             "weight": 0.9
           },
           {
             "word": "经济压力",
-            "weight": 0.75
+            "weight": 0.88
           },
           {
-            "word": "离婚率",
-            "weight": 0.78
+            "word": "宠物",
+            "weight": 0.85
+          },
+          {
+            "word": "孩子",
+            "weight": 0.83
+          },
+          {
+            "word": "离婚",
+            "weight": 0.8
           },
           {
             "word": "家庭观念",
-            "weight": 0.82
+            "weight": 0.78
           },
           {
-            "word": "租房结婚",
-            "weight": 0.7
-          },
-          {
-            "word": "孩子户口",
-            "weight": 0.68
-          },
-          {
-            "word": "传统婚姻",
-            "weight": 0.74
-          },
-          {
-            "word": "开放观念",
-            "weight": 0.77
+            "word": "婚姻",
+            "weight": 0.76
           },
           {
             "word": "同居",
+            "weight": 0.74
+          },
+          {
+            "word": "户口",
             "weight": 0.72
           },
           {
-            "word": "法律程序",
-            "weight": 0.65
+            "word": "传统",
+            "weight": 0.7
           },
           {
-            "word": "宗教婚礼",
-            "weight": 0.6
+            "word": "享受孤独",
+            "weight": 0.68
           },
           {
-            "word": "养猫",
+            "word": "经济独立",
             "weight": 0.66
           },
           {
-            "word": "养狗",
+            "word": "婚礼",
             "weight": 0.64
           },
           {
-            "word": "宠物美容",
+            "word": "个人空间",
             "weight": 0.62
           },
           {
-            "word": "婴儿车",
+            "word": "年轻一代",
+            "weight": 0.6
+          },
+          {
+            "word": "法律程序",
             "weight": 0.58
           },
           {
-            "word": "孤独",
-            "weight": 0.67
+            "word": "社会压力",
+            "weight": 0.56
           },
           {
-            "word": "传统国家",
-            "weight": 0.69
-          },
-          {
-            "word": "忠贞不渝",
-            "weight": 0.63
+            "word": "自我实现",
+            "weight": 0.54
           }
         ]
       },
@@ -1497,84 +1521,84 @@
         "resolved": true,
         "wordcloud": [
           {
-            "word": "单身",
-            "weight": 0.85
-          },
-          {
-            "word": "婚姻",
-            "weight": 0.9
-          },
-          {
-            "word": "孤独",
-            "weight": 0.88
-          },
-          {
-            "word": "孩子",
-            "weight": 0.82
-          },
-          {
-            "word": "结婚",
+            "word": "婚姻观念",
             "weight": 0.95
           },
           {
-            "word": "户口",
-            "weight": 0.7
+            "word": "孤独",
+            "weight": 0.9
           },
           {
-            "word": "父母催婚",
-            "weight": 0.78
+            "word": "传统家庭",
+            "weight": 0.85
           },
           {
-            "word": "心理状态",
+            "word": "离婚率",
+            "weight": 0.82
+          },
+          {
+            "word": "结婚压力",
             "weight": 0.8
           },
           {
-            "word": "享受孤独",
+            "word": "孩子户口",
+            "weight": 0.78
+          },
+          {
+            "word": "同居",
             "weight": 0.75
           },
           {
-            "word": "空间",
+            "word": "催婚",
             "weight": 0.72
           },
           {
-            "word": "家庭责任",
-            "weight": 0.74
+            "word": "享受孤独",
+            "weight": 0.7
           },
           {
-            "word": "长子",
+            "word": "心理状态",
             "weight": 0.68
           },
           {
-            "word": "外公外婆",
-            "weight": 0.66
+            "word": "个人空间",
+            "weight": 0.65
           },
           {
-            "word": "兄弟姐妹",
-            "weight": 0.64
+            "word": "父母期望",
+            "weight": 0.63
           },
           {
-            "word": "生孩子",
-            "weight": 0.77
+            "word": "传统观念",
+            "weight": 0.6
           },
           {
-            "word": "离婚",
-            "weight": 0.73
+            "word": "家庭责任",
+            "weight": 0.58
           },
           {
-            "word": "温馨",
-            "weight": 0.69
+            "word": "婚姻程序",
+            "weight": 0.55
           },
           {
-            "word": "主观",
-            "weight": 0.71
+            "word": "法律程序",
+            "weight": 0.53
           },
           {
-            "word": "思考",
-            "weight": 0.67
+            "word": "宗教婚礼",
+            "weight": 0.5
           },
           {
-            "word": "催婚",
-            "weight": 0.76
+            "word": "单身生活",
+            "weight": 0.48
+          },
+          {
+            "word": "成家立业",
+            "weight": 0.45
+          },
+          {
+            "word": "年龄焦虑",
+            "weight": 0.42
           }
         ]
       },
@@ -1593,7 +1617,7 @@
             "weight": 0.85
           },
           {
-            "word": "婚姻",
+            "word": "婚姻观念",
             "weight": 0.88
           },
           {
@@ -1601,72 +1625,72 @@
             "weight": 0.9
           },
           {
-            "word": "爱豆",
-            "weight": 0.75
-          },
-          {
-            "word": "结婚",
-            "weight": 0.87
-          },
-          {
-            "word": "恋爱",
-            "weight": 0.8
-          },
-          {
-            "word": "征婚平台",
+            "word": "收养孩子",
             "weight": 0.78
           },
           {
-            "word": "婚礼",
-            "weight": 0.82
-          },
-          {
-            "word": "好奇心",
-            "weight": 0.7
-          },
-          {
-            "word": "未来妻子",
-            "weight": 0.83
-          },
-          {
-            "word": "机票",
-            "weight": 0.65
-          },
-          {
-            "word": "大阪",
-            "weight": 0.6
-          },
-          {
-            "word": "约会成本",
-            "weight": 0.77
-          },
-          {
-            "word": "请吃饭",
-            "weight": 0.68
-          },
-          {
-            "word": "喝咖啡",
-            "weight": 0.66
-          },
-          {
-            "word": "AA制",
+            "word": "生育能力",
             "weight": 0.72
           },
           {
-            "word": "兄弟姐妹",
-            "weight": 0.64
+            "word": "高纬度国家",
+            "weight": 0.7
           },
           {
-            "word": "年龄大",
-            "weight": 0.62
+            "word": "名人榜样",
+            "weight": 0.8
           },
           {
-            "word": "体验",
+            "word": "结婚生子",
+            "weight": 0.82
+          },
+          {
+            "word": "粉丝文化",
+            "weight": 0.75
+          },
+          {
+            "word": "爱豆形象",
+            "weight": 0.77
+          },
+          {
+            "word": "征婚平台",
             "weight": 0.74
           },
           {
-            "word": "节目",
+            "word": "婚礼邀请",
+            "weight": 0.68
+          },
+          {
+            "word": "恋爱成本",
+            "weight": 0.73
+          },
+          {
+            "word": "AA制",
+            "weight": 0.79
+          },
+          {
+            "word": "女性地位",
+            "weight": 0.76
+          },
+          {
+            "word": "约会文化",
+            "weight": 0.71
+          },
+          {
+            "word": "昭和时代",
             "weight": 0.69
+          },
+          {
+            "word": "未来妻子",
+            "weight": 0.67
+          },
+          {
+            "word": "婚姻体验",
+            "weight": 0.83
+          },
+          {
+            "word": "情感需求",
+            "weight": 0.81
           }
         ]
       }
@@ -1691,60 +1715,80 @@
             "weight": 0.95
           },
           {
-            "word": "结婚",
-            "weight": 0.92
+            "word": "约会方式",
+            "weight": 0.88
           },
           {
             "word": "AA制",
-            "weight": 0.89
-          },
-          {
-            "word": "昭和年代",
-            "weight": 0.79
-          },
-          {
-            "word": "零零后",
-            "weight": 0.75
-          },
-          {
-            "word": "约会",
-            "weight": 0.84
-          },
-          {
-            "word": "独立女性",
-            "weight": 0.78
-          },
-          {
-            "word": "日本文化",
             "weight": 0.85
           },
           {
-            "word": "好奇心",
-            "weight": 0.65
+            "word": "请吃饭",
+            "weight": 0.82
+          },
+          {
+            "word": "爱豆规则",
+            "weight": 0.8
+          },
+          {
+            "word": "职业需求",
+            "weight": 0.78
+          },
+          {
+            "word": "结婚愿望",
+            "weight": 0.76
           },
           {
             "word": "单身生活",
-            "weight": 0.72
-          },
-          {
-            "word": "家庭观念",
-            "weight": 0.81
-          },
-          {
-            "word": "平等关系",
-            "weight": 0.77
-          },
-          {
-            "word": "婚礼",
-            "weight": 0.67
-          },
-          {
-            "word": "性别观念",
             "weight": 0.74
           },
           {
-            "word": "传统价值观",
-            "weight": 0.8
+            "word": "社交方式",
+            "weight": 0.72
+          },
+          {
+            "word": "搭子文化",
+            "weight": 0.7
+          },
+          {
+            "word": "女性地位",
+            "weight": 0.68
+          },
+          {
+            "word": "兴趣相同",
+            "weight": 0.66
+          },
+          {
+            "word": "昭和时代",
+            "weight": 0.64
+          },
+          {
+            "word": "年龄段",
+            "weight": 0.62
+          },
+          {
+            "word": "互联网时代",
+            "weight": 0.6
+          },
+          {
+            "word": "唱歌app",
+            "weight": 0.58
+          },
+          {
+            "word": "婚礼邀请",
+            "weight": 0.56
+          },
+          {
+            "word": "巴西约会",
+            "weight": 0.54
+          },
+          {
+            "word": "俄罗斯约会",
+            "weight": 0.52
+          },
+          {
+            "word": "拉美文化",
+            "weight": 0.5
           }
         ]
       }
@@ -1766,6 +1810,194 @@
         "wordcloud": [
           {
             "word": "社交软件",
+            "weight": 0.95
+          },
+          {
+            "word": "唱歌app",
+            "weight": 0.88
+          },
+          {
+            "word": "交友方式",
+            "weight": 0.9
+          },
+          {
+            "word": "兴趣相同",
+            "weight": 0.85
+          },
+          {
+            "word": "搭子文化",
+            "weight": 0.8
+          },
+          {
+            "word": "饭搭子",
+            "weight": 0.78
+          },
+          {
+            "word": "健身搭子",
+            "weight": 0.77
+          },
+          {
+            "word": "主动搭讪",
+            "weight": 0.82
+          },
+          {
+            "word": "破冰之道",
+            "weight": 0.75
+          },
+          {
+            "word": "朋友的朋友",
+            "weight": 0.83
+          },
+          {
+            "word": "幼儿园同学",
+            "weight": 0.72
+          },
+          {
+            "word": "约会成本",
+            "weight": 0.81
+          },
+          {
+            "word": "AA制",
+            "weight": 0.84
+          },
+          {
+            "word": "女性地位",
+            "weight": 0.79
+          },
+          {
+            "word": "请吃饭",
+            "weight": 0.76
+          },
+          {
+            "word": "谈恋爱",
+            "weight": 0.87
+          },
+          {
+            "word": "互联网时代",
+            "weight": 0.74
+          },
+          {
+            "word": "昭和时代",
+            "weight": 0.7
+          },
+          {
+            "word": "巴西女孩子",
+            "weight": 0.73
+          },
+          {
+            "word": "欧洲AA",
+            "weight": 0.71
+          }
+        ]
+      },
+      {
+        "sentence": "我的我的好奇了，我的这个年龄段的话哈，都是在街上在街上嗯",
+        "slot": "线下搭讪",
+        "id": 385,
+        "color": "#B4E6B4",
+        "sentiment": 0,
+        "source": "yoyo浅井佑右",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "线下搭讪",
+            "weight": 0.95
+          },
+          {
+            "word": "AA制",
+            "weight": 0.88
+          },
+          {
+            "word": "谈恋爱",
+            "weight": 0.85
+          },
+          {
+            "word": "朋友的朋友",
+            "weight": 0.82
+          },
+          {
+            "word": "唱歌app",
+            "weight": 0.8
+          },
+          {
+            "word": "兴趣相同",
+            "weight": 0.78
+          },
+          {
+            "word": "搭子文化",
+            "weight": 0.76
+          },
+          {
+            "word": "饭搭子",
+            "weight": 0.74
+          },
+          {
+            "word": "健身搭子",
+            "weight": 0.72
+          },
+          {
+            "word": "破冰之道",
+            "weight": 0.7
+          },
+          {
+            "word": "幼儿园同学",
+            "weight": 0.68
+          },
+          {
+            "word": "陌生人",
+            "weight": 0.66
+          },
+          {
+            "word": "朋友筛选",
+            "weight": 0.64
+          },
+          {
+            "word": "清华大学",
+            "weight": 0.62
+          },
+          {
+            "word": "互联网时代",
+            "weight": 0.6
+          },
+          {
+            "word": "欧洲AA",
+            "weight": 0.58
+          },
+          {
+            "word": "拉美国家",
+            "weight": 0.56
+          },
+          {
+            "word": "俄罗斯约会",
+            "weight": 0.54
+          },
+          {
+            "word": "B站",
+            "weight": 0.52
+          },
+          {
+            "word": "居酒屋",
+            "weight": 0.5
+          }
+        ]
+      },
+      {
+        "sentence": "然后现在的话呢就认识新的朋友，或者呃这这个方式的话，基本上都是朋友的朋友",
+        "slot": "朋友介绍",
+        "id": 399,
+        "color": "#B4E6B4",
+        "sentiment": 0.1,
+        "source": "yoyo浅井佑右",
+        "is_question": false,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "交友方式",
+            "weight": 0.95
+          },
+          {
+            "word": "朋友介绍",
             "weight": 0.85
           },
           {
@@ -1781,232 +2013,64 @@
             "weight": 0.75
           },
           {
-            "word": "饭搭子",
-            "weight": 0.7
-          },
-          {
-            "word": "健身搭子",
-            "weight": 0.7
-          },
-          {
             "word": "主动搭讪",
+            "weight": 0.72
+          },
+          {
+            "word": "破冰之道",
+            "weight": 0.7
+          },
+          {
+            "word": "朋友的朋友",
             "weight": 0.68
           },
           {
-            "word": "互联网时代",
+            "word": "B站",
             "weight": 0.65
           },
           {
-            "word": "谈恋爱",
+            "word": "安全放心",
             "weight": 0.63
           },
           {
-            "word": "约会",
+            "word": "好朋友",
             "weight": 0.6
           },
           {
-            "word": "AA买单",
+            "word": "交友软件",
             "weight": 0.58
           },
           {
-            "word": "请吃饭",
+            "word": "疫情影响",
             "weight": 0.55
-          },
-          {
-            "word": "兴趣伴侣",
-            "weight": 0.53
-          },
-          {
-            "word": "街上搭讪",
-            "weight": 0.5
-          },
-          {
-            "word": "居酒屋",
-            "weight": 0.48
-          },
-          {
-            "word": "酒吧",
-            "weight": 0.45
-          },
-          {
-            "word": "年轻人",
-            "weight": 0.43
-          },
-          {
-            "word": "认识朋友",
-            "weight": 0.4
-          },
-          {
-            "word": "五花八门",
-            "weight": 0.38
-          },
-          {
-            "word": "餐厅",
-            "weight": 0.35
-          }
-        ]
-      },
-      {
-        "sentence": "我的我的好奇了，我的这个年龄段的话哈，都是在街上在街上嗯",
-        "slot": "线下搭讪",
-        "id": 385,
-        "color": "#B4E6B4",
-        "sentiment": 0,
-        "source": "yoyo浅井佑右",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "交友方式",
-            "weight": 0.95
-          },
-          {
-            "word": "线下搭讪",
-            "weight": 0.9
-          },
-          {
-            "word": "互联网时代",
-            "weight": 0.85
-          },
-          {
-            "word": "兴趣相同",
-            "weight": 0.8
-          },
-          {
-            "word": "搭子文化",
-            "weight": 0.75
-          },
-          {
-            "word": "饭搭子",
-            "weight": 0.7
-          },
-          {
-            "word": "健身搭子",
-            "weight": 0.65
-          },
-          {
-            "word": "主动搭讪",
-            "weight": 0.6
-          },
-          {
-            "word": "餐厅",
-            "weight": 0.55
-          },
-          {
-            "word": "居酒屋",
-            "weight": 0.5
-          },
-          {
-            "word": "酒吧",
-            "weight": 0.45
-          },
-          {
-            "word": "天气很好",
-            "weight": 0.4
-          },
-          {
-            "word": "好久不见",
-            "weight": 0.35
-          },
-          {
-            "word": "幼儿园",
-            "weight": 0.3
-          },
-          {
-            "word": "破冰之道",
-            "weight": 0.25
-          }
-        ]
-      },
-      {
-        "sentence": "然后现在的话呢就认识新的朋友，或者呃这这个方式的话，基本上都是朋友的朋友",
-        "slot": "朋友介绍",
-        "id": 399,
-        "color": "#B4E6B4",
-        "sentiment": 0.1,
-        "source": "yoyo浅井佑右",
-        "is_question": false,
-        "resolved": false,
-        "wordcloud": [
-          {
-            "word": "搭讪方式",
-            "weight": 0.85
-          },
-          {
-            "word": "破冰之道",
-            "weight": 0.78
-          },
-          {
-            "word": "朋友介绍",
-            "weight": 0.95
-          },
-          {
-            "word": "气氛良好",
-            "weight": 0.82
-          },
-          {
-            "word": "老朋友",
-            "weight": 0.73
-          },
-          {
-            "word": "B站交友",
-            "weight": 0.7
-          },
-          {
-            "word": "幼儿园同学",
-            "weight": 0.65
-          },
-          {
-            "word": "安全感",
-            "weight": 0.9
-          },
-          {
-            "word": "朋友筛选",
-            "weight": 0.88
-          },
-          {
-            "word": "谈恋爱对象",
-            "weight": 0.75
           },
           {
             "word": "结婚对象",
-            "weight": 0.83
+            "weight": 0.53
           },
           {
-            "word": "好朋友",
-            "weight": 0.93
+            "word": "社交方式",
+            "weight": 0.5
           },
           {
-            "word": "幸福生活",
-            "weight": 0.8
+            "word": "饭搭子",
+            "weight": 0.48
           },
           {
-            "word": "陌生人",
-            "weight": 0.6
+            "word": "健身搭子",
+            "weight": 0.45
           },
           {
-            "word": "沟通技巧",
-            "weight": 0.68
+            "word": "居酒屋",
+            "weight": 0.43
           },
           {
-            "word": "叔叔建议",
-            "weight": 0.55
+            "word": "酒吧",
+            "weight": 0.4
           },
           {
-            "word": "长久伴侣",
-            "weight": 0.77
-          },
-          {
-            "word": "婚姻基础",
-            "weight": 0.82
-          },
-          {
-            "word": "信任关系",
-            "weight": 0.84
-          },
-          {
-            "word": "人生规划",
-            "weight": 0.74
+            "word": "评论区",
+            "weight": 0.38
           }
         ]
       },
@@ -2025,79 +2089,79 @@
             "weight": 0.95
           },
           {
-            "word": "安全",
-            "weight": 0.82
+            "word": "朋友的朋友",
+            "weight": 0.85
           },
           {
-            "word": "好朋友",
-            "weight": 0.78
-          },
-          {
-            "word": "疫情",
-            "weight": 0.75
+            "word": "疫情影响",
+            "weight": 0.8
           },
           {
             "word": "结婚对象",
-            "weight": 0.73
+            "weight": 0.78
           },
           {
-            "word": "谈恋爱",
-            "weight": 0.71
+            "word": "安全感",
+            "weight": 0.75
           },
           {
-            "word": "普遍",
+            "word": "陌生人",
+            "weight": 0.7
+          },
+          {
+            "word": "好朋友",
             "weight": 0.68
           },
           {
-            "word": "吸引力",
+            "word": "谈恋爱",
             "weight": 0.65
           },
           {
-            "word": "交际方式",
-            "weight": 0.63
+            "word": "认识方式",
+            "weight": 0.62
           },
           {
-            "word": "日本",
+            "word": "普遍现象",
             "weight": 0.6
           },
           {
-            "word": "结婚",
+            "word": "交际方式",
             "weight": 0.58
           },
           {
-            "word": "离婚",
+            "word": "婚姻观念",
             "weight": 0.55
           },
           {
-            "word": "朋友",
+            "word": "对象选择",
             "weight": 0.53
           },
           {
-            "word": "单身",
+            "word": "社交平台",
             "weight": 0.5
           },
           {
-            "word": "认识对象",
+            "word": "过滤筛选",
             "weight": 0.48
           },
           {
-            "word": "经验",
+            "word": "单身话题",
             "weight": 0.45
           },
           {
-            "word": "选择",
-            "weight": 0.43
+            "word": "邮件联系",
+            "weight": 0.42
           },
           {
-            "word": "评论区",
+            "word": "离婚案例",
             "weight": 0.4
           },
           {
-            "word": "邮件",
+            "word": "性吸引力",
             "weight": 0.38
           },
           {
-            "word": "普及",
+            "word": "评论区互动",
             "weight": 0.35
           }
         ]

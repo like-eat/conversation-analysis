@@ -1,0 +1,275 @@
+[
+  {
+    "start_id": 1,
+    "end_id": 2,
+    "slot": "自我价值怀疑",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 3,
+    "end_id": 6,
+    "slot": "职业前景焦虑",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 7,
+    "end_id": 8,
+    "slot": "同龄人压力",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 9,
+    "end_id": 10,
+    "slot": "考研后失落",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 11,
+    "end_id": 14,
+    "slot": "毕业后恐惧",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 15,
+    "end_id": 16,
+    "slot": "社交孤立感",
+    "is_question": false,
+    "source": "user"
+  },
+  {
+    "start_id": 17,
+    "end_id": 18,
+    "slot": "外貌自卑",
+    "is_question": false,
+    "source": "user"
+  },
+  {
+    "start_id": 19,
+    "end_id": 20,
+    "slot": "恋爱渴望",
+    "is_question": false,
+    "source": "user"
+  },
+  {
+    "start_id": 21,
+    "end_id": 22,
+    "slot": "生活习惯单调",
+    "is_question": false,
+    "source": "user"
+  },
+  {
+    "start_id": 23,
+    "end_id": 24,
+    "slot": "生活改善计划",
+    "is_question": false,
+    "source": "user"
+  },
+  {
+    "start_id": 25,
+    "end_id": 26,
+    "slot": "冬季情感羡慕",
+    "is_question": false,
+    "source": "user"
+  },
+  {
+    "start_id": 27,
+    "end_id": 28,
+    "slot": "减肥计划",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 29,
+    "end_id": 30,
+    "slot": "健身房选择",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 31,
+    "end_id": 34,
+    "slot": "减肥方法",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 35,
+    "end_id": 38,
+    "slot": "外貌焦虑",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 39,
+    "end_id": 42,
+    "slot": "外形改善",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 43,
+    "end_id": 44,
+    "slot": "心理支持",
+    "is_question": false,
+    "source": "user"
+  },
+  {
+    "start_id": 45,
+    "end_id": 46,
+    "slot": "恋爱交流",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 47,
+    "end_id": 50,
+    "slot": "家庭压力",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 51,
+    "end_id": 52,
+    "slot": "兼职选择",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 53,
+    "end_id": 54,
+    "slot": "社交能力",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 55,
+    "end_id": 58,
+    "slot": "情感表达",
+    "is_question": false,
+    "source": "user"
+  },
+  {
+    "start_id": 59,
+    "end_id": 60,
+    "slot": "个人特长",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 61,
+    "end_id": 62,
+    "slot": "唱歌和乐器学习",
+    "is_question": false,
+    "source": "user"
+  },
+  {
+    "start_id": 63,
+    "end_id": 66,
+    "slot": "经济压力与社交",
+    "is_question": false,
+    "source": "user"
+  },
+  {
+    "start_id": 67,
+    "end_id": 68,
+    "slot": "自我评价与情绪",
+    "is_question": false,
+    "source": "user"
+  },
+  {
+    "start_id": 69,
+    "end_id": 72,
+    "slot": "健身与体能",
+    "is_question": false,
+    "source": "user"
+  },
+  {
+    "start_id": 73,
+    "end_id": 74,
+    "slot": "健身房自信心",
+    "is_question": false,
+    "source": "user"
+  },
+  {
+    "start_id": 75,
+    "end_id": 76,
+    "slot": "运动后酸痛",
+    "is_question": false,
+    "source": "user"
+  },
+  {
+    "start_id": 77,
+    "end_id": 80,
+    "slot": "运动与心情改善",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 81,
+    "end_id": 84,
+    "slot": "与异性交流",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 85,
+    "end_id": 86,
+    "slot": "低成本社交活动",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 87,
+    "end_id": 88,
+    "slot": "羽毛球运动",
+    "is_question": false,
+    "source": "user"
+  },
+  {
+    "start_id": 89,
+    "end_id": 90,
+    "slot": "约人打羽毛球",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 91,
+    "end_id": 92,
+    "slot": "邀约策略",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 93,
+    "end_id": 96,
+    "slot": "英语学习方法",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 97,
+    "end_id": 102,
+    "slot": "自信提升",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 103,
+    "end_id": 106,
+    "slot": "失眠与焦虑",
+    "is_question": true,
+    "source": "user"
+  },
+  {
+    "start_id": 107,
+    "end_id": 108,
+    "slot": "压力缓解方法",
+    "is_question": true,
+    "source": "user"
+  }
+]

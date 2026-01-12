@@ -2,40 +2,18 @@ import os
 
 import json
 from typing import Any, Dict, List
-from LLM_Extraction import Score_turn_importance ,Semantic_pre_scanning, Topic_cleaning, Topic_Allocation,refine_slot_resolution, extract_wordcloud
-from Methods import assign_colors, parse_conversation, parse_meeting_conversation, split_history_by_turns
-
+from LLM_Extraction import Score_turn_importance ,Semantic_pre_scanning, Topic_cleaning, Topic_Allocation,refine_slot_resolution, extract_wordcloud, Topic_Edge_detection, Topic_merge
+from Methods import *
 CHECKPOINT_PATH = "py/conversation_example/ChatGPT-xinli_result.json"
 FINAL_PATH = "py/conversation_example/ChatGPT-xinli_processed.json"
 FINAL_PATH_SCORE = "py/conversation_example/meeting_score.json"
 
-STEP1_PATH = "py/conversation_example/xinli_content/step1_topics_raw.json"
-STEP2_PATH = "py/conversation_example/xinli_content/step2_topics_clean.json"
+STEP0_PATH = "py/conversation_example/meeting_content/step0_edge_detection.json"
+STEP1_PATH = "py/conversation_example/meeting_content/step1_topic_merge.json"
+STEP2_PATH = "py/conversation_example/meeting_content/step2_topics_clean.json"
 STEP3_PATH = "py/conversation_example/meeting_content/step3_topics_with_slots.json"
 STEP4_PATH = "py/conversation_example/meeting_content/step4_slot_with_wordcloud.json"
 FINAL_PATH = "py/conversation_example/meeting_content/final_result.json"
-
-def chunk_text(text, max_chars=40000):
-    """把长文本切成安全的多段"""
-    chunks = []
-    current_chunk = []
-    current_length = 0
-
-    for line in text.split("\n"):
-        line_length = len(line)
-        if current_length + line_length > max_chars:
-            if current_chunk:
-                chunks.append(current_chunk)
-            current_chunk = [line]
-            current_length = line_length
-        else:
-            current_chunk.append(line)
-            current_length += line_length
-
-    if current_chunk:
-        chunks.append(current_chunk)
-
-    return chunks
 
 def segment_by_timeline(topics):
     # 1. 先把所有 slot 打平，变成一个按句子粒度的列表
@@ -138,7 +116,7 @@ def process_score(file_path):
     messages = parse_meeting_conversation(file_path)
 
     # 2) 按条数切成多个 chunk，例如每段 80 轮
-    history_chunks = split_history_by_turns(messages, max_turns=80)
+    history_chunks = build_conv_chunks(messages)
 
     scored_all = []
     for i, chunk in enumerate(history_chunks, 1):
@@ -168,7 +146,7 @@ def process_conversation(file_path):
         lines.append(f"[{m['id']}] ({m['role']}) {content}")
 
     full_text = "\n".join(lines)
-    chunks = chunk_text(full_text, max_chars=40000)   # 每段约 1/3 模型上限
+    chunks = build_conv_chunks(full_text)   # 每段约 1/3 模型上限
     all_results = []
     
     for i, chunk in enumerate(chunks, 1):
@@ -258,47 +236,57 @@ def postprocess_topics_unique_and_prune(topics: List[Dict[str, Any]]) -> List[Di
 
     return new_topics
 
-def run_step1_semantic_scan(file_path: str, out_path: str = STEP1_PATH):
-    messages = parse_conversation(file_path)   # [{id, role, content}]
-    lines = []
-    for m in messages:
-        content = (m.get("content") or "").replace("\n", " ").strip()
-        if not content:
-            continue
-        lines.append(f"[{m['id']}] ({m['role']}) {content}")
-
-    full_text = "\n".join(lines)
-    chunks = chunk_text(full_text, max_chars=40000)
+def run_step0_edge_detection(file_path: str,
+                             out_path: str):
+    messages = parse_meeting_conversation(file_path)   # history: [{id, role, content}]
+    chunks = build_conv_chunks(messages)
 
     all_results = []
-    for i, chunk in enumerate(chunks, 1):
-        print(f"🧠 [Step1] 第 {i}/{len(chunks)} 段抽取中...")
-        chunk_messages = []
-        for line in chunk:
-            try:
-                id_part, rest = line.split("] (", 1)
-                mid = int(id_part[1:])
-                role, text = rest.split(") ", 1)
-            except ValueError:
-                continue
-            chunk_messages.append({
-                "id": mid,
-                "role": role,
-                "content": text.strip()
-            })
+
+    for i, ch in enumerate(chunks, 1):
+        print(f"🧠 [Step0] 第 {i}/{len(chunks)} 段检测中... ({ch['start_id']}~{ch['end_id']})")
+
+        # ✅ 从原 messages 里取出这一段对应的消息（按 chunk 的 start/end）
+        # 注意：这里是按“id范围”取；如果你 id 会跳号也没关系（仍然是范围内的消息）
+        chunk_messages = [
+            {"id": int(m["id"]), "role": m.get("role", ""), "content": (m.get("content") or "").strip()}
+            for m in messages
+            if "id" in m and ch["start_id"] <= int(m["id"]) <= ch["end_id"] and (m.get("content") or "").strip()
+        ]
 
         if not chunk_messages:
-            print(f"⚠️ [Step1] 第 {i} 段没有解析出有效对话，跳过 Semantic_pre_scanning")
+            print(f"⚠️ [Step0] 第 {i} 段无有效消息，跳过")
             continue
 
-        result = Semantic_pre_scanning(chunk_messages)
-        print("  partial result:", result)
-        all_results.extend(result)
+        # LLM 边界检测
+        result = Topic_Edge_detection(chunk_messages)  # 你已有的函数
+        if isinstance(result, list):
+            all_results.extend(result)
+        else:
+            print(f"⚠️ [Step0] 第 {i} 段返回不是 list，跳过")
+
+    result = dedup_slots_keep_first(all_results)
+
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    print(f"✅ [Step0] 语义边缘切分完成，结果已保存：{out_path}")
+
+
+def run_step1_topic_merge(step0_slots_path: str, out_path: str = STEP1_PATH):
+
+    # 1) 读 Step0 的 slots
+    with open(step0_slots_path, "r", encoding="utf-8") as f:
+        slots = json.load(f)
+    if not isinstance(slots, list):
+        slots = []
+
+    all_results = Topic_merge(slots)
 
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(all_results, f, ensure_ascii=False, indent=2)
-    print(f"✅ [Step1] 语义预扫描完成，结果已保存：{out_path}")
+    print(f"✅ [Step1] 语义主题合并完成，结果已保存：{out_path}")
 
 def run_step2_topic_clean(file_path: str,
                           step1_path: str = STEP1_PATH,
@@ -379,11 +367,14 @@ def run_step5_segment_and_color(step4_path: str = STEP4_PATH,
 if __name__ == "__main__":
     print("🤖 启动对话处理程序...")
     file_path = "py/conversation_example/meeting_talk.txt"
+
+    # run_step0_edge_detection(file_path=file_path, out_path=STEP0_PATH)
+    run_step1_topic_merge(step0_slots_path=STEP0_PATH, out_path=STEP1_PATH)
     # run_step1_semantic_scan(file_path)
     # run_step2_topic_clean(file_path=file_path, step1_path=STEP1_PATH,out_path=STEP2_PATH)
     # run_step3_slots_and_resolution(file_path=file_path,step2_path=STEP2_PATH,out_path=STEP3_PATH)
     # run_step4_slot_with_wordcloud(file_path=file_path,step3_path=STEP3_PATH,out_path=STEP4_PATH)
-    run_step5_segment_and_color(step4_path=STEP4_PATH, out_path=FINAL_PATH)
+    # run_step5_segment_and_color(step4_path=STEP4_PATH, out_path=FINAL_PATH)
 
     # final_data = process_conversation(file_path)
     # final_data = process_score(file_path)

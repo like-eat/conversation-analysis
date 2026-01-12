@@ -1,9 +1,11 @@
+from collections import Counter
 import itertools
 import colorsys
 import re
 import ast
 import json
 from copy import deepcopy
+from typing import Any, Dict, List
 # 自定义颜色调色板，深色系，每个元素是 (r,g,b)，范围 0~1
 color_palette = [
     (0.12, 0.47, 0.91),  # 深蓝
@@ -294,22 +296,95 @@ def parse_meeting_conversation(file_path):
 
     return messages
 
-def split_history_by_turns(history, max_turns=80):
+# ====== 工具：把对话切成窗口 ======
+def build_conv_chunks(history, window_size=30, stride=30):
     """
-    history: [{id, role, content}, ...]
-    按条数把对话切成多个小段，每段最多 max_turns 条。
-    不改动原来的 id。
+    把整轮对话按 id 排序后，切成一段段 chunk，
+    每段包含 window_size 条对话（可重叠，步长 stride）。
+    每个 chunk 结构：{start_id, end_id, text}
     """
+    # 先按 id 排序
+    history_sorted = sorted(
+        [m for m in history if isinstance(m, dict) and m.get("content")],
+        key=lambda x: x.get("id", 0)
+    )
+
     chunks = []
-    cur = []
-    for m in history:
-        cur.append(m)
-        if len(cur) >= max_turns:
-            chunks.append(cur)
-            cur = []
-    if cur:
-        chunks.append(cur)
+    n = len(history_sorted)
+    if n == 0:
+        return chunks
+
+    idx = 0
+    while idx < n:
+        sub = history_sorted[idx: idx + window_size]
+        if not sub:
+            break
+        text = "\n".join(
+            f"[{m['id']}][{m['role']}]: {m['content'].strip()}"
+            for m in sub if m.get("content")
+        )
+        chunks.append({
+            "start_id": sub[0]["id"],
+            "end_id": sub[-1]["id"],
+            "text": text,
+        })
+        if idx + window_size >= n:
+            break
+        idx += stride
+
     return chunks
+
+def dedup_slots_keep_first(segments: List[Dict[str, Any]], label_key: str = "slot") -> List[Dict[str, Any]]:
+    """
+    segments: [{"start_id":..,"end_id":..,"slot"/"topic_label":..,"confidence":..}, ...]
+    label_key: 你的字段名，可能是 "slot" 或 "topic_label"
+
+    规则：
+    - 同名 label 只保留最先出现的那段
+    - 后面重复段删除，但其 id 范围会合并到“前一个保留段”的 end_id 上，保证覆盖连续
+    """
+    if not segments:
+        return []
+
+    # 先按 start_id 排序，防止乱序
+    segs = sorted(segments, key=lambda x: int(x.get("start_id", 0)))
+
+    seen = set()
+    kept: List[Dict[str, Any]] = []
+
+    for seg in segs:
+        label = (seg.get(label_key) or "").strip()
+        if not label:
+            # 没 label 的段：直接保留（或你也可以选择跳过）
+            kept.append(seg)
+            continue
+
+        if label in seen:
+            # 重复：删除，但把它的范围并到上一个 kept 段里（保证无空洞）
+            if kept:
+                kept[-1]["end_id"] = max(int(kept[-1]["end_id"]), int(seg["end_id"]))
+            continue
+
+        seen.add(label)
+        kept.append(seg)
+
+    # 可选：再强制修一下首尾相接（把间隙吃掉）
+    for i in range(1, len(kept)):
+        prev = kept[i - 1]
+        cur = kept[i]
+        prev_end = int(prev["end_id"])
+        cur_start = int(cur["start_id"])
+        if cur_start > prev_end + 1:
+            # 中间有空洞：让 prev 覆盖到 cur_start-1
+            prev["end_id"] = cur_start - 1
+        elif cur_start <= prev_end:
+            # 重叠：把 cur_start 推到 prev_end+1
+            cur["start_id"] = prev_end + 1
+
+    # 再做一次：去掉 start>end 的坏段（极少见，保险）
+    kept = [s for s in kept if int(s["start_id"]) <= int(s["end_id"])]
+
+    return kept
 
 def conver_to_json(data):
    
@@ -327,3 +402,73 @@ def conver_to_json(data):
     with open("py/conversation_example/slots.json", "w", encoding="utf-8") as f:
         f.write(json_str)
     print("转换完成，已写入 slots.json")
+
+# ---------- 工具：从 history 里取某个 id 区间的文本 ----------
+def slice_history(history: List[Dict[str, Any]], start_id: int, end_id: int) -> List[Dict[str, Any]]:
+    out = []
+    for m in history:
+        if "id" not in m:
+            continue
+        try:
+            mid = int(m["id"])
+        except Exception:
+            continue
+        if start_id <= mid <= end_id:
+            txt = (m.get("content") or "").strip()
+            if txt:
+                out.append({"id": mid, "role": (m.get("role") or "").strip(), "content": txt})
+    out.sort(key=lambda x: x["id"])
+    return out
+
+def infer_source(messages_in_range: List[Dict[str, Any]]) -> str:
+    # 优先：出现最多的 role
+    roles = [m.get("role","").strip() for m in messages_in_range if (m.get("role") or "").strip()]
+    if roles:
+        return Counter(roles).most_common(1)[0][0]
+    # 否则空
+    return ""
+
+def pack_context(messages_in_range: List[Dict[str, Any]], max_chars: int = 500) -> str:
+    # 拼成短上下文，避免 prompt 太长
+    lines = []
+    for m in messages_in_range:
+        rid = m["id"]
+        role = m.get("role","")
+        content = (m.get("content") or "").replace("\n", " ").strip()
+        if role:
+            lines.append(f"[{rid}][{role}]: {content}")
+        else:
+            lines.append(f"[{rid}]: {content}")
+    s = "\n".join(lines)
+    if len(s) > max_chars:
+        s = s[:max_chars] + "…"
+    return s
+
+def parse_bool(v) -> bool:
+    if isinstance(v, bool):
+        return v
+    if v is None:
+        return False
+    if isinstance(v, (int, float)):
+        return bool(v)
+    s = str(v).strip().lower()
+    if s in ("true", "1", "yes", "y", "是", "对"):
+        return True
+    if s in ("false", "0", "no", "n", "否", "不", "不是"):
+        return False
+    return False
+
+def parse_json_array_loose(raw: str):
+    """更鲁棒：截取最外层 [] 再 json.loads"""
+    if not raw:
+        return []
+    raw = raw.strip()
+    l = raw.find("[")
+    r = raw.rfind("]")
+    if l != -1 and r != -1 and r > l:
+        raw = raw[l:r+1]
+    try:
+        arr = json.loads(raw)
+        return arr if isinstance(arr, list) else []
+    except Exception:
+        return []

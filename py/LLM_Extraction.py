@@ -16,44 +16,6 @@ openai.default_headers = {"x-foo": "true"}
 dimension = 1536  # OpenAI text-embedding-3-small 输出向量维度
 index = faiss.IndexFlatL2(dimension)  # L2 距离索引
 
-# ====== 工具：把对话切成窗口 ======
-def build_conv_chunks(history, window_size=20, stride=20):
-    """
-    把整轮对话按 id 排序后，切成一段段 chunk，
-    每段包含 window_size 条对话（可重叠，步长 stride）。
-    每个 chunk 结构：{start_id, end_id, text}
-    """
-    # 先按 id 排序
-    history_sorted = sorted(
-        [m for m in history if isinstance(m, dict) and m.get("content")],
-        key=lambda x: x.get("id", 0)
-    )
-
-    chunks = []
-    n = len(history_sorted)
-    if n == 0:
-        return chunks
-
-    idx = 0
-    while idx < n:
-        sub = history_sorted[idx: idx + window_size]
-        if not sub:
-            break
-        text = "\n".join(
-            f"[{m['id']}][{m['role']}]: {m['content'].strip()}"
-            for m in sub if m.get("content")
-        )
-        chunks.append({
-            "start_id": sub[0]["id"],
-            "end_id": sub[-1]["id"],
-            "text": text,
-        })
-        if idx + window_size >= n:
-            break
-        idx += stride
-
-    return chunks
-
 def embed_texts(
         text_list, 
         model="text-embedding-3-large",
@@ -295,6 +257,213 @@ def Score_turn_importance(history):
 
     return new_history
 
+def Topic_Edge_detection(history):
+    def to_lines(h):
+        if isinstance(h, str):
+            return h.strip()
+
+        if isinstance(h, dict):
+            if isinstance(h.get("messages"), list):
+                h = h["messages"]
+            elif isinstance(h.get("history"), list):
+                h = h["history"]
+            else:
+                h = [h]
+
+        if isinstance(h, list):
+            lines = []
+            for m in h:
+                if not isinstance(m, dict) or "id" not in m:
+                    continue
+                try:
+                    mid = int(m.get("id"))
+                except Exception:
+                    continue
+                role = (m.get("role") or m.get("from") or m.get("source") or "unknown").strip()
+                content = (m.get("content") or m.get("text") or "").replace("\n", " ").strip()
+                if content:
+                    lines.append(f"[{mid}][{role}]: {content}")
+            return "\n".join(lines).strip()
+
+        return str(h).strip()
+
+    history_text = to_lines(history)
+
+    prompt = f"""你是“对话话题边界检测器”。只输出 JSON 数组，不要解释，不要 Markdown。
+
+    对话片段（每行以 [id][role]: 开头）：
+    -role: 表明这句话的发言人是谁
+    {history_text}
+
+    任务：把全体消息切分成若干“连续、不重叠、覆盖全部”的话题段。
+
+    要求：
+    1) 每段包含连续的 id 范围：start_id <= id <= end_id
+    2) 段与段之间必须首尾相接：下一段 start_id = 上一段 end_id + 1
+    3) 覆盖全部消息：第一段 start_id=最小id，最后一段 end_id=最大id
+    4) slot 用中文名词短语，2~6字，避免口语/虚词，且必须只表达一个核心主题（禁止“X与Y/和/及/多个、”）
+    5) is_question：该段是否是提问（true/false）
+    6) source：该段来源, 表明这段对话的主要发言人
+    6) 段太短(<3条)尽量合并，段太长(>40条)尽量拆分
+    7) 输出字段必须包含：start_id, end_id, slot, is_question, confidence(0~1)
+
+    严格输出 JSON，例如：
+    [
+    {{"start_id":1,"end_id":12,"slot":"婚姻观念","is_question":false,"source":"XXX"}},
+    {{"start_id":13,"end_id":27,"slot":"社会压力","is_question":true,"source":"XXX"}}
+    ]
+    """
+
+    completion = openai.chat.completions.create(
+        model="gpt-4o",
+        temperature=0.2,
+        messages=[
+            {"role": "system", "content": "你只输出 JSON 数组，不要输出解释，不要 Markdown。"},
+            {"role": "user", "content": prompt},
+        ],
+    )
+
+    raw = (completion.choices[0].message.content or "").strip()
+    arr = parse_json_array_loose(raw)
+
+    # 轻度规整：保证字段存在、类型正确
+    out = []
+    for it in arr:
+        if not isinstance(it, dict):
+            continue
+        try:
+            s = int(it.get("start_id"))
+            e = int(it.get("end_id"))
+            source = str(it.get("source"))
+        except Exception:
+            continue
+        slot = (it.get("slot") or "").strip()
+        if not slot:
+            continue
+        out.append({
+            "start_id": s,
+            "end_id": e,
+            "slot": slot,
+            "is_question": parse_bool(it.get("is_question")),
+            "source": source,
+        })
+    return out
+
+def Topic_merge(topic_description: List[Dict[str, Any]]):
+    slot_items = []
+    for it in topic_description:
+        if not isinstance(it, dict):
+            continue
+        try:
+            start_id = int(it.get("start_id"))
+            end_id = int(it.get("end_id"))
+            source = str(it.get("source"))
+        except Exception:
+            continue
+        slot_name = (it.get("slot") or it.get("topic_label") or "").strip()
+        if not slot_name:
+            continue
+
+
+        slot_items.append({
+            "slot": slot_name,
+            "id": start_id,
+            "source": source,
+            "is_question": parse_bool(it.get("is_question")),
+            "start_id": start_id,
+            "end_id": end_id,
+        })
+
+    slot_list_for_prompt = [
+        {k: s[k] for k in ("slot","id","source","is_question","start_id","end_id")}
+        for s in slot_items
+    ]
+
+    prompt = f"""你是“对话话题聚类器”。只输出 JSON 数组，不要解释，不要 Markdown。
+
+    输入：若干 slot（每个 slot 代表一段连续对话），需要把它们聚类成更高层 topic。
+    每个 slot 字段：
+    - slot, id, source, is_question, start_id, end_id
+
+    聚类要求：
+    1) 输出若干 topic，每个 topic 包含若干 slot。
+    2) 每个 slot 必须且只能出现一次（不能遗漏、不能重复）。
+    3) topic 名称：中文名词短语，2~8字，避免口语/虚词。
+    【topic 的约束】
+        1. 每一个 "topic" 必须只表达**一个**核心主题，而不是两个或多个并列的主题。
+        2. 禁止使用如下并列写法：
+           - "XXX与YYY"
+           - "XXX和YYY"
+           - "XXX及YYY"
+           - "XXX / YYY"
+        3. 如果你发现某个方向其实包含两个子主题，例如：
+           - 原本你想写成 "经济压力与兼职"
+           则请改写为两条独立的主题：
+           - "经济压力"
+           - "兼职工作"
+    4) 合并语义接近的 slot（如“播客介绍/播客内容讨论”应归为同一 topic）。
+    5) topic 数量一般 2~8 个（slot 很多时可更多）。
+    6) 输出结构必须是：
+    [
+    {{
+        "topic": "...",
+        "slots": [
+        {{"slot":"...","id":1,"source":"...","is_question":false,"start_id":1,"end_id":12}},
+        ...
+        ]
+    }},
+    ...
+    ]
+
+下面是 slot 列表（必须覆盖且只覆盖这些 slot）：
+{json.dumps(slot_list_for_prompt, ensure_ascii=False, indent=2)}
+"""
+
+    completion = openai.chat.completions.create(
+        model="gpt-4o",
+        temperature=0.2,
+        messages=[
+            {"role": "system", "content": "你只输出JSON数组，不要解释，不要Markdown。"},
+            {"role": "user", "content": prompt},
+        ],
+    )
+
+    raw = (completion.choices[0].message.content or "").strip()
+    result = parse_json_array_loose(raw)
+
+    # ✅ 后处理校验：确保每个 slot 只出现一次（不信 LLM，自己兜底）
+    expected = {(s["slot"], s["id"]) for s in slot_items}
+    seen = set()
+    fixed = []
+    for t in result if isinstance(result, list) else []:
+        if not isinstance(t, dict) or "slots" not in t:
+            continue
+        topic = (t.get("topic") or "").strip()
+        if not topic:
+            continue
+        new_slots = []
+        for s in (t.get("slots") or []):
+            if not isinstance(s, dict):
+                continue
+            key = (str(s.get("slot","")).strip(), int(s.get("id", -1)))
+            if key in expected and key not in seen:
+                seen.add(key)
+                new_slots.append(s)
+        if new_slots:
+            fixed.append({"topic": topic, "slots": new_slots})
+
+    # 把遗漏的 slot 兜底塞到 “其他”
+    missing = [s for s in slot_items if (s["slot"], s["id"]) not in seen]
+    if missing:
+        fixed.append({
+            "topic": "其他",
+            "slots": [
+                {k: m[k] for k in ("slot","id","source","is_question","start_id","end_id")}
+                for m in missing
+            ]
+        })
+
+    return fixed
 
 def Semantic_pre_scanning(history):
     if isinstance(history, dict):
@@ -790,7 +959,6 @@ def build_local_window(history, center_id, window_size=8):
         lines.append(f"[{mid}][{role}]: {text}")
     return "\n".join(lines)
 
-
 def ask_if_resolved(history, slot_obj):
     """
     history: 原始对话 [{id, role, content}, ...]
@@ -914,8 +1082,8 @@ def refine_slot_resolution(history, topics_with_slots,
 def extract_wordcloud(
     history: List[Dict[str, Any]],
     topics_with_slots: List[Dict[str, Any]],
-    max_words: int = 20,
-    window_size: int = 10,
+    max_words: int = 30,
+    window_size: int = 20,
     limit_slots: Optional[int] = None,
 ):
     """
@@ -990,7 +1158,7 @@ def extract_wordcloud(
             sentence = (s.get("sentence") or "").strip()
             local_ctx = build_local_ctx(sid) or sentence
 
-            k = max(8, min(int(max_words), 40))
+            k = max(15, min(int(max_words), 50))
 
             prompt = f"""你是一名严格的关键词抽取助手，只输出 JSON 数组。
             为下面的局部对话片段生成词云关键词。

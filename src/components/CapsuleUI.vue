@@ -2,6 +2,10 @@
   <div class="capsule-container">
     <div ref="UIcontainer" class="capsule-body"></div>
 
+    <div class="dataset-label">
+      {{ datasetName }}
+    </div>
+
     <!-- 操作按钮 -->
     <button class="bottom-left-btn" @click="DeleteLine">清除线条</button>
     <button class="bottom-mid-btn" @click="AddTalk">新开分支</button>
@@ -12,7 +16,7 @@
 <script setup lang="ts">
 //  1) 依赖 / 类型
 import * as d3 from 'd3'
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import type { Conversation, MessageItem, Point, Segment, Slot } from '@/types/index'
 import { useFileStore } from '@/stores/FileInfo'
 
@@ -21,6 +25,10 @@ type PointWithLayout = Point & {
   _y: number
   _ty: number
 }
+
+const datasetName = computed(() => {
+  return props.datasetKey === 'meeting' ? '多人会议' : '心理疾病'
+})
 
 //  2) 全局 Store / 响应式状态
 const FileStore = useFileStore()
@@ -162,251 +170,10 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
   const WORDCLOUD_ZOOM_THRESHOLD = 1.5
 
   // ===== 额外：slot lens（局部放大镜）=====
-  let lensState: { centerTurn: number } | null = null
   let wordcloudTurn: number | null = null
 
   // [新增] 保存总条带外轮廓 path（用于 clipPath 裁剪 slot 云）
   let outlinePathDataForClip: string | null = null
-
-  function showSlotLens(centerTurn: number) {
-    // 你可以调的参数
-    const LENS_HEIGHT = 140
-    const SCALE_X = 1.8
-    const PAD_X = 10
-
-    // 计算窗口 y 范围（像素坐标）
-    const cy = yScaleTime(centerTurn)
-    const y0 = Math.max(0, cy - LENS_HEIGHT / 2)
-    const y1 = Math.min(innerHeight, cy + LENS_HEIGHT / 2)
-    const h = Math.max(10, y1 - y0)
-
-    // 1) 拿/建 lens layer
-    let lensLayer = g.select<SVGGElement>('.slot-lens-layer')
-    if (lensLayer.empty()) {
-      lensLayer = g.append('g').attr('class', 'slot-lens-layer')
-    }
-
-    // 重复点同一个 slot：toggle 关闭
-    if (lensState && lensState.centerTurn === centerTurn) {
-      lensLayer.selectAll('*').remove()
-      lensState = null
-      return
-    }
-    lensState = { centerTurn }
-
-    // 清空旧内容
-    lensLayer.selectAll('*').remove()
-
-    // 2) clipPath：只限制 y 方向窗口
-    const clipId = `lens-clip-${centerTurn}`
-    const defs = g.select('defs').empty() ? g.append('defs') : g.select('defs')
-
-    defs.select(`#${clipId}`).remove()
-    defs
-      .append('clipPath')
-      .attr('id', clipId)
-      .append('rect')
-      .attr('x', -1000)
-      .attr('y', y0)
-      .attr('width', innerWidth + 2000)
-      .attr('height', h)
-
-    // 3) lens 内容组：复制条带并 scaleX（绕 STRIP_CENTER 缩放）
-    const lensContent = lensLayer
-      .append('g')
-      .attr('class', 'slot-lens-content')
-      .attr('clip-path', `url(#${clipId})`)
-
-    lensContent.attr(
-      'transform',
-      `translate(${STRIP_CENTER * (1 - SCALE_X)},0) scale(${SCALE_X},1)`,
-    )
-
-    // 重画所有 topic band
-    topicBands.forEach((segments, topic) => {
-      const color = topicGroup.get(topic)!.color
-      const area = d3
-        .area<Segment>()
-        .y((d) => yScaleTime(d.id))
-        .x0((d) => d.left)
-        .x1((d) => d.right)
-        .curve(d3.curveBasis)
-
-      lensContent
-        .append('path')
-        .datum(segments)
-        .attr('class', 'topic-band-lens')
-        .attr('d', (d: Segment[]) => area(d) ?? '')
-        .attr('fill', color)
-        .attr('fill-opacity', 0.95)
-        .style('pointer-events', 'none')
-    })
-
-    // 4) lens 边框
-    lensLayer
-      .append('rect')
-      .attr('class', 'slot-lens-border')
-      .attr('x', STRIP_LEFT - PAD_X)
-      .attr('y', y0)
-      .attr('width', STRIP_WIDTH + PAD_X * 2)
-      .attr('height', h)
-      .attr('rx', 10)
-      .attr('ry', 10)
-      .attr('fill', 'rgba(255,255,255,0.0)')
-      .attr('stroke', '#333')
-      .attr('stroke-width', 1.2)
-      .style('pointer-events', 'none')
-
-    // 5) 小动画
-    lensLayer.attr('opacity', 0).transition().duration(250).ease(d3.easeCubicOut).attr('opacity', 1)
-
-    // === 6) 在 lens 里画“词云”（简化版：权重->字号，自动换行） ===
-    const hit = allPoints.find((p) => p.id === centerTurn) // centerTurn 就是你点击的 slot id
-    const wc = hit?.wordcloud ?? []
-
-    // 只展示前 N 个，避免太挤
-    const MAX_WC = 18
-    const words = wc.slice(0, MAX_WC).filter((d) => d.word)
-
-    // 没有词云就不画
-    if (words.length) {
-      // 单独一层，方便清理
-      const wcLayer = lensLayer.append('g').attr('class', 'slot-wordcloud')
-
-      // 词云区域：放在 lens 边框内（左上角）
-      const boxX = STRIP_LEFT - PAD_X + 12
-      const boxY = y0 + 12
-      const boxW = STRIP_WIDTH + PAD_X * 2 - 24
-      const boxH = h - 24
-
-      const wArr = words.map((d) => (Number.isFinite(d.weight) ? d.weight : 0.5))
-      let wMin = d3.min(wArr) ?? 0
-      let wMax = d3.max(wArr) ?? 1
-
-      // [修改 2] 权重范围太窄会“看起来都一样大”，这里扩一下范围
-      if (wMax - wMin < 0.15) {
-        wMin = Math.max(0, wMin - 0.5)
-        wMax = Math.min(1, wMax + 0.5)
-      }
-
-      // [修改 3] 用 scalePow 拉开差异（比线性更像词云）
-      const fontMin = 10
-      const fontMax = 30
-      const sizeScale = d3
-        .scalePow()
-        .exponent(1.8) // 1.4~2.2 之间调，越大差异越明显
-        .domain([wMin, wMax])
-        .range([fontMin, fontMax])
-        .clamp(true)
-
-      const alphaScale = d3.scaleLinear().domain([wMin, wMax]).range([0.3, 1.0]).clamp(true)
-
-      // 1) 先按权重降序，保证大词优先占位
-      const wordsSorted = words
-        .slice()
-        .sort((a, b) => (Number(b.weight) || 0) - (Number(a.weight) || 0))
-
-      // 2) 记录已经放置的包围盒，用于碰撞检测
-      type Box = { x0: number; x1: number; y0: number; y1: number }
-      const placed: Box[] = []
-
-      // 3) 词云中心（你现在放在左上角，这里改成“区域中心”更像词云）
-      const centerX = boxX + boxW / 2
-      const centerY = boxY + boxH / 2
-
-      // 4) 碰撞检测：新盒子是否与已放置盒子重叠
-      function intersects(b: Box): boolean {
-        for (const p of placed) {
-          const separated = b.x1 < p.x0 || b.x0 > p.x1 || b.y1 < p.y0 || b.y0 > p.y1
-          if (!separated) return true
-        }
-        return false
-      }
-
-      // 5) 在区域内随机微扰（可选，让布局更“云”）
-      function jitter(v: number, amp = 4) {
-        return v + (Math.random() - 0.5) * amp
-      }
-
-      // 6) 开始放置
-      const MAX_TRIES = 220 // 越大越不容易挤失败，但越慢（你最多18个词，这个够用）
-      const PAD = 2 // 词与词之间留点缝隙，避免贴太紧
-
-      for (const it of wordsSorted) {
-        const w = it.word
-        const weight = Number.isFinite(it.weight) ? it.weight : 0.5
-        const fs = sizeScale(weight)
-
-        // 先创建 text，但先不放到最终位置（先测量 bbox）
-        const t = wcLayer
-          .append('text')
-          .attr('x', 0)
-          .attr('y', 0)
-          .attr('text-anchor', 'middle')
-          .attr('dominant-baseline', 'middle')
-          .attr('fill', '#111')
-          .attr('font-family', 'SimHei')
-          .attr('font-size', fs)
-          .attr('fill-opacity', alphaScale(weight))
-          .attr('font-weight', weight > (wMin + wMax) / 2 ? 700 : 400)
-          .text(w)
-
-        const node = t.node() as SVGTextElement | null
-        if (!node) {
-          t.remove()
-          continue
-        }
-
-        // bbox 是以当前 (0,0) 为参考的，width/height 可用
-        const bbox = node.getBBox()
-        const tw = bbox.width
-        const th = bbox.height
-
-        // 可选：少量旋转更像词云（不想旋转就固定 0）
-        const rot = Math.random() < 0.25 ? (Math.random() < 0.5 ? -18 : 18) : 0
-
-        let placedPos: { x: number; y: number; box: Box } | null = null
-
-        // 螺旋搜索：从中心向外扩散
-        for (let k = 0; k < MAX_TRIES; k++) {
-          const a = 0.35 * k
-          const r = 2.4 * Math.sqrt(k) * 3 // 半径增长速度（想更“散”就增大最后的 3）
-          const x = jitter(centerX + r * Math.cos(a), 6)
-          const y = jitter(centerY + r * Math.sin(a), 6)
-
-          const b: Box = {
-            x0: x - tw / 2 - PAD,
-            x1: x + tw / 2 + PAD,
-            y0: y - th / 2 - PAD,
-            y1: y + th / 2 + PAD,
-          }
-
-          // 必须在词云区域内
-          if (b.x0 < boxX || b.x1 > boxX + boxW || b.y0 < boxY || b.y1 > boxY + boxH) continue
-          // 不能重叠
-          if (intersects(b)) continue
-
-          placedPos = { x, y, box: b }
-          break
-        }
-
-        if (!placedPos) {
-          // 放不下就删除（宁缺毋滥）
-          t.remove()
-          continue
-        }
-
-        // 最终落位
-        t.attr('x', placedPos.x).attr('y', placedPos.y)
-
-        if (rot !== 0) {
-          t.attr('transform', `rotate(${rot}, ${placedPos.x}, ${placedPos.y})`)
-        }
-
-        placed.push(placedPos.box)
-      }
-    }
-  }
 
   // ===== 1) 抽点：Conversation[] -> points[] =====
   const points: Point[] = []
@@ -478,14 +245,16 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
 
   // ===== 4) 布局参数 =====
   const width = 1000
-  const height = 1000
-  const MARGIN = { top: 20, right: 20, bottom: 40, left: 200 }
+  const height = 800
+  const MARGIN = { top: 20, right: 20, bottom: 40, left: 100 }
   const innerWidth = width - MARGIN.left - MARGIN.right
   const innerHeight = height - MARGIN.top - MARGIN.bottom
 
   const svg = d3.select(UIcontainer.value).append('svg').attr('width', width).attr('height', height)
   const g = svg.append('g').attr('transform', `translate(${MARGIN.left},${MARGIN.top})`)
   const contentG = g.append('g').attr('class', 'content-root')
+  const bandLayer = contentG.append('g').attr('class', 'band-layer') // 画条带
+  const overlayLayer = contentG.append('g').attr('class', 'overlay-layer') // 画线/slot
 
   // y 轴：按 turn id 映射到像素
   const yScaleTime = d3.scaleLinear().domain([globalMinTurn, globalMaxTurn]).range([0, innerHeight])
@@ -497,7 +266,7 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
 
   g.append('text')
     .attr('class', 'axis-label')
-    .attr('x', -40)
+    .attr('x', 0)
     .attr('y', innerHeight / 2)
     .attr('text-anchor', 'middle')
     .attr('transform', `rotate(-90, -40, ${innerHeight / 2})`)
@@ -507,12 +276,12 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
 
   // 条带位置
   const STRIP_WIDTH = Math.min(500, innerWidth - 100)
-  const STRIP_LEFT = 40
+  const STRIP_LEFT = 150
   const STRIP_CENTER = STRIP_LEFT + STRIP_WIDTH / 2
 
   // ===== 5) 生成“每一行总条带宽度” profile（按 block 平滑）=====
   const totalSteps = xs.length
-  const NUM_WIDTH_BLOCKS = Math.min(10, totalSteps)
+  const NUM_WIDTH_BLOCKS = Math.min(5, totalSteps)
   const BLOCK_SIZE = Math.ceil(totalSteps / NUM_WIDTH_BLOCKS)
 
   const rowProfile = new Map<number, { rowWidth: number; stripLeft: number; stripRight: number }>()
@@ -626,6 +395,51 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
     arr[arr.length - 1].right = stripRight
   })
 
+  // topic -> (turnId -> {left,right})
+  const topicBandById = new Map<string, Map<number, Segment>>()
+  topicBands.forEach((segs, topic) => {
+    const m = new Map<number, Segment>()
+    segs.forEach((s) => m.set(s.id, s))
+    topicBandById.set(topic, m)
+  })
+
+  // topic -> (speaker -> frac in (0,1))  固定列比例（不贴边）
+  const speakerFracByTopic = new Map<string, Map<string, number>>()
+  topics.forEach((topic) => {
+    const spList = Array.from(
+      new Set(
+        allPoints
+          .filter((p) => p.topic === topic)
+          .map((p) => (p.source || '').trim())
+          .filter(Boolean),
+      ),
+    ).sort()
+
+    const n = spList.length
+    const m = new Map<string, number>()
+    spList.forEach((sp, i) => {
+      const EDGE_PAD = 0.08 // 0~0.2 建议
+      let frac = 0.5
+      if (n === 1) frac = 0.5
+      else frac = EDGE_PAD + (1 - 2 * EDGE_PAD) * (i / (n - 1))
+      m.set(sp, frac)
+    })
+    speakerFracByTopic.set(topic, m)
+  })
+
+  // [NEW] slot 的 x：根据 “该topic该行band左右边界” + “speaker固定列比例” 计算
+  const SLOT_PAD_X = 12
+  function fixedXInTopicRow(topic: string, p: Point): number {
+    const seg = topicBandById.get(topic)?.get(p.id)
+    if (!seg) return STRIP_CENTER
+
+    const sp = (p.source || '').trim()
+    const frac = speakerFracByTopic.get(topic)?.get(sp) ?? 0.5
+
+    const innerW = Math.max(6, seg.right - seg.left - 2 * SLOT_PAD_X)
+    return seg.left + SLOT_PAD_X + frac * innerW
+  }
+
   // 选中某个 topic 时，更新 selectedTopicMessages
   const updateSelectedTopic = (topic: string) => {
     const msgs = dataArr
@@ -641,45 +455,8 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
     highlightTopicBands(topic)
   }
 
-  // [修改 A] 维护一个“我们自己的视图变换”，不要直接用 d3 的 t.x/t.y（wheel 会以鼠标为锚点）
-  let viewT: d3.ZoomTransform = d3.zoomIdentity
+  let wordcloudAnchor: { id: number; x: number; y: number } | null = null
 
-  const zoom = d3
-    .zoom<SVGSVGElement, unknown>()
-    .scaleExtent([1, 6])
-    .on('zoom', (event) => {
-      const t = event.transform
-      zoomK = t.k
-
-      // [修改 B] 你想要“向四周扩散”的固定锚点（可按需换成 slot 的 y）
-      const anchorX = STRIP_CENTER
-      const anchorY = wordcloudTurn ? yScaleTime(wordcloudTurn) : innerHeight / 2
-
-      const srcType = (event.sourceEvent as any)?.type
-
-      if (srcType === 'wheel') {
-        // [修改 C] wheel 缩放时：强制围绕 anchor 缩放（anchor 的屏幕位置保持不变）
-        // 旧: viewT.x + viewT.k * A  = 新: x' + k' * A  =>  x' = viewT.x + (viewT.k - k') * A
-        const x = viewT.x + (viewT.k - t.k) * anchorX
-        const y = viewT.y + (viewT.k - t.k) * anchorY
-        viewT = d3.zoomIdentity.translate(x, y).scale(t.k)
-      } else {
-        // [修改 D] 拖拽平移时：允许使用 d3 的平移（保持正常 pan 手感）
-        // 但缩放比例仍然用 t.k（拖拽时 t.k 通常不变）
-        viewT = d3.zoomIdentity.translate(t.x, t.y).scale(viewT.k ?? t.k)
-        // 更稳一点：直接继承当前 k
-        viewT = d3.zoomIdentity.translate(t.x, t.y).scale(viewT.k)
-      }
-
-      // [修改 E] 最终只用我们计算出来的 viewT
-      contentG.attr('transform', `translate(${viewT.x},${viewT.y}) scale(${viewT.k})`)
-
-      tryRenderWordcloudInBand()
-    })
-
-  svg.call(zoom)
-
-  // [修改 3] 新增：词云渲染函数（画在条带内部 contentG 上）
   function tryRenderWordcloudInBand() {
     let wcLayer = contentG.select<SVGGElement>('.slot-wordcloud-inband')
     if (wcLayer.empty()) wcLayer = contentG.append('g').attr('class', 'slot-wordcloud-inband')
@@ -712,7 +489,7 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
     const boxH2 = Math.max(10, boxY1 - boxY0)
 
     // 前 N 个词，按权重降序（权重越大越先放）
-    const MAX_WC = 14
+    const MAX_WC = 30
     const words = wc
       .slice()
       .filter((d) => d.word)
@@ -727,15 +504,27 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
       wMax = Math.min(1, wMax + 0.4)
     }
 
-    const sizeScale = d3.scalePow().exponent(1.9).domain([wMin, wMax]).range([10, 30]).clamp(true)
+    const sizeScale = d3.scalePow().exponent(1.9).domain([wMin, wMax]).range([8, 26]).clamp(true)
     const alphaScale = d3.scaleLinear().domain([wMin, wMax]).range([0.35, 1.0]).clamp(true)
 
     // 碰撞放置：更像词云（不是一行一行）
     type Box = { x0: number; x1: number; y0: number; y1: number }
     const placed: Box[] = []
 
-    const cx0 = boxX0 + boxW / 2
-    const cy0 = boxY0 + boxH2 / 2
+    const baseCx = boxX0 + boxW / 2
+    const baseCy = boxY0 + boxH2 / 2
+
+    // 如果有锚点且是当前 turn，就用 slot 的 x（和可选 y）
+    const useAnchor = wordcloudAnchor && wordcloudAnchor.id === targetId
+
+    const margin = 14 // 给词云中心留点安全距离
+    const cx0 = useAnchor
+      ? Math.max(boxX0 + margin, Math.min(boxX1 - margin, wordcloudAnchor!.x))
+      : baseCx
+
+    // y 我建议仍用 turn 的 centerY（更稳定）；你也可以用 anchor.y
+    const cy0 = baseCy
+
     const aspectY = Math.max(1.2, (boxH2 / boxW) * 3.2)
 
     function intersects(b: Box): boolean {
@@ -813,6 +602,38 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
     }
   }
 
+  let viewT: d3.ZoomTransform = d3.zoomIdentity
+
+  const zoom = d3
+    .zoom<SVGSVGElement, unknown>()
+    .scaleExtent([1, 6])
+    .on('zoom', (event) => {
+      const t = event.transform
+      zoomK = t.k
+
+      const anchorX = STRIP_CENTER
+      const anchorY = wordcloudTurn ? yScaleTime(wordcloudTurn) : innerHeight / 2
+
+      const srcType = event.sourceEvent?.type
+
+      if (srcType === 'wheel') {
+        const x = viewT.x + (viewT.k - t.k) * anchorX
+        const y = viewT.y + (viewT.k - t.k) * anchorY
+        viewT = d3.zoomIdentity.translate(x, y).scale(t.k)
+      } else {
+        // 但缩放比例仍然用 t.k（拖拽时 t.k 通常不变）
+        viewT = d3.zoomIdentity.translate(t.x, t.y).scale(viewT.k ?? t.k)
+        // 更稳一点：直接继承当前 k
+        viewT = d3.zoomIdentity.translate(t.x, t.y).scale(viewT.k)
+      }
+
+      contentG.attr('transform', `translate(${viewT.x},${viewT.y}) scale(${viewT.k})`)
+
+      tryRenderWordcloudInBand()
+    })
+
+  svg.call(zoom)
+
   // ===== 7) 图例布局参数 =====
   const legendWidth = 170
   const legendItemHeight = 18
@@ -831,132 +652,23 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
   const roleLegendY = topicLegendY + topicLegendHeight + 12
 
   // ===== 8) 全局 slot 云（点击 topic 后显示）=====
-  function showSlotCloud(topic: string, centerTurn: number, clickX: number) {
+  function showSlotCloud(topic: string) {
     // 1) 取出该 topic 下的所有 slot，按时间排序
     const allSlots = allPoints.filter((p) => p.topic === topic).sort((a, b) => a.id - b.id)
 
-    // 没数据：隐藏层
-    // if (!allSlots.length) {
-    //   const emptyLayer = g.select<SVGGElement>('.slot-global-cloud')
-    //   if (!emptyLayer.empty()) emptyLayer.style('display', 'none')
-    //   return
-    // }
-
     if (!allSlots.length) {
-      // [修改 4] 这里也从 contentG 找云层（避免缩放层级错位）
       const emptyLayer = contentG.select<SVGGElement>('.slot-global-cloud')
       if (!emptyLayer.empty()) emptyLayer.style('display', 'none')
       return
     }
 
-    // 条带内部可用的 x 范围
-    const paddingX = 12
-
-    // [新增] 动态条带：优先用 centerTurn 对应那一行的 stripLeft/stripRight
-    const rpCenter = rowProfile.get(centerTurn)
-    const minX = (rpCenter ? rpCenter.stripLeft : STRIP_LEFT) + paddingX
-    const maxX = (rpCenter ? rpCenter.stripRight : STRIP_LEFT + STRIP_WIDTH) - paddingX
-
-    // 点击点 x（限制在条带内）
-    const centerX = Math.max(minX, Math.min(clickX, maxX))
-
-    // 只展示前 N 条 slot
+    // [ADD] 只展示前 N 条 slot
     const maxSlots = 40
     const lines = allSlots.slice(0, maxSlots)
 
-    // 0) 先把 Point 转成 PointWithLayout（不污染原对象，避免 any）
-    const linesWL: PointWithLayout[] = lines.map((d) => {
-      const ty = yScaleTime(d.id)
-      return { ...d, _ty: ty, _y: ty, _x: 0 }
-    })
-
-    // 1) 先构建 speakerX（按 source 固定列 x）
-    const speakerList = Array.from(
-      new Set(linesWL.map((d) => (d.source || '').trim()).filter(Boolean)),
-    ).sort()
-
-    const MAX_SPAN = 75
-    const span = Math.min(MAX_SPAN, maxX - minX)
-    const nCol = speakerList.length
-    const colStep = nCol <= 1 ? 0 : span / (nCol - 1)
-
-    const startX = centerX - span / 2
-
-    const speakerX = new Map<string, number>()
-    speakerList.forEach((sp, i) => {
-      let x = startX + i * colStep
-      x = Math.max(minX, Math.min(x, maxX))
-      speakerX.set(sp, x)
-    })
-
-    // 2) 给每个点分配 x
-    linesWL.forEach((d) => {
-      const src = (d.source || '').trim()
-      const sx = speakerX.get(src) ?? centerX
-      ;(d as PointWithLayout)._x = sx
-    })
-
-    // [新增] 每个点按“自己那一行”的条带边界再 clamp 一次，避免某些 turn 的条带更窄导致越界
-    linesWL.forEach((d) => {
-      const rp = rowProfile.get(d.id)
-      const rowMinX = (rp ? rp.stripLeft : STRIP_LEFT) + paddingX
-      const rowMaxX = (rp ? rp.stripRight : STRIP_LEFT + STRIP_WIDTH) - paddingX
-
-      d._x = Math.max(rowMinX, Math.min(d._x, rowMaxX))
-    })
-
-    // 3) 每列 y 避让（避免重叠）
-    const bySpeakerCol = d3.group(linesWL, (d) => (d.source || '').trim())
-    bySpeakerCol.forEach((arr) => {
-      resolveY(arr, 0, innerHeight, 20)
-    })
-
-    // 4) 初始化 / 清空图层
-    let cloudLayer = contentG.select<SVGGElement>('.slot-global-cloud')
-    if (cloudLayer.empty()) cloudLayer = contentG.append('g').attr('class', 'slot-global-cloud')
-
-    cloudLayer
-      .interrupt()
-      .style('display', null)
-      .style('opacity', 0)
-      .attr('transform', 'translate(0, 12) scale(0.96)')
-
-    cloudLayer.selectAll('*').remove()
-
-    const defs = g.select('defs').empty() ? g.append('defs') : g.select('defs')
-    const cloudClipId = 'cloud-clip-strip-outline'
-
-    defs.select(`#${cloudClipId}`).remove()
-
-    if (outlinePathDataForClip) {
-      defs
-        .append('clipPath')
-        .attr('id', cloudClipId)
-        .append('path')
-        .attr('d', outlinePathDataForClip)
-
-      cloudLayer.attr('clip-path', `url(#${cloudClipId})`)
-    } else {
-      // [兜底] 如果还没生成 outline，就先用矩形裁一下（至少不出大框）
-      defs
-        .append('clipPath')
-        .attr('id', cloudClipId)
-        .append('rect')
-        .attr('x', STRIP_LEFT)
-        .attr('y', 0)
-        .attr('width', STRIP_WIDTH)
-        .attr('height', innerHeight)
-
-      cloudLayer.attr('clip-path', `url(#${cloudClipId})`)
-    }
-
-    // 字体/透明度范围（按 i 衰减）
-    const minFont = 10
-    const maxFont = 18
-    const minOpacity = 0.35
-    const maxOpacity = 1.0
-
-    // y避让函数：同一列内部最小间距 minGap
+    // ----------------------------
+    // [MOVE UP] resolveY 必须在使用前定义（否则会报错）
+    // ----------------------------
     function resolveY(points: PointWithLayout[], yMin: number, yMax: number, minGap: number) {
       const ps = points.slice().sort((a, b) => a._ty - b._ty)
 
@@ -987,21 +699,98 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
       }
     }
 
+    // 0) 先把 Point 转成 PointWithLayout
+    const linesWL: PointWithLayout[] = lines.map((d) => {
+      const ty = yScaleTime(d.id)
+      return { ...d, _ty: ty, _y: ty, _x: 0 }
+    })
+
+    // ===== [NEW] 写死 x：每个点都落在“该topic该行band范围内” =====
+    linesWL.forEach((d) => {
+      d._x = fixedXInTopicRow(topic, d)
+    })
+
+    // 3) 每列 y 避让（避免重叠）
+    const bySpeakerCol = d3.group(linesWL, (d) => (d.source || '').trim())
+    bySpeakerCol.forEach((arr) => {
+      resolveY(arr, 0, innerHeight, 10)
+    })
+
+    // 4) 初始化 / 清空图层
+    let cloudLayer = overlayLayer.select<SVGGElement>('.slot-global-cloud')
+    if (cloudLayer.empty()) cloudLayer = overlayLayer.append('g').attr('class', 'slot-global-cloud')
+
+    // 再保险：每次显示都 raise 到最顶
+    cloudLayer.raise()
+
+    cloudLayer
+      .interrupt()
+      .style('display', null)
+      .style('opacity', 0)
+      .attr('transform', 'translate(0, 12) scale(0.96)')
+
+    cloudLayer.selectAll('*').remove()
+
+    const lineLayer = cloudLayer.append('g').attr('class', 'slot-line-layer')
+    const labelLayer = cloudLayer.append('g').attr('class', 'slot-label-layer')
+
+    const defs = g.select('defs').empty() ? g.append('defs') : g.select('defs')
+
+    // [CHANGE] clip 用当前 topic 的 band，而不是总轮廓
+    const safeTopicId = topic.replace(/\s+/g, '-').replace(/[^\w-]/g, '')
+    const cloudClipId = `cloud-clip-topic-${safeTopicId}`
+
+    defs.select(`#${cloudClipId}`).remove()
+
+    const bandD = topicBandPathMap.get(topic) ?? ''
+
+    if (bandD) {
+      defs
+        .append('clipPath')
+        .attr('id', cloudClipId)
+        .attr('clipPathUnits', 'userSpaceOnUse')
+        .append('path')
+        .attr('d', bandD)
+    } else if (outlinePathDataForClip) {
+      defs
+        .append('clipPath')
+        .attr('id', cloudClipId)
+        .attr('clipPathUnits', 'userSpaceOnUse')
+        .append('path')
+        .attr('d', outlinePathDataForClip)
+    } else {
+      defs
+        .append('clipPath')
+        .attr('id', cloudClipId)
+        .attr('clipPathUnits', 'userSpaceOnUse')
+        .append('rect')
+        .attr('x', STRIP_LEFT)
+        .attr('y', 0)
+        .attr('width', STRIP_WIDTH)
+        .attr('height', innerHeight)
+    }
+
+    // 字体/透明度范围（按 i 衰减）
+    const minFont = 10
+    const maxFont = 18
+    const minOpacity = 0.35
+    const maxOpacity = 1.0
+
     // 5) 画 slot 文本组（圆点 + 文本）
-    const slotGroups = cloudLayer
-      .selectAll('g.slot-label')
+    const slotGroups = labelLayer
+      .selectAll<SVGGElement, PointWithLayout>('g.slot-label')
       .data(linesWL)
       .enter()
       .append('g')
       .attr('class', 'slot-label')
       .attr('transform', (d: PointWithLayout) => `translate(${d._x}, ${d._y})`)
       .style('cursor', 'pointer')
-      .on('click', (event, d: Point) => {
+      .on('click', (event, d: PointWithLayout) => {
         event.stopPropagation()
-        console.log('点击 slot：', d.slot, 'id:', d.id, 'source:', d.source)
         onSlotClick(d.id)
-        // [修改 6] 记录当前 slotId，用于缩放到阈值后在条带内部渲染词云
+
         wordcloudTurn = d.id
+        wordcloudAnchor = { id: d.id, x: d._x, y: d._y }
         tryRenderWordcloudInBand()
       })
 
@@ -1019,11 +808,9 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
       if (!slotsOfSpeaker || slotsOfSpeaker.length < 2) return
 
       const sorted = slotsOfSpeaker.slice().sort((a, b) => a.id - b.id)
-      if (sorted.length < 2) return
-
       const coords: [number, number][] = sorted.map((d) => [d._x, d._y])
 
-      cloudLayer
+      lineLayer
         .append('path')
         .attr('class', 'speaker-slot-line')
         .attr('d', lineGen(coords)!)
@@ -1068,31 +855,27 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
       .style('opacity', 1)
       .attr('transform', 'translate(0, 0) scale(1)')
 
-    // 空白处清理（topic 高亮 + lens + cloud）
     function resetAll() {
       activeTopicKey.value = null
       highlightTopicBands(null)
 
-      // lens
       const lensLayer = g.select<SVGGElement>('.slot-lens-layer')
       if (!lensLayer.empty()) lensLayer.selectAll('*').remove()
-      lensState = null
 
-      // cloud
-      const cloudLayer = g.select<SVGGElement>('.slot-global-cloud')
-      if (!cloudLayer.empty()) {
-        cloudLayer
+      const cloudLayer2 = contentG.select<SVGGElement>('.slot-global-cloud')
+      if (!cloudLayer2.empty()) {
+        cloudLayer2
           .interrupt()
           .transition()
           .duration(300)
           .ease(d3.easeCubicIn)
           .style('opacity', 0)
           .on('end', () => {
-            cloudLayer.selectAll('*').remove()
-            cloudLayer.style('display', 'none')
+            cloudLayer2.selectAll('*').remove()
+            cloudLayer2.style('display', 'none')
           })
       }
-      // [修改 7] 清空条带内部词云
+
       const wcLayer = contentG.select<SVGGElement>('.slot-wordcloud-inband')
       if (!wcLayer.empty()) wcLayer.selectAll('*').remove()
       wordcloudTurn = null
@@ -1138,7 +921,7 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
 
     outlinePathDataForClip = outlinePathData ?? null
 
-    contentG
+    bandLayer
       .append('path')
       .attr('class', 'strip-outline')
       .attr('d', outlinePathData!)
@@ -1146,6 +929,9 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
       .attr('stroke', '#e0e0e0')
       .attr('stroke-width', 1.2)
   }
+
+  // ===== 9.5) [NEW] 存每个 topic band 的 path（用于 clip slot 云）=====
+  const topicBandPathMap = new Map<string, string>()
 
   // ===== 10) 画每个 topic band，并绑定点击事件 =====
   topicBands.forEach((segments, topic) => {
@@ -1158,12 +944,15 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
       .x1((d) => d.right)
       .curve(d3.curveBasis)
 
-    // [修改 9] topic-band 改画到 contentG（让条带跟随缩放）
-    contentG
+    // [NEW] 预先算出这个 topic 的 band path，供 showSlotCloud 里做 clipPath
+    const bandPathD = area(segments) ?? ''
+    topicBandPathMap.set(topic, bandPathD)
+
+    bandLayer
       .append('path')
       .datum(segments)
       .attr('class', 'topic-band')
-      .attr('d', (d: Segment[]) => area(d) ?? '')
+      .attr('d', bandPathD)
       .attr('fill', color)
       .attr('fill-opacity', 0.85)
       .attr('data-topic', topic)
@@ -1181,16 +970,12 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
         activeTopicKey.value = next
 
         if (next) {
-          const [mx, my] = d3.pointer(event, gNode)
-          const idFloat = yScaleTime.invert(my)
-          const centerTurn = Math.round(idFloat)
-          showSlotCloud(topic, centerTurn, mx - 30)
+          showSlotCloud(topic)
         } else {
           // 1) 隐藏 slot 云
           const cloudLayer = contentG.select<SVGGElement>('.slot-global-cloud')
           if (!cloudLayer.empty()) cloudLayer.style('display', 'none')
 
-          // [修改 10] 清空条带内部词云（第二次点击 topic 时一起隐藏）
           const wcLayer = contentG.select<SVGGElement>('.slot-wordcloud-inband')
           if (!wcLayer.empty()) wcLayer.selectAll('*').remove()
           wordcloudTurn = null
@@ -1198,46 +983,8 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
           // 2) lens（保留，但不再用它展示词云）
           const wordcloudLayer = g.select<SVGGElement>('.slot-lens-layer')
           if (!wordcloudLayer.empty()) wordcloudLayer.selectAll('*').remove()
-          lensState = null
         }
       })
-
-    // g.append('path')
-    //   .datum(segments)
-    //   .attr('class', 'topic-band')
-    //   .attr('d', (d: Segment[]) => area(d) ?? '')
-    //   .attr('fill', color)
-    //   .attr('fill-opacity', 0.85)
-    //   .attr('data-topic', topic)
-    //   .style('cursor', 'pointer')
-    //   .on('click', (event) => {
-    //     event.stopPropagation()
-    //     console.log('点击 topic：', topic)
-    //     updateSelectedTopic(topic)
-
-    //     const gNode = g.node() as SVGGElement | null
-    //     if (!gNode) return
-
-    //     const current = activeTopicKey.value
-    //     const next = current === topic ? null : topic
-    //     activeTopicKey.value = next
-
-    //     if (next) {
-    //       const [mx, my] = d3.pointer(event, gNode)
-    //       const idFloat = yScaleTime.invert(my)
-    //       const centerTurn = Math.round(idFloat)
-    //       showSlotCloud(topic, centerTurn, mx - 30)
-    //     } else {
-    //       // 1) 隐藏 slot 云
-    //       const cloudLayer = g.select<SVGGElement>('.slot-global-cloud')
-    //       if (!cloudLayer.empty()) cloudLayer.style('display', 'none')
-
-    //       // 2) 同时隐藏/清空 lens（词云在这里面）
-    //       const wordcloudLayer = g.select<SVGGElement>('.slot-lens-layer')
-    //       if (!wordcloudLayer.empty()) wordcloudLayer.selectAll('*').remove()
-    //       lensState = null
-    //     }
-    //   })
   })
 
   // ===== 11) 主题图例框 =====
@@ -1410,8 +1157,21 @@ watch(
 /* 主画布 */
 .capsule-body {
   width: 1000px;
-  height: 900px;
+  height: 800px;
   margin-top: 10px;
+}
+
+.dataset-label {
+  width: 1000px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: 2px;
+  user-select: none;
 }
 
 /* 底部按钮 */
