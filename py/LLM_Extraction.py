@@ -186,7 +186,7 @@ def Score_turn_importance(history):
         """
 
     completion = openai.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-5.2",
         temperature=0.2,
         messages=[
             {
@@ -315,7 +315,7 @@ def Topic_Edge_detection(history):
     """
 
     completion = openai.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-5.2",
         temperature=0.2,
         messages=[
             {"role": "system", "content": "你只输出 JSON 数组，不要输出解释，不要 Markdown。"},
@@ -420,7 +420,7 @@ def Topic_merge(topic_description: List[Dict[str, Any]]):
 """
 
     completion = openai.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-5.2",
         temperature=0.2,
         messages=[
             {"role": "system", "content": "你只输出JSON数组，不要解释，不要Markdown。"},
@@ -465,467 +465,6 @@ def Topic_merge(topic_description: List[Dict[str, Any]]):
 
     return fixed
 
-def Semantic_pre_scanning(history):
-    if isinstance(history, dict):
-        history = history.get("content", "")
-    else:
-        history = str(history)
-
-    prompt = f"""请完成以下任务：
-        任务：请你基于以下的语义摘要，根据这段摘要生成可能存在的一级对话主题。
-        语义摘要：{history}
-
-        【重要约束（请严格遵守）】：
-        1. 每一个 "topic" 必须只表达**一个**核心主题，而不是两个或多个并列的主题。
-        2. 禁止使用如下并列写法：
-           - "XXX与YYY"
-           - "XXX和YYY"
-           - "XXX及YYY"
-           - "XXX / YYY"
-           - 包含多个“、”把好几个词串在一起（如 "学习、工作、感情问题"）。
-        3. 如果你发现某个方向其实包含两个子主题，例如：
-           - 原本你想写成 "经济压力与兼职"
-           则请改写为两条独立的主题：
-           - "经济压力"
-           - "兼职工作"
-        4. topic 应该是**名词或名词短语**，尽量简短清晰，并有一定普遍性，方便下面再扩展出多个子主题；
-           - ✅ 推荐示例： "经济压力"、"睡眠问题"、"身体形象焦虑"
-           - ❌ 不要： "关于我最近经济压力很大的问题"（太长、像一句话）
-        5. 同一类语义非常相近的主题，请使用一个更通用、概括性的名字：
-           - 例如 "身体形象与健康"、"减肥与身体健康"、"身材焦虑"
-           最终可以统一为一个更概括的主题： "身体形象与健康状况" 或 "身体形象焦虑"
-           （注意仍然不要用 "X与Y" 时，优先写成 "身体形象与健康状况" 这种整体概念，
-            或者直接写 "身体形象与健康状况问题"——**不要明显看成两个并列对象**）
-
-        【输出要求】：
-        1. 严格输出为标准 JSON 数组，禁止代码块标记和多余文字。
-        2. 每个主题包含字段：
-           - "topic": 主题名称（符合以上约束）
-           - "support_count": 从摘要中可佐证该主题的要点数量（粗略估计，整数）
-           - "support_examples": 1~3 条摘自摘要的短证据片段（必须是原文子串）
-        3. 主题应互相区分、涵盖主要语义方向；如无足够证据，不要臆造。
-
-        【正确输出示例（示意）】：
-        [
-          {{
-            "topic": "经济压力",
-            "support_count": 3,
-            "support_examples": ["…原文片段A…", "…原文片段B…"]
-          }},
-          {{
-            "topic": "兼职工作",
-            "support_count": 2,
-            "support_examples": ["…原文片段C…"]
-          }},
-          {{
-            "topic": "身体形象焦虑",
-            "support_count": 2,
-            "support_examples": ["…原文片段D…"]
-          }}
-        ]
-    """
-    completion = openai.chat.completions.create(
-        model="gpt-4o",
-        temperature=0.2,
-        messages=[
-            {"role": "system", "content": "你是一名文本聚类分析师，擅长从对话中提取出对话主题。"},
-            {"role": "user", "content": prompt }
-            ],)
-    try:
-        result = json.loads(completion.choices[0].message.content)
-    except json.JSONDecodeError:
-        result = []
-
-    return result
-
-def Topic_cleaning(history, topic_description, min_support=2):
-    """
-    版本说明：
-    - 步骤1：按 topic 字符串聚合（完全相同的主题名合并，support_count 累加）
-    - 步骤2：按 support_count 过滤掉出现次数太少的主题
-    - 步骤3：调用 LLM 做“语义去重”，但只能在原始 topic 名里选子集
-             （禁止改名、禁止生成新主题）
-    - 输出：最终保留的主题对象列表，每个元素一定来自原始输入
-    """
-    # -------- 0. 输入兜底 --------
-    if not isinstance(topic_description, list):
-        return []
-
-    # -------- 1. 先做本地聚合：同名 topic 合并 --------
-    # key: topic 名字（去掉首尾空格）
-    agg = {}  # topic_name -> merged_obj
-
-    for item in topic_description:
-        if not isinstance(item, dict):
-            continue
-        raw_name = (item.get("topic") or "").strip()
-        if not raw_name:
-            continue
-
-        # 初始化
-        if raw_name not in agg:
-            new_item = dict(item)
-            # 保证有 support_count 字段
-            sc = new_item.get("support_count")
-            if isinstance(sc, int):
-                pass
-            else:
-                # 没给就当作 1 次
-                new_item["support_count"] = 1
-            # 确保 support_examples 为 list
-            se = new_item.get("support_examples")
-            if se is None:
-                new_item["support_examples"] = []
-            elif isinstance(se, list):
-                new_item["support_examples"] = se
-            else:
-                new_item["support_examples"] = [str(se)]
-            agg[raw_name] = new_item
-        else:
-            # 已经有一个代表，做累加
-            exist = agg[raw_name]
-            # support_count 累加
-            sc_old = exist.get("support_count", 0)
-            sc_new = item.get("support_count", 0)
-            try:
-                sc_old = int(sc_old)
-            except Exception:
-                sc_old = 0
-            try:
-                sc_new = int(sc_new)
-            except Exception:
-                sc_new = 0
-            exist["support_count"] = sc_old + sc_new
-
-            # 合并 support_examples
-            se_old = exist.get("support_examples") or []
-            if not isinstance(se_old, list):
-                se_old = [str(se_old)]
-            se_new = item.get("support_examples") or []
-            if not isinstance(se_new, list):
-                se_new = [str(se_new)]
-            merged_examples = se_old + se_new
-            # 去重 + 截断到最多 3 条
-            dedup_examples = []
-            for ex in merged_examples:
-                ex = str(ex)
-                if ex not in dedup_examples:
-                    dedup_examples.append(ex)
-                if len(dedup_examples) >= 3:
-                    break
-            exist["support_examples"] = dedup_examples
-
-    # -------- 2. support_count 过滤：出现次数太少的剔除 --------
-    filtered = []
-    for name, obj in agg.items():
-        sc = obj.get("support_count", 0)
-        try:
-            sc = int(sc)
-        except Exception:
-            sc = 0
-        if sc < min_support:
-            # 丢掉低频主题
-            continue
-        filtered.append(obj)
-
-    # 如果过滤完之后空了，直接返回聚合结果（最多只做过本地过滤）
-    if not filtered:
-        return list(agg.values())
-
-    # -------- 3. 调用 LLM 做语义去重（但禁止新主题/改名） --------
-    # 准备给 LLM 的简化结构，只传 topic 名 + support_count
-    candidates = [
-        {
-            "topic": (t.get("topic") or "").strip(),
-            "support_count": int(t.get("support_count", 0)),
-        }
-        for t in filtered
-        if (t.get("topic") or "").strip()
-    ]
-
-    topics_for_llm = json.dumps(candidates, ensure_ascii=False)
-
-    dedup_prompt = f"""你将看到一组候选的一级主题，它们有可能语义上有重复或非常相近。
-
-        候选主题列表（JSON 数组，每个元素包含 topic 和 support_count）：
-        {topics_for_llm}
-
-        你的任务：
-        1. 识别其中语义高度重复、仅表述略有不同的主题；
-        2. 在这些重复主题中，选择一个作为“代表主题”保留，其余视为被合并，不再单独保留；
-        3. 你只能在【原始 topic 字符串】中选择保留对象：
-        - 不允许对 topic 文本进行任何改写；
-        - 不允许生成新的主题名称；
-        - 输出中的每一个字符串必须严格等于输入里某个对象的 topic 字段。
-
-        选择策略建议（不是硬性要求）：
-        - 可以优先保留 support_count 较大的那个；
-        - 如果 support_count 接近，可以保留语义更清晰、信息量更大的那个；
-        - 如果两个主题语义差异较大（例如“就业压力”和“职业发展规划”），请不要合并。
-
-        输出要求：
-        - 严格输出一个 JSON 数组；
-        - 数组中的每个元素是一个字符串，对应需要保留的 topic 名称；
-        - 这些字符串必须全部来自输入的 topic 字段，不允许新增、不允许改写；
-        - 不要输出任何解释性文字、注释或代码块标记（例如 ```json）。
-        示例（仅示意格式）：
-        ["自我价值怀疑", "心理健康问题", "就业压力", "职业发展规划"]
-        """
-
-    try:
-        completion = openai.chat.completions.create(
-            model="gpt-4o",
-            temperature=0.1,
-            messages=[
-                {
-                    "role": "system",
-                    "content": "你是一名严格的主题去重助手，只在给定的 topic 名称中选择子集，不会改写或生成新主题。",
-                },
-                {"role": "user", "content": dedup_prompt},
-            ],
-        )
-        raw = completion.choices[0].message.content.strip()
-
-        # 去掉可能的 ```json ...
-        clean = raw
-        if clean.startswith("```"):
-            first_newline = clean.find("\n")
-            if first_newline != -1:
-                clean = clean[first_newline + 1 :]
-            end_fence = clean.rfind("```")
-            if end_fence != -1:
-                clean = clean[:end_fence]
-            clean = clean.strip()
-
-        # 截取第一个 [ ... ] 区间
-        if "[" in clean and "]" in clean:
-            start = clean.find("[")
-            end = clean.rfind("]")
-            if start != -1 and end != -1 and end > start:
-                clean = clean[start : end + 1].strip()
-
-        kept_names = json.loads(clean)
-        if not isinstance(kept_names, list):
-            raise ValueError("LLM 输出不是数组")
-
-        # -------- 4. 严格兜底：只保留“原始 topic 名集合”中的字符串 --------
-        original_names = { (t.get("topic") or "").strip() for t in filtered }
-        final_names = []
-        for name in kept_names:
-            if not isinstance(name, str):
-                continue
-            name = name.strip()
-            if name in original_names and name not in final_names:
-                final_names.append(name)
-
-        # 万一 LLM 全删了，就退回到 filtered 全部保留
-        if not final_names:
-            return filtered
-
-        # 根据最终保留的名字，从 filtered 中取出对应对象
-        name_to_obj = { (t.get("topic") or "").strip(): t for t in filtered }
-        result = [name_to_obj[n] for n in final_names if n in name_to_obj]
-        return result
-
-    except Exception as e:
-        print("⚠️ [Topic_cleaning] LLM 去重阶段失败，将返回本地过滤结果。错误：", e)
-        return filtered
-
-
-def Topic_Allocation(history, cleaned_topics, top_k_chunks=12):
-
-    # 0. 构建对话向量库
-    if not (isinstance(history, list) and history):
-        print("⚠️ Topic_Allocation_v2: history 为空或格式异常，将返回空结果。")
-        return []
-
-    store = ConvVectorStore.from_history(history, window_size=40, stride=40)
-
-    results = []
-
-    for topic_obj in cleaned_topics:
-        topic_name = topic_obj.get("topic", "").strip()
-        if not topic_name:
-            continue
-
-        support_examples = topic_obj.get("support_examples", []) or []
-        if not isinstance(support_examples, list):
-            support_examples = [str(support_examples)]
-
-        # 1) 构造 query：topic 名 + 支撑例子
-        query_text = topic_name + "\n" + "\n".join(support_examples)
-
-        # 2) 检索与该 topic 相关的对话片段
-        context = store.build_context(query_text, top_k=top_k_chunks)
-        if not context.strip():
-            # 没检索到就跳过或给空 slots
-            results.append({"topic": topic_name, "slots": []})
-            continue
-
-        # 3) 让 LLM 在这个上下文中抽取二级子主题（slots）
-        #    注意：上下文中每行都是 "[id][role]: content"，让模型复制 id 即可
-        prompt = f"""请完成以下任务：
-            任务：你将看到一段与某个一级主题高度相关的对话原文片段。
-            一级主题为："{topic_name}"
-
-            对话片段（每行以 [id][role]: 开头）：
-            {context}
-
-            对话片段中，每一行的格式类似：
-            [id][role]: content
-
-            其中：
-            - id：一个整数，是该行对话的唯一编号；
-            - role：说话人角色标记；
-            - content：这一行对话的具体文本。
-
-            请你在上述对话中，抽取若干与该主题密切相关的“二级子主题”(slot)。
-
-            输出为 JSON 数组，每个元素为一个对象，包含字段：
-            - "sentence":  
-                - 取自对话片段中某一行的 content 原文；
-                - 必须与原文完全一致（允许只加减极少量前后标点），不要改写、总结或翻译；
-                - 不要把多行合并成一句。
-            - "slot": 
-                - 对该 sentence 的一个“二级子主题”名称；
-                - 必须**非常简洁**，严格控制在**不超过 6 个汉字**（不计空格和标点）；
-                - 使用简短、具体的名词短语或动宾短语，例如“参数校准”“指标分析”“风险评估”，不要写成完整句子；
-                - **禁止重复一级主题 "{topic_name}"**，不能出现“{topic_name}的XXX”“关于{topic_name}XXX”等形式，也不要把 topic 名直接写进 slot；
-                - **禁止并列结构**，例如：
-                    - “XXX与XXX”“XXX和XXX”“XXX及XXX”“XXX、XXX”等形式都不允许；
-                    - 如果原句中包含多个要点，只选择你认为最核心的一个要点，用单一概念表达；
-                - 若提炼出的短语超过 6 个汉字，请进一步压缩，宁可省略修饰词，也不要超过长度限制。
-            - "id": 
-                - 该 sentence 所在行前面的 id（一个整数）；
-                - 必须直接来自对话片段中对应行的 [id]，禁止自己编造新的 id。
-            - "sentiment": 
-                - 该句子的情绪分数，范围为 -1 到 1：
-                    - 接近 1：明显积极、赞美、乐观、表达感谢/满意；
-                    - 接近 -1：明显消极、抱怨、沮丧、焦虑、批评；
-                    - 接近 0：客观陈述、技术性描述、普通疑问等中性语气；
-                - 如果你不确定，可以使用 0 或接近 0 的值。
-            - "source":  
-                - 说话人角色标签，一个字符串；
-                - 必须直接来自该行对话中方括号里的 [role]，去掉方括号后原样填写；
-                    - 例如原行是 `[12][user]: ...`，则 source 填 `"user"`；
-                    - 原行是 `[35][Speaker_A]: ...`，则 source 填 `"Speaker_A"`；
-                    - 原行是 `[7][主持人]: ...`，则 source 填 `"主持人"`；
-                - 不要自行创造新的角色名称，也不要翻译或改写。
-            - "is_question":  
-                - 布尔值 true/false；
-                - 当该 sentence 是说话人提出的一个**明确的问题、请求帮助或解决需求**时，请填 true（无论 source 是谁）；
-                    - 例如包含明显的疑问、征求意见、请求操作等；
-                - 其他所有情况（普通陈述、情绪表达、总结、回应等）一律填 false。
-
-            【抽取规则与约束】
-            1. 只考虑与一级主题 "{topic_name}" 明确相关的句子；
-            2. 对于同一个 id，在结果 JSON 中**最多出现一次**：
-                - 即使你觉得这句涉及多个子主题，也只选择你认为“最核心”的一个 slot；
-                - 严禁为同一个 id 输出多条记录。
-            3. 每条 "sentence" 只能对应一个 "slot"，不要把同一 sentence 拆成多个对象。
-            4. 如果多句表达的是几乎完全相同的子主题，你可以只保留信息更完整、语义更清楚的一句。
-            5. 严格输出 JSON 数组，不要包含任何解释性文字，也不要使用代码块标记。
-
-            示例输出（仅示意，注意实际内容应来自当前对话片段）：
-            [
-              {{"sentence": "我应该怎么改进 SWMM 模型的参数校准？", "slot": "SWMM 参数校准方法", "id": 45, "sentiment": 0.2, "source": "user", "is_question": true}},
-              {{"sentence": "本次主要讨论 DrainScope 中的排水风险指标可视分析。", "slot": "指标可视分析", "id": 52, "sentiment": -0.1, "source": "bot", "is_question": false}}
-            ]
-        """
-
-        completion = openai.chat.completions.create(
-            model="gpt-4o",
-            temperature=0.2,
-            messages=[
-                {"role": "system", "content": "你是一名对话分析助手，擅长从对话中抽取结构化主题信息。"},
-                {"role": "user", "content": prompt}
-            ]
-        )
-
-        raw = completion.choices[0].message.content.strip()
-
-        # 4) 解析 JSON（和你清洗那边一样的鲁棒套路）
-        clean = raw
-        if clean.startswith("```"):
-            first_newline = clean.find("\n")
-            if first_newline != -1:
-                clean = clean[first_newline + 1:]
-            end_fence = clean.rfind("```")
-            if end_fence != -1:
-                clean = clean[:end_fence]
-            clean = clean.strip()
-
-        if "[" in clean and "]" in clean:
-            start = clean.find("[")
-            end = clean.rfind("]")
-            if start != -1 and end != -1 and end > start:
-                clean = clean[start:end + 1].strip()
-
-        try:
-            slots = json.loads(clean)
-        except json.JSONDecodeError as e:
-            print(f"⚠️ [Topic_Allocation_v2] 解析 slots JSON 失败，topic={topic_name}, 错误: {e}")
-            slots = []
-
-        # 5) 规范化 & 排序（按 id 时间顺序）
-        norm_slots = []
-        seen_ids = set()
-
-        for s in slots:
-            if not isinstance(s, dict):
-                continue
-            sent = s.get("sentence", "").strip()
-            slot_name = s.get("slot", "").strip()
-            try:
-                sid = int(s.get("id"))
-            except Exception:
-                continue
-            sentiment = s.get("sentiment", 0.0)  # 默认 0，如果缺失
-
-            # 解析 source：直接保留模型给出的角色标签
-            raw_source = s.get("source")
-            if raw_source is None:
-                source = ""
-            else:
-                source = str(raw_source).strip()
-
-            # 解析 is_question：相信模型的布尔值，不再强制依赖 source
-            raw_iq = s.get("is_question")
-            if isinstance(raw_iq, bool):
-                is_question = raw_iq
-            elif isinstance(raw_iq, str):
-                is_question = raw_iq.strip().lower() == "true"
-            else:
-                is_question = False
-
-            if not sent or not slot_name:
-                continue
-
-            # ✅ 去重：同一个 topic 里，一个 id 只保留一次
-            if sid in seen_ids:
-                # 如果你以后想换策略（比如选情绪更强的那条），可以在这里改逻辑
-                continue
-            seen_ids.add(sid)
-
-            norm_slots.append({
-                "sentence": sent,
-                "slot": slot_name,
-                "id": sid,
-                "sentiment": sentiment,  # 新增字段
-                "source": source,
-                "is_question": is_question
-            })
-
-        norm_slots.sort(key=lambda x: x["id"])
-
-        # 6) 严格按你要求的格式写入结果
-        results.append({
-            "topic": topic_name,
-            "slots": norm_slots
-        })
-
-    return results
-
 def build_local_window(history, center_id, window_size=8):
     """
     按 id 在 history 里截一段窗口：
@@ -959,71 +498,94 @@ def build_local_window(history, center_id, window_size=8):
         lines.append(f"[{mid}][{role}]: {text}")
     return "\n".join(lines)
 
-def ask_if_resolved(history, slot_obj):
+def ask_if_resolved(history: List[Dict[str, Any]], slot_obj: Dict[str, Any],
+                       followup_horizon: int = 40,
+                       max_chars: int = 3000) -> Dict[str, Any]:
     """
     history: 原始对话 [{id, role, content}, ...]
-    slot_obj: {"sentence", "slot", "id", "source", ...}
-    返回 True/False
+    slot_obj: {"slot","id","source","is_question","start_id","end_id", ...}
+    返回: {"resolved": bool, "confidence": float}
     """
-    sid = slot_obj["id"]
-    sentence = slot_obj["sentence"]
-    slot_name = slot_obj["slot"]
+    # 非问题 slot：你可以直接标 False 或者跳过不判
+    if not slot_obj.get("is_question", False):
+        return {"resolved": False, "confidence": 0.0}
 
-    local_ctx = build_local_window(history, sid, window_size=8)
-    if not local_ctx.strip():
-        return False
+    hist = sort_history(history)
 
-    prompt = f"""你是一名对话分析助手。
-        现在给你一段对话片段，以及其中一条“某位说话人提出的问题/需求”所在的句子。
+    try:
+        start_id = int(slot_obj.get("start_id", slot_obj.get("id")))
+        end_id = int(slot_obj.get("end_id", slot_obj.get("id")))
+    except:
+        return {"resolved": False, "confidence": 0.0}
 
-        对话片段如下（按时间顺序）：
-        {local_ctx}
+    slot_name = (slot_obj.get("slot") or "").strip()
+    source = (slot_obj.get("source") or "").strip()
 
-        其中，在 id = {sid} 的这一句中，该说话人提出了一个子主题/问题：
-        "{sentence}"
-        子主题名称为："{slot_name}"
+    # 1) 问题段（slot 段本身）
+    seg_msgs = slice_by_id(hist, start_id, end_id)
+    seg_text = pack_msgs(seg_msgs, max_chars=max_chars)
 
-        请你只根据上面的对话片段，判断这个问题/需求在后续对话中是否已经在对话中被基本回应或解决。
-        这里的“解决”指：
-        - 有发言给出了明确、具体、与该问题高度对应的回答、解释或可执行方案；
-        - 不要求提问者显式说“谢谢，解决了”，但解决者的回应应该覆盖了核心疑问。
+    # 2) 后续段（看有没有回应/解决）
+    follow_msgs = followup_after_id(hist, end_id, horizon=followup_horizon)
+    follow_text = pack_msgs(follow_msgs, max_chars=max_chars)
 
-        如果解决者只是简单安慰、模糊回应、部分答复，或者没有明显针对该问题的回答，都视为“未解决”。
+    if not seg_text.strip():
+        return {"resolved": False, "confidence": 0.0}
 
-        请严格输出一个 JSON 对象，不要包含多余文字，不要使用代码块：
-        例如：
-        {{"resolved": true}}
-        或
-        {{"resolved": false}}
+    prompt = f"""你是一名严谨的对话分析助手。只输出 JSON，不要解释，不要 Markdown。
+
+        现在给你一段“问题/需求 slot”对应的对话段（start_id~end_id），以及其后的后续对话。
+        请判断该 slot 的问题/需求是否在后续对话中已被基本回应或解决。
+
+        slot 信息：
+        - slot: {slot_name}
+        - source: {source}
+        - start_id: {start_id}
+        - end_id: {end_id}
+
+        【slot 段内容】（这段里提出了问题/需求）：
+        {seg_text}
+
+        【后续对话】（用于判断是否解决）：
+        {follow_text}
+
+        判定标准：
+        - resolved=true：后续出现明确、具体、与该 slot 高度对应的回答/解释/可执行方案/结论，或明确达成共识（如“明白了/那就这样/OK”）。
+        - resolved=false：后续没有针对性回答；只有安慰、模糊回应、跑题、重复提问、或信息不足导致未形成解决。
+
+        严格输出 JSON：
+        {{"resolved": true/false, "confidence": 0.0~1.0}}
         """
 
     completion = openai.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-5.2",
         temperature=0.2,
         messages=[
-            {"role": "system", "content": "你是一名严谨的对话分析助手，只输出结构化 JSON。"},
-            {"role": "user", "content": prompt}
+            {"role": "system", "content": "只输出JSON，不要解释，不要Markdown。"},
+            {"role": "user", "content": prompt},
         ],
     )
 
-    raw = completion.choices[0].message.content.strip()
+    raw = (completion.choices[0].message.content or "").strip()
 
-    # 简单鲁棒解析
+    # 鲁棒截取 { ... }
+    l, r = raw.find("{"), raw.rfind("}")
+    if l != -1 and r != -1 and r > l:
+        raw = raw[l:r+1]
+
     try:
-        # 有些模型会输出前后空行或其它东西，就粗略截一下 {...} 部分
-        start = raw.find("{")
-        end = raw.rfind("}")
-        if start != -1 and end != -1 and end > start:
-            raw = raw[start:end+1]
-        data = json.loads(raw)
-        val = data.get("resolved")
-        if isinstance(val, bool):
-            return val
-        if isinstance(val, str):
-            return val.strip().lower() == "true"
-    except Exception as e:
-        print(f"⚠️ ask_if_resolved 解析失败，默认 False: {e}, raw={raw}")
-    return False
+        obj = json.loads(raw)
+        resolved = obj.get("resolved", False)
+        conf = obj.get("confidence", 0.0)
+        if isinstance(resolved, str):
+            resolved = resolved.strip().lower() == "true"
+        try:
+            conf = float(conf)
+        except:
+            conf = 0.0
+        return {"resolved": bool(resolved), "confidence": conf}
+    except Exception:
+        return {"resolved": False, "confidence": 0.0}
 
 def refine_slot_resolution(history, topics_with_slots, 
                            max_slots=50):
@@ -1066,7 +628,7 @@ def refine_slot_resolution(history, topics_with_slots,
                 continue
 
             final_resolved = ask_if_resolved(history, s2)
-            s2["resolved"] = final_resolved
+            s2["resolved"] = bool(final_resolved.get("resolved", False))
             checked += 1
 
             new_slots.append(s2)
@@ -1083,51 +645,12 @@ def extract_wordcloud(
     history: List[Dict[str, Any]],
     topics_with_slots: List[Dict[str, Any]],
     max_words: int = 30,
-    window_size: int = 20,
     limit_slots: Optional[int] = None,
+    max_chars: int = 2000,
 ):
-    """
-    极简版：给每个 slot 增加 slot["wordcloud"] = [{"word":..., "weight":...}, ...]
-
-    - history: [{id, role, content}, ...]  （按你的 parse_conversation 输出）
-    - topics_with_slots: [{"topic": "...", "slots":[{"id":..., "slot":..., "sentence":...}, ...]}, ...]
-    - max_words: 每个 slot 最多多少关键词（建议 10~30）
-    - window_size: slot 的局部窗口半径（前后各多少句）
-    - limit_slots: 只抽前 N 个 slot（测试用，防止太慢）
-    """
 
     # 1) history 排序 + id -> index
     hist = sorted(history, key=lambda m: int(m.get("id", 0)))
-    id2idx = {int(m["id"]): i for i, m in enumerate(hist) if "id" in m}
-
-    def build_local_ctx(center_id: int) -> str:
-        if center_id not in id2idx:
-            return ""
-        c = id2idx[center_id]
-        s = max(0, c - window_size)
-        e = min(len(hist), c + window_size + 1)
-        lines = []
-        for m in hist[s:e]:
-            mid = int(m.get("id", 0))
-            role = m.get("role", "user")
-            text = (m.get("content", "") or "").replace("\n", " ").strip()
-            if text:
-                lines.append(f"[{mid}][{role}]: {text}")
-        return "\n".join(lines)
-
-    def parse_json_array(raw: str):
-        if not raw:
-            return []
-        raw = raw.strip()
-        l = raw.find("[")
-        r = raw.rfind("]")
-        if l != -1 and r != -1 and r > l:
-            raw = raw[l : r + 1]
-        try:
-            arr = json.loads(raw)
-            return arr if isinstance(arr, list) else []
-        except Exception:
-            return []
 
     # 2) 主循环：slot -> 调用 LLM 抽词云
     done = 0
@@ -1149,31 +672,38 @@ def extract_wordcloud(
             if isinstance(s.get("wordcloud"), list) and len(s["wordcloud"]) > 0:
                 continue
 
+            slot_name = (s.get("slot") or "").strip()
+
             try:
-                sid = int(s.get("id"))
+                start_id = int(s.get("start_id", s.get("id")))
+                end_id = int(s.get("end_id", s.get("id")))
             except Exception:
                 continue
 
-            slot_name = (s.get("slot") or "").strip()
-            sentence = (s.get("sentence") or "").strip()
-            local_ctx = build_local_ctx(sid) or sentence
+            seg_msgs = slice_by_id(hist, start_id, end_id)
+            local_ctx = pack_msgs(seg_msgs, max_chars=max_chars)
 
-            k = max(15, min(int(max_words), 50))
+            # 兜底：如果这个段没内容，就别抽了（或退回 sentence）
+            if not local_ctx.strip():
+                s["wordcloud"] = []
+                continue
+
+            k = max(10, min(int(max_words), 50))
 
             prompt = f"""你是一名严格的关键词抽取助手，只输出 JSON 数组。
             为下面的局部对话片段生成词云关键词。
 
             【一级主题】{topic_name}
             【当前slot】{slot_name}
-            【slot原句】{sentence}
+            【slot范围】start_id={start_id}, end_id={end_id}
 
-            【局部对话片段】
+            【slot段对话】
             {local_ctx}
 
             要求：
             - 抽取不超过 {k} 个关键词/短语（中文为主，2~6 个字为主，别整句）
             - 过滤虚词（如 我们/你们/然后/就是/其实/可能/大家 等）
-            - 每个词给权重 weight（0~1）
+            - 每个词给权重 weight（0~1），，越重要越大
 
             严格输出 JSON 数组，例如：
             [{{"word":"婚姻观念","weight":0.92}},{{"word":"离婚成本","weight":0.76}}]
@@ -1181,7 +711,7 @@ def extract_wordcloud(
 
             # --- 调 OpenAI ---
             completion = openai.chat.completions.create(
-                model="gpt-4o",
+                model="gpt-5.2",
                 temperature=0.2,
                 messages=[
                     {"role": "system", "content": "你是一名严格的关键词抽取助手，只输出 JSON。"},
@@ -1190,7 +720,7 @@ def extract_wordcloud(
             )
 
             raw = (completion.choices[0].message.content or "").strip()
-            arr = parse_json_array(raw)
+            arr = parse_json_array_loose(raw)
 
             # 3) 轻度校验 + 去重 + 截断
             out = []
@@ -1309,7 +839,7 @@ def extract_memory_from_text(user_id, new_sentence):
     """
 
     completion = openai.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-5.2",
         temperature=0,
         messages=[
             {"role": "system", "content": "你是一名信息抽取助手。"},
@@ -1363,7 +893,7 @@ def talk_to_chatbot(user_id, content, source, history_msgs, top_k=3):
     
     # 6. 调用大模型生成回复 
     completion = openai.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-5.2",
         temperature=0.5,
         messages=messages,
         )

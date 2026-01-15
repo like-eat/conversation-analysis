@@ -2,18 +2,18 @@ import os
 
 import json
 from typing import Any, Dict, List
-from LLM_Extraction import Score_turn_importance ,Semantic_pre_scanning, Topic_cleaning, Topic_Allocation,refine_slot_resolution, extract_wordcloud, Topic_Edge_detection, Topic_merge
+from LLM_Extraction import Score_turn_importance ,refine_slot_resolution, extract_wordcloud, Topic_Edge_detection, Topic_merge
 from Methods import *
 CHECKPOINT_PATH = "py/conversation_example/ChatGPT-xinli_result.json"
 FINAL_PATH = "py/conversation_example/ChatGPT-xinli_processed.json"
 FINAL_PATH_SCORE = "py/conversation_example/meeting_score.json"
 
-STEP0_PATH = "py/conversation_example/meeting_content/step0_edge_detection.json"
-STEP1_PATH = "py/conversation_example/meeting_content/step1_topic_merge.json"
-STEP2_PATH = "py/conversation_example/meeting_content/step2_topics_clean.json"
-STEP3_PATH = "py/conversation_example/meeting_content/step3_topics_with_slots.json"
-STEP4_PATH = "py/conversation_example/meeting_content/step4_slot_with_wordcloud.json"
-FINAL_PATH = "py/conversation_example/meeting_content/final_result.json"
+STEP0_PATH = "py/conversation_example/xinli_content/step0_edge_detection.json"
+STEP1_PATH = "py/conversation_example/xinli_content/step1_topic_merge.json"
+STEP2_PATH = "py/conversation_example/xinli_content/step2_topics_with_slots.json"
+STEP3_PATH = "py/conversation_example/xinli_content/step3_slot_with_wordcloud.json"
+STEP4_PATH = "py/conversation_example/xinli_content/final_result.json"
+STEP5_PATH = "py/conversation_example/xinli_content/final_result_score.json"
 
 def segment_by_timeline(topics):
     # 1. 先把所有 slot 打平，变成一个按句子粒度的列表
@@ -26,13 +26,13 @@ def segment_by_timeline(topics):
                 "topic": topic_name,
                 "topic_color": topic_color,
                 "id": int(s["id"]),
-                "sentence": s.get("sentence"),
                 "slot": s.get("slot"),
                 "color": s.get("color"),
-                "sentiment": s.get("sentiment"),
                 "source": s.get("source"),
                 "is_question": s.get("is_question", False),
                 "resolved": s.get("resolved", False),
+                "start_id":int(s["start_id"]),
+                "end_id":int(s["end_id"]),
                 "wordcloud": s.get("wordcloud", []),
             })
 
@@ -80,14 +80,14 @@ def segment_by_timeline(topics):
         t = item["topic"]
         tc = item["topic_color"]
         slot = {
-            "sentence": item["sentence"],
             "slot": item["slot"],
             "id": item["id"],
             "color": item["color"],
-            "sentiment": item["sentiment"],
             "source": item["source"],
             "is_question": item.get("is_question", False),
             "resolved": item.get("resolved", False),
+            "start_id": item["start_id"],
+            "end_id": item["end_id"],
             "wordcloud": item.get("wordcloud", []),
         }
 
@@ -134,63 +134,6 @@ def process_score(file_path):
 
     print(f"✅ 处理完成，结果已保存：{FINAL_PATH_SCORE}")
     return scored_all
-
-def process_conversation(file_path):
-    # user和llm的对话模式
-    messages = parse_conversation(file_path)       # list[dict]: {id, role, content}
-    lines = []
-    for m in messages:
-        content = (m.get("content") or "").replace("\n", " ").strip()
-        if not content:
-            continue
-        lines.append(f"[{m['id']}] ({m['role']}) {content}")
-
-    full_text = "\n".join(lines)
-    chunks = build_conv_chunks(full_text)   # 每段约 1/3 模型上限
-    all_results = []
-    
-    for i, chunk in enumerate(chunks, 1):
-        print(f"🧠 第 {i}/{len(chunks)} 段抽取中...")
-        # 生成 chunk 格式保持结构的对话列表
-        chunk_messages = []
-        for line in chunk:  # chunk 是一堆 "[id] (role) content" 的行
-            try:
-                # "[12] (user) hello world"
-                id_part, rest = line.split("] (", 1)   # id_part = "[12"
-                mid = int(id_part[1:])                 # 去掉左中括号，转为 int
-                role, text = rest.split(") ", 1)       # role = "user", text = "hello world"
-            except ValueError:
-                # 行格式不对就跳过，避免炸
-                continue
-            chunk_messages.append({
-                "id": mid,
-                "role": role,
-                "content": text.strip()
-            })
-        # print("chunk_messages:", chunk_messages)
-        if not chunk_messages:
-            print(f"⚠️ 第 {i} 段没有解析出有效对话，跳过 Semantic_pre_scanning")
-            continue
-
-        result = Semantic_pre_scanning(chunk_messages)  
-        print("result:", result)        
-        all_results.extend(result)
-
-    clear_results = Topic_cleaning(messages, all_results)
-    print("clear_results:", clear_results)
-    last_result = Topic_Allocation(messages, clear_results)
-    print("last_result:", last_result)
-    refined_result = refine_slot_resolution(messages, last_result,max_slots=80)
-    print("refined_result:", refined_result)
-    colored_results = assign_colors(refined_result)   
-    print("colored_results:", colored_results)
-    segmented_results = segment_by_timeline(colored_results)
-
-    with open(FINAL_PATH, "w", encoding="utf-8") as f:
-        json.dump(segmented_results, f, ensure_ascii=False, indent=2)
-    print(f"✅ 处理完成，结果已保存：{FINAL_PATH}")
-    
-    return segmented_results
 
 def postprocess_topics_unique_and_prune(topics: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """
@@ -272,7 +215,6 @@ def run_step0_edge_detection(file_path: str,
         json.dump(result, f, ensure_ascii=False, indent=2)
     print(f"✅ [Step0] 语义边缘切分完成，结果已保存：{out_path}")
 
-
 def run_step1_topic_merge(step0_slots_path: str, out_path: str = STEP1_PATH):
 
     # 1) 读 Step0 的 slots
@@ -288,38 +230,15 @@ def run_step1_topic_merge(step0_slots_path: str, out_path: str = STEP1_PATH):
         json.dump(all_results, f, ensure_ascii=False, indent=2)
     print(f"✅ [Step1] 语义主题合并完成，结果已保存：{out_path}")
 
-def run_step2_topic_clean(file_path: str,
-                          step1_path: str = STEP1_PATH,
-                          out_path: str = STEP2_PATH):
-    messages = parse_conversation(file_path)   # history: [{id, role, content}]
+def run_step2_slots_and_resolution(file_path: str,
+                                   step1_path: str ,
+                                   out_path: str ):
+    messages = parse_meeting_conversation(file_path)
 
     with open(step1_path, "r", encoding="utf-8") as f:
-        raw_topics = json.load(f)
-
-    print(f"🧠 [Step2] Topic_cleaning 中，原始主题数：{len(raw_topics)}")
-
-    clear_results = Topic_cleaning(messages, raw_topics)
-    print(f"🧠 [Step2] 清洗后主题数：{len(clear_results)}")
-
-    os.makedirs(os.path.dirname(out_path), exist_ok=True)
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(clear_results, f, ensure_ascii=False, indent=2)
-    print(f"✅ [Step2] 主题清洗完成，结果已保存：{out_path}")
-
-def run_step3_slots_and_resolution(file_path: str,
-                                   step2_path: str = STEP2_PATH,
-                                   out_path: str = STEP3_PATH):
-    messages = parse_conversation(file_path)
-
-    with open(step2_path, "r", encoding="utf-8") as f:
         cleaned_topics = json.load(f)
 
-    print(f"🧠 [Step3] Topic_Allocation 中，topic 数：{len(cleaned_topics)}")
-    topic_with_slots = Topic_Allocation(messages, cleaned_topics)
-    print("🧠 [Step3] Topic_Allocation 完成")
-
-    # 二阶段判断是否解决
-    refined = refine_slot_resolution(messages, topic_with_slots, 
+    refined = refine_slot_resolution(messages, cleaned_topics, 
                                      max_slots=80)
     print("🧠 [Step3] refine_slot_resolution 完成")
 
@@ -330,52 +249,82 @@ def run_step3_slots_and_resolution(file_path: str,
         json.dump(result, f, ensure_ascii=False, indent=2)
     print(f"✅ [Step3] slot + resolved 结果已保存：{out_path}")
 
-def run_step4_slot_with_wordcloud(file_path: str,
-                                  step3_path: str = STEP3_PATH,
-                                  out_path: str = STEP4_PATH):
+def run_step3_slot_with_wordcloud(file_path: str,
+                                  step2_path: str ,
+                                  out_path: str):
     messages = parse_meeting_conversation(file_path)
 
-    with open(step3_path, "r", encoding="utf-8") as f:
+    with open(step2_path, "r", encoding="utf-8") as f:
         topics_with_slots = json.load(f)
 
-    print(f"🧠 [Step4] extract_wordcloud 中...")
+    print(f"🧠 [Step3] extract_wordcloud 中...")
     slot_with_wordcloud = extract_wordcloud(messages, topics_with_slots,
                                             max_words=20)
-    print(f"🧠 [Step4] extract_wordcloud 完成")
+    print(f"🧠 [Step3] extract_wordcloud 完成")
 
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(slot_with_wordcloud, f, ensure_ascii=False, indent=2)
-    print(f"✅ [Step4] slot + wordcloud 结果已保存：{out_path}")
+    print(f"✅ [Step3] slot + wordcloud 结果已保存：{out_path}")
 
-def run_step5_segment_and_color(step4_path: str = STEP4_PATH,
-                                out_path: str = FINAL_PATH):
-    with open(step4_path, "r", encoding="utf-8") as f:
+def run_step4_segment_and_color(step3_path: str,
+                                out_path: str):
+    with open(step3_path, "r", encoding="utf-8") as f:
         slots_with_wordcloud = json.load(f)
 
-    print(f"🧠 [Step5] assign_colors 中...")
+    print(f"🧠 [Step4] assign_colors 中...")
     colored_results = assign_colors(slots_with_wordcloud)
 
-    print(f"🧠 [Step5] segment_by_timeline 中...")
+    print(f"🧠 [Step4] segment_by_timeline 中...")
     segmented_results = segment_by_timeline(colored_results)
 
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(segmented_results, f, ensure_ascii=False, indent=2)
-    print(f"✅ [Step5] 最终结果已保存：{out_path}")
+    print(f"✅ [Step4] 最终结果已保存：{out_path}")
+
+def run_step5_clear_points(step4_path: str, out_path: str, min_pts: int = 2,
+                          mark_only: bool = False):
+    with open(step4_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    # 兼容：data 可能是 list，也可能是 dict 包一层
+    if isinstance(data, dict) and "topics" in data:
+        topics = data["topics"]
+        wrapper = ("topics", data)
+    else:
+        topics = data
+        wrapper = None
+
+    if not isinstance(topics, list):
+        raise ValueError("Step4 输出格式不符合预期：应为 list 或包含 'topics' 的 dict")
+
+    for t in topics:
+        if not isinstance(t, dict):
+            continue
+        slots = t.get("slots", [])
+        t["slots"] = prune_isolated_slots_keep_multi_clusters(
+            slots,
+            min_pts=min_pts,
+            mark_only=mark_only,
+        )
+
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(data if wrapper is None else wrapper[1], f, ensure_ascii=False, indent=2)
+
+    print(f"✅ [Step5] 清理孤立 slot 完成（min_pts={min_pts}, mark_only={mark_only}），保存：{out_path}")
+
 
 if __name__ == "__main__":
     print("🤖 启动对话处理程序...")
-    file_path = "py/conversation_example/meeting_talk.txt"
+    file_path = "py/conversation_example/ChatGPT-xinli.txt"
 
     # run_step0_edge_detection(file_path=file_path, out_path=STEP0_PATH)
-    run_step1_topic_merge(step0_slots_path=STEP0_PATH, out_path=STEP1_PATH)
-    # run_step1_semantic_scan(file_path)
-    # run_step2_topic_clean(file_path=file_path, step1_path=STEP1_PATH,out_path=STEP2_PATH)
-    # run_step3_slots_and_resolution(file_path=file_path,step2_path=STEP2_PATH,out_path=STEP3_PATH)
-    # run_step4_slot_with_wordcloud(file_path=file_path,step3_path=STEP3_PATH,out_path=STEP4_PATH)
-    # run_step5_segment_and_color(step4_path=STEP4_PATH, out_path=FINAL_PATH)
+    # run_step1_topic_merge(step0_slots_path=STEP0_PATH, out_path=STEP1_PATH)
+    # run_step2_slots_and_resolution(file_path=file_path,step1_path=STEP1_PATH,out_path=STEP2_PATH)
+    # run_step3_slot_with_wordcloud(file_path=file_path,step2_path=STEP2_PATH,out_path=STEP3_PATH)
+    # run_step4_segment_and_color(step3_path=STEP3_PATH, out_path=STEP4_PATH)
+    run_step5_clear_points(STEP2_PATH, STEP5_PATH)
 
-    # final_data = process_conversation(file_path)
-    # final_data = process_score(file_path)
 

@@ -19,6 +19,7 @@ import * as d3 from 'd3'
 import { ref, watch, computed } from 'vue'
 import type { Conversation, MessageItem, Point, Segment, Slot } from '@/types/index'
 import { useFileStore } from '@/stores/FileInfo'
+import { computeKDE1D, resolveY, highlightTopicBands } from '@/utils/Methods'
 
 type PointWithLayout = Point & {
   _x: number
@@ -66,11 +67,11 @@ const emit = defineEmits<{ (e: 'toggle-dataset'): void }>()
 const DATASETS: Record<DatasetKey, { convUrl: string; scoreUrl: string }> = {
   meeting: {
     convUrl: '/meeting_result.json',
-    scoreUrl: '/meeting_score.json',
+    scoreUrl: '/meeting_talk_scores.json',
   },
   xinli: {
     convUrl: '/xinli_result.json',
-    scoreUrl: '/xinli_score.json',
+    scoreUrl: '/xinli_talk_scores.json',
   },
 }
 
@@ -82,27 +83,6 @@ const onSlotClick = (slotId: number) => {
 // 清空 UI 数据（你的逻辑里用于“新开分支”时清画面）
 const clearUI = () => {
   data.value = []
-}
-
-// 高亮选中 topic 带（其余 topic 降透明度）
-const highlightTopicBands = (activeTopic: string | null) => {
-  const bands = d3.selectAll<SVGPathElement, Segment[]>('path.topic-band')
-
-  bands
-    .interrupt()
-    .transition()
-    .duration(400)
-    .ease(d3.easeCubicInOut)
-    .attr('fill-opacity', function () {
-      const t = d3.select(this).attr('data-topic')
-      if (!activeTopic) return 0.85
-      return t === activeTopic ? 1.0 : 0.2
-    })
-    .attr('transform', function () {
-      const t = d3.select(this).attr('data-topic')
-      if (!activeTopic || t !== activeTopic) return 'translate(0,0) scale(1,1)'
-      return 'translate(0,0) scale(1,1)'
-    })
 }
 
 // 新开分支：把当前选中的 topic 的内容塞进 FileStore 作为上下文
@@ -132,7 +112,7 @@ const AddTalk = () => {
 
 // 清除 slot 连线（只删 path，不删文本/圆点）
 const DeleteLine = () => {
-  d3.select('.slot-global-cloud').selectAll('.speaker-slot-line').remove()
+  d3.selectAll('.speaker-global-line').remove()
 }
 
 //  6) 加载数据并绘制
@@ -166,9 +146,6 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
   // 清空画布
   d3.select(UIcontainer.value).selectAll('*').remove()
 
-  let zoomK = 1
-  const WORDCLOUD_ZOOM_THRESHOLD = 1.5
-
   // ===== 额外：slot lens（局部放大镜）=====
   let wordcloudTurn: number | null = null
 
@@ -178,15 +155,22 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
   // ===== 1) 抽点：Conversation[] -> points[] =====
   const points: Point[] = []
   const topicsSet = new Set<string>()
+  const slotIdsByTopic = new Map<string, Set<number>>()
 
   dataArr.forEach((conv) => {
     const topic = conv.topic ?? 'Unknown Topic'
     const slots = conv.slots ?? []
+
     topicsSet.add(topic)
     topicColorMap[topic] = conv.color
 
+    // ✅ 确保这个 topic 的 Set 被创建
+    if (!slotIdsByTopic.has(topic)) slotIdsByTopic.set(topic, new Set<number>())
+
     slots.forEach((s) => {
       if (typeof s.id !== 'number') return
+
+      slotIdsByTopic.get(topic)!.add(s.id)
 
       const speakerName = (s.source || 'Unknown').toString().trim()
       const score = turnScoreMap.get(s.id) ?? 0.5
@@ -245,8 +229,8 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
 
   // ===== 4) 布局参数 =====
   const width = 1000
-  const height = 800
-  const MARGIN = { top: 20, right: 20, bottom: 40, left: 100 }
+  const height = 900
+  const MARGIN = { top: 20, right: 20, bottom: 30, left: 100 }
   const innerWidth = width - MARGIN.left - MARGIN.right
   const innerHeight = height - MARGIN.top - MARGIN.bottom
 
@@ -275,30 +259,38 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
     .text('时间（对话轮次）')
 
   // 条带位置
-  const STRIP_WIDTH = Math.min(500, innerWidth - 100)
-  const STRIP_LEFT = 150
+  const STRIP_WIDTH = Math.min(700, innerWidth - 100)
+  const STRIP_LEFT = 0
   const STRIP_CENTER = STRIP_LEFT + STRIP_WIDTH / 2
 
   // ===== 5) 生成“每一行总条带宽度” profile（按 block 平滑）=====
+  // 按时间轴切成若干块
   const totalSteps = xs.length
-  const NUM_WIDTH_BLOCKS = Math.min(5, totalSteps)
+  const NUM_WIDTH_BLOCKS = Math.min(8, totalSteps)
   const BLOCK_SIZE = Math.ceil(totalSteps / NUM_WIDTH_BLOCKS)
 
+  // 每行的宽度和范围
   const rowProfile = new Map<number, { rowWidth: number; stripLeft: number; stripRight: number }>()
 
-  // 取分数范围 -> 映射到宽度系数
+  // 用 info_score 得到“宽度系数 factor”，并放大差异
   const scores = points.map((p) => p.info_score ?? 0.5)
   const scoreMin = d3.min(scores) ?? 0.2
   const scoreMax = d3.max(scores) ?? 1.0
-  const widthScale = d3.scaleLinear().domain([scoreMin, scoreMax]).range([0.3, 1])
+  const widthScale = d3
+    .scalePow()
+    .exponent(2) // 1.6~3.0 都可以试，越大差异越夸张
+    .domain([scoreMin, scoreMax])
+    .range([0.3, 1]) // 最窄更窄
+    .clamp(true)
 
+  // 计算每个 turn 的宽度 factor
   const getTurnWidthFactor = (id: number) => {
     const s = turnScoreMap.get(id)
     const score = s ?? (scoreMin + scoreMax) / 2
     return widthScale(score)
   }
 
-  // 每块的平均 factor
+  // 算每个 block 的平均 factor
   const blockAvg: number[] = new Array(NUM_WIDTH_BLOCKS).fill(NaN)
 
   for (let bi = 0; bi < NUM_WIDTH_BLOCKS; bi++) {
@@ -321,7 +313,7 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
     blockAvg[bi] = cnt ? sumFactor / cnt : 1
   }
 
-  // 块内插值填进 rowProfile
+  // 把每个块的系数变成每一行的具体宽度，并且平滑
   for (let bi = 0; bi < NUM_WIDTH_BLOCKS; bi++) {
     const startIdx = bi * BLOCK_SIZE
     const endIdx = Math.min(startIdx + BLOCK_SIZE, totalSteps)
@@ -334,6 +326,7 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
     const nextIdx = Math.min(bi + 1, NUM_WIDTH_BLOCKS - 1)
     const next = Number.isFinite(blockAvg[nextIdx]) ? blockAvg[nextIdx] : cur
 
+    // 对每一行进行赋值平滑
     const L = blockIds.length
     for (let k = 0; k < L; k++) {
       const id = blockIds[k]
@@ -353,22 +346,27 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
 
   // ===== 6) 每个 topic 的条带几何（每行分配宽度）=====
   const topicBands = new Map<string, Segment[]>()
-  topics.forEach((t) => topicBands.set(t, []))
+
+  const widthByTopicById = new Map<string, Map<number, number>>() // topic -> (id -> width)
+
+  topics.forEach((t) => {
+    topicBands.set(t, [])
+    widthByTopicById.set(t, new Map())
+  })
 
   xs.forEach((id, idx) => {
     const rp = rowProfile.get(id)
     if (!rp) return
 
     const localWidth = rp.rowWidth
-    const stripLeft = rp.stripLeft
-    const stripRight = rp.stripRight
 
     const densities = topics.map((t) => topicGroup.get(t)!.values[idx]?.value ?? 0)
     const sumDensity = d3.sum(densities)
     if (!sumDensity || sumDensity <= 0) return
 
     const ALPHA = 2
-    let weighted = densities.map((v) => (v > 0 ? Math.pow(v, ALPHA) : 0))
+    const DENS_EPS = 1e-7
+    let weighted = densities.map((v) => (v > DENS_EPS ? Math.pow(v, ALPHA) : 0))
     let sumWeighted = d3.sum(weighted)
 
     if (!sumWeighted || sumWeighted <= 0) {
@@ -376,23 +374,130 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
       sumWeighted = topics.length
     }
 
-    let cursor = stripLeft
     topics.forEach((topic, ti) => {
       const wv = weighted[ti]
       if (wv <= 0) return
 
       const wTopic = (wv / sumWeighted) * localWidth
-      const left = cursor
-      const right = cursor + wTopic
-
-      topicBands.get(topic)!.push({ id, left, right })
-      cursor = right
+      widthByTopicById.get(topic)!.set(id, wTopic)
     })
+  })
 
-    // 防止累计误差：最后一个贴边
-    const lastTopic = topics[topics.length - 1]
-    const arr = topicBands.get(lastTopic)!
-    arr[arr.length - 1].right = stripRight
+  // (C) 用贪心排布：row1 按 topics 顺序；row>=2 追求 left 接近上一行
+  function layoutMinMove(desired: number[], widths: number[], L: number, R: number): number[] {
+    const k = desired.length
+    const left = new Array(k).fill(0)
+    if (k === 0) return left
+
+    // forward pass: no overlap
+    left[0] = Math.max(desired[0], L)
+    for (let i = 1; i < k; i++) {
+      left[i] = Math.max(desired[i], left[i - 1] + widths[i - 1])
+    }
+
+    // backward pass: fix overflow
+    const end = left[k - 1] + widths[k - 1]
+    if (end > R) {
+      left[k - 1] = Math.min(left[k - 1], R - widths[k - 1])
+      for (let i = k - 2; i >= 0; i--) {
+        left[i] = Math.min(left[i], left[i + 1] - widths[i])
+      }
+
+      // left bound fix
+      if (left[0] < L) {
+        const shift = L - left[0]
+        for (let i = 0; i < k; i++) left[i] += shift
+      }
+    }
+
+    return left
+  }
+
+  // 你可以调：过滤“极细但导致永远算出现”的条带
+  const MIN_WIDTH = 1 // 条带最小宽度
+  const prevLeft = new Map<string, number>() // topic -> prev row left
+
+  xs.forEach((id, rowIdx) => {
+    const rp = rowProfile.get(id)
+    if (!rp) return
+
+    const L = rp.stripLeft
+    const R = rp.stripRight
+    const stripW = Math.max(0, R - L)
+
+    // 收集本行出现的 topics（width > MIN_WIDTH）
+    const present: { topic: string; width: number }[] = []
+    for (const t of topics) {
+      const w = widthByTopicById.get(t)!.get(id) ?? 0
+      if (w > MIN_WIDTH) present.push({ topic: t, width: w })
+    }
+    if (present.length === 0) return
+
+    // 可选：如果总宽度超过 stripW，做一次整体缩放，避免溢出
+    const sumW = present.reduce((s, x) => s + x.width, 0)
+    if (sumW > stripW && sumW > 0) {
+      const scale = stripW / sumW
+      present.forEach((p) => (p.width *= scale))
+    }
+
+    // --- Row 1：按 topics 顺序（但只摆 present 的）---
+    if (rowIdx === 0) {
+      let cursor = L
+      // 保持 topics 顺序：按 topics 过滤 present
+      for (const t of topics) {
+        const hit = present.find((p) => p.topic === t)
+        if (!hit) continue
+        const left = cursor
+        const right = cursor + hit.width
+        topicBands.get(t)!.push({ id, left, right, width: hit.width })
+        prevLeft.set(t, left)
+        cursor = right
+      }
+      return
+    }
+
+    // --- Row >=2：贪心目标：同 topic left 尽量接近上一行 ---
+    // old：上一行出现过 -> desired = prevLeft
+    // new：第一次出现 -> desired 均匀撒开（避免全挤到左边）
+    const oldOnes: { topic: string; width: number; desired: number }[] = []
+    const newOnes: { topic: string; width: number; desired: number }[] = []
+
+    for (const p of present) {
+      const pl = prevLeft.get(p.topic)
+      if (pl != null) oldOnes.push({ ...p, desired: pl })
+      else newOnes.push({ ...p, desired: 0 })
+    }
+
+    if (newOnes.length > 0) {
+      // 让大的优先拿到更“居中”的期望位置（更稳）
+      newOnes.sort((a, b) => b.width - a.width)
+      for (let i = 0; i < newOnes.length; i++) {
+        const frac = newOnes.length === 1 ? 0.5 : i / (newOnes.length - 1)
+        const center = L + frac * stripW
+        newOnes[i].desired = center - newOnes[i].width / 2
+      }
+    }
+
+    const items = [...oldOnes, ...newOnes].sort((a, b) => a.desired - b.desired)
+
+    const desiredArr = items.map((it) => it.desired)
+    const widthArr = items.map((it) => it.width)
+
+    const lefts = layoutMinMove(desiredArr, widthArr, L, R)
+
+    for (let i = 0; i < items.length; i++) {
+      const t = items[i].topic
+      const left = lefts[i]
+      const right = left + items[i].width
+      topicBands.get(t)!.push({ id, left, right, width: items[i].width })
+      prevLeft.set(t, left)
+    }
+
+    // 很关键：本行没出现的 topic，把 prevLeft 删掉（否则隔很久会“隔空锚定”）
+    const presentSet = new Set(present.map((x) => x.topic))
+    for (const t of Array.from(prevLeft.keys())) {
+      if (!presentSet.has(t)) prevLeft.delete(t)
+    }
   })
 
   // topic -> (turnId -> {left,right})
@@ -402,6 +507,39 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
     segs.forEach((s) => m.set(s.id, s))
     topicBandById.set(topic, m)
   })
+
+  // function exportTopicBandByIdToJSON(
+  //   topicBandById: Map<string, Map<number, Segment>>,
+  //   filename = 'topicBandById.json',
+  // ) {
+  //   // Map -> plain object
+  //   const obj: Record<string, Record<string, Segment>> = {}
+
+  //   topicBandById.forEach((idMap, topic) => {
+  //     obj[topic] = {}
+  //     idMap.forEach((seg, id) => {
+  //       // JSON 的 key 必须是 string，所以这里用 String(id)
+  //       obj[topic][String(id)] = { id: seg.id, left: seg.left, right: seg.right, width: seg.width }
+  //     })
+  //   })
+
+  //   const jsonStr = JSON.stringify(obj, null, 2)
+
+  //   // 下载
+  //   const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' })
+  //   const url = URL.createObjectURL(blob)
+  //   const a = document.createElement('a')
+  //   a.href = url
+  //   a.download = filename
+  //   document.body.appendChild(a)
+  //   a.click()
+  //   a.remove()
+  //   URL.revokeObjectURL(url)
+
+  //   console.log('Exported:', filename)
+  // }
+
+  // exportTopicBandByIdToJSON(topicBandById)
 
   // topic -> (speaker -> frac in (0,1))  固定列比例（不贴边）
   const speakerFracByTopic = new Map<string, Map<string, number>>()
@@ -418,7 +556,7 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
     const n = spList.length
     const m = new Map<string, number>()
     spList.forEach((sp, i) => {
-      const EDGE_PAD = 0.08 // 0~0.2 建议
+      const EDGE_PAD = 0.1 // 0~0.2 建议
       let frac = 0.5
       if (n === 1) frac = 0.5
       else frac = EDGE_PAD + (1 - 2 * EDGE_PAD) * (i / (n - 1))
@@ -456,6 +594,8 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
   }
 
   let wordcloudAnchor: { id: number; x: number; y: number } | null = null
+  let zoomK = 1
+  const WORDCLOUD_ZOOM_THRESHOLD = 1.5
 
   function tryRenderWordcloudInBand() {
     let wcLayer = contentG.select<SVGGElement>('.slot-wordcloud-inband')
@@ -481,7 +621,7 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
     const boxX1 = rp.stripRight - PAD
 
     const centerY = yScaleTime(targetId)
-    const boxH = 120
+    const boxH = 100
     const boxY0 = Math.max(0, centerY - boxH / 2)
     const boxY1 = Math.min(innerHeight, centerY + boxH / 2)
 
@@ -552,7 +692,7 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
         .attr('y', 0)
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'middle')
-        .attr('fill', '#111')
+        .attr('fill', '#fff')
         .attr('font-family', 'SimHei')
         .attr('font-size', fs)
         .attr('fill-opacity', alphaScale(weight))
@@ -635,7 +775,7 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
   svg.call(zoom)
 
   // ===== 7) 图例布局参数 =====
-  const legendWidth = 170
+  const legendWidth = 150
   const legendItemHeight = 18
   const legendPadding = 10
 
@@ -645,11 +785,59 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
   const roleLegendRows = 2
   const roleLegendHeight = legendPadding * 2 + (1 + roleLegendRows) * legendItemHeight
 
-  const topicLegendX = STRIP_LEFT + STRIP_WIDTH + 20
+  const topicLegendX = STRIP_WIDTH
   const topicLegendY = 0
 
   const roleLegendX = topicLegendX
   const roleLegendY = topicLegendY + topicLegendHeight + 12
+
+  // 全局连线函数
+  function drawGlobalSpeakerLines() {
+    // 线画在 slot-global-cloud 的 lineLayer 里也行，但更稳是独立一层
+    let globalLineLayer = overlayLayer.select<SVGGElement>('.speaker-global-line-layer')
+    if (globalLineLayer.empty()) {
+      globalLineLayer = overlayLayer.append('g').attr('class', 'speaker-global-line-layer')
+    }
+    globalLineLayer.selectAll('*').remove()
+
+    // 把“所有 topic 的点”转成带布局坐标的点（x 用每个点所属 topic 的 band 来算）
+    const allWL: PointWithLayout[] = allPoints.map((p) => {
+      const ty = yScaleTime(p.id)
+      const x = fixedXInTopicRow(p.topic, p) // 注意：这里用 p.topic，不再是当前 topic
+      return { ...p, _ty: ty, _y: ty, _x: x }
+    })
+
+    // 按 speaker 分组 -> 每个 speaker 一条线
+    const bySpeakerAll = d3.group(allWL, (d) => (d.source || '').trim())
+
+    const lineGen = d3
+      .line<[number, number]>()
+      .x((p) => p[0])
+      .y((p) => p[1])
+      .curve(d3.curveMonotoneY)
+
+    bySpeakerAll.forEach((pts, speakerName) => {
+      if (!speakerName) return
+      if (!pts || pts.length < 2) return
+
+      const sorted = pts.slice().sort((a, b) => a.id - b.id)
+      const coords: [number, number][] = sorted.map((d) => [d._x, d._y])
+
+      globalLineLayer
+        .append('path')
+        .attr('class', 'speaker-global-line')
+        .attr('d', lineGen(coords)!)
+        .attr('fill', 'none')
+        .attr('stroke', speakerColorMap[speakerName] || '#999')
+        .attr('stroke-width', 2.2)
+        .attr('stroke-opacity', 0.9)
+    })
+
+    // 确保线在 bands 上方，但在 slot 文本下方的话可以按你喜好 raise/lower
+    globalLineLayer.raise()
+  }
+
+  drawGlobalSpeakerLines()
 
   // ===== 8) 全局 slot 云（点击 topic 后显示）=====
   function showSlotCloud(topic: string) {
@@ -665,39 +853,6 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
     // [ADD] 只展示前 N 条 slot
     const maxSlots = 40
     const lines = allSlots.slice(0, maxSlots)
-
-    // ----------------------------
-    // [MOVE UP] resolveY 必须在使用前定义（否则会报错）
-    // ----------------------------
-    function resolveY(points: PointWithLayout[], yMin: number, yMax: number, minGap: number) {
-      const ps = points.slice().sort((a, b) => a._ty - b._ty)
-
-      // 向下推开
-      let cur = yMin
-      for (const d of ps) {
-        cur = Math.max(d._ty, cur)
-        d._y = cur
-        cur += minGap
-      }
-
-      // 底部溢出：整体往上挪
-      const overflow = ps[ps.length - 1]._y - yMax
-      if (overflow > 0) {
-        for (const d of ps) d._y -= overflow
-      }
-
-      // 再从下往上修一遍，防止挤回去重叠
-      for (let i = ps.length - 2; i >= 0; i--) {
-        const maxAllowed = ps[i + 1]._y - minGap
-        ps[i]._y = Math.min(ps[i]._y, maxAllowed)
-      }
-
-      // 顶部兜底
-      const topOverflow = yMin - ps[0]._y
-      if (topOverflow > 0) {
-        for (const d of ps) d._y += topOverflow
-      }
-    }
 
     // 0) 先把 Point 转成 PointWithLayout
     const linesWL: PointWithLayout[] = lines.map((d) => {
@@ -731,7 +886,6 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
 
     cloudLayer.selectAll('*').remove()
 
-    const lineLayer = cloudLayer.append('g').attr('class', 'slot-line-layer')
     const labelLayer = cloudLayer.append('g').attr('class', 'slot-label-layer')
 
     const defs = g.select('defs').empty() ? g.append('defs') : g.select('defs')
@@ -793,32 +947,6 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
         wordcloudAnchor = { id: d.id, x: d._x, y: d._y }
         tryRenderWordcloudInBand()
       })
-
-    // ===== 同一发言者连线（按 source 分组）=====
-    const lineGen = d3
-      .line<[number, number]>()
-      .x((p) => p[0])
-      .y((p) => p[1])
-      .curve(d3.curveMonotoneY)
-
-    const bySpeaker = d3.group(linesWL, (d) => d.source)
-
-    bySpeaker.forEach((slotsOfSpeaker, speakerName) => {
-      if (!speakerName) return
-      if (!slotsOfSpeaker || slotsOfSpeaker.length < 2) return
-
-      const sorted = slotsOfSpeaker.slice().sort((a, b) => a.id - b.id)
-      const coords: [number, number][] = sorted.map((d) => [d._x, d._y])
-
-      lineLayer
-        .append('path')
-        .attr('class', 'speaker-slot-line')
-        .attr('d', lineGen(coords)!)
-        .attr('fill', 'none')
-        .attr('stroke', speakerColorMap[speakerName] || '#999')
-        .attr('stroke-width', 2)
-        .attr('stroke-opacity', 1)
-    })
 
     // 圆点
     slotGroups
@@ -936,9 +1064,10 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
   // ===== 10) 画每个 topic band，并绑定点击事件 =====
   topicBands.forEach((segments, topic) => {
     const color = topicGroup.get(topic)!.color
-
+    const MIN_WIDTH = 1.3 // 最小宽度，小于这个宽度的 segment 忽略掉
     const area = d3
       .area<Segment>()
+      .defined((d) => d.width >= MIN_WIDTH)
       .y((d) => yScaleTime(d.id))
       .x0((d) => d.left)
       .x1((d) => d.right)
@@ -954,7 +1083,7 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
       .attr('class', 'topic-band')
       .attr('d', bandPathD)
       .attr('fill', color)
-      .attr('fill-opacity', 0.85)
+      .attr('fill-opacity', 0.7)
       .attr('data-topic', topic)
       .style('cursor', 'pointer')
       .on('click', (event) => {
@@ -1094,32 +1223,6 @@ function drawUI(dataArr: Conversation[], turnScoreMap: Map<number, number>) {
     .text((name) => name)
 }
 
-//  8) KDE 工具函数（不改名字）
-function computeKDE1D(
-  samples: number[],
-  xs: number[],
-  bandwidth: number,
-): { x: number; value: number }[] {
-  const n = samples.length
-  if (n === 0) return xs.map((x) => ({ x, value: 0 }))
-
-  const h = bandwidth
-  const invH = 1 / h
-  const values = xs.map((x) => ({ x, value: 0 }))
-
-  for (const t of samples) {
-    for (const v of values) {
-      const u = (v.x - t) * invH
-      v.value += Math.exp(-0.5 * u * u)
-    }
-  }
-
-  const normFactor = 1 / (n * h * Math.sqrt(2 * Math.PI))
-  for (const v of values) v.value *= normFactor
-
-  return values
-}
-
 //  9) 监听：外部数据变化
 // 监听 GPT 返回内容的变化（你原来的保留）
 watch(
@@ -1157,13 +1260,13 @@ watch(
 /* 主画布 */
 .capsule-body {
   width: 1000px;
-  height: 800px;
+  height: 900px;
   margin-top: 10px;
 }
 
 .dataset-label {
   width: 1000px;
-  height: 100px;
+  height: 0px;
   display: flex;
   align-items: center;
   justify-content: center;

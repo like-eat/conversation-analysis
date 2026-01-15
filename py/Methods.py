@@ -472,3 +472,142 @@ def parse_json_array_loose(raw: str):
         return arr if isinstance(arr, list) else []
     except Exception:
         return []
+    
+def sort_history(history: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    def _id(m):
+        try:
+            return int(m.get("id", 0))
+        except:
+            return 0
+    return sorted([m for m in history if isinstance(m, dict)], key=_id)
+
+def pack_msgs(msgs: List[Dict[str, Any]], max_chars: int = 3000) -> str:
+    lines = []
+    total = 0
+    for m in msgs:
+        try:
+            mid = int(m.get("id", 0))
+        except:
+            continue
+        role = (m.get("role") or m.get("from") or m.get("source") or "unknown").strip()
+        text = (m.get("content") or m.get("text") or "").replace("\n", " ").strip()
+        if not text:
+            continue
+        line = f"[{mid}][{role}]: {text}"
+        if total + len(line) > max_chars:
+            break
+        lines.append(line)
+        total += len(line)
+    return "\n".join(lines)
+
+def slice_by_id(hist: List[Dict[str, Any]], start_id: int, end_id: int) -> List[Dict[str, Any]]:
+    out = []
+    for m in hist:
+        try:
+            mid = int(m.get("id", -1))
+        except:
+            continue
+        if start_id <= mid <= end_id:
+            if (m.get("content") or m.get("text") or "").strip():
+                out.append(m)
+    return out
+
+def followup_after_id(hist: List[Dict[str, Any]], end_id: int, horizon: int = 40) -> List[Dict[str, Any]]:
+    # 取 end_id 之后的 horizon 条“有内容”的消息
+    out = []
+    started = False
+    for m in hist:
+        try:
+            mid = int(m.get("id", -1))
+        except:
+            continue
+        if mid <= end_id:
+            continue
+        started = True
+        if started:
+            txt = (m.get("content") or m.get("text") or "").strip()
+            if txt:
+                out.append(m)
+            if len(out) >= horizon:
+                break
+    return out
+
+def median(nums: List[int]) -> float:
+    if not nums:
+        return 0.0
+    nums = sorted(nums)
+    n = len(nums)
+    mid = n // 2
+    if n % 2 == 1:
+        return float(nums[mid])
+    return 0.5 * (nums[mid - 1] + nums[mid])
+
+def cluster_by_gap(xs: List[int], gap: float) -> List[List[int]]:
+    # xs 已排序
+    if not xs:
+        return []
+    segs = [[xs[0]]]
+    for i in range(1, len(xs)):
+        if xs[i] - xs[i - 1] > gap:
+            segs.append([xs[i]])
+        else:
+            segs[-1].append(xs[i])
+    return segs
+
+def prune_isolated_slots_keep_multi_clusters(
+    slots: List[Dict[str, Any]],
+    min_pts: int = 2,          # 2: 删单点段；3: 删 1-2 点碎段
+    min_gap_floor: int = 15,   # GAP 下限
+    gap_multiplier: float = 2.0,
+    use_start_id: bool = True,
+    mark_only: bool = False,   # True: 不删，只标记 is_outlier
+) -> List[Dict[str, Any]]:
+    if not isinstance(slots, list) or not slots:
+        return []
+
+    # 取坐标（start_id 更合理）
+    def get_x(s):
+        if use_start_id and isinstance(s.get("start_id"), int):
+            return s["start_id"]
+        if isinstance(s.get("id"), int):
+            return s["id"]
+        return None
+
+    items = [(get_x(s), s) for s in slots]
+    items = [(x, s) for x, s in items if isinstance(x, int)]
+    if not items:
+        return [] if not mark_only else slots
+
+    items.sort(key=lambda t: t[0])
+    xs = [x for x, _ in items]
+
+    gaps = [xs[i+1] - xs[i] for i in range(len(xs) - 1)]
+    med = median(gaps)
+    GAP = max(min_gap_floor, gap_multiplier * med)
+
+    # 切段（用 x 序列）
+    seg_xs = cluster_by_gap(xs, GAP)
+
+    # 每段 x -> keep?
+    keep_x = set()
+    for seg in seg_xs:
+        if len(seg) >= min_pts:
+            keep_x.update(seg)
+
+    if mark_only:
+        # 标记 outlier
+        out = []
+        for s in slots:
+            x = get_x(s)
+            s2 = dict(s)
+            s2["is_outlier"] = (x not in keep_x)
+            out.append(s2)
+        return out
+
+    # 直接过滤
+    out = []
+    for s in slots:
+        x = get_x(s)
+        if x in keep_x:
+            out.append(s)
+    return out

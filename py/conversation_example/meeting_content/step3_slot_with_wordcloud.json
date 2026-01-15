@@ -1,0 +1,2968 @@
+[
+  {
+    "topic": "单身生活",
+    "slots": [
+      {
+        "slot": "单身话题",
+        "id": 46,
+        "source": "功必扬",
+        "is_question": true,
+        "start_id": 46,
+        "end_id": 51,
+        "resolved": true,
+        "wordcloud": [
+          {
+            "word": "单身生活",
+            "weight": 0.95
+          },
+          {
+            "word": "粉丝",
+            "weight": 0.85
+          },
+          {
+            "word": "话题",
+            "weight": 0.8
+          },
+          {
+            "word": "私人订制",
+            "weight": 0.78
+          },
+          {
+            "word": "压力",
+            "weight": 0.7
+          },
+          {
+            "word": "动力",
+            "weight": 0.68
+          },
+          {
+            "word": "房地产",
+            "weight": 0.65
+          },
+          {
+            "word": "谈恋爱",
+            "weight": 0.6
+          },
+          {
+            "word": "结婚",
+            "weight": 0.58
+          },
+          {
+            "word": "年龄",
+            "weight": 0.55
+          },
+          {
+            "word": "播客",
+            "weight": 0.53
+          },
+          {
+            "word": "B站",
+            "weight": 0.5
+          },
+          {
+            "word": "耳机",
+            "weight": 0.48
+          },
+          {
+            "word": "邮箱",
+            "weight": 0.45
+          },
+          {
+            "word": "观众",
+            "weight": 0.43
+          },
+          {
+            "word": "代表",
+            "weight": 0.4
+          },
+          {
+            "word": "工作",
+            "weight": 0.38
+          },
+          {
+            "word": "单身话题",
+            "weight": 0.35
+          }
+        ]
+      },
+      {
+        "slot": "单身与标签",
+        "id": 68,
+        "source": "yoyo浅井佑右",
+        "is_question": false,
+        "start_id": 68,
+        "end_id": 74,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "单身标签",
+            "weight": 0.95
+          },
+          {
+            "word": "粉丝",
+            "weight": 0.85
+          },
+          {
+            "word": "私信",
+            "weight": 0.8
+          },
+          {
+            "word": "40岁",
+            "weight": 0.88
+          },
+          {
+            "word": "柠檬叔",
+            "weight": 0.9
+          },
+          {
+            "word": "安慰",
+            "weight": 0.75
+          },
+          {
+            "word": "未来",
+            "weight": 0.7
+          },
+          {
+            "word": "单身生活",
+            "weight": 0.92
+          },
+          {
+            "word": "酸",
+            "weight": 0.78
+          },
+          {
+            "word": "暖心",
+            "weight": 0.72
+          }
+        ]
+      },
+      {
+        "slot": "单身调侃",
+        "id": 75,
+        "source": "功必扬",
+        "is_question": false,
+        "start_id": 75,
+        "end_id": 81,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "单身时间",
+            "weight": 0.85
+          },
+          {
+            "word": "女朋友",
+            "weight": 0.8
+          },
+          {
+            "word": "结婚",
+            "weight": 0.78
+          },
+          {
+            "word": "成家",
+            "weight": 0.75
+          },
+          {
+            "word": "粉丝",
+            "weight": 0.7
+          },
+          {
+            "word": "感兴趣",
+            "weight": 0.68
+          },
+          {
+            "word": "在线征婚",
+            "weight": 0.65
+          },
+          {
+            "word": "调侃",
+            "weight": 0.6
+          },
+          {
+            "word": "柠檬叔",
+            "weight": 0.55
+          },
+          {
+            "word": "扣一",
+            "weight": 0.5
+          },
+          {
+            "word": "扣二",
+            "weight": 0.5
+          }
+        ]
+      },
+      {
+        "slot": "全球单身趋势",
+        "id": 86,
+        "source": "功必扬",
+        "is_question": false,
+        "start_id": 86,
+        "end_id": 90,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "单身趋势",
+            "weight": 0.95
+          },
+          {
+            "word": "结婚概念",
+            "weight": 0.88
+          },
+          {
+            "word": "全球单身",
+            "weight": 0.85
+          },
+          {
+            "word": "阿根廷单身",
+            "weight": 0.82
+          },
+          {
+            "word": "中国单身人口",
+            "weight": 0.9
+          },
+          {
+            "word": "美国人口普查",
+            "weight": 0.87
+          },
+          {
+            "word": "未婚同居",
+            "weight": 0.84
+          },
+          {
+            "word": "欧盟成员国",
+            "weight": 0.8
+          },
+          {
+            "word": "成年人口",
+            "weight": 0.89
+          },
+          {
+            "word": "日本人口",
+            "weight": 0.83
+          },
+          {
+            "word": "谈恋爱",
+            "weight": 0.78
+          },
+          {
+            "word": "结婚放弃",
+            "weight": 0.81
+          },
+          {
+            "word": "同居现象",
+            "weight": 0.77
+          },
+          {
+            "word": "单身状态",
+            "weight": 0.86
+          },
+          {
+            "word": "婚姻状态",
+            "weight": 0.79
+          },
+          {
+            "word": "人口数据",
+            "weight": 0.76
+          },
+          {
+            "word": "单身普遍",
+            "weight": 0.84
+          },
+          {
+            "word": "欧洲同居",
+            "weight": 0.75
+          }
+        ]
+      },
+      {
+        "slot": "东京独居现象",
+        "id": 91,
+        "source": "功必扬",
+        "is_question": false,
+        "start_id": 91,
+        "end_id": 96,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "独居家庭",
+            "weight": 0.95
+          },
+          {
+            "word": "东京",
+            "weight": 0.9
+          },
+          {
+            "word": "单身生活",
+            "weight": 0.88
+          },
+          {
+            "word": "家庭构成",
+            "weight": 0.85
+          },
+          {
+            "word": "农村人",
+            "weight": 0.8
+          },
+          {
+            "word": "大阪",
+            "weight": 0.75
+          },
+          {
+            "word": "数据",
+            "weight": 0.7
+          },
+          {
+            "word": "普遍现象",
+            "weight": 0.68
+          },
+          {
+            "word": "接地气",
+            "weight": 0.65
+          },
+          {
+            "word": "正常状态",
+            "weight": 0.6
+          }
+        ]
+      },
+      {
+        "slot": "日本单身生活",
+        "id": 105,
+        "source": "功必扬",
+        "is_question": true,
+        "start_id": 105,
+        "end_id": 109,
+        "resolved": true,
+        "wordcloud": [
+          {
+            "word": "单身生活",
+            "weight": 0.95
+          },
+          {
+            "word": "草食男子",
+            "weight": 0.88
+          },
+          {
+            "word": "年轻人",
+            "weight": 0.82
+          },
+          {
+            "word": "被动",
+            "weight": 0.8
+          },
+          {
+            "word": "积极",
+            "weight": 0.78
+          },
+          {
+            "word": "伴侣对象",
+            "weight": 0.76
+          },
+          {
+            "word": "日本女孩子",
+            "weight": 0.74
+          },
+          {
+            "word": "原因",
+            "weight": 0.72
+          },
+          {
+            "word": "找对象",
+            "weight": 0.7
+          }
+        ]
+      },
+      {
+        "slot": "独自生活体验",
+        "id": 205,
+        "source": "功必扬",
+        "is_question": false,
+        "start_id": 205,
+        "end_id": 212,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "单身生活",
+            "weight": 0.95
+          },
+          {
+            "word": "独自生活",
+            "weight": 0.9
+          },
+          {
+            "word": "海底捞",
+            "weight": 0.85
+          },
+          {
+            "word": "一个人",
+            "weight": 0.8
+          },
+          {
+            "word": "玩偶",
+            "weight": 0.75
+          },
+          {
+            "word": "K歌",
+            "weight": 0.7
+          },
+          {
+            "word": "火锅",
+            "weight": 0.65
+          },
+          {
+            "word": "享受时间",
+            "weight": 0.6
+          },
+          {
+            "word": "电影院",
+            "weight": 0.55
+          },
+          {
+            "word": "看电影",
+            "weight": 0.5
+          },
+          {
+            "word": "半份",
+            "weight": 0.45
+          },
+          {
+            "word": "表情",
+            "weight": 0.4
+          }
+        ]
+      },
+      {
+        "slot": "宠物与单身生活",
+        "id": 217,
+        "source": "功必扬",
+        "is_question": false,
+        "start_id": 217,
+        "end_id": 224,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "单身生活",
+            "weight": 0.95
+          },
+          {
+            "word": "宠物",
+            "weight": 0.9
+          },
+          {
+            "word": "孤独",
+            "weight": 0.85
+          },
+          {
+            "word": "猫",
+            "weight": 0.8
+          },
+          {
+            "word": "狗",
+            "weight": 0.75
+          },
+          {
+            "word": "牵挂",
+            "weight": 0.7
+          },
+          {
+            "word": "宠物美容院",
+            "weight": 0.65
+          },
+          {
+            "word": "婴儿车",
+            "weight": 0.6
+          },
+          {
+            "word": "逛街",
+            "weight": 0.55
+          },
+          {
+            "word": "布丁",
+            "weight": 0.5
+          },
+          {
+            "word": "汤圆",
+            "weight": 0.5
+          },
+          {
+            "word": "结婚",
+            "weight": 0.45
+          },
+          {
+            "word": "不生孩子",
+            "weight": 0.4
+          },
+          {
+            "word": "遛狗",
+            "weight": 0.35
+          },
+          {
+            "word": "上海",
+            "weight": 0.3
+          },
+          {
+            "word": "萨沙",
+            "weight": 0.25
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "婚姻与家庭生育",
+    "slots": [
+      {
+        "slot": "婚姻观念变化",
+        "id": 225,
+        "source": "萨沙",
+        "is_question": false,
+        "start_id": 225,
+        "end_id": 227,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "婚姻观念变化",
+            "weight": 0.95
+          },
+          {
+            "word": "传统家庭",
+            "weight": 0.85
+          },
+          {
+            "word": "年轻一代",
+            "weight": 0.82
+          },
+          {
+            "word": "开放态度",
+            "weight": 0.78
+          },
+          {
+            "word": "结婚简单",
+            "weight": 0.8
+          },
+          {
+            "word": "离婚率高",
+            "weight": 0.88
+          },
+          {
+            "word": "同居选择",
+            "weight": 0.76
+          },
+          {
+            "word": "法律程序",
+            "weight": 0.7
+          },
+          {
+            "word": "宗教婚礼",
+            "weight": 0.68
+          },
+          {
+            "word": "家庭压力",
+            "weight": 0.74
+          },
+          {
+            "word": "忠贞不渝",
+            "weight": 0.72
+          },
+          {
+            "word": "再婚现象",
+            "weight": 0.77
+          },
+          {
+            "word": "老一辈观念",
+            "weight": 0.73
+          },
+          {
+            "word": "租房结婚",
+            "weight": 0.69
+          },
+          {
+            "word": "婚姻重要性",
+            "weight": 0.81
+          }
+        ]
+      },
+      {
+        "slot": "日本婚姻与孩子",
+        "id": 228,
+        "source": "yoyo浅井佑右",
+        "is_question": true,
+        "start_id": 228,
+        "end_id": 238,
+        "resolved": true,
+        "wordcloud": [
+          {
+            "word": "孩子户口",
+            "weight": 0.95
+          },
+          {
+            "word": "结婚理由",
+            "weight": 0.9
+          },
+          {
+            "word": "爸爸妈妈",
+            "weight": 0.85
+          },
+          {
+            "word": "单身生育",
+            "weight": 0.8
+          },
+          {
+            "word": "日本婚姻",
+            "weight": 0.78
+          },
+          {
+            "word": "理想状态",
+            "weight": 0.75
+          },
+          {
+            "word": "生育观念",
+            "weight": 0.72
+          },
+          {
+            "word": "户口问题",
+            "weight": 0.7
+          },
+          {
+            "word": "婚姻选择",
+            "weight": 0.68
+          },
+          {
+            "word": "孩子身份",
+            "weight": 0.65
+          },
+          {
+            "word": "结婚顺序",
+            "weight": 0.63
+          },
+          {
+            "word": "家庭结构",
+            "weight": 0.6
+          },
+          {
+            "word": "社会观念",
+            "weight": 0.58
+          },
+          {
+            "word": "生育政策",
+            "weight": 0.55
+          },
+          {
+            "word": "文化差异",
+            "weight": 0.53
+          },
+          {
+            "word": "婚姻制度",
+            "weight": 0.5
+          }
+        ]
+      },
+      {
+        "slot": "婚姻与孤独",
+        "id": 239,
+        "source": "功必扬",
+        "is_question": true,
+        "start_id": 239,
+        "end_id": 242,
+        "resolved": true,
+        "wordcloud": [
+          {
+            "word": "怀孕结婚",
+            "weight": 0.85
+          },
+          {
+            "word": "孤独",
+            "weight": 0.8
+          },
+          {
+            "word": "离婚",
+            "weight": 0.78
+          },
+          {
+            "word": "婚姻",
+            "weight": 0.75
+          },
+          {
+            "word": "重点",
+            "weight": 0.7
+          },
+          {
+            "word": "解决孤独",
+            "weight": 0.68
+          },
+          {
+            "word": "家庭",
+            "weight": 0.65
+          },
+          {
+            "word": "儿子",
+            "weight": 0.6
+          },
+          {
+            "word": "开心",
+            "weight": 0.55
+          },
+          {
+            "word": "出生",
+            "weight": 0.5
+          }
+        ]
+      },
+      {
+        "slot": "婚姻压力",
+        "id": 247,
+        "source": "功必扬",
+        "is_question": true,
+        "start_id": 247,
+        "end_id": 257,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "催婚",
+            "weight": 0.95
+          },
+          {
+            "word": "传统观念",
+            "weight": 0.88
+          },
+          {
+            "word": "婚姻压力",
+            "weight": 0.85
+          },
+          {
+            "word": "40岁",
+            "weight": 0.82
+          },
+          {
+            "word": "长子责任",
+            "weight": 0.8
+          },
+          {
+            "word": "外公外婆",
+            "weight": 0.78
+          },
+          {
+            "word": "孙子孙女",
+            "weight": 0.76
+          },
+          {
+            "word": "兄弟姐妹",
+            "weight": 0.74
+          },
+          {
+            "word": "家庭期望",
+            "weight": 0.72
+          },
+          {
+            "word": "生育焦虑",
+            "weight": 0.7
+          },
+          {
+            "word": "传统家庭",
+            "weight": 0.68
+          },
+          {
+            "word": "30而立",
+            "weight": 0.66
+          },
+          {
+            "word": "成家",
+            "weight": 0.64
+          },
+          {
+            "word": "父母期待",
+            "weight": 0.62
+          },
+          {
+            "word": "婚姻观念",
+            "weight": 0.6
+          },
+          {
+            "word": "独生子女",
+            "weight": 0.58
+          },
+          {
+            "word": "家庭责任",
+            "weight": 0.56
+          },
+          {
+            "word": "生育压力",
+            "weight": 0.54
+          },
+          {
+            "word": "代际差异",
+            "weight": 0.52
+          },
+          {
+            "word": "人生阶段",
+            "weight": 0.5
+          }
+        ]
+      },
+      {
+        "slot": "家庭期望",
+        "id": 258,
+        "source": "功必扬",
+        "is_question": false,
+        "start_id": 258,
+        "end_id": 266,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "家庭期望",
+            "weight": 0.85
+          },
+          {
+            "word": "催婚",
+            "weight": 0.8
+          },
+          {
+            "word": "年龄",
+            "weight": 0.78
+          },
+          {
+            "word": "孙子",
+            "weight": 0.75
+          },
+          {
+            "word": "结婚",
+            "weight": 0.72
+          },
+          {
+            "word": "恋爱",
+            "weight": 0.7
+          },
+          {
+            "word": "父母",
+            "weight": 0.68
+          },
+          {
+            "word": "保养",
+            "weight": 0.65
+          },
+          {
+            "word": "退休",
+            "weight": 0.6
+          },
+          {
+            "word": "头发",
+            "weight": 0.58
+          },
+          {
+            "word": "同学",
+            "weight": 0.55
+          },
+          {
+            "word": "女朋友",
+            "weight": 0.53
+          },
+          {
+            "word": "孩子",
+            "weight": 0.5
+          },
+          {
+            "word": "年龄焦虑",
+            "weight": 0.48
+          },
+          {
+            "word": "满足",
+            "weight": 0.45
+          },
+          {
+            "word": "委婉",
+            "weight": 0.42
+          },
+          {
+            "word": "谈恋爱",
+            "weight": 0.4
+          },
+          {
+            "word": "40岁",
+            "weight": 0.38
+          },
+          {
+            "word": "20岁",
+            "weight": 0.35
+          },
+          {
+            "word": "30岁",
+            "weight": 0.33
+          }
+        ]
+      },
+      {
+        "slot": "结婚条件",
+        "id": 267,
+        "source": "yoyo浅井佑右",
+        "is_question": true,
+        "start_id": 267,
+        "end_id": 272,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "结婚条件",
+            "weight": 0.95
+          },
+          {
+            "word": "谈恋爱",
+            "weight": 0.85
+          },
+          {
+            "word": "经验总结",
+            "weight": 0.8
+          },
+          {
+            "word": "第一次结婚",
+            "weight": 0.78
+          },
+          {
+            "word": "适合结婚",
+            "weight": 0.77
+          },
+          {
+            "word": "婚姻问题",
+            "weight": 0.75
+          },
+          {
+            "word": "结婚对象",
+            "weight": 0.74
+          },
+          {
+            "word": "婚姻经验",
+            "weight": 0.72
+          },
+          {
+            "word": "结婚标准",
+            "weight": 0.7
+          },
+          {
+            "word": "婚姻选择",
+            "weight": 0.68
+          },
+          {
+            "word": "婚姻态度",
+            "weight": 0.67
+          },
+          {
+            "word": "婚姻生活",
+            "weight": 0.65
+          },
+          {
+            "word": "结婚意愿",
+            "weight": 0.64
+          },
+          {
+            "word": "婚姻目标",
+            "weight": 0.63
+          },
+          {
+            "word": "婚姻责任",
+            "weight": 0.62
+          },
+          {
+            "word": "婚姻规划",
+            "weight": 0.6
+          }
+        ]
+      },
+      {
+        "slot": "婚姻观念",
+        "id": 273,
+        "source": "萨沙",
+        "is_question": false,
+        "start_id": 273,
+        "end_id": 280,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "结婚",
+            "weight": 0.95
+          },
+          {
+            "word": "催婚",
+            "weight": 0.88
+          },
+          {
+            "word": "婚姻观念",
+            "weight": 0.92
+          },
+          {
+            "word": "俄罗斯",
+            "weight": 0.8
+          },
+          {
+            "word": "大学毕业",
+            "weight": 0.75
+          },
+          {
+            "word": "习惯",
+            "weight": 0.7
+          },
+          {
+            "word": "早婚",
+            "weight": 0.78
+          },
+          {
+            "word": "重要性",
+            "weight": 0.72
+          },
+          {
+            "word": "妈妈",
+            "weight": 0.85
+          },
+          {
+            "word": "生育",
+            "weight": 0.65
+          }
+        ]
+      },
+      {
+        "slot": "婚姻决策",
+        "id": 281,
+        "source": "功必扬",
+        "is_question": true,
+        "start_id": 281,
+        "end_id": 290,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "婚姻决策",
+            "weight": 0.95
+          },
+          {
+            "word": "主观感受",
+            "weight": 0.85
+          },
+          {
+            "word": "结婚条件",
+            "weight": 0.8
+          },
+          {
+            "word": "姐弟恋",
+            "weight": 0.78
+          },
+          {
+            "word": "单身原因",
+            "weight": 0.75
+          },
+          {
+            "word": "文化影响",
+            "weight": 0.72
+          },
+          {
+            "word": "潜意识",
+            "weight": 0.7
+          },
+          {
+            "word": "人生要求",
+            "weight": 0.68
+          },
+          {
+            "word": "房车存款",
+            "weight": 0.65
+          },
+          {
+            "word": "门当户对",
+            "weight": 0.63
+          },
+          {
+            "word": "结婚基础",
+            "weight": 0.6
+          },
+          {
+            "word": "生意化婚姻",
+            "weight": 0.58
+          },
+          {
+            "word": "感情简单",
+            "weight": 0.55
+          },
+          {
+            "word": "教育影响",
+            "weight": 0.53
+          },
+          {
+            "word": "婚姻束缚",
+            "weight": 0.5
+          }
+        ]
+      },
+      {
+        "slot": "生育观念",
+        "id": 291,
+        "source": "功必扬",
+        "is_question": false,
+        "start_id": 291,
+        "end_id": 294,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "结婚生子",
+            "weight": 0.95
+          },
+          {
+            "word": "生育观念",
+            "weight": 0.9
+          },
+          {
+            "word": "日本婚姻",
+            "weight": 0.85
+          },
+          {
+            "word": "生孩子",
+            "weight": 0.8
+          },
+          {
+            "word": "家庭责任",
+            "weight": 0.75
+          },
+          {
+            "word": "生育压力",
+            "weight": 0.7
+          },
+          {
+            "word": "婚姻目的",
+            "weight": 0.65
+          },
+          {
+            "word": "大部分人",
+            "weight": 0.6
+          }
+        ]
+      },
+      {
+        "slot": "年龄与生育",
+        "id": 295,
+        "source": "萨沙",
+        "is_question": false,
+        "start_id": 295,
+        "end_id": 302,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "年龄与生育",
+            "weight": 0.95
+          },
+          {
+            "word": "生育风险",
+            "weight": 0.88
+          },
+          {
+            "word": "医疗先进",
+            "weight": 0.85
+          },
+          {
+            "word": "长寿",
+            "weight": 0.83
+          },
+          {
+            "word": "日本",
+            "weight": 0.8
+          },
+          {
+            "word": "四十多岁",
+            "weight": 0.78
+          },
+          {
+            "word": "老人",
+            "weight": 0.75
+          },
+          {
+            "word": "不死族",
+            "weight": 0.72
+          },
+          {
+            "word": "底层逻辑",
+            "weight": 0.7
+          },
+          {
+            "word": "生孩子",
+            "weight": 0.68
+          }
+        ]
+      },
+      {
+        "slot": "生育补贴",
+        "id": 303,
+        "source": "功必扬",
+        "is_question": false,
+        "start_id": 303,
+        "end_id": 305,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "生育补贴",
+            "weight": 0.95
+          },
+          {
+            "word": "津贴",
+            "weight": 0.85
+          },
+          {
+            "word": "结婚补助",
+            "weight": 0.8
+          },
+          {
+            "word": "一次性奖励",
+            "weight": 0.78
+          },
+          {
+            "word": "每月补贴",
+            "weight": 0.77
+          },
+          {
+            "word": "俄罗斯福利",
+            "weight": 0.75
+          },
+          {
+            "word": "生孩子",
+            "weight": 0.74
+          },
+          {
+            "word": "国家支持",
+            "weight": 0.72
+          },
+          {
+            "word": "土地奖励",
+            "weight": 0.7
+          },
+          {
+            "word": "度假小屋",
+            "weight": 0.68
+          },
+          {
+            "word": "大额补贴",
+            "weight": 0.67
+          },
+          {
+            "word": "六七百万卢布",
+            "weight": 0.65
+          },
+          {
+            "word": "日本津贴",
+            "weight": 0.64
+          },
+          {
+            "word": "生育政策",
+            "weight": 0.63
+          },
+          {
+            "word": "远郊土地",
+            "weight": 0.6
+          }
+        ]
+      },
+      {
+        "slot": "结婚与保险",
+        "id": 306,
+        "source": "yoyo浅井佑右",
+        "is_question": false,
+        "start_id": 306,
+        "end_id": 310,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "结婚",
+            "weight": 0.85
+          },
+          {
+            "word": "保险费",
+            "weight": 0.8
+          },
+          {
+            "word": "成家",
+            "weight": 0.75
+          },
+          {
+            "word": "孩子",
+            "weight": 0.9
+          },
+          {
+            "word": "花销",
+            "weight": 0.7
+          },
+          {
+            "word": "好奇心",
+            "weight": 0.65
+          },
+          {
+            "word": "生育",
+            "weight": 0.78
+          },
+          {
+            "word": "家庭",
+            "weight": 0.82
+          },
+          {
+            "word": "老年",
+            "weight": 0.6
+          },
+          {
+            "word": "开销",
+            "weight": 0.68
+          }
+        ]
+      },
+      {
+        "slot": "生育意愿",
+        "id": 311,
+        "source": "yoyo浅井佑右",
+        "is_question": false,
+        "start_id": 311,
+        "end_id": 317,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "生育意愿",
+            "weight": 0.95
+          },
+          {
+            "word": "人生体验",
+            "weight": 0.88
+          },
+          {
+            "word": "父母角色",
+            "weight": 0.85
+          },
+          {
+            "word": "孩子变化",
+            "weight": 0.83
+          },
+          {
+            "word": "结婚区别",
+            "weight": 0.8
+          },
+          {
+            "word": "翻天覆地",
+            "weight": 0.78
+          },
+          {
+            "word": "不喜欢",
+            "weight": 0.75
+          },
+          {
+            "word": "离婚接受",
+            "weight": 0.72
+          },
+          {
+            "word": "一辈子",
+            "weight": 0.7
+          },
+          {
+            "word": "观察",
+            "weight": 0.68
+          },
+          {
+            "word": "经验",
+            "weight": 0.65
+          }
+        ]
+      },
+      {
+        "slot": "孩子的好奇心",
+        "id": 318,
+        "source": "功必扬",
+        "is_question": false,
+        "start_id": 318,
+        "end_id": 320,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "孩子",
+            "weight": 0.95
+          },
+          {
+            "word": "好奇心",
+            "weight": 0.9
+          },
+          {
+            "word": "表情",
+            "weight": 0.85
+          },
+          {
+            "word": "观察",
+            "weight": 0.8
+          },
+          {
+            "word": "一辈子",
+            "weight": 0.75
+          },
+          {
+            "word": "40岁",
+            "weight": 0.7
+          }
+        ]
+      },
+      {
+        "slot": "年龄与生育观",
+        "id": 321,
+        "source": "功必扬",
+        "is_question": false,
+        "start_id": 321,
+        "end_id": 327,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "年龄",
+            "weight": 0.85
+          },
+          {
+            "word": "生育观",
+            "weight": 0.8
+          },
+          {
+            "word": "年轻",
+            "weight": 0.78
+          },
+          {
+            "word": "好奇心",
+            "weight": 0.75
+          },
+          {
+            "word": "孩子",
+            "weight": 0.7
+          },
+          {
+            "word": "下坡路",
+            "weight": 0.68
+          },
+          {
+            "word": "必要性",
+            "weight": 0.65
+          },
+          {
+            "word": "弟弟妹妹",
+            "weight": 0.6
+          },
+          {
+            "word": "20多岁",
+            "weight": 0.58
+          },
+          {
+            "word": "34岁",
+            "weight": 0.55
+          },
+          {
+            "word": "27岁",
+            "weight": 0.53
+          },
+          {
+            "word": "18岁",
+            "weight": 0.5
+          }
+        ]
+      },
+      {
+        "slot": "家庭计划",
+        "id": 328,
+        "source": "功必扬",
+        "is_question": false,
+        "start_id": 328,
+        "end_id": 340,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "家庭计划",
+            "weight": 0.95
+          },
+          {
+            "word": "收养孩子",
+            "weight": 0.88
+          },
+          {
+            "word": "生育能力",
+            "weight": 0.85
+          },
+          {
+            "word": "俄罗斯传统",
+            "weight": 0.82
+          },
+          {
+            "word": "高纬度国家",
+            "weight": 0.8
+          },
+          {
+            "word": "怀孕概率",
+            "weight": 0.78
+          },
+          {
+            "word": "恶劣环境",
+            "weight": 0.76
+          },
+          {
+            "word": "名人榜样",
+            "weight": 0.74
+          },
+          {
+            "word": "单身生活",
+            "weight": 0.72
+          },
+          {
+            "word": "结婚意愿",
+            "weight": 0.7
+          },
+          {
+            "word": "生育体验",
+            "weight": 0.68
+          },
+          {
+            "word": "日本收养",
+            "weight": 0.66
+          },
+          {
+            "word": "生育选择",
+            "weight": 0.64
+          },
+          {
+            "word": "婚姻观念",
+            "weight": 0.62
+          },
+          {
+            "word": "爱豆影响",
+            "weight": 0.6
+          }
+        ]
+      },
+      {
+        "slot": "个人婚姻计划",
+        "id": 344,
+        "source": "yoyo浅井佑右",
+        "is_question": false,
+        "start_id": 344,
+        "end_id": 357,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "结婚",
+            "weight": 0.95
+          },
+          {
+            "word": "单身",
+            "weight": 0.85
+          },
+          {
+            "word": "恋爱",
+            "weight": 0.8
+          },
+          {
+            "word": "家",
+            "weight": 0.78
+          },
+          {
+            "word": "征婚",
+            "weight": 0.77
+          },
+          {
+            "word": "婚礼",
+            "weight": 0.75
+          },
+          {
+            "word": "大阪",
+            "weight": 0.7
+          },
+          {
+            "word": "咖啡",
+            "weight": 0.65
+          },
+          {
+            "word": "节目",
+            "weight": 0.6
+          },
+          {
+            "word": "未来妻子",
+            "weight": 0.58
+          },
+          {
+            "word": "好奇心",
+            "weight": 0.55
+          },
+          {
+            "word": "体验",
+            "weight": 0.5
+          },
+          {
+            "word": "爱豆",
+            "weight": 0.45
+          },
+          {
+            "word": "聊天",
+            "weight": 0.4
+          }
+        ]
+      },
+      {
+        "slot": "婚礼计划",
+        "id": 358,
+        "source": "yoyo浅井佑右",
+        "is_question": false,
+        "start_id": 358,
+        "end_id": 362,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "婚礼计划",
+            "weight": 0.85
+          },
+          {
+            "word": "机票便宜",
+            "weight": 0.8
+          },
+          {
+            "word": "wedding seeker",
+            "weight": 0.78
+          },
+          {
+            "word": "渴望",
+            "weight": 0.7
+          },
+          {
+            "word": "旅行",
+            "weight": 0.65
+          }
+        ]
+      },
+      {
+        "slot": "约会成本",
+        "id": 363,
+        "source": "功必扬",
+        "is_question": true,
+        "start_id": 363,
+        "end_id": 363,
+        "resolved": true,
+        "wordcloud": [
+          {
+            "word": "谈恋爱",
+            "weight": 0.85
+          },
+          {
+            "word": "成本",
+            "weight": 0.8
+          },
+          {
+            "word": "请吃饭",
+            "weight": 0.75
+          },
+          {
+            "word": "AA制",
+            "weight": 0.7
+          },
+          {
+            "word": "约会",
+            "weight": 0.78
+          },
+          {
+            "word": "日本",
+            "weight": 0.65
+          },
+          {
+            "word": "男方",
+            "weight": 0.72
+          }
+        ]
+      },
+      {
+        "slot": "约会支付方式",
+        "id": 364,
+        "source": "功必扬",
+        "is_question": true,
+        "start_id": 364,
+        "end_id": 376,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "约会支付",
+            "weight": 0.95
+          },
+          {
+            "word": "AA制",
+            "weight": 0.9
+          },
+          {
+            "word": "昭和时代",
+            "weight": 0.85
+          },
+          {
+            "word": "女性地位",
+            "weight": 0.8
+          },
+          {
+            "word": "巴西文化",
+            "weight": 0.75
+          },
+          {
+            "word": "欧洲习惯",
+            "weight": 0.7
+          },
+          {
+            "word": "恋爱目的",
+            "weight": 0.65
+          },
+          {
+            "word": "拉美传统",
+            "weight": 0.6
+          },
+          {
+            "word": "俄罗斯约会",
+            "weight": 0.55
+          },
+          {
+            "word": "抢着买单",
+            "weight": 0.5
+          },
+          {
+            "word": "清华研究生",
+            "weight": 0.45
+          },
+          {
+            "word": "南美洲风俗",
+            "weight": 0.4
+          },
+          {
+            "word": "墨西哥文化",
+            "weight": 0.35
+          },
+          {
+            "word": "朋友关系",
+            "weight": 0.3
+          },
+          {
+            "word": "男生买单",
+            "weight": 0.25
+          },
+          {
+            "word": "女方请客",
+            "weight": 0.2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "日本社会现象",
+    "slots": [
+      {
+        "slot": "日本女性成就",
+        "id": 115,
+        "source": "yoyo浅井佑右",
+        "is_question": false,
+        "start_id": 115,
+        "end_id": 122,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "日本女足",
+            "weight": 0.95
+          },
+          {
+            "word": "世界冠军",
+            "weight": 0.9
+          },
+          {
+            "word": "女性成就",
+            "weight": 0.88
+          },
+          {
+            "word": "yamato a disco",
+            "weight": 0.85
+          },
+          {
+            "word": "日本魅力",
+            "weight": 0.83
+          },
+          {
+            "word": "娶老婆",
+            "weight": 0.8
+          },
+          {
+            "word": "瑞士手表",
+            "weight": 0.78
+          },
+          {
+            "word": "德国汽车",
+            "weight": 0.76
+          },
+          {
+            "word": "幸福婚姻",
+            "weight": 0.74
+          },
+          {
+            "word": "准备早餐",
+            "weight": 0.72
+          }
+        ]
+      },
+      {
+        "slot": "日本男女关系",
+        "id": 132,
+        "source": "yoyo浅井佑右",
+        "is_question": true,
+        "start_id": 132,
+        "end_id": 141,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "日本女生",
+            "weight": 0.85
+          },
+          {
+            "word": "单身原因",
+            "weight": 0.8
+          },
+          {
+            "word": "男女关系",
+            "weight": 0.78
+          },
+          {
+            "word": "被动",
+            "weight": 0.75
+          },
+          {
+            "word": "主动约会",
+            "weight": 0.72
+          },
+          {
+            "word": "搭讪",
+            "weight": 0.7
+          },
+          {
+            "word": "年轻人",
+            "weight": 0.68
+          },
+          {
+            "word": "约会",
+            "weight": 0.65
+          },
+          {
+            "word": "邀请",
+            "weight": 0.63
+          },
+          {
+            "word": "女生行为",
+            "weight": 0.6
+          },
+          {
+            "word": "男生主动",
+            "weight": 0.58
+          },
+          {
+            "word": "社会现象",
+            "weight": 0.55
+          },
+          {
+            "word": "恋爱文化",
+            "weight": 0.53
+          },
+          {
+            "word": "提约会",
+            "weight": 0.5
+          },
+          {
+            "word": "男女互动",
+            "weight": 0.48
+          }
+        ]
+      },
+      {
+        "slot": "日本人长寿原因",
+        "id": 157,
+        "source": "yoyo浅井佑右",
+        "is_question": false,
+        "start_id": 157,
+        "end_id": 164,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "日本人长寿",
+            "weight": 0.95
+          },
+          {
+            "word": "平均寿命",
+            "weight": 0.88
+          },
+          {
+            "word": "女生寿命",
+            "weight": 0.85
+          },
+          {
+            "word": "全世界第一",
+            "weight": 0.82
+          },
+          {
+            "word": "男生寿命",
+            "weight": 0.8
+          },
+          {
+            "word": "长寿原因",
+            "weight": 0.78
+          },
+          {
+            "word": "工作危险",
+            "weight": 0.75
+          },
+          {
+            "word": "日本社会",
+            "weight": 0.73
+          },
+          {
+            "word": "寿命差异",
+            "weight": 0.7
+          },
+          {
+            "word": "健康生活",
+            "weight": 0.68
+          },
+          {
+            "word": "作息习惯",
+            "weight": 0.65
+          },
+          {
+            "word": "饮食习惯",
+            "weight": 0.63
+          },
+          {
+            "word": "医疗条件",
+            "weight": 0.6
+          },
+          {
+            "word": "生活方式",
+            "weight": 0.58
+          },
+          {
+            "word": "社会福利",
+            "weight": 0.55
+          },
+          {
+            "word": "心理健康",
+            "weight": 0.53
+          },
+          {
+            "word": "家庭关系",
+            "weight": 0.5
+          }
+        ]
+      },
+      {
+        "slot": "日本社会现象",
+        "id": 183,
+        "source": "功必扬",
+        "is_question": false,
+        "start_id": 183,
+        "end_id": 185,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "日本开放",
+            "weight": 0.85
+          },
+          {
+            "word": "数据统计",
+            "weight": 0.75
+          },
+          {
+            "word": "未婚单身",
+            "weight": 0.9
+          },
+          {
+            "word": "虚拟男女朋友",
+            "weight": 0.8
+          },
+          {
+            "word": "设计",
+            "weight": 0.7
+          },
+          {
+            "word": "拉面馆",
+            "weight": 0.65
+          },
+          {
+            "word": "单独隔间",
+            "weight": 0.6
+          },
+          {
+            "word": "社会现象",
+            "weight": 0.88
+          },
+          {
+            "word": "happy life",
+            "weight": 0.78
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "个人生活与压力",
+    "slots": [
+      {
+        "slot": "孤独与老龄化",
+        "id": 153,
+        "source": "功必扬",
+        "is_question": true,
+        "start_id": 153,
+        "end_id": 156,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "孤独",
+            "weight": 0.95
+          },
+          {
+            "word": "老龄化",
+            "weight": 0.9
+          },
+          {
+            "word": "单身",
+            "weight": 0.85
+          },
+          {
+            "word": "孤独老人",
+            "weight": 0.8
+          },
+          {
+            "word": "日本",
+            "weight": 0.75
+          },
+          {
+            "word": "政府部门",
+            "weight": 0.7
+          },
+          {
+            "word": "年龄大",
+            "weight": 0.65
+          },
+          {
+            "word": "新闻",
+            "weight": 0.6
+          }
+        ]
+      },
+      {
+        "slot": "生活节奏与压力",
+        "id": 165,
+        "source": "功必扬",
+        "is_question": false,
+        "start_id": 165,
+        "end_id": 168,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "生活节奏",
+            "weight": 0.95
+          },
+          {
+            "word": "工作压力",
+            "weight": 0.9
+          },
+          {
+            "word": "996",
+            "weight": 0.85
+          },
+          {
+            "word": "应酬",
+            "weight": 0.8
+          },
+          {
+            "word": "不健康习惯",
+            "weight": 0.75
+          },
+          {
+            "word": "东京压力",
+            "weight": 0.7
+          },
+          {
+            "word": "大城市",
+            "weight": 0.65
+          },
+          {
+            "word": "躺平",
+            "weight": 0.6
+          },
+          {
+            "word": "喝酒",
+            "weight": 0.55
+          },
+          {
+            "word": "房地产",
+            "weight": 0.5
+          },
+          {
+            "word": "大阪",
+            "weight": 0.45
+          },
+          {
+            "word": "住房面积",
+            "weight": 0.4
+          },
+          {
+            "word": "生活习惯",
+            "weight": 0.35
+          },
+          {
+            "word": "谈恋爱",
+            "weight": 0.3
+          },
+          {
+            "word": "脑子工作",
+            "weight": 0.25
+          },
+          {
+            "word": "出门约饭",
+            "weight": 0.2
+          }
+        ]
+      },
+      {
+        "slot": "居住空间压力",
+        "id": 169,
+        "source": "yoyo浅井佑右",
+        "is_question": false,
+        "start_id": 169,
+        "end_id": 170,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "居住空间",
+            "weight": 0.95
+          },
+          {
+            "word": "压力",
+            "weight": 0.9
+          },
+          {
+            "word": "东京",
+            "weight": 0.85
+          },
+          {
+            "word": "年轻人",
+            "weight": 0.8
+          },
+          {
+            "word": "生活",
+            "weight": 0.75
+          },
+          {
+            "word": "地铁",
+            "weight": 0.7
+          },
+          {
+            "word": "拥挤",
+            "weight": 0.65
+          },
+          {
+            "word": "酒店",
+            "weight": 0.6
+          },
+          {
+            "word": "日本",
+            "weight": 0.55
+          },
+          {
+            "word": "空间小",
+            "weight": 0.5
+          },
+          {
+            "word": "推人",
+            "weight": 0.45
+          },
+          {
+            "word": "夸张",
+            "weight": 0.4
+          }
+        ]
+      },
+      {
+        "slot": "孤独感受",
+        "id": 243,
+        "source": "萨沙",
+        "is_question": false,
+        "start_id": 243,
+        "end_id": 246,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "孤独感受",
+            "weight": 0.95
+          },
+          {
+            "word": "享受孤独",
+            "weight": 0.88
+          },
+          {
+            "word": "心理状态",
+            "weight": 0.85
+          },
+          {
+            "word": "主观感受",
+            "weight": 0.82
+          },
+          {
+            "word": "温馨感觉",
+            "weight": 0.8
+          },
+          {
+            "word": "个人空间",
+            "weight": 0.78
+          },
+          {
+            "word": "思考清晰",
+            "weight": 0.76
+          },
+          {
+            "word": "条理性",
+            "weight": 0.74
+          },
+          {
+            "word": "孤独解决",
+            "weight": 0.72
+          },
+          {
+            "word": "结婚孤独",
+            "weight": 0.7
+          },
+          {
+            "word": "公司专注",
+            "weight": 0.68
+          },
+          {
+            "word": "舒适状态",
+            "weight": 0.66
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "饮食文化",
+    "slots": [
+      {
+        "slot": "拉面评价",
+        "id": 186,
+        "source": "功必扬",
+        "is_question": true,
+        "start_id": 186,
+        "end_id": 190,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "一兰拉面",
+            "weight": 0.85
+          },
+          {
+            "word": "大阪人",
+            "weight": 0.75
+          },
+          {
+            "word": "街边拉面",
+            "weight": 0.7
+          },
+          {
+            "word": "金龙拉面",
+            "weight": 0.65
+          },
+          {
+            "word": "泡菜",
+            "weight": 0.6
+          },
+          {
+            "word": "评价",
+            "weight": 0.55
+          },
+          {
+            "word": "好吃",
+            "weight": 0.5
+          }
+        ]
+      },
+      {
+        "slot": "韩国饮食文化",
+        "id": 191,
+        "source": "功必扬",
+        "is_question": false,
+        "start_id": 191,
+        "end_id": 195,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "韩国饮食文化",
+            "weight": 0.95
+          },
+          {
+            "word": "自助拉面店",
+            "weight": 0.88
+          },
+          {
+            "word": "方便面",
+            "weight": 0.82
+          },
+          {
+            "word": "拉面",
+            "weight": 0.8
+          },
+          {
+            "word": "24小时",
+            "weight": 0.75
+          },
+          {
+            "word": "韩国",
+            "weight": 0.7
+          },
+          {
+            "word": "饮食",
+            "weight": 0.68
+          },
+          {
+            "word": "low",
+            "weight": 0.65
+          }
+        ]
+      },
+      {
+        "slot": "饮食习惯",
+        "id": 196,
+        "source": "萨沙",
+        "is_question": false,
+        "start_id": 196,
+        "end_id": 199,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "饮食习惯",
+            "weight": 0.95
+          },
+          {
+            "word": "方便面",
+            "weight": 0.88
+          },
+          {
+            "word": "外卖",
+            "weight": 0.82
+          },
+          {
+            "word": "自己做饭",
+            "weight": 0.8
+          },
+          {
+            "word": "出去吃",
+            "weight": 0.78
+          },
+          {
+            "word": "懒得做饭",
+            "weight": 0.75
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "社交与交友",
+    "slots": [
+      {
+        "slot": "社交方式",
+        "id": 380,
+        "source": "功必扬",
+        "is_question": false,
+        "start_id": 380,
+        "end_id": 384,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "社交方式",
+            "weight": 0.95
+          },
+          {
+            "word": "唱歌app",
+            "weight": 0.88
+          },
+          {
+            "word": "互联网时代",
+            "weight": 0.85
+          },
+          {
+            "word": "兴趣相同",
+            "weight": 0.83
+          },
+          {
+            "word": "B站",
+            "weight": 0.8
+          },
+          {
+            "word": "搭子文化",
+            "weight": 0.78
+          },
+          {
+            "word": "饭搭子",
+            "weight": 0.77
+          },
+          {
+            "word": "健身搭子",
+            "weight": 0.76
+          },
+          {
+            "word": "认识朋友",
+            "weight": 0.75
+          },
+          {
+            "word": "年轻人",
+            "weight": 0.74
+          },
+          {
+            "word": "五花八门",
+            "weight": 0.72
+          },
+          {
+            "word": "男女朋友",
+            "weight": 0.7
+          },
+          {
+            "word": "唱歌",
+            "weight": 0.69
+          },
+          {
+            "word": "跳舞",
+            "weight": 0.68
+          },
+          {
+            "word": "伴侣",
+            "weight": 0.67
+          }
+        ]
+      },
+      {
+        "slot": "搭讪技巧",
+        "id": 385,
+        "source": "yoyo浅井佑右",
+        "is_question": true,
+        "start_id": 385,
+        "end_id": 393,
+        "resolved": true,
+        "wordcloud": [
+          {
+            "word": "搭讪技巧",
+            "weight": 0.95
+          },
+          {
+            "word": "主动搭讪",
+            "weight": 0.88
+          },
+          {
+            "word": "街上搭讪",
+            "weight": 0.85
+          },
+          {
+            "word": "餐厅",
+            "weight": 0.8
+          },
+          {
+            "word": "居酒屋",
+            "weight": 0.78
+          },
+          {
+            "word": "酒吧",
+            "weight": 0.78
+          },
+          {
+            "word": "天气",
+            "weight": 0.75
+          },
+          {
+            "word": "气氛",
+            "weight": 0.72
+          },
+          {
+            "word": "好久不见",
+            "weight": 0.7
+          },
+          {
+            "word": "不认识的人",
+            "weight": 0.68
+          },
+          {
+            "word": "幼儿园",
+            "weight": 0.65
+          },
+          {
+            "word": "话题",
+            "weight": 0.63
+          },
+          {
+            "word": "尴尬",
+            "weight": 0.6
+          },
+          {
+            "word": "教教我们",
+            "weight": 0.58
+          },
+          {
+            "word": "同学",
+            "weight": 0.55
+          }
+        ]
+      },
+      {
+        "slot": "交友方式",
+        "id": 396,
+        "source": "yoyo浅井佑右",
+        "is_question": false,
+        "start_id": 396,
+        "end_id": 406,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "交友方式",
+            "weight": 0.95
+          },
+          {
+            "word": "朋友的朋友",
+            "weight": 0.88
+          },
+          {
+            "word": "B站",
+            "weight": 0.82
+          },
+          {
+            "word": "认识新朋友",
+            "weight": 0.8
+          },
+          {
+            "word": "过滤",
+            "weight": 0.78
+          },
+          {
+            "word": "筛选",
+            "weight": 0.76
+          },
+          {
+            "word": "陌生人",
+            "weight": 0.74
+          },
+          {
+            "word": "安全",
+            "weight": 0.72
+          },
+          {
+            "word": "放心",
+            "weight": 0.7
+          },
+          {
+            "word": "怪叔叔",
+            "weight": 0.68
+          }
+        ]
+      },
+      {
+        "slot": "朋友与恋人关系",
+        "id": 407,
+        "source": "功必扬",
+        "is_question": true,
+        "start_id": 407,
+        "end_id": 409,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "朋友关系",
+            "weight": 0.85
+          },
+          {
+            "word": "恋爱对象",
+            "weight": 0.88
+          },
+          {
+            "word": "结婚对象",
+            "weight": 0.9
+          },
+          {
+            "word": "好朋友",
+            "weight": 0.87
+          },
+          {
+            "word": "吸引力",
+            "weight": 0.75
+          },
+          {
+            "word": "婚姻",
+            "weight": 0.82
+          },
+          {
+            "word": "开心",
+            "weight": 0.78
+          },
+          {
+            "word": "叔叔建议",
+            "weight": 0.7
+          },
+          {
+            "word": "老年生活",
+            "weight": 0.65
+          },
+          {
+            "word": "朋友变恋人",
+            "weight": 0.83
+          },
+          {
+            "word": "过日子",
+            "weight": 0.72
+          },
+          {
+            "word": "性吸引力",
+            "weight": 0.68
+          }
+        ]
+      },
+      {
+        "slot": "交友建议",
+        "id": 410,
+        "source": "萨沙",
+        "is_question": false,
+        "start_id": 410,
+        "end_id": 415,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "交友建议",
+            "weight": 0.95
+          },
+          {
+            "word": "选择太少",
+            "weight": 0.85
+          },
+          {
+            "word": "好朋友",
+            "weight": 0.8
+          },
+          {
+            "word": "谴责",
+            "weight": 0.75
+          },
+          {
+            "word": "邮件",
+            "weight": 0.7
+          },
+          {
+            "word": "买房",
+            "weight": 0.65
+          },
+          {
+            "word": "找老公",
+            "weight": 0.6
+          },
+          {
+            "word": "评论区",
+            "weight": 0.55
+          },
+          {
+            "word": "交际方式",
+            "weight": 0.5
+          },
+          {
+            "word": "认识对象",
+            "weight": 0.45
+          }
+        ]
+      },
+      {
+        "slot": "交友软件流行",
+        "id": 416,
+        "source": "yoyo浅井佑右",
+        "is_question": false,
+        "start_id": 416,
+        "end_id": 421,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "交友软件",
+            "weight": 0.95
+          },
+          {
+            "word": "疫情",
+            "weight": 0.9
+          },
+          {
+            "word": "普遍",
+            "weight": 0.85
+          },
+          {
+            "word": "结婚",
+            "weight": 0.8
+          },
+          {
+            "word": "离婚",
+            "weight": 0.75
+          },
+          {
+            "word": "不出门",
+            "weight": 0.7
+          },
+          {
+            "word": "认识",
+            "weight": 0.65
+          },
+          {
+            "word": "概念",
+            "weight": 0.6
+          },
+          {
+            "word": "流行",
+            "weight": 0.55
+          },
+          {
+            "word": "朋友",
+            "weight": 0.5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "节目与互动",
+    "slots": [
+      {
+        "slot": "嘉宾介绍",
+        "id": 16,
+        "source": "功必扬",
+        "is_question": false,
+        "start_id": 16,
+        "end_id": 19,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "非正式会谈",
+            "weight": 0.85
+          },
+          {
+            "word": "播客记",
+            "weight": 0.8
+          },
+          {
+            "word": "非正老友局",
+            "weight": 0.78
+          },
+          {
+            "word": "功必扬",
+            "weight": 0.75
+          },
+          {
+            "word": "萨沙",
+            "weight": 0.72
+          },
+          {
+            "word": "嘉宾",
+            "weight": 0.7
+          },
+          {
+            "word": "哈喽",
+            "weight": 0.68
+          },
+          {
+            "word": "浅井佑右",
+            "weight": 0.9
+          },
+          {
+            "word": "yoyo",
+            "weight": 0.88
+          },
+          {
+            "word": "好久不见",
+            "weight": 0.65
+          }
+        ]
+      },
+      {
+        "slot": "粉丝互动",
+        "id": 35,
+        "source": "功必扬",
+        "is_question": false,
+        "start_id": 35,
+        "end_id": 38,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "粉丝互动",
+            "weight": 0.95
+          },
+          {
+            "word": "状态很好",
+            "weight": 0.85
+          },
+          {
+            "word": "视频出现",
+            "weight": 0.88
+          },
+          {
+            "word": "现场活动",
+            "weight": 0.82
+          },
+          {
+            "word": "弹幕",
+            "weight": 0.8
+          },
+          {
+            "word": "投稿",
+            "weight": 0.78
+          },
+          {
+            "word": "邮件",
+            "weight": 0.77
+          },
+          {
+            "word": "评论区",
+            "weight": 0.83
+          },
+          {
+            "word": "小贝",
+            "weight": 0.75
+          },
+          {
+            "word": "博客",
+            "weight": 0.74
+          }
+        ]
+      },
+      {
+        "slot": "节目规划",
+        "id": 39,
+        "source": "萨沙",
+        "is_question": false,
+        "start_id": 39,
+        "end_id": 45,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "节目规划",
+            "weight": 0.95
+          },
+          {
+            "word": "亚太地区",
+            "weight": 0.85
+          },
+          {
+            "word": "欧洲筛选",
+            "weight": 0.8
+          },
+          {
+            "word": "投稿邮件",
+            "weight": 0.78
+          },
+          {
+            "word": "远程连线",
+            "weight": 0.75
+          },
+          {
+            "word": "非众老友局",
+            "weight": 0.9
+          },
+          {
+            "word": "东北好朋友",
+            "weight": 0.88
+          },
+          {
+            "word": "线下碰面",
+            "weight": 0.82
+          },
+          {
+            "word": "节目互动",
+            "weight": 0.87
+          },
+          {
+            "word": "邀请嘉宾",
+            "weight": 0.83
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "旅行与消费",
+    "slots": [
+      {
+        "slot": "旅行与工作",
+        "id": 20,
+        "source": "yoyo浅井佑右",
+        "is_question": true,
+        "start_id": 20,
+        "end_id": 30,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "日本录播客",
+            "weight": 0.85
+          },
+          {
+            "word": "机票便宜",
+            "weight": 0.8
+          },
+          {
+            "word": "特价机票",
+            "weight": 0.75
+          },
+          {
+            "word": "联航",
+            "weight": 0.7
+          },
+          {
+            "word": "往返",
+            "weight": 0.65
+          },
+          {
+            "word": "房地产公司",
+            "weight": 0.9
+          },
+          {
+            "word": "旅行时间",
+            "weight": 0.6
+          },
+          {
+            "word": "美国",
+            "weight": 0.55
+          },
+          {
+            "word": "迪伦",
+            "weight": 0.5
+          }
+        ]
+      },
+      {
+        "slot": "旅游与消费",
+        "id": 97,
+        "source": "功必扬",
+        "is_question": false,
+        "start_id": 97,
+        "end_id": 104,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "东京",
+            "weight": 0.85
+          },
+          {
+            "word": "机票",
+            "weight": 0.8
+          },
+          {
+            "word": "日本",
+            "weight": 0.75
+          },
+          {
+            "word": "酒店",
+            "weight": 0.7
+          },
+          {
+            "word": "贵了",
+            "weight": 0.65
+          },
+          {
+            "word": "双倍",
+            "weight": 0.6
+          },
+          {
+            "word": "旅行",
+            "weight": 0.55
+          },
+          {
+            "word": "消费",
+            "weight": 0.5
+          }
+        ]
+      }
+    ]
+  }
+]

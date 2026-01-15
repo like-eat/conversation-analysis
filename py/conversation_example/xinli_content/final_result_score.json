@@ -8,7 +8,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 1,
-        "end_id": 2
+        "end_id": 2,
+        "resolved": false
       },
       {
         "slot": "职业前景焦虑",
@@ -16,7 +17,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 3,
-        "end_id": 6
+        "end_id": 6,
+        "resolved": false
       },
       {
         "slot": "同龄人压力",
@@ -24,7 +26,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 7,
-        "end_id": 8
+        "end_id": 8,
+        "resolved": false
       },
       {
         "slot": "考研后失落",
@@ -32,7 +35,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 9,
-        "end_id": 10
+        "end_id": 10,
+        "resolved": false
       },
       {
         "slot": "毕业后恐惧",
@@ -40,7 +44,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 11,
-        "end_id": 14
+        "end_id": 14,
+        "resolved": false
       },
       {
         "slot": "家庭压力",
@@ -48,7 +53,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 47,
-        "end_id": 50
+        "end_id": 50,
+        "resolved": false
       },
       {
         "slot": "兼职选择",
@@ -56,7 +62,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 51,
-        "end_id": 52
+        "end_id": 52,
+        "resolved": false
       },
       {
         "slot": "经济压力与社交",
@@ -64,7 +71,8 @@
         "source": "user",
         "is_question": false,
         "start_id": 63,
-        "end_id": 66
+        "end_id": 66,
+        "resolved": false
       }
     ]
   },
@@ -77,7 +85,8 @@
         "source": "user",
         "is_question": false,
         "start_id": 15,
-        "end_id": 16
+        "end_id": 16,
+        "resolved": false
       },
       {
         "slot": "恋爱渴望",
@@ -85,7 +94,8 @@
         "source": "user",
         "is_question": false,
         "start_id": 19,
-        "end_id": 20
+        "end_id": 20,
+        "resolved": false
       },
       {
         "slot": "恋爱交流",
@@ -93,7 +103,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 45,
-        "end_id": 46
+        "end_id": 46,
+        "resolved": false
       },
       {
         "slot": "社交能力",
@@ -101,7 +112,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 53,
-        "end_id": 54
+        "end_id": 54,
+        "resolved": true
       },
       {
         "slot": "情感表达",
@@ -109,7 +121,8 @@
         "source": "user",
         "is_question": false,
         "start_id": 55,
-        "end_id": 58
+        "end_id": 58,
+        "resolved": false
       },
       {
         "slot": "与异性交流",
@@ -117,7 +130,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 81,
-        "end_id": 84
+        "end_id": 84,
+        "resolved": false
       },
       {
         "slot": "低成本社交活动",
@@ -125,7 +139,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 85,
-        "end_id": 86
+        "end_id": 86,
+        "resolved": false
       },
       {
         "slot": "邀约策略",
@@ -133,7 +148,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 91,
-        "end_id": 92
+        "end_id": 92,
+        "resolved": false
       }
     ]
   },
@@ -146,7 +162,8 @@
         "source": "user",
         "is_question": false,
         "start_id": 17,
-        "end_id": 18
+        "end_id": 18,
+        "resolved": false
       },
       {
         "slot": "减肥计划",
@@ -154,7 +171,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 27,
-        "end_id": 28
+        "end_id": 28,
+        "resolved": false
       },
       {
         "slot": "健身房选择",
@@ -162,7 +180,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 29,
-        "end_id": 30
+        "end_id": 30,
+        "resolved": false
       },
       {
         "slot": "减肥方法",
@@ -170,7 +189,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 31,
-        "end_id": 34
+        "end_id": 34,
+        "resolved": false
       },
       {
         "slot": "外貌焦虑",
@@ -178,7 +198,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 35,
-        "end_id": 38
+        "end_id": 38,
+        "resolved": false
       },
       {
         "slot": "外形改善",
@@ -186,7 +207,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 39,
-        "end_id": 42
+        "end_id": 42,
+        "resolved": true
       },
       {
         "slot": "健身与体能",
@@ -194,7 +216,8 @@
         "source": "user",
         "is_question": false,
         "start_id": 69,
-        "end_id": 72
+        "end_id": 72,
+        "resolved": false
       },
       {
         "slot": "健身房自信心",
@@ -202,7 +225,8 @@
         "source": "user",
         "is_question": false,
         "start_id": 73,
-        "end_id": 74
+        "end_id": 74,
+        "resolved": false
       },
       {
         "slot": "运动后酸痛",
@@ -210,7 +234,8 @@
         "source": "user",
         "is_question": false,
         "start_id": 75,
-        "end_id": 76
+        "end_id": 76,
+        "resolved": false
       },
       {
         "slot": "运动与心情改善",
@@ -218,7 +243,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 77,
-        "end_id": 80
+        "end_id": 80,
+        "resolved": false
       },
       {
         "slot": "羽毛球运动",
@@ -226,7 +252,8 @@
         "source": "user",
         "is_question": false,
         "start_id": 87,
-        "end_id": 88
+        "end_id": 88,
+        "resolved": false
       },
       {
         "slot": "约人打羽毛球",
@@ -234,7 +261,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 89,
-        "end_id": 90
+        "end_id": 90,
+        "resolved": false
       }
     ]
   },
@@ -247,7 +275,8 @@
         "source": "user",
         "is_question": false,
         "start_id": 43,
-        "end_id": 44
+        "end_id": 44,
+        "resolved": false
       },
       {
         "slot": "自我评价与情绪",
@@ -255,7 +284,8 @@
         "source": "user",
         "is_question": false,
         "start_id": 67,
-        "end_id": 68
+        "end_id": 68,
+        "resolved": false
       },
       {
         "slot": "自信提升",
@@ -263,15 +293,17 @@
         "source": "user",
         "is_question": true,
         "start_id": 97,
-        "end_id": 102
+        "end_id": 102,
+        "resolved": false
       },
       {
-        "slot": "失眠焦虑",
+        "slot": "失眠与焦虑",
         "id": 103,
         "source": "user",
         "is_question": true,
         "start_id": 103,
-        "end_id": 106
+        "end_id": 106,
+        "resolved": false
       },
       {
         "slot": "缓解压力方法",
@@ -279,7 +311,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 107,
-        "end_id": 108
+        "end_id": 108,
+        "resolved": false
       }
     ]
   },
@@ -292,7 +325,8 @@
         "source": "user",
         "is_question": false,
         "start_id": 21,
-        "end_id": 22
+        "end_id": 22,
+        "resolved": false
       },
       {
         "slot": "生活改善计划",
@@ -300,12 +334,22 @@
         "source": "user",
         "is_question": false,
         "start_id": 23,
-        "end_id": 24
+        "end_id": 24,
+        "resolved": false
+      },
+      {
+        "slot": "冬季情感羡慕",
+        "id": 25,
+        "source": "user",
+        "is_question": false,
+        "start_id": 25,
+        "end_id": 26,
+        "resolved": false
       }
     ]
   },
   {
-    "topic": "技能学习",
+    "topic": "技能与学习",
     "slots": [
       {
         "slot": "个人特长",
@@ -313,7 +357,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 59,
-        "end_id": 60
+        "end_id": 60,
+        "resolved": false
       },
       {
         "slot": "唱歌和乐器学习",
@@ -321,7 +366,8 @@
         "source": "user",
         "is_question": false,
         "start_id": 61,
-        "end_id": 62
+        "end_id": 62,
+        "resolved": false
       },
       {
         "slot": "英语学习方法",
@@ -329,7 +375,8 @@
         "source": "user",
         "is_question": true,
         "start_id": 93,
-        "end_id": 96
+        "end_id": 96,
+        "resolved": false
       }
     ]
   }

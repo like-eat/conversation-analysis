@@ -47,4 +47,5 @@ export interface Segment {
   id: number
   left: number
   right: number
+  width: number
 }

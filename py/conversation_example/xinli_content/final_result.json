@@ -501,6 +501,38 @@
             "weight": 0.5
           }
         ]
+      },
+      {
+        "slot": "冬季情感羡慕",
+        "id": 25,
+        "color": "#D9C9F0",
+        "source": "user",
+        "is_question": false,
+        "resolved": false,
+        "start_id": 25,
+        "end_id": 26,
+        "wordcloud": [
+          {
+            "word": "冬天",
+            "weight": 0.85
+          },
+          {
+            "word": "情侣",
+            "weight": 0.9
+          },
+          {
+            "word": "羡慕",
+            "weight": 0.95
+          },
+          {
+            "word": "情感",
+            "weight": 0.8
+          },
+          {
+            "word": "路上",
+            "weight": 0.7
+          }
+        ]
       }
     ],
     "color": "#9366D6"
@@ -806,6 +838,104 @@
       }
     ],
     "color": "#2BBA2B"
+  },
+  {
+    "topic": "心理健康与自我提升",
+    "slots": [
+      {
+        "slot": "心理支持",
+        "id": 43,
+        "color": "#F9B3B3",
+        "source": "user",
+        "is_question": false,
+        "resolved": false,
+        "start_id": 43,
+        "end_id": 44,
+        "wordcloud": [
+          {
+            "word": "心理支持",
+            "weight": 0.95
+          },
+          {
+            "word": "自我提升",
+            "weight": 0.9
+          },
+          {
+            "word": "变得更好",
+            "weight": 0.88
+          },
+          {
+            "word": "温柔减肥",
+            "weight": 0.85
+          },
+          {
+            "word": "心理咨询",
+            "weight": 0.83
+          },
+          {
+            "word": "自我肯定",
+            "weight": 0.82
+          },
+          {
+            "word": "情绪管理",
+            "weight": 0.8
+          },
+          {
+            "word": "安全绳",
+            "weight": 0.78
+          },
+          {
+            "word": "自我保护",
+            "weight": 0.77
+          },
+          {
+            "word": "小步前进",
+            "weight": 0.75
+          },
+          {
+            "word": "支持资源",
+            "weight": 0.74
+          },
+          {
+            "word": "内心成长",
+            "weight": 0.73
+          },
+          {
+            "word": "现实支持",
+            "weight": 0.72
+          },
+          {
+            "word": "长期合作",
+            "weight": 0.7
+          },
+          {
+            "word": "自我接纳",
+            "weight": 0.68
+          },
+          {
+            "word": "穿搭建议",
+            "weight": 0.67
+          },
+          {
+            "word": "计划调整",
+            "weight": 0.65
+          },
+          {
+            "word": "自我争取",
+            "weight": 0.64
+          },
+          {
+            "word": "情绪波动",
+            "weight": 0.63
+          },
+          {
+            "word": "心理健康",
+            "weight": 0.62
+          }
+        ]
+      }
+    ],
+    "color": "#EF2628"
   },
   {
     "topic": "社交与情感问题",
@@ -1324,6 +1454,104 @@
       }
     ],
     "color": "#1E77E8"
+  },
+  {
+    "topic": "心理健康与自我提升",
+    "slots": [
+      {
+        "slot": "自我评价与情绪",
+        "id": 67,
+        "color": "#F9B3B3",
+        "source": "user",
+        "is_question": false,
+        "resolved": false,
+        "start_id": 67,
+        "end_id": 68,
+        "wordcloud": [
+          {
+            "word": "自我评价",
+            "weight": 0.95
+          },
+          {
+            "word": "情绪",
+            "weight": 0.9
+          },
+          {
+            "word": "废物",
+            "weight": 0.85
+          },
+          {
+            "word": "难受",
+            "weight": 0.8
+          },
+          {
+            "word": "绝望",
+            "weight": 0.78
+          },
+          {
+            "word": "生气",
+            "weight": 0.75
+          },
+          {
+            "word": "烦",
+            "weight": 0.72
+          },
+          {
+            "word": "攻击",
+            "weight": 0.7
+          },
+          {
+            "word": "升级练习",
+            "weight": 0.68
+          },
+          {
+            "word": "表达方式",
+            "weight": 0.65
+          },
+          {
+            "word": "描述感受",
+            "weight": 0.63
+          },
+          {
+            "word": "努力",
+            "weight": 0.6
+          },
+          {
+            "word": "具体",
+            "weight": 0.58
+          },
+          {
+            "word": "真话",
+            "weight": 0.55
+          },
+          {
+            "word": "骂人",
+            "weight": 0.53
+          },
+          {
+            "word": "改变",
+            "weight": 0.5
+          },
+          {
+            "word": "垃圾",
+            "weight": 0.48
+          },
+          {
+            "word": "没用",
+            "weight": 0.45
+          },
+          {
+            "word": "站你这边",
+            "weight": 0.43
+          },
+          {
+            "word": "帮不了",
+            "weight": 0.4
+          }
+        ]
+      }
+    ],
+    "color": "#EF2628"
   },
   {
     "topic": "外貌与健康管理",
@@ -2130,6 +2358,48 @@
     "color": "#FF660C"
   },
   {
+    "topic": "技能与学习",
+    "slots": [
+      {
+        "slot": "英语学习方法",
+        "id": 93,
+        "color": "#D6C3BF",
+        "source": "user",
+        "is_question": true,
+        "resolved": false,
+        "start_id": 93,
+        "end_id": 96,
+        "wordcloud": [
+          {
+            "word": "英语水平",
+            "weight": 0.85
+          },
+          {
+            "word": "口语",
+            "weight": 0.8
+          },
+          {
+            "word": "交流",
+            "weight": 0.75
+          },
+          {
+            "word": "不敢",
+            "weight": 0.7
+          },
+          {
+            "word": "英语",
+            "weight": 0.65
+          },
+          {
+            "word": "不会",
+            "weight": 0.6
+          }
+        ]
+      }
+    ],
+    "color": "#8C5649"
+  },
+  {
     "topic": "心理健康与自我提升",
     "slots": [
       {
@@ -2169,7 +2439,7 @@
         ]
       },
       {
-        "slot": "失眠焦虑",
+        "slot": "失眠与焦虑",
         "id": 103,
         "color": "#F9B3B3",
         "source": "user",

@@ -1,0 +1,2445 @@
+[
+  {
+    "topic": "职业与学业压力",
+    "slots": [
+      {
+        "slot": "自我价值怀疑",
+        "id": 1,
+        "source": "user",
+        "is_question": true,
+        "start_id": 1,
+        "end_id": 2,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "废物",
+            "weight": 0.95
+          },
+          {
+            "word": "一战上岸",
+            "weight": 0.85
+          },
+          {
+            "word": "考了四年",
+            "weight": 0.8
+          },
+          {
+            "word": "普通一本",
+            "weight": 0.75
+          },
+          {
+            "word": "自我价值",
+            "weight": 0.9
+          },
+          {
+            "word": "怀疑",
+            "weight": 0.88
+          },
+          {
+            "word": "人生完了",
+            "weight": 0.82
+          }
+        ]
+      },
+      {
+        "slot": "职业前景焦虑",
+        "id": 3,
+        "source": "user",
+        "is_question": true,
+        "start_id": 3,
+        "end_id": 6,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "计算机专业",
+            "weight": 0.85
+          },
+          {
+            "word": "找工作",
+            "weight": 0.9
+          },
+          {
+            "word": "未来",
+            "weight": 0.7
+          },
+          {
+            "word": "困难",
+            "weight": 0.75
+          },
+          {
+            "word": "毕业",
+            "weight": 0.8
+          },
+          {
+            "word": "失业",
+            "weight": 0.88
+          },
+          {
+            "word": "职业前景",
+            "weight": 0.82
+          },
+          {
+            "word": "焦虑",
+            "weight": 0.78
+          }
+        ]
+      },
+      {
+        "slot": "同龄人压力",
+        "id": 7,
+        "source": "user",
+        "is_question": true,
+        "start_id": 7,
+        "end_id": 8,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "同学",
+            "weight": 0.85
+          },
+          {
+            "word": "大厂offer",
+            "weight": 0.95
+          },
+          {
+            "word": "工作",
+            "weight": 0.88
+          },
+          {
+            "word": "压力",
+            "weight": 0.9
+          },
+          {
+            "word": "毕业",
+            "weight": 0.8
+          },
+          {
+            "word": "失业",
+            "weight": 0.87
+          },
+          {
+            "word": "父母期待",
+            "weight": 0.92
+          }
+        ]
+      },
+      {
+        "slot": "考研后失落",
+        "id": 9,
+        "source": "user",
+        "is_question": true,
+        "start_id": 9,
+        "end_id": 10,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "考研上岸",
+            "weight": 0.95
+          },
+          {
+            "word": "解放",
+            "weight": 0.88
+          },
+          {
+            "word": "绝望",
+            "weight": 0.92
+          },
+          {
+            "word": "压力",
+            "weight": 0.85
+          },
+          {
+            "word": "失落感",
+            "weight": 0.87
+          },
+          {
+            "word": "心理落差",
+            "weight": 0.83
+          },
+          {
+            "word": "期待",
+            "weight": 0.8
+          },
+          {
+            "word": "目标实现",
+            "weight": 0.78
+          },
+          {
+            "word": "成就感",
+            "weight": 0.82
+          },
+          {
+            "word": "未来规划",
+            "weight": 0.81
+          }
+        ]
+      },
+      {
+        "slot": "毕业后恐惧",
+        "id": 11,
+        "source": "user",
+        "is_question": true,
+        "start_id": 11,
+        "end_id": 14,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "毕业恐惧",
+            "weight": 0.95
+          },
+          {
+            "word": "搬行李",
+            "weight": 0.85
+          },
+          {
+            "word": "回老家",
+            "weight": 0.8
+          },
+          {
+            "word": "父母失望",
+            "weight": 0.9
+          },
+          {
+            "word": "怎么办",
+            "weight": 0.75
+          },
+          {
+            "word": "压力",
+            "weight": 0.88
+          },
+          {
+            "word": "未来规划",
+            "weight": 0.82
+          },
+          {
+            "word": "自我怀疑",
+            "weight": 0.87
+          },
+          {
+            "word": "独立生活",
+            "weight": 0.83
+          },
+          {
+            "word": "心理负担",
+            "weight": 0.84
+          }
+        ]
+      },
+      {
+        "slot": "家庭压力",
+        "id": 47,
+        "source": "user",
+        "is_question": true,
+        "start_id": 47,
+        "end_id": 50,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "家庭压力",
+            "weight": 0.95
+          },
+          {
+            "word": "相亲",
+            "weight": 0.9
+          },
+          {
+            "word": "害怕",
+            "weight": 0.85
+          },
+          {
+            "word": "催促",
+            "weight": 0.8
+          },
+          {
+            "word": "回家",
+            "weight": 0.75
+          },
+          {
+            "word": "家里人",
+            "weight": 0.7
+          }
+        ]
+      },
+      {
+        "slot": "兼职选择",
+        "id": 51,
+        "source": "user",
+        "is_question": true,
+        "start_id": 51,
+        "end_id": 52,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "兼职选择",
+            "weight": 0.95
+          },
+          {
+            "word": "上学期间",
+            "weight": 0.85
+          },
+          {
+            "word": "赚点钱",
+            "weight": 0.8
+          },
+          {
+            "word": "生活费",
+            "weight": 0.75
+          },
+          {
+            "word": "兼职工作",
+            "weight": 0.7
+          },
+          {
+            "word": "经济压力",
+            "weight": 0.65
+          },
+          {
+            "word": "学生兼职",
+            "weight": 0.6
+          },
+          {
+            "word": "收入来源",
+            "weight": 0.55
+          },
+          {
+            "word": "资金需求",
+            "weight": 0.5
+          },
+          {
+            "word": "时间管理",
+            "weight": 0.45
+          }
+        ]
+      },
+      {
+        "slot": "经济压力与社交",
+        "id": 63,
+        "source": "user",
+        "is_question": false,
+        "start_id": 63,
+        "end_id": 66,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "自卑",
+            "weight": 0.85
+          },
+          {
+            "word": "经济压力",
+            "weight": 0.9
+          },
+          {
+            "word": "花销",
+            "weight": 0.75
+          },
+          {
+            "word": "社交",
+            "weight": 0.8
+          },
+          {
+            "word": "宿舍",
+            "weight": 0.7
+          },
+          {
+            "word": "出去玩",
+            "weight": 0.78
+          },
+          {
+            "word": "吃饭",
+            "weight": 0.72
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "社交与情感问题",
+    "slots": [
+      {
+        "slot": "社交孤立感",
+        "id": 15,
+        "source": "user",
+        "is_question": false,
+        "start_id": 15,
+        "end_id": 16,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "学校",
+            "weight": 0.75
+          },
+          {
+            "word": "朋友",
+            "weight": 0.95
+          },
+          {
+            "word": "同学关系",
+            "weight": 0.85
+          },
+          {
+            "word": "活动",
+            "weight": 0.7
+          },
+          {
+            "word": "内心话",
+            "weight": 0.9
+          },
+          {
+            "word": "孤立感",
+            "weight": 0.8
+          },
+          {
+            "word": "社交",
+            "weight": 0.88
+          }
+        ]
+      },
+      {
+        "slot": "恋爱渴望",
+        "id": 19,
+        "source": "user",
+        "is_question": false,
+        "start_id": 19,
+        "end_id": 20,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "恋爱渴望",
+            "weight": 0.95
+          },
+          {
+            "word": "女性朋友",
+            "weight": 0.85
+          },
+          {
+            "word": "牵手",
+            "weight": 0.8
+          },
+          {
+            "word": "谈恋爱",
+            "weight": 0.9
+          },
+          {
+            "word": "找不到",
+            "weight": 0.75
+          }
+        ]
+      },
+      {
+        "slot": "恋爱交流",
+        "id": 45,
+        "source": "user",
+        "is_question": true,
+        "start_id": 45,
+        "end_id": 46,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "恋爱",
+            "weight": 0.95
+          },
+          {
+            "word": "交流",
+            "weight": 0.9
+          },
+          {
+            "word": "女生",
+            "weight": 0.88
+          },
+          {
+            "word": "认识",
+            "weight": 0.85
+          },
+          {
+            "word": "谈恋爱",
+            "weight": 0.83
+          },
+          {
+            "word": "沟通技巧",
+            "weight": 0.8
+          },
+          {
+            "word": "社交场合",
+            "weight": 0.78
+          },
+          {
+            "word": "情感交流",
+            "weight": 0.76
+          },
+          {
+            "word": "约会地点",
+            "weight": 0.74
+          },
+          {
+            "word": "交友平台",
+            "weight": 0.72
+          },
+          {
+            "word": "社交活动",
+            "weight": 0.7
+          }
+        ]
+      },
+      {
+        "slot": "社交能力",
+        "id": 53,
+        "source": "user",
+        "is_question": true,
+        "start_id": 53,
+        "end_id": 54,
+        "resolved": true,
+        "wordcloud": [
+          {
+            "word": "内向",
+            "weight": 0.95
+          },
+          {
+            "word": "外向技能插件",
+            "weight": 0.88
+          },
+          {
+            "word": "社交能力",
+            "weight": 0.9
+          },
+          {
+            "word": "状态",
+            "weight": 0.85
+          },
+          {
+            "word": "社交练习",
+            "weight": 0.87
+          },
+          {
+            "word": "礼貌短语",
+            "weight": 0.8
+          },
+          {
+            "word": "社交焦虑",
+            "weight": 0.92
+          },
+          {
+            "word": "心理防守",
+            "weight": 0.83
+          },
+          {
+            "word": "外向感小习惯",
+            "weight": 0.84
+          },
+          {
+            "word": "社交任务",
+            "weight": 0.82
+          },
+          {
+            "word": "对话模拟训练",
+            "weight": 0.78
+          },
+          {
+            "word": "暴露练习",
+            "weight": 0.81
+          },
+          {
+            "word": "减压方法",
+            "weight": 0.79
+          },
+          {
+            "word": "社交电量",
+            "weight": 0.77
+          },
+          {
+            "word": "对视",
+            "weight": 0.75
+          },
+          {
+            "word": "眼神接触",
+            "weight": 0.76
+          },
+          {
+            "word": "食堂阿姨",
+            "weight": 0.7
+          },
+          {
+            "word": "同学对话",
+            "weight": 0.74
+          },
+          {
+            "word": "心理咨询",
+            "weight": 0.89
+          },
+          {
+            "word": "社交场合",
+            "weight": 0.73
+          }
+        ]
+      },
+      {
+        "slot": "情感表达",
+        "id": 55,
+        "source": "user",
+        "is_question": false,
+        "start_id": 55,
+        "end_id": 58,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "情感表达",
+            "weight": 0.95
+          },
+          {
+            "word": "心里话",
+            "weight": 0.88
+          },
+          {
+            "word": "安慰",
+            "weight": 0.82
+          },
+          {
+            "word": "被听见",
+            "weight": 0.8
+          },
+          {
+            "word": "自救",
+            "weight": 0.78
+          },
+          {
+            "word": "主动求助",
+            "weight": 0.76
+          },
+          {
+            "word": "情绪存在",
+            "weight": 0.74
+          },
+          {
+            "word": "安全垃圾桶",
+            "weight": 0.72
+          },
+          {
+            "word": "建议",
+            "weight": 0.7
+          },
+          {
+            "word": "难受",
+            "weight": 0.68
+          },
+          {
+            "word": "压力",
+            "weight": 0.66
+          },
+          {
+            "word": "心理咨询",
+            "weight": 0.64
+          },
+          {
+            "word": "倾诉",
+            "weight": 0.62
+          },
+          {
+            "word": "理解",
+            "weight": 0.6
+          },
+          {
+            "word": "嘲笑",
+            "weight": 0.58
+          },
+          {
+            "word": "自我攻击",
+            "weight": 0.56
+          },
+          {
+            "word": "表达习惯",
+            "weight": 0.54
+          },
+          {
+            "word": "求助渠道",
+            "weight": 0.52
+          },
+          {
+            "word": "情感支持",
+            "weight": 0.5
+          },
+          {
+            "word": "内心难受",
+            "weight": 0.48
+          }
+        ]
+      },
+      {
+        "slot": "与异性交流",
+        "id": 81,
+        "source": "user",
+        "is_question": true,
+        "start_id": 81,
+        "end_id": 84,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "异性交流",
+            "weight": 0.95
+          },
+          {
+            "word": "开场方式",
+            "weight": 0.85
+          },
+          {
+            "word": "自然对话",
+            "weight": 0.82
+          },
+          {
+            "word": "社交技巧",
+            "weight": 0.8
+          },
+          {
+            "word": "食堂",
+            "weight": 0.78
+          },
+          {
+            "word": "同学",
+            "weight": 0.76
+          },
+          {
+            "word": "课程",
+            "weight": 0.74
+          },
+          {
+            "word": "话题",
+            "weight": 0.72
+          },
+          {
+            "word": "紧张",
+            "weight": 0.7
+          },
+          {
+            "word": "微笑",
+            "weight": 0.68
+          },
+          {
+            "word": "自嘲",
+            "weight": 0.66
+          },
+          {
+            "word": "社恐",
+            "weight": 0.64
+          },
+          {
+            "word": "拼桌",
+            "weight": 0.62
+          },
+          {
+            "word": "台词",
+            "weight": 0.6
+          },
+          {
+            "word": "机会",
+            "weight": 0.58
+          },
+          {
+            "word": "进步",
+            "weight": 0.56
+          },
+          {
+            "word": "预演",
+            "weight": 0.54
+          },
+          {
+            "word": "不尴尬",
+            "weight": 0.52
+          },
+          {
+            "word": "轻松",
+            "weight": 0.5
+          },
+          {
+            "word": "对话参与",
+            "weight": 0.48
+          }
+        ]
+      },
+      {
+        "slot": "低成本社交活动",
+        "id": 85,
+        "source": "user",
+        "is_question": true,
+        "start_id": 85,
+        "end_id": 86,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "低成本社交活动",
+            "weight": 0.95
+          },
+          {
+            "word": "交朋友",
+            "weight": 0.9
+          },
+          {
+            "word": "陪我说话",
+            "weight": 0.85
+          },
+          {
+            "word": "社交活动",
+            "weight": 0.8
+          },
+          {
+            "word": "花钱少",
+            "weight": 0.75
+          },
+          {
+            "word": "社交",
+            "weight": 0.7
+          },
+          {
+            "word": "活动",
+            "weight": 0.65
+          },
+          {
+            "word": "朋友",
+            "weight": 0.6
+          },
+          {
+            "word": "陪伴",
+            "weight": 0.55
+          }
+        ]
+      },
+      {
+        "slot": "邀约策略",
+        "id": 91,
+        "source": "user",
+        "is_question": true,
+        "start_id": 91,
+        "end_id": 92,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "邀约策略",
+            "weight": 0.95
+          },
+          {
+            "word": "社交",
+            "weight": 0.88
+          },
+          {
+            "word": "羽毛球",
+            "weight": 0.85
+          },
+          {
+            "word": "运动",
+            "weight": 0.82
+          },
+          {
+            "word": "减肥",
+            "weight": 0.8
+          },
+          {
+            "word": "不刻意",
+            "weight": 0.78
+          },
+          {
+            "word": "兄弟语气",
+            "weight": 0.76
+          },
+          {
+            "word": "同学语气",
+            "weight": 0.74
+          },
+          {
+            "word": "不暧昧",
+            "weight": 0.72
+          },
+          {
+            "word": "不油",
+            "weight": 0.7
+          },
+          {
+            "word": "不土",
+            "weight": 0.68
+          },
+          {
+            "word": "轻松",
+            "weight": 0.66
+          },
+          {
+            "word": "健身房",
+            "weight": 0.64
+          },
+          {
+            "word": "群里喊",
+            "weight": 0.62
+          },
+          {
+            "word": "随便玩",
+            "weight": 0.6
+          },
+          {
+            "word": "水平不限",
+            "weight": 0.58
+          },
+          {
+            "word": "主动",
+            "weight": 0.56
+          },
+          {
+            "word": "正常社交",
+            "weight": 0.54
+          },
+          {
+            "word": "定制版消息",
+            "weight": 0.52
+          },
+          {
+            "word": "关系",
+            "weight": 0.5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "外貌与健康管理",
+    "slots": [
+      {
+        "slot": "外貌自卑",
+        "id": 17,
+        "source": "user",
+        "is_question": false,
+        "start_id": 17,
+        "end_id": 18,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "外貌自卑",
+            "weight": 0.95
+          },
+          {
+            "word": "长相普通",
+            "weight": 0.88
+          },
+          {
+            "word": "家庭经济",
+            "weight": 0.82
+          },
+          {
+            "word": "体重问题",
+            "weight": 0.87
+          },
+          {
+            "word": "学校生活",
+            "weight": 0.75
+          },
+          {
+            "word": "社交恐惧",
+            "weight": 0.9
+          },
+          {
+            "word": "自信心",
+            "weight": 0.85
+          },
+          {
+            "word": "自我形象",
+            "weight": 0.8
+          }
+        ]
+      },
+      {
+        "slot": "减肥计划",
+        "id": 27,
+        "source": "user",
+        "is_question": true,
+        "start_id": 27,
+        "end_id": 28,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "减肥计划",
+            "weight": 0.95
+          },
+          {
+            "word": "外貌",
+            "weight": 0.85
+          },
+          {
+            "word": "健康管理",
+            "weight": 0.8
+          },
+          {
+            "word": "170cm",
+            "weight": 0.75
+          },
+          {
+            "word": "180斤",
+            "weight": 0.7
+          },
+          {
+            "word": "体重",
+            "weight": 0.65
+          },
+          {
+            "word": "身高",
+            "weight": 0.6
+          },
+          {
+            "word": "饮食控制",
+            "weight": 0.55
+          },
+          {
+            "word": "运动",
+            "weight": 0.5
+          },
+          {
+            "word": "卡路里",
+            "weight": 0.45
+          },
+          {
+            "word": "脂肪",
+            "weight": 0.4
+          },
+          {
+            "word": "健身",
+            "weight": 0.35
+          },
+          {
+            "word": "健康饮食",
+            "weight": 0.3
+          },
+          {
+            "word": "体型",
+            "weight": 0.25
+          },
+          {
+            "word": "体重指数",
+            "weight": 0.2
+          },
+          {
+            "word": "目标体重",
+            "weight": 0.15
+          },
+          {
+            "word": "减肥方法",
+            "weight": 0.1
+          },
+          {
+            "word": "饮食习惯",
+            "weight": 0.05
+          }
+        ]
+      },
+      {
+        "slot": "健身房选择",
+        "id": 29,
+        "source": "user",
+        "is_question": true,
+        "start_id": 29,
+        "end_id": 30,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "健身房选择",
+            "weight": 0.95
+          },
+          {
+            "word": "社恐友好",
+            "weight": 0.85
+          },
+          {
+            "word": "健身计划",
+            "weight": 0.8
+          },
+          {
+            "word": "办卡成本",
+            "weight": 0.78
+          },
+          {
+            "word": "环境适应",
+            "weight": 0.75
+          },
+          {
+            "word": "运动频率",
+            "weight": 0.72
+          },
+          {
+            "word": "压力管理",
+            "weight": 0.7
+          },
+          {
+            "word": "小实验模式",
+            "weight": 0.68
+          },
+          {
+            "word": "新手模板",
+            "weight": 0.65
+          },
+          {
+            "word": "耳机保护罩",
+            "weight": 0.63
+          },
+          {
+            "word": "力量器械",
+            "weight": 0.6
+          },
+          {
+            "word": "跑步机",
+            "weight": 0.58
+          },
+          {
+            "word": "饮食调整",
+            "weight": 0.55
+          },
+          {
+            "word": "宿舍运动",
+            "weight": 0.53
+          },
+          {
+            "word": "心理状态",
+            "weight": 0.5
+          },
+          {
+            "word": "健身环境",
+            "weight": 0.48
+          },
+          {
+            "word": "费用评估",
+            "weight": 0.45
+          },
+          {
+            "word": "社交压力",
+            "weight": 0.43
+          },
+          {
+            "word": "身体缓解",
+            "weight": 0.4
+          },
+          {
+            "word": "健身目标",
+            "weight": 0.38
+          }
+        ]
+      },
+      {
+        "slot": "减肥方法",
+        "id": 31,
+        "source": "user",
+        "is_question": true,
+        "start_id": 31,
+        "end_id": 34,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "快速减肥",
+            "weight": 0.95
+          },
+          {
+            "word": "瘦下来",
+            "weight": 0.85
+          },
+          {
+            "word": "方法",
+            "weight": 0.8
+          },
+          {
+            "word": "减肥",
+            "weight": 0.75
+          },
+          {
+            "word": "健康管理",
+            "weight": 0.7
+          },
+          {
+            "word": "外貌",
+            "weight": 0.65
+          }
+        ]
+      },
+      {
+        "slot": "外貌焦虑",
+        "id": 35,
+        "source": "user",
+        "is_question": true,
+        "start_id": 35,
+        "end_id": 38,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "外貌焦虑",
+            "weight": 0.95
+          },
+          {
+            "word": "长相普通",
+            "weight": 0.85
+          },
+          {
+            "word": "卡颜局",
+            "weight": 0.8
+          },
+          {
+            "word": "外貌不好",
+            "weight": 0.78
+          },
+          {
+            "word": "恶意",
+            "weight": 0.75
+          },
+          {
+            "word": "丑",
+            "weight": 0.7
+          },
+          {
+            "word": "世界",
+            "weight": 0.65
+          }
+        ]
+      },
+      {
+        "slot": "外形改善",
+        "id": 39,
+        "source": "user",
+        "is_question": true,
+        "start_id": 39,
+        "end_id": 42,
+        "resolved": true,
+        "wordcloud": [
+          {
+            "word": "镜子",
+            "weight": 0.8
+          },
+          {
+            "word": "丑",
+            "weight": 0.9
+          },
+          {
+            "word": "穿着",
+            "weight": 0.7
+          },
+          {
+            "word": "土",
+            "weight": 0.85
+          },
+          {
+            "word": "胖",
+            "weight": 0.9
+          },
+          {
+            "word": "外形改善",
+            "weight": 0.95
+          },
+          {
+            "word": "外貌",
+            "weight": 0.88
+          },
+          {
+            "word": "健康管理",
+            "weight": 0.82
+          }
+        ]
+      },
+      {
+        "slot": "健身与体能",
+        "id": 69,
+        "source": "user",
+        "is_question": false,
+        "start_id": 69,
+        "end_id": 72,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "健身房",
+            "weight": 0.95
+          },
+          {
+            "word": "肌肉酸痛",
+            "weight": 0.88
+          },
+          {
+            "word": "延迟性肌肉酸痛",
+            "weight": 0.85
+          },
+          {
+            "word": "轻微活动",
+            "weight": 0.82
+          },
+          {
+            "word": "拉伸",
+            "weight": 0.8
+          },
+          {
+            "word": "蛋白质",
+            "weight": 0.78
+          },
+          {
+            "word": "睡眠",
+            "weight": 0.76
+          },
+          {
+            "word": "新手保护期",
+            "weight": 0.74
+          },
+          {
+            "word": "重量训练",
+            "weight": 0.72
+          },
+          {
+            "word": "组数",
+            "weight": 0.7
+          },
+          {
+            "word": "动作",
+            "weight": 0.68
+          },
+          {
+            "word": "肌肉修复",
+            "weight": 0.66
+          },
+          {
+            "word": "哑铃",
+            "weight": 0.64
+          },
+          {
+            "word": "饮食",
+            "weight": 0.62
+          },
+          {
+            "word": "水分摄入",
+            "weight": 0.6
+          },
+          {
+            "word": "休息",
+            "weight": 0.58
+          },
+          {
+            "word": "训练量",
+            "weight": 0.56
+          },
+          {
+            "word": "适应强度",
+            "weight": 0.54
+          },
+          {
+            "word": "健身计划",
+            "weight": 0.52
+          },
+          {
+            "word": "自信",
+            "weight": 0.5
+          }
+        ]
+      },
+      {
+        "slot": "健身房自信心",
+        "id": 73,
+        "source": "user",
+        "is_question": false,
+        "start_id": 73,
+        "end_id": 74,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "健身房",
+            "weight": 0.95
+          },
+          {
+            "word": "自信心",
+            "weight": 0.9
+          },
+          {
+            "word": "重量",
+            "weight": 0.85
+          },
+          {
+            "word": "新手",
+            "weight": 0.8
+          },
+          {
+            "word": "社恐",
+            "weight": 0.75
+          },
+          {
+            "word": "器械区",
+            "weight": 0.7
+          },
+          {
+            "word": "耳机",
+            "weight": 0.65
+          },
+          {
+            "word": "自我对话",
+            "weight": 0.6
+          },
+          {
+            "word": "进步指标",
+            "weight": 0.55
+          },
+          {
+            "word": "隐形成就",
+            "weight": 0.5
+          },
+          {
+            "word": "5kg",
+            "weight": 0.45
+          },
+          {
+            "word": "动作",
+            "weight": 0.4
+          },
+          {
+            "word": "镜子",
+            "weight": 0.35
+          },
+          {
+            "word": "计划",
+            "weight": 0.3
+          },
+          {
+            "word": "小丑",
+            "weight": 0.25
+          },
+          {
+            "word": "专注",
+            "weight": 0.2
+          },
+          {
+            "word": "羞耻感",
+            "weight": 0.15
+          },
+          {
+            "word": "等级勋章",
+            "weight": 0.1
+          },
+          {
+            "word": "酸痛",
+            "weight": 0.05
+          },
+          {
+            "word": "微笑",
+            "weight": 0.05
+          }
+        ]
+      },
+      {
+        "slot": "运动后酸痛",
+        "id": 75,
+        "source": "user",
+        "is_question": false,
+        "start_id": 75,
+        "end_id": 76,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "运动后酸痛",
+            "weight": 0.95
+          },
+          {
+            "word": "新手DOMS",
+            "weight": 0.9
+          },
+          {
+            "word": "恢复日",
+            "weight": 0.85
+          },
+          {
+            "word": "轻微活动",
+            "weight": 0.8
+          },
+          {
+            "word": "简单拉伸",
+            "weight": 0.8
+          },
+          {
+            "word": "多喝水",
+            "weight": 0.75
+          },
+          {
+            "word": "蛋白质",
+            "weight": 0.75
+          },
+          {
+            "word": "训练量",
+            "weight": 0.7
+          },
+          {
+            "word": "新手保护规则",
+            "weight": 0.7
+          },
+          {
+            "word": "缓冲日",
+            "weight": 0.65
+          },
+          {
+            "word": "肌肉修复",
+            "weight": 0.65
+          },
+          {
+            "word": "关节疼痛",
+            "weight": 0.6
+          },
+          {
+            "word": "专业医生",
+            "weight": 0.6
+          },
+          {
+            "word": "力量训练",
+            "weight": 0.55
+          },
+          {
+            "word": "身体恢复",
+            "weight": 0.55
+          },
+          {
+            "word": "酸胀无力",
+            "weight": 0.5
+          },
+          {
+            "word": "轻活动",
+            "weight": 0.5
+          },
+          {
+            "word": "训练菜单",
+            "weight": 0.45
+          },
+          {
+            "word": "新手训练",
+            "weight": 0.45
+          },
+          {
+            "word": "健身房",
+            "weight": 0.4
+          }
+        ]
+      },
+      {
+        "slot": "运动与心情改善",
+        "id": 77,
+        "source": "user",
+        "is_question": true,
+        "start_id": 77,
+        "end_id": 80,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "运动",
+            "weight": 0.95
+          },
+          {
+            "word": "心情改善",
+            "weight": 0.92
+          },
+          {
+            "word": "内啡肽",
+            "weight": 0.85
+          },
+          {
+            "word": "多巴胺",
+            "weight": 0.85
+          },
+          {
+            "word": "身体反馈",
+            "weight": 0.8
+          },
+          {
+            "word": "自我攻击",
+            "weight": 0.78
+          },
+          {
+            "word": "小习惯",
+            "weight": 0.76
+          },
+          {
+            "word": "酸痛恢复",
+            "weight": 0.74
+          },
+          {
+            "word": "温柔拉伸",
+            "weight": 0.72
+          },
+          {
+            "word": "健身房",
+            "weight": 0.7
+          },
+          {
+            "word": "心情记录",
+            "weight": 0.68
+          },
+          {
+            "word": "自信",
+            "weight": 0.66
+          },
+          {
+            "word": "对抗抑郁",
+            "weight": 0.64
+          },
+          {
+            "word": "自卑",
+            "weight": 0.62
+          },
+          {
+            "word": "未来",
+            "weight": 0.6
+          },
+          {
+            "word": "散步",
+            "weight": 0.58
+          },
+          {
+            "word": "新手计划",
+            "weight": 0.56
+          },
+          {
+            "word": "心情分数",
+            "weight": 0.54
+          },
+          {
+            "word": "变好",
+            "weight": 0.52
+          },
+          {
+            "word": "情绪控制",
+            "weight": 0.5
+          }
+        ]
+      },
+      {
+        "slot": "羽毛球运动",
+        "id": 87,
+        "source": "user",
+        "is_question": false,
+        "start_id": 87,
+        "end_id": 88,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "羽毛球",
+            "weight": 0.95
+          },
+          {
+            "word": "减肥",
+            "weight": 0.85
+          },
+          {
+            "word": "社交",
+            "weight": 0.8
+          },
+          {
+            "word": "内向",
+            "weight": 0.75
+          },
+          {
+            "word": "运动",
+            "weight": 0.7
+          },
+          {
+            "word": "便宜",
+            "weight": 0.65
+          },
+          {
+            "word": "学校",
+            "weight": 0.6
+          },
+          {
+            "word": "场地费",
+            "weight": 0.55
+          },
+          {
+            "word": "球拍",
+            "weight": 0.5
+          },
+          {
+            "word": "社恐",
+            "weight": 0.5
+          },
+          {
+            "word": "交朋友",
+            "weight": 0.45
+          },
+          {
+            "word": "心情",
+            "weight": 0.45
+          },
+          {
+            "word": "膝盖保护",
+            "weight": 0.4
+          },
+          {
+            "word": "健身",
+            "weight": 0.4
+          },
+          {
+            "word": "长期坚持",
+            "weight": 0.35
+          },
+          {
+            "word": "运动鞋",
+            "weight": 0.35
+          },
+          {
+            "word": "小计划",
+            "weight": 0.3
+          },
+          {
+            "word": "场馆",
+            "weight": 0.3
+          },
+          {
+            "word": "互动",
+            "weight": 0.25
+          },
+          {
+            "word": "心理暗示",
+            "weight": 0.25
+          }
+        ]
+      },
+      {
+        "slot": "约人打羽毛球",
+        "id": 89,
+        "source": "user",
+        "is_question": true,
+        "start_id": 89,
+        "end_id": 90,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "羽毛球",
+            "weight": 0.95
+          },
+          {
+            "word": "约人",
+            "weight": 0.9
+          },
+          {
+            "word": "运动",
+            "weight": 0.85
+          },
+          {
+            "word": "减肥",
+            "weight": 0.8
+          },
+          {
+            "word": "健身",
+            "weight": 0.75
+          },
+          {
+            "word": "主动发起",
+            "weight": 0.7
+          },
+          {
+            "word": "撒网式",
+            "weight": 0.65
+          },
+          {
+            "word": "合理理由",
+            "weight": 0.6
+          },
+          {
+            "word": "语气技巧",
+            "weight": 0.55
+          },
+          {
+            "word": "拒绝",
+            "weight": 0.5
+          },
+          {
+            "word": "小任务",
+            "weight": 0.45
+          },
+          {
+            "word": "目标对象",
+            "weight": 0.4
+          },
+          {
+            "word": "自然",
+            "weight": 0.35
+          },
+          {
+            "word": "不黏人",
+            "weight": 0.3
+          },
+          {
+            "word": "健康",
+            "weight": 0.25
+          },
+          {
+            "word": "交流少",
+            "weight": 0.2
+          },
+          {
+            "word": "轻松",
+            "weight": 0.15
+          },
+          {
+            "word": "随便玩",
+            "weight": 0.1
+          },
+          {
+            "word": "不专业",
+            "weight": 0.05
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "心理健康与自我提升",
+    "slots": [
+      {
+        "slot": "心理支持",
+        "id": 43,
+        "source": "user",
+        "is_question": false,
+        "start_id": 43,
+        "end_id": 44,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "心理支持",
+            "weight": 0.95
+          },
+          {
+            "word": "自我提升",
+            "weight": 0.9
+          },
+          {
+            "word": "变得更好",
+            "weight": 0.88
+          },
+          {
+            "word": "温柔减肥",
+            "weight": 0.85
+          },
+          {
+            "word": "心理咨询",
+            "weight": 0.83
+          },
+          {
+            "word": "自我肯定",
+            "weight": 0.82
+          },
+          {
+            "word": "情绪管理",
+            "weight": 0.8
+          },
+          {
+            "word": "安全绳",
+            "weight": 0.78
+          },
+          {
+            "word": "自我保护",
+            "weight": 0.77
+          },
+          {
+            "word": "小步前进",
+            "weight": 0.75
+          },
+          {
+            "word": "支持资源",
+            "weight": 0.74
+          },
+          {
+            "word": "内心成长",
+            "weight": 0.73
+          },
+          {
+            "word": "现实支持",
+            "weight": 0.72
+          },
+          {
+            "word": "长期合作",
+            "weight": 0.7
+          },
+          {
+            "word": "自我接纳",
+            "weight": 0.68
+          },
+          {
+            "word": "穿搭建议",
+            "weight": 0.67
+          },
+          {
+            "word": "计划调整",
+            "weight": 0.65
+          },
+          {
+            "word": "自我争取",
+            "weight": 0.64
+          },
+          {
+            "word": "情绪波动",
+            "weight": 0.63
+          },
+          {
+            "word": "心理健康",
+            "weight": 0.62
+          }
+        ]
+      },
+      {
+        "slot": "自我评价与情绪",
+        "id": 67,
+        "source": "user",
+        "is_question": false,
+        "start_id": 67,
+        "end_id": 68,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "自我评价",
+            "weight": 0.95
+          },
+          {
+            "word": "情绪",
+            "weight": 0.9
+          },
+          {
+            "word": "废物",
+            "weight": 0.85
+          },
+          {
+            "word": "难受",
+            "weight": 0.8
+          },
+          {
+            "word": "绝望",
+            "weight": 0.78
+          },
+          {
+            "word": "生气",
+            "weight": 0.75
+          },
+          {
+            "word": "烦",
+            "weight": 0.72
+          },
+          {
+            "word": "攻击",
+            "weight": 0.7
+          },
+          {
+            "word": "升级练习",
+            "weight": 0.68
+          },
+          {
+            "word": "表达方式",
+            "weight": 0.65
+          },
+          {
+            "word": "描述感受",
+            "weight": 0.63
+          },
+          {
+            "word": "努力",
+            "weight": 0.6
+          },
+          {
+            "word": "具体",
+            "weight": 0.58
+          },
+          {
+            "word": "真话",
+            "weight": 0.55
+          },
+          {
+            "word": "骂人",
+            "weight": 0.53
+          },
+          {
+            "word": "改变",
+            "weight": 0.5
+          },
+          {
+            "word": "垃圾",
+            "weight": 0.48
+          },
+          {
+            "word": "没用",
+            "weight": 0.45
+          },
+          {
+            "word": "站你这边",
+            "weight": 0.43
+          },
+          {
+            "word": "帮不了",
+            "weight": 0.4
+          }
+        ]
+      },
+      {
+        "slot": "自信提升",
+        "id": 97,
+        "source": "user",
+        "is_question": true,
+        "start_id": 97,
+        "end_id": 102,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "自信",
+            "weight": 0.95
+          },
+          {
+            "word": "展示",
+            "weight": 0.85
+          },
+          {
+            "word": "介绍自己",
+            "weight": 0.8
+          },
+          {
+            "word": "表演节目",
+            "weight": 0.78
+          },
+          {
+            "word": "信心",
+            "weight": 0.9
+          },
+          {
+            "word": "摆手",
+            "weight": 0.7
+          }
+        ]
+      },
+      {
+        "slot": "失眠与焦虑",
+        "id": 103,
+        "source": "user",
+        "is_question": true,
+        "start_id": 103,
+        "end_id": 106,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "失眠",
+            "weight": 0.95
+          },
+          {
+            "word": "焦虑",
+            "weight": 0.9
+          },
+          {
+            "word": "晚上",
+            "weight": 0.85
+          },
+          {
+            "word": "心理健康",
+            "weight": 0.8
+          },
+          {
+            "word": "自我提升",
+            "weight": 0.75
+          }
+        ]
+      },
+      {
+        "slot": "缓解压力方法",
+        "id": 107,
+        "source": "user",
+        "is_question": true,
+        "start_id": 107,
+        "end_id": 108,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "舒缓压力",
+            "weight": 0.95
+          },
+          {
+            "word": "冥想",
+            "weight": 0.85
+          },
+          {
+            "word": "运动",
+            "weight": 0.8
+          },
+          {
+            "word": "深呼吸",
+            "weight": 0.78
+          },
+          {
+            "word": "音乐疗法",
+            "weight": 0.75
+          },
+          {
+            "word": "自然环境",
+            "weight": 0.72
+          },
+          {
+            "word": "社交活动",
+            "weight": 0.7
+          },
+          {
+            "word": "阅读",
+            "weight": 0.68
+          },
+          {
+            "word": "艺术创作",
+            "weight": 0.65
+          },
+          {
+            "word": "瑜伽",
+            "weight": 0.63
+          },
+          {
+            "word": "按摩",
+            "weight": 0.6
+          },
+          {
+            "word": "睡眠",
+            "weight": 0.58
+          },
+          {
+            "word": "饮食调节",
+            "weight": 0.55
+          },
+          {
+            "word": "时间管理",
+            "weight": 0.53
+          },
+          {
+            "word": "正念练习",
+            "weight": 0.5
+          },
+          {
+            "word": "宠物陪伴",
+            "weight": 0.48
+          },
+          {
+            "word": "园艺",
+            "weight": 0.45
+          },
+          {
+            "word": "旅行",
+            "weight": 0.43
+          },
+          {
+            "word": "写作",
+            "weight": 0.4
+          },
+          {
+            "word": "香薰疗法",
+            "weight": 0.38
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "生活习惯与计划",
+    "slots": [
+      {
+        "slot": "生活习惯单调",
+        "id": 21,
+        "source": "user",
+        "is_question": false,
+        "start_id": 21,
+        "end_id": 22,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "生活习惯",
+            "weight": 0.85
+          },
+          {
+            "word": "单调",
+            "weight": 0.8
+          },
+          {
+            "word": "特长",
+            "weight": 0.75
+          },
+          {
+            "word": "宿舍",
+            "weight": 0.7
+          },
+          {
+            "word": "打游戏",
+            "weight": 0.9
+          },
+          {
+            "word": "课余时间",
+            "weight": 0.65
+          },
+          {
+            "word": "不想去",
+            "weight": 0.6
+          }
+        ]
+      },
+      {
+        "slot": "生活改善计划",
+        "id": 23,
+        "source": "user",
+        "is_question": false,
+        "start_id": 23,
+        "end_id": 24,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "生活改善计划",
+            "weight": 0.95
+          },
+          {
+            "word": "小计划",
+            "weight": 0.88
+          },
+          {
+            "word": "基础线",
+            "weight": 0.85
+          },
+          {
+            "word": "加分任务",
+            "weight": 0.82
+          },
+          {
+            "word": "安全第一",
+            "weight": 0.8
+          },
+          {
+            "word": "心理咨询",
+            "weight": 0.78
+          },
+          {
+            "word": "情绪整理",
+            "weight": 0.76
+          },
+          {
+            "word": "身体小加分",
+            "weight": 0.74
+          },
+          {
+            "word": "超小学习",
+            "weight": 0.72
+          },
+          {
+            "word": "微小社交",
+            "weight": 0.7
+          },
+          {
+            "word": "睡前总结",
+            "weight": 0.68
+          },
+          {
+            "word": "生活结构",
+            "weight": 0.66
+          },
+          {
+            "word": "阳光猛男",
+            "weight": 0.64
+          },
+          {
+            "word": "心理辅导",
+            "weight": 0.62
+          },
+          {
+            "word": "求助渠道",
+            "weight": 0.6
+          },
+          {
+            "word": "生活习惯",
+            "weight": 0.58
+          },
+          {
+            "word": "情绪感受",
+            "weight": 0.56
+          },
+          {
+            "word": "生活目标",
+            "weight": 0.54
+          },
+          {
+            "word": "自杀念头",
+            "weight": 0.52
+          },
+          {
+            "word": "生活节奏",
+            "weight": 0.5
+          }
+        ]
+      },
+      {
+        "slot": "冬季情感羡慕",
+        "id": 25,
+        "source": "user",
+        "is_question": false,
+        "start_id": 25,
+        "end_id": 26,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "冬天",
+            "weight": 0.85
+          },
+          {
+            "word": "情侣",
+            "weight": 0.9
+          },
+          {
+            "word": "羡慕",
+            "weight": 0.95
+          },
+          {
+            "word": "情感",
+            "weight": 0.8
+          },
+          {
+            "word": "路上",
+            "weight": 0.7
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "技能与学习",
+    "slots": [
+      {
+        "slot": "个人特长",
+        "id": 59,
+        "source": "user",
+        "is_question": true,
+        "start_id": 59,
+        "end_id": 60,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "个人特长",
+            "weight": 0.95
+          },
+          {
+            "word": "社交亮点",
+            "weight": 0.9
+          },
+          {
+            "word": "闪光点",
+            "weight": 0.85
+          },
+          {
+            "word": "技能学习",
+            "weight": 0.8
+          },
+          {
+            "word": "特长选择",
+            "weight": 0.75
+          },
+          {
+            "word": "社交能力",
+            "weight": 0.7
+          },
+          {
+            "word": "兴趣爱好",
+            "weight": 0.65
+          },
+          {
+            "word": "自我提升",
+            "weight": 0.6
+          },
+          {
+            "word": "独特技能",
+            "weight": 0.55
+          },
+          {
+            "word": "专业技能",
+            "weight": 0.5
+          },
+          {
+            "word": "个人魅力",
+            "weight": 0.45
+          },
+          {
+            "word": "沟通技巧",
+            "weight": 0.4
+          },
+          {
+            "word": "社交技巧",
+            "weight": 0.35
+          },
+          {
+            "word": "学习计划",
+            "weight": 0.3
+          },
+          {
+            "word": "特长发展",
+            "weight": 0.25
+          },
+          {
+            "word": "技能展示",
+            "weight": 0.2
+          },
+          {
+            "word": "兴趣培养",
+            "weight": 0.15
+          },
+          {
+            "word": "特长培训",
+            "weight": 0.1
+          },
+          {
+            "word": "社交圈子",
+            "weight": 0.05
+          }
+        ]
+      },
+      {
+        "slot": "唱歌和乐器学习",
+        "id": 61,
+        "source": "user",
+        "is_question": false,
+        "start_id": 61,
+        "end_id": 62,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "唱歌",
+            "weight": 0.95
+          },
+          {
+            "word": "乐器学习",
+            "weight": 0.9
+          },
+          {
+            "word": "难听",
+            "weight": 0.85
+          },
+          {
+            "word": "不敢",
+            "weight": 0.8
+          },
+          {
+            "word": "别人面前",
+            "weight": 0.75
+          }
+        ]
+      },
+      {
+        "slot": "英语学习方法",
+        "id": 93,
+        "source": "user",
+        "is_question": true,
+        "start_id": 93,
+        "end_id": 96,
+        "resolved": false,
+        "wordcloud": [
+          {
+            "word": "英语水平",
+            "weight": 0.85
+          },
+          {
+            "word": "口语",
+            "weight": 0.8
+          },
+          {
+            "word": "交流",
+            "weight": 0.75
+          },
+          {
+            "word": "不敢",
+            "weight": 0.7
+          },
+          {
+            "word": "英语",
+            "weight": 0.65
+          },
+          {
+            "word": "不会",
+            "weight": 0.6
+          }
+        ]
+      }
+    ]
+  }
+]
