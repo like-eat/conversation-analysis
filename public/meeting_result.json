@@ -64,7 +64,7 @@
         "slot": "旅行与工作",
         "id": 20,
         "color": "#D1D1D1",
-        "source": "yoyo浅井佑右",
+        "source": "浅井佑右",
         "is_question": true,
         "resolved": false,
         "start_id": 20,
@@ -225,94 +225,10 @@
     "topic": "单身生活",
     "slots": [
       {
-        "slot": "单身话题",
-        "id": 46,
-        "color": "#B0CFF6",
-        "source": "功必扬",
-        "is_question": true,
-        "resolved": true,
-        "start_id": 46,
-        "end_id": 51,
-        "wordcloud": [
-          {
-            "word": "单身生活",
-            "weight": 0.95
-          },
-          {
-            "word": "粉丝",
-            "weight": 0.85
-          },
-          {
-            "word": "话题",
-            "weight": 0.8
-          },
-          {
-            "word": "私人订制",
-            "weight": 0.78
-          },
-          {
-            "word": "压力",
-            "weight": 0.7
-          },
-          {
-            "word": "动力",
-            "weight": 0.68
-          },
-          {
-            "word": "房地产",
-            "weight": 0.65
-          },
-          {
-            "word": "谈恋爱",
-            "weight": 0.6
-          },
-          {
-            "word": "结婚",
-            "weight": 0.58
-          },
-          {
-            "word": "年龄",
-            "weight": 0.55
-          },
-          {
-            "word": "播客",
-            "weight": 0.53
-          },
-          {
-            "word": "B站",
-            "weight": 0.5
-          },
-          {
-            "word": "耳机",
-            "weight": 0.48
-          },
-          {
-            "word": "邮箱",
-            "weight": 0.45
-          },
-          {
-            "word": "观众",
-            "weight": 0.43
-          },
-          {
-            "word": "代表",
-            "weight": 0.4
-          },
-          {
-            "word": "工作",
-            "weight": 0.38
-          },
-          {
-            "word": "单身话题",
-            "weight": 0.35
-          }
-        ]
-      },
-      {
         "slot": "单身与标签",
         "id": 68,
         "color": "#B0CFF6",
-        "source": "yoyo浅井佑右",
+        "source": "浅井佑右",
         "is_question": false,
         "resolved": false,
         "start_id": 68,
@@ -666,7 +582,7 @@
         "slot": "日本女性成就",
         "id": 115,
         "color": "#B4E6B4",
-        "source": "yoyo浅井佑右",
+        "source": "浅井佑右",
         "is_question": false,
         "resolved": false,
         "start_id": 115,
@@ -718,7 +634,7 @@
         "slot": "日本男女关系",
         "id": 132,
         "color": "#B4E6B4",
-        "source": "yoyo浅井佑右",
+        "source": "浅井佑右",
         "is_question": true,
         "resolved": false,
         "start_id": 132,
@@ -846,7 +762,7 @@
         "slot": "日本人长寿原因",
         "id": 157,
         "color": "#B4E6B4",
-        "source": "yoyo浅井佑右",
+        "source": "浅井佑右",
         "is_question": false,
         "resolved": false,
         "start_id": 157,
@@ -1008,7 +924,7 @@
         "slot": "居住空间压力",
         "id": 169,
         "color": "#F9B3B3",
-        "source": "yoyo浅井佑右",
+        "source": "浅井佑右",
         "is_question": false,
         "resolved": false,
         "start_id": 169,
@@ -1468,7 +1384,7 @@
         "slot": "日本婚姻与孩子",
         "id": 228,
         "color": "#FFC9A9",
-        "source": "yoyo浅井佑右",
+        "source": "浅井佑右",
         "is_question": true,
         "resolved": true,
         "start_id": 228,
@@ -1786,7 +1702,7 @@
         "slot": "结婚条件",
         "id": 267,
         "color": "#FFC9A9",
-        "source": "yoyo浅井佑右",
+        "source": "浅井佑右",
         "is_question": true,
         "resolved": false,
         "start_id": 267,
@@ -2154,7 +2070,7 @@
         "slot": "结婚与保险",
         "id": 306,
         "color": "#FFC9A9",
-        "source": "yoyo浅井佑右",
+        "source": "浅井佑右",
         "is_question": false,
         "resolved": false,
         "start_id": 306,
@@ -2206,7 +2122,7 @@
         "slot": "生育意愿",
         "id": 311,
         "color": "#FFC9A9",
-        "source": "yoyo浅井佑右",
+        "source": "浅井佑右",
         "is_question": false,
         "resolved": false,
         "start_id": 311,
@@ -2430,7 +2346,7 @@
         "slot": "个人婚姻计划",
         "id": 344,
         "color": "#FFC9A9",
-        "source": "yoyo浅井佑右",
+        "source": "浅井佑右",
         "is_question": false,
         "resolved": false,
         "start_id": 344,
@@ -2498,7 +2414,7 @@
         "slot": "婚礼计划",
         "id": 358,
         "color": "#FFC9A9",
-        "source": "yoyo浅井佑右",
+        "source": "浅井佑右",
         "is_question": false,
         "resolved": false,
         "start_id": 358,
@@ -2724,7 +2640,7 @@
         "slot": "搭讪技巧",
         "id": 385,
         "color": "#D6C3BF",
-        "source": "yoyo浅井佑右",
+        "source": "浅井佑右",
         "is_question": true,
         "resolved": true,
         "start_id": 385,
@@ -2796,7 +2712,7 @@
         "slot": "交友方式",
         "id": 396,
         "color": "#D6C3BF",
-        "source": "yoyo浅井佑右",
+        "source": "浅井佑右",
         "is_question": false,
         "resolved": false,
         "start_id": 396,
@@ -2960,7 +2876,7 @@
         "slot": "交友软件流行",
         "id": 416,
         "color": "#D6C3BF",
-        "source": "yoyo浅井佑右",
+        "source": "浅井佑右",
         "is_question": false,
         "resolved": false,
         "start_id": 416,

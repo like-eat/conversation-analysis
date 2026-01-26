@@ -1,13 +1,13 @@
 <template>
   <div class="UI">
     <UI />
-    <!-- <TestUI /> -->
+    <!-- <TestGraph /> -->
   </div>
 </template>
 
 <script setup lang="ts">
 import UI from './components/UI.vue'
-import TestUI from './components/TestUI.vue'
+import TestGraph from './components/TestGraph.vue'
 </script>
 
 <style scoped>

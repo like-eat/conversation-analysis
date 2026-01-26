@@ -304,8 +304,9 @@ def Topic_Edge_detection(history):
     4) slot 用中文名词短语，2~6字，避免口语/虚词，且必须只表达一个核心主题（禁止“X与Y/和/及/多个、”）
     5) is_question：该段是否是提问（true/false）
     6) source：该段来源, 表明这段对话的主要发言人
-    6) 段太短(<3条)尽量合并，段太长(>40条)尽量拆分
-    7) 输出字段必须包含：start_id, end_id, slot, is_question, confidence(0~1)
+    7) sentence: start_id这个id的句子，用于辅助理解。
+    8) 段太短(<3条)尽量合并，段太长(>40条)尽量拆分
+    9) 输出字段必须包含：start_id, end_id, slot, is_question, confidence(0~1)
 
     严格输出 JSON，例如：
     [
@@ -335,6 +336,7 @@ def Topic_Edge_detection(history):
             s = int(it.get("start_id"))
             e = int(it.get("end_id"))
             source = str(it.get("source"))
+            sentence = str(it.get("sentence"))
         except Exception:
             continue
         slot = (it.get("slot") or "").strip()
@@ -346,6 +348,7 @@ def Topic_Edge_detection(history):
             "slot": slot,
             "is_question": parse_bool(it.get("is_question")),
             "source": source,
+            "sentence": sentence,
         })
     return out
 
@@ -358,6 +361,7 @@ def Topic_merge(topic_description: List[Dict[str, Any]]):
             start_id = int(it.get("start_id"))
             end_id = int(it.get("end_id"))
             source = str(it.get("source"))
+            sentence = str(it.get("sentence"))
         except Exception:
             continue
         slot_name = (it.get("slot") or it.get("topic_label") or "").strip()
@@ -372,6 +376,7 @@ def Topic_merge(topic_description: List[Dict[str, Any]]):
             "is_question": parse_bool(it.get("is_question")),
             "start_id": start_id,
             "end_id": end_id,
+            "sentence": sentence,
         })
 
     slot_list_for_prompt = [
@@ -383,7 +388,7 @@ def Topic_merge(topic_description: List[Dict[str, Any]]):
 
     输入：若干 slot（每个 slot 代表一段连续对话），需要把它们聚类成更高层 topic。
     每个 slot 字段：
-    - slot, id, source, is_question, start_id, end_id
+    - slot, id, source, is_question, start_id, end_id, sentence
 
     聚类要求：
     1) 输出若干 topic，每个 topic 包含若干 slot。
@@ -408,7 +413,7 @@ def Topic_merge(topic_description: List[Dict[str, Any]]):
     {{
         "topic": "...",
         "slots": [
-        {{"slot":"...","id":1,"source":"...","is_question":false,"start_id":1,"end_id":12}},
+        {{"slot":"...","id":1,"source":"...","is_question":false,"start_id":1,"end_id":12, "sentence": "..."}},
         ...
         ]
     }},

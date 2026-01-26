@@ -33,6 +33,7 @@ def segment_by_timeline(topics):
                 "resolved": s.get("resolved", False),
                 "start_id":int(s["start_id"]),
                 "end_id":int(s["end_id"]),
+                "sentence": s.get("sentence"),
                 "wordcloud": s.get("wordcloud", []),
             })
 
@@ -88,6 +89,7 @@ def segment_by_timeline(topics):
             "resolved": item.get("resolved", False),
             "start_id": item["start_id"],
             "end_id": item["end_id"],
+            "sentence": item["sentence"],
             "wordcloud": item.get("wordcloud", []),
         }
 
@@ -320,11 +322,11 @@ if __name__ == "__main__":
     print("🤖 启动对话处理程序...")
     file_path = "py/conversation_example/ChatGPT-xinli.txt"
 
-    # run_step0_edge_detection(file_path=file_path, out_path=STEP0_PATH)
-    # run_step1_topic_merge(step0_slots_path=STEP0_PATH, out_path=STEP1_PATH)
-    # run_step2_slots_and_resolution(file_path=file_path,step1_path=STEP1_PATH,out_path=STEP2_PATH)
-    # run_step3_slot_with_wordcloud(file_path=file_path,step2_path=STEP2_PATH,out_path=STEP3_PATH)
-    # run_step4_segment_and_color(step3_path=STEP3_PATH, out_path=STEP4_PATH)
+    run_step0_edge_detection(file_path=file_path, out_path=STEP0_PATH)
+    run_step1_topic_merge(step0_slots_path=STEP0_PATH, out_path=STEP1_PATH)
+    run_step2_slots_and_resolution(file_path=file_path,step1_path=STEP1_PATH,out_path=STEP2_PATH)
+    run_step3_slot_with_wordcloud(file_path=file_path,step2_path=STEP2_PATH,out_path=STEP3_PATH)
+    run_step4_segment_and_color(step3_path=STEP3_PATH, out_path=STEP4_PATH)
     run_step5_clear_points(STEP2_PATH, STEP5_PATH)
 
 

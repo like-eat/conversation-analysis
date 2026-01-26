@@ -77,19 +77,18 @@ def confidence_entropy(sim_row: np.ndarray, beta: float = 12.0) -> float:
 def cosine_to_01(x: float) -> float:
     return float(np.clip((x + 1.0) * 0.5, 0.0, 1.0))
 
-def score_strength_confidence(sim_row: np.ndarray, beta: float = 12.0) -> Tuple[int, float, float, float]:
+def score_strength_confidence(sim_row: np.ndarray, topic_idx: Optional[int], beta: float = 12.0) -> Tuple[int, float, float, float]:
     """
     Return: (best_idx, strength_cos, confidence, info_score)
     """
-    if sim_row.size == 0:
+    if sim_row.size == 0 or topic_idx is None or topic_idx < 0 or topic_idx >= sim_row.size:
         return -1, 0.0, 0.0, 0.0
 
-    best_idx = int(np.argmax(sim_row))
-    strength = float(sim_row[best_idx])              # [-1, 1]
-    conf = confidence_entropy(sim_row, beta=beta)    # [0, 1]
-    strength01 = cosine_to_01(strength)              # [0, 1]
-    info_score = strength01 * conf                   # [0, 1]
-    return best_idx, strength, conf, float(info_score)
+    strength = float(sim_row[topic_idx])             # <-- 关键：不再 argmax
+    conf = confidence_entropy(sim_row, beta=beta)    # [0,1] 仍用整行
+    strength01 = cosine_to_01(strength)              # [0,1]
+    info_score = strength01 * conf                   # [0,1]
+    return int(topic_idx), strength, conf, float(info_score)
 
 @dataclass
 class SlotSeg:
@@ -141,19 +140,6 @@ def build_slot_centroids(
     # L2 normalize
     norms = np.linalg.norm(C, axis=1, keepdims=True) + 1e-12
     return (C / norms).astype(np.float32)
-
-def score_assigned_topic(sim_row: np.ndarray, topic_idx: Optional[int]) -> Tuple[float, float]:
-    """
-    sim_row: (K,) 这句话对所有主题的相似度
-    topic_idx: 这句话所属主题的索引（slot_index_for_id 得到）
-    Return: (strength_cos, info_score01)
-    """
-    if topic_idx is None or topic_idx < 0 or topic_idx >= sim_row.size:
-        return 0.0, 0.0
-
-    strength = float(sim_row[topic_idx])     # [-1, 1] 这句 vs 所属主题
-    info_score = cosine_to_01(strength)      # [0, 1]
-    return strength, float(info_score)
 
 
 def parse_conversation(file_path):
@@ -250,21 +236,19 @@ def parse_meeting_conversation(file_path):
 # -----------------------------
 def main(
     conversation_path: str,
-    slots_path: str,
+    topic_names: List[str],
+    segs: List[SlotSeg],
     out_path: str,                 
     model_name: str = "BAAI/bge-small-zh-v1.5",
     context_window: int = 1,
 ):
+    USE_NORM = True   # True 输出归一化到 [0.2,1]；False 输出 raw top2 mean
+
     conv = parse_meeting_conversation(conversation_path)
     conv = sorted(conv, key=lambda x: int(x["id"]))
 
     ids = [int(m["id"]) for m in conv]
     texts = [clean_text(m.get("content", "")) for m in conv]
-
-    # 读取 slots，构造 segs & topic_names
-    slot_items = load_json(slots_path)
-    segs = parse_slots(slot_items)                 # 按 start_id 排序后的段
-    topic_names = [seg.slot for seg in segs]       # ⚠️ 不要再去重，否则索引会对不上
 
     # 1) 构造输入文本（带上下文）
     sentence_texts = [build_context_text_by_index(texts, i, context_window) for i in range(len(texts))]
@@ -278,14 +262,24 @@ def main(
     # 3) 相似度矩阵（不落盘 npz）
     sim = sent_embs @ topic_vecs.T  # (N,K)
 
+    beta = 15.0  # 可调：8~20 常用，越大越偏向 top1
+
     out = []
     for i in range(sim.shape[0]):
-        topic_idx = slot_index_for_id(segs, ids[i])   # 这句所属主题（段索引）
-        strength, score = score_assigned_topic(sim[i], topic_idx)
+        msg_id = ids[i]
+        topic_idx = slot_index_for_id(segs, msg_id)  # <-- 这句所属主题段索引
+
+        assigned_idx, strength, conf, score = score_strength_confidence(
+            sim[i], topic_idx, beta=beta
+        )
 
         out.append({
-            "id": ids[i],
-            "info_score": score,      # 映射到 [0,1]
+            "id": msg_id,
+            "topic_id": assigned_idx,
+            "topic_name": topic_names[assigned_idx] if 0 <= assigned_idx < len(topic_names) else "",
+            "strength": strength,
+            "confidence": conf,
+            "info_score": score,
         })
 
 
@@ -293,13 +287,19 @@ def main(
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
 
-    print(f"[OK] Wrote: {out_path}  ")
+    print(f"[OK] Wrote: {out_path}  (info_score = strength01 * confidence)")
 
 
 
 if __name__ == "__main__":
     conversation_path = "py/conversation_example/meeting_talk.txt"
     slots_path = "py/conversation_example/meeting_content/slots.json"
-    out_path = "py/conversation_example/meeting_content/scores_info_score.json"
-        
-    main(conversation_path=conversation_path, slots_path=slots_path,out_path=out_path)
+    out_path = "py/conversation_example/meeting_content/info_with_scores.json"
+
+    # 从 slots.json 中提取 topic_names（去重并保持出现顺序）
+    slot_items = load_json(slots_path)
+    segs = parse_slots(slot_items)
+    topic_names = [seg.slot for seg in segs]   # 不去重
+
+    main(conversation_path=conversation_path, topic_names=topic_names, segs=segs, out_path=out_path)
+

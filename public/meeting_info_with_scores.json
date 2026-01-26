@@ -1,0 +1,3378 @@
+[
+  {
+    "id": 1,
+    "topic_id": 0,
+    "topic_name": "在线征婚",
+    "strength": 0.742085337638855,
+    "confidence": 0.5553295765091077,
+    "info_score": 0.48371575639685566
+  },
+  {
+    "id": 2,
+    "topic_id": 0,
+    "topic_name": "在线征婚",
+    "strength": 0.6922193765640259,
+    "confidence": 0.4115572146839005,
+    "info_score": 0.3482225466264085
+  },
+  {
+    "id": 3,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.5292468667030334,
+    "confidence": 0.12864989327824217,
+    "info_score": 0.09836872309871574
+  },
+  {
+    "id": 4,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.5867049098014832,
+    "confidence": 0.17508253206062374,
+    "info_score": 0.13890215662053365
+  },
+  {
+    "id": 5,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.5965163707733154,
+    "confidence": 0.2921851047568297,
+    "info_score": 0.23323915152019736
+  },
+  {
+    "id": 6,
+    "topic_id": 1,
+    "topic_name": "日本人长寿",
+    "strength": 0.6591863036155701,
+    "confidence": 0.45726693731405466,
+    "info_score": 0.3793455197438595
+  },
+  {
+    "id": 7,
+    "topic_id": 25,
+    "topic_name": "日本人长寿原因",
+    "strength": 0.6731404066085815,
+    "confidence": 0.5790854122797482,
+    "info_score": 0.484445601081418
+  },
+  {
+    "id": 8,
+    "topic_id": 1,
+    "topic_name": "日本人长寿",
+    "strength": 0.7502017021179199,
+    "confidence": 0.7137648312687479,
+    "info_score": 0.6246162112992363
+  },
+  {
+    "id": 9,
+    "topic_id": 25,
+    "topic_name": "日本人长寿原因",
+    "strength": 0.515770673751831,
+    "confidence": 0.20221613412520312,
+    "info_score": 0.15325664293322488
+  },
+  {
+    "id": 10,
+    "topic_id": 25,
+    "topic_name": "日本人长寿原因",
+    "strength": 0.5008825063705444,
+    "confidence": 0.16219862810845942,
+    "info_score": 0.12172054174264421
+  },
+  {
+    "id": 11,
+    "topic_id": 22,
+    "topic_name": "个人情感状态",
+    "strength": 0.4129553735256195,
+    "confidence": 0.06630700260058464,
+    "info_score": 0.04684441781343665
+  },
+  {
+    "id": 12,
+    "topic_id": 12,
+    "topic_name": "单身调侃",
+    "strength": 0.42137986421585083,
+    "confidence": 0.08853808655491013,
+    "info_score": 0.06292312672267471
+  },
+  {
+    "id": 13,
+    "topic_id": 6,
+    "topic_name": "粉丝互动",
+    "strength": 0.45245814323425293,
+    "confidence": 0.07792517405565769,
+    "info_score": 0.05659152681004327
+  },
+  {
+    "id": 14,
+    "topic_id": 6,
+    "topic_name": "粉丝互动",
+    "strength": 0.42471957206726074,
+    "confidence": 0.052780947751420504,
+    "info_score": 0.037599024646854134
+  },
+  {
+    "id": 15,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.529397189617157,
+    "confidence": 0.11973897989019122,
+    "info_score": 0.09156422966584186
+  },
+  {
+    "id": 16,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.516802191734314,
+    "confidence": 0.10739856346229715,
+    "info_score": 0.08145118822436456
+  },
+  {
+    "id": 17,
+    "topic_id": 3,
+    "topic_name": "嘉宾介绍",
+    "strength": 0.5476648211479187,
+    "confidence": 0.13418801828628424,
+    "info_score": 0.10383903766061787
+  },
+  {
+    "id": 18,
+    "topic_id": 3,
+    "topic_name": "嘉宾介绍",
+    "strength": 0.5471044778823853,
+    "confidence": 0.18980401336406683,
+    "info_score": 0.14682331949779795
+  },
+  {
+    "id": 19,
+    "topic_id": 3,
+    "topic_name": "嘉宾介绍",
+    "strength": 0.567557156085968,
+    "confidence": 0.2341398876810944,
+    "info_score": 0.18351382822983214
+  },
+  {
+    "id": 20,
+    "topic_id": 21,
+    "topic_name": "日本男女关系",
+    "strength": 0.5317988991737366,
+    "confidence": 0.1703872405920721,
+    "info_score": 0.13049949378609332
+  },
+  {
+    "id": 21,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.5046855211257935,
+    "confidence": 0.1650472253721298,
+    "info_score": 0.1241720851597147
+  },
+  {
+    "id": 22,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.5066967010498047,
+    "confidence": 0.16980655854236804,
+    "info_score": 0.12792349078620321
+  },
+  {
+    "id": 23,
+    "topic_id": 59,
+    "topic_name": "约会成本",
+    "strength": 0.4386655390262604,
+    "confidence": 0.07618743464106958,
+    "info_score": 0.05480411836246118
+  },
+  {
+    "id": 24,
+    "topic_id": 70,
+    "topic_name": "结束对话",
+    "strength": 0.4673437774181366,
+    "confidence": 0.0661376975953396,
+    "info_score": 0.04852336950964201
+  },
+  {
+    "id": 25,
+    "topic_id": 59,
+    "topic_name": "约会成本",
+    "strength": 0.39970284700393677,
+    "confidence": 0.059681455091064484,
+    "info_score": 0.04176815130215028
+  },
+  {
+    "id": 26,
+    "topic_id": 59,
+    "topic_name": "约会成本",
+    "strength": 0.4488290548324585,
+    "confidence": 0.12532492643093385,
+    "info_score": 0.09078719735393864
+  },
+  {
+    "id": 27,
+    "topic_id": 59,
+    "topic_name": "约会成本",
+    "strength": 0.45690494775772095,
+    "confidence": 0.14381782075012461,
+    "info_score": 0.10476444731329479
+  },
+  {
+    "id": 28,
+    "topic_id": 60,
+    "topic_name": "约会支付方式",
+    "strength": 0.44628506898880005,
+    "confidence": 0.16261168310143415,
+    "info_score": 0.11759142465637129
+  },
+  {
+    "id": 29,
+    "topic_id": 5,
+    "topic_name": "房地产行业",
+    "strength": 0.5848779678344727,
+    "confidence": 0.19028368291311915,
+    "info_score": 0.1507882083437017
+  },
+  {
+    "id": 30,
+    "topic_id": 5,
+    "topic_name": "房地产行业",
+    "strength": 0.6778664588928223,
+    "confidence": 0.5083411172808648,
+    "info_score": 0.42646425518083275
+  },
+  {
+    "id": 31,
+    "topic_id": 5,
+    "topic_name": "房地产行业",
+    "strength": 0.714240312576294,
+    "confidence": 0.47987723763295276,
+    "info_score": 0.4113124529190807
+  },
+  {
+    "id": 32,
+    "topic_id": 5,
+    "topic_name": "房地产行业",
+    "strength": 0.6610484719276428,
+    "confidence": 0.2745794536811811,
+    "info_score": 0.22804489097992642
+  },
+  {
+    "id": 33,
+    "topic_id": 5,
+    "topic_name": "房地产行业",
+    "strength": 0.6489228010177612,
+    "confidence": 0.2755080303898293,
+    "info_score": 0.2271457365866419
+  },
+  {
+    "id": 34,
+    "topic_id": 6,
+    "topic_name": "粉丝互动",
+    "strength": 0.5764027833938599,
+    "confidence": 0.2324556188925434,
+    "info_score": 0.18322184231887387
+  },
+  {
+    "id": 35,
+    "topic_id": 6,
+    "topic_name": "粉丝互动",
+    "strength": 0.6003022789955139,
+    "confidence": 0.2213658334250983,
+    "info_score": 0.17712612386096308
+  },
+  {
+    "id": 36,
+    "topic_id": 6,
+    "topic_name": "粉丝互动",
+    "strength": 0.6377477645874023,
+    "confidence": 0.3159744994977861,
+    "info_score": 0.25874326510956125
+  },
+  {
+    "id": 37,
+    "topic_id": 6,
+    "topic_name": "粉丝互动",
+    "strength": 0.5407410264015198,
+    "confidence": 0.14357177756608996,
+    "info_score": 0.11060346396473407
+  },
+  {
+    "id": 38,
+    "topic_id": 6,
+    "topic_name": "粉丝互动",
+    "strength": 0.49759918451309204,
+    "confidence": 0.10017963742597003,
+    "info_score": 0.07501447165697497
+  },
+  {
+    "id": 39,
+    "topic_id": 6,
+    "topic_name": "粉丝互动",
+    "strength": 0.4932807683944702,
+    "confidence": 0.09860997252104864,
+    "info_score": 0.07362618776879455
+  },
+  {
+    "id": 40,
+    "topic_id": 14,
+    "topic_name": "全球单身趋势",
+    "strength": 0.41778481006622314,
+    "confidence": 0.0435597257511795,
+    "info_score": 0.030879158750336397
+  },
+  {
+    "id": 41,
+    "topic_id": 70,
+    "topic_name": "结束对话",
+    "strength": 0.4963374733924866,
+    "confidence": 0.11927144750206997,
+    "info_score": 0.089235168201556
+  },
+  {
+    "id": 42,
+    "topic_id": 70,
+    "topic_name": "结束对话",
+    "strength": 0.5273265838623047,
+    "confidence": 0.17852126381730382,
+    "info_score": 0.13633013600643196
+  },
+  {
+    "id": 43,
+    "topic_id": 70,
+    "topic_name": "结束对话",
+    "strength": 0.5282042026519775,
+    "confidence": 0.17428925393396677,
+    "info_score": 0.13317478516948286
+  },
+  {
+    "id": 44,
+    "topic_id": 68,
+    "topic_name": "交友软件流行",
+    "strength": 0.587411105632782,
+    "confidence": 0.20981410873125128,
+    "info_score": 0.16653062315921616
+  },
+  {
+    "id": 45,
+    "topic_id": 6,
+    "topic_name": "粉丝互动",
+    "strength": 0.534393310546875,
+    "confidence": 0.17670013036148002,
+    "info_score": 0.13556374899970786
+  },
+  {
+    "id": 46,
+    "topic_id": 6,
+    "topic_name": "粉丝互动",
+    "strength": 0.5336797833442688,
+    "confidence": 0.12556862048704642,
+    "info_score": 0.09629102733170604
+  },
+  {
+    "id": 47,
+    "topic_id": 6,
+    "topic_name": "粉丝互动",
+    "strength": 0.5563613772392273,
+    "confidence": 0.16560872287713635,
+    "info_score": 0.12887351000994474
+  },
+  {
+    "id": 48,
+    "topic_id": 26,
+    "topic_name": "生活节奏与压力",
+    "strength": 0.5623387098312378,
+    "confidence": 0.13688599170485227,
+    "info_score": 0.1069311418370642
+  },
+  {
+    "id": 49,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.6128289103507996,
+    "confidence": 0.1498075376353879,
+    "info_score": 0.12080696384340953
+  },
+  {
+    "id": 50,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.6289700269699097,
+    "confidence": 0.17997878582975202,
+    "info_score": 0.14659002380355138
+  },
+  {
+    "id": 51,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.6519730091094971,
+    "confidence": 0.23725024491323088,
+    "info_score": 0.19596550050063757
+  },
+  {
+    "id": 52,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.6166654825210571,
+    "confidence": 0.22084924900869818,
+    "info_score": 0.17851967885653006
+  },
+  {
+    "id": 53,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.5727014541625977,
+    "confidence": 0.20993626338320215,
+    "info_score": 0.16508353335211207
+  },
+  {
+    "id": 54,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.5655536651611328,
+    "confidence": 0.2560144075758106,
+    "info_score": 0.2004021470571832
+  },
+  {
+    "id": 55,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.5773425102233887,
+    "confidence": 0.26850309872088496,
+    "info_score": 0.2117606758695795
+  },
+  {
+    "id": 56,
+    "topic_id": 70,
+    "topic_name": "结束对话",
+    "strength": 0.5561099052429199,
+    "confidence": 0.13052684648802526,
+    "info_score": 0.10155705936006908
+  },
+  {
+    "id": 57,
+    "topic_id": 70,
+    "topic_name": "结束对话",
+    "strength": 0.5469361543655396,
+    "confidence": 0.1223179308273713,
+    "info_score": 0.09460901476202192
+  },
+  {
+    "id": 58,
+    "topic_id": 12,
+    "topic_name": "单身调侃",
+    "strength": 0.4957050681114197,
+    "confidence": 0.10191223113177639,
+    "info_score": 0.07621532030317017
+  },
+  {
+    "id": 59,
+    "topic_id": 12,
+    "topic_name": "单身调侃",
+    "strength": 0.5114117860794067,
+    "confidence": 0.12772875547468066,
+    "info_score": 0.09652537322284345
+  },
+  {
+    "id": 60,
+    "topic_id": 12,
+    "topic_name": "单身调侃",
+    "strength": 0.5319784879684448,
+    "confidence": 0.16409107437620507,
+    "info_score": 0.12569199800598813
+  },
+  {
+    "id": 61,
+    "topic_id": 10,
+    "topic_name": "柠檬表情含义",
+    "strength": 0.6640444397926331,
+    "confidence": 0.5270510262747667,
+    "info_score": 0.43851816487976325
+  },
+  {
+    "id": 62,
+    "topic_id": 10,
+    "topic_name": "柠檬表情含义",
+    "strength": 0.6697162389755249,
+    "confidence": 0.53800811398042,
+    "info_score": 0.4491604423068512
+  },
+  {
+    "id": 63,
+    "topic_id": 10,
+    "topic_name": "柠檬表情含义",
+    "strength": 0.6967990398406982,
+    "confidence": 0.779030973936125,
+    "info_score": 0.6609295042904905
+  },
+  {
+    "id": 64,
+    "topic_id": 10,
+    "topic_name": "柠檬表情含义",
+    "strength": 0.6491824388504028,
+    "confidence": 0.6758011062695448,
+    "info_score": 0.5572596583077041
+  },
+  {
+    "id": 65,
+    "topic_id": 10,
+    "topic_name": "柠檬表情含义",
+    "strength": 0.6406909227371216,
+    "confidence": 0.5471338047784944,
+    "info_score": 0.44883873351135006
+  },
+  {
+    "id": 66,
+    "topic_id": 10,
+    "topic_name": "柠檬表情含义",
+    "strength": 0.6461982131004333,
+    "confidence": 0.5293890797366938,
+    "info_score": 0.4357396785487141
+  },
+  {
+    "id": 67,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.6364461183547974,
+    "confidence": 0.2587151775752382,
+    "info_score": 0.21168672405123534
+  },
+  {
+    "id": 68,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.6127769947052002,
+    "confidence": 0.2313535423073606,
+    "info_score": 0.1865608353384337
+  },
+  {
+    "id": 69,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.6544715166091919,
+    "confidence": 0.25281825124289914,
+    "info_score": 0.20914029778016152
+  },
+  {
+    "id": 70,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.5536012053489685,
+    "confidence": 0.1360245888684536,
+    "info_score": 0.10566398261156369
+  },
+  {
+    "id": 71,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.5624698400497437,
+    "confidence": 0.14810755206240545,
+    "info_score": 0.11570679159055286
+  },
+  {
+    "id": 72,
+    "topic_id": 22,
+    "topic_name": "个人情感状态",
+    "strength": 0.47681498527526855,
+    "confidence": 0.07654640376021815,
+    "info_score": 0.056522438071010664
+  },
+  {
+    "id": 73,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.5859584808349609,
+    "confidence": 0.18509440340151362,
+    "info_score": 0.146776019414859
+  },
+  {
+    "id": 74,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.5832536220550537,
+    "confidence": 0.19885514731642207,
+    "info_score": 0.15741906612650827
+  },
+  {
+    "id": 75,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.6472309231758118,
+    "confidence": 0.29152203543499944,
+    "info_score": 0.2401020557778429
+  },
+  {
+    "id": 76,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.5876405835151672,
+    "confidence": 0.19735030715582813,
+    "info_score": 0.15666067840488823
+  },
+  {
+    "id": 77,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.6208326816558838,
+    "confidence": 0.20102920927673762,
+    "info_score": 0.16291735618158826
+  },
+  {
+    "id": 78,
+    "topic_id": 6,
+    "topic_name": "粉丝互动",
+    "strength": 0.5281801223754883,
+    "confidence": 0.09914249744834902,
+    "info_score": 0.07575379694161477
+  },
+  {
+    "id": 79,
+    "topic_id": 0,
+    "topic_name": "在线征婚",
+    "strength": 0.600120484828949,
+    "confidence": 0.17466187036771064,
+    "info_score": 0.1397400183469561
+  },
+  {
+    "id": 80,
+    "topic_id": 0,
+    "topic_name": "在线征婚",
+    "strength": 0.6540559530258179,
+    "confidence": 0.3436850921253347,
+    "info_score": 0.28423718629806827
+  },
+  {
+    "id": 81,
+    "topic_id": 0,
+    "topic_name": "在线征婚",
+    "strength": 0.6850619316101074,
+    "confidence": 0.33830061126972344,
+    "info_score": 0.28502874074552015
+  },
+  {
+    "id": 82,
+    "topic_id": 29,
+    "topic_name": "结婚经济压力",
+    "strength": 0.6220173835754395,
+    "confidence": 0.1865751370350971,
+    "info_score": 0.15131405780694862
+  },
+  {
+    "id": 83,
+    "topic_id": 29,
+    "topic_name": "结婚经济压力",
+    "strength": 0.6387119293212891,
+    "confidence": 0.2024184387845923,
+    "info_score": 0.16585275517545126
+  },
+  {
+    "id": 84,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.6488654613494873,
+    "confidence": 0.18318892506696183,
+    "info_score": 0.15102694572232633
+  },
+  {
+    "id": 85,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.6698783040046692,
+    "confidence": 0.2524885902911601,
+    "info_score": 0.21081260946796612
+  },
+  {
+    "id": 86,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.6884678602218628,
+    "confidence": 0.2595324503656712,
+    "info_score": 0.21910610056353083
+  },
+  {
+    "id": 87,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.6946088671684265,
+    "confidence": 0.25836722698467685,
+    "info_score": 0.21891569691697546
+  },
+  {
+    "id": 88,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.574170708656311,
+    "confidence": 0.18246751906839875,
+    "info_score": 0.1436175118993301
+  },
+  {
+    "id": 89,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.5943738222122192,
+    "confidence": 0.2375381249469264,
+    "info_score": 0.18936228409637737
+  },
+  {
+    "id": 90,
+    "topic_id": 15,
+    "topic_name": "东京独居现象",
+    "strength": 0.612628161907196,
+    "confidence": 0.18454672100595382,
+    "info_score": 0.14880261974091571
+  },
+  {
+    "id": 91,
+    "topic_id": 15,
+    "topic_name": "东京独居现象",
+    "strength": 0.679716944694519,
+    "confidence": 0.3002496609135069,
+    "info_score": 0.25216722153760057
+  },
+  {
+    "id": 92,
+    "topic_id": 15,
+    "topic_name": "东京独居现象",
+    "strength": 0.6742660999298096,
+    "confidence": 0.24560709970136196,
+    "info_score": 0.2056058204660356
+  },
+  {
+    "id": 93,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.6181752681732178,
+    "confidence": 0.18031320096895254,
+    "info_score": 0.14588918116655303
+  },
+  {
+    "id": 94,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.6390334367752075,
+    "confidence": 0.2354698856063412,
+    "info_score": 0.19297150793121318
+  },
+  {
+    "id": 96,
+    "topic_id": 31,
+    "topic_name": "日本社会现象",
+    "strength": 0.5821167826652527,
+    "confidence": 0.2621193995241099,
+    "info_score": 0.20735175052461635
+  },
+  {
+    "id": 97,
+    "topic_id": 31,
+    "topic_name": "日本社会现象",
+    "strength": 0.5165729522705078,
+    "confidence": 0.17738948754339123,
+    "info_score": 0.13451204941271666
+  },
+  {
+    "id": 98,
+    "topic_id": 15,
+    "topic_name": "东京独居现象",
+    "strength": 0.5339592695236206,
+    "confidence": 0.21305920522920718,
+    "info_score": 0.16341207140933892
+  },
+  {
+    "id": 99,
+    "topic_id": 15,
+    "topic_name": "东京独居现象",
+    "strength": 0.567050576210022,
+    "confidence": 0.19435349110659472,
+    "info_score": 0.15228087511350932
+  },
+  {
+    "id": 100,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.4643397927284241,
+    "confidence": 0.17390377322826844,
+    "info_score": 0.12732710762188673
+  },
+  {
+    "id": 101,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.46195894479751587,
+    "confidence": 0.14334793923408118,
+    "info_score": 0.10478440099077788
+  },
+  {
+    "id": 102,
+    "topic_id": 59,
+    "topic_name": "约会成本",
+    "strength": 0.46892136335372925,
+    "confidence": 0.1622604325454583,
+    "info_score": 0.11917390789652021
+  },
+  {
+    "id": 103,
+    "topic_id": 16,
+    "topic_name": "旅游与消费",
+    "strength": 0.4614778161048889,
+    "confidence": 0.08651078915811061,
+    "info_score": 0.063216799604153
+  },
+  {
+    "id": 104,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.6505129337310791,
+    "confidence": 0.31490536663513036,
+    "info_score": 0.25987769026630503
+  },
+  {
+    "id": 105,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.7168368697166443,
+    "confidence": 0.4034992025264349,
+    "info_score": 0.3463711538993234
+  },
+  {
+    "id": 107,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.7253731489181519,
+    "confidence": 0.3779486889549034,
+    "info_score": 0.3260512597958044
+  },
+  {
+    "id": 108,
+    "topic_id": 21,
+    "topic_name": "日本男女关系",
+    "strength": 0.6200422048568726,
+    "confidence": 0.18901560128810568,
+    "info_score": 0.15310662573156514
+  },
+  {
+    "id": 109,
+    "topic_id": 21,
+    "topic_name": "日本男女关系",
+    "strength": 0.6853868961334229,
+    "confidence": 0.2630730895288781,
+    "info_score": 0.22168996890865295
+  },
+  {
+    "id": 110,
+    "topic_id": 19,
+    "topic_name": "日本女性成就",
+    "strength": 0.6556991338729858,
+    "confidence": 0.38246136369331785,
+    "info_score": 0.3166204743034537
+  },
+  {
+    "id": 111,
+    "topic_id": 19,
+    "topic_name": "日本女性成就",
+    "strength": 0.6742637753486633,
+    "confidence": 0.41154200128402385,
+    "info_score": 0.34451493239216713
+  },
+  {
+    "id": 112,
+    "topic_id": 31,
+    "topic_name": "日本社会现象",
+    "strength": 0.5116229057312012,
+    "confidence": 0.10454314254132924,
+    "info_score": 0.07901490445129762
+  },
+  {
+    "id": 113,
+    "topic_id": 21,
+    "topic_name": "日本男女关系",
+    "strength": 0.6137993931770325,
+    "confidence": 0.3192335229684231,
+    "info_score": 0.25758943282410374
+  },
+  {
+    "id": 114,
+    "topic_id": 21,
+    "topic_name": "日本男女关系",
+    "strength": 0.5925104022026062,
+    "confidence": 0.2706354916263911,
+    "info_score": 0.2154949178101221
+  },
+  {
+    "id": 115,
+    "topic_id": 19,
+    "topic_name": "日本女性成就",
+    "strength": 0.5746241807937622,
+    "confidence": 0.27326539626683455,
+    "info_score": 0.21514515036797358
+  },
+  {
+    "id": 116,
+    "topic_id": 70,
+    "topic_name": "结束对话",
+    "strength": 0.39198410511016846,
+    "confidence": 0.04740144480973951,
+    "info_score": 0.032991028867207145
+  },
+  {
+    "id": 117,
+    "topic_id": 19,
+    "topic_name": "日本女性成就",
+    "strength": 0.5869824290275574,
+    "confidence": 0.2691388734135246,
+    "info_score": 0.21355933153776777
+  },
+  {
+    "id": 118,
+    "topic_id": 19,
+    "topic_name": "日本女性成就",
+    "strength": 0.5931407809257507,
+    "confidence": 0.2840952115775637,
+    "info_score": 0.22630183361497308
+  },
+  {
+    "id": 119,
+    "topic_id": 19,
+    "topic_name": "日本女性成就",
+    "strength": 0.6370267271995544,
+    "confidence": 0.3593254739676516,
+    "info_score": 0.29411270232434666
+  },
+  {
+    "id": 120,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.5133903622627258,
+    "confidence": 0.12263931389976568,
+    "info_score": 0.09280057784520926
+  },
+  {
+    "id": 121,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.538591206073761,
+    "confidence": 0.15741390198401517,
+    "info_score": 0.12109782265318135
+  },
+  {
+    "id": 122,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.5438312888145447,
+    "confidence": 0.1226625814525183,
+    "info_score": 0.09468516560658019
+  },
+  {
+    "id": 123,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.4717562198638916,
+    "confidence": 0.06410435958388327,
+    "info_score": 0.04717299496898584
+  },
+  {
+    "id": 124,
+    "topic_id": 70,
+    "topic_name": "结束对话",
+    "strength": 0.43961068987846375,
+    "confidence": 0.07298904104347037,
+    "info_score": 0.052537901865078944
+  },
+  {
+    "id": 125,
+    "topic_id": 70,
+    "topic_name": "结束对话",
+    "strength": 0.44086217880249023,
+    "confidence": 0.07907501624192392,
+    "info_score": 0.056968100095590404
+  },
+  {
+    "id": 126,
+    "topic_id": 34,
+    "topic_name": "饮食习惯",
+    "strength": 0.4158433973789215,
+    "confidence": 0.08513940183614066,
+    "info_score": 0.06027202997324529
+  },
+  {
+    "id": 127,
+    "topic_id": 12,
+    "topic_name": "单身调侃",
+    "strength": 0.4491034150123596,
+    "confidence": 0.07196247214149898,
+    "info_score": 0.052140532066488984
+  },
+  {
+    "id": 128,
+    "topic_id": 12,
+    "topic_name": "单身调侃",
+    "strength": 0.4782593548297882,
+    "confidence": 0.09440861316393379,
+    "info_score": 0.0697802077930459
+  },
+  {
+    "id": 129,
+    "topic_id": 34,
+    "topic_name": "饮食习惯",
+    "strength": 0.5059312582015991,
+    "confidence": 0.0804550729645589,
+    "info_score": 0.06057990462910982
+  },
+  {
+    "id": 130,
+    "topic_id": 34,
+    "topic_name": "饮食习惯",
+    "strength": 0.5083358883857727,
+    "confidence": 0.089957686930901,
+    "info_score": 0.0678432038170249
+  },
+  {
+    "id": 131,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.6497911214828491,
+    "confidence": 0.20899459867613057,
+    "info_score": 0.17239871666687573
+  },
+  {
+    "id": 132,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.6527515649795532,
+    "confidence": 0.28156760586496743,
+    "info_score": 0.23268065062043547
+  },
+  {
+    "id": 133,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.6623220443725586,
+    "confidence": 0.35152144728386203,
+    "info_score": 0.29217092544485507
+  },
+  {
+    "id": 134,
+    "topic_id": 63,
+    "topic_name": "搭讪技巧",
+    "strength": 0.6017786264419556,
+    "confidence": 0.2689562566833875,
+    "info_score": 0.21540419170164324
+  },
+  {
+    "id": 135,
+    "topic_id": 63,
+    "topic_name": "搭讪技巧",
+    "strength": 0.6111254692077637,
+    "confidence": 0.3043120861335129,
+    "info_score": 0.24514247627872468
+  },
+  {
+    "id": 136,
+    "topic_id": 60,
+    "topic_name": "约会支付方式",
+    "strength": 0.5473974943161011,
+    "confidence": 0.1771593289386395,
+    "info_score": 0.13706795084718634
+  },
+  {
+    "id": 137,
+    "topic_id": 60,
+    "topic_name": "约会支付方式",
+    "strength": 0.5717312097549438,
+    "confidence": 0.2151177124684006,
+    "info_score": 0.16905361122883772
+  },
+  {
+    "id": 138,
+    "topic_id": 60,
+    "topic_name": "约会支付方式",
+    "strength": 0.6009777188301086,
+    "confidence": 0.2691106279468418,
+    "info_score": 0.21542005962163646
+  },
+  {
+    "id": 139,
+    "topic_id": 60,
+    "topic_name": "约会支付方式",
+    "strength": 0.598049521446228,
+    "confidence": 0.2456601788060787,
+    "info_score": 0.19628856558972443
+  },
+  {
+    "id": 140,
+    "topic_id": 60,
+    "topic_name": "约会支付方式",
+    "strength": 0.5764482617378235,
+    "confidence": 0.21458406890875636,
+    "info_score": 0.16914034121391916
+  },
+  {
+    "id": 141,
+    "topic_id": 60,
+    "topic_name": "约会支付方式",
+    "strength": 0.5973047018051147,
+    "confidence": 0.21304035627421292,
+    "info_score": 0.17014518137551854
+  },
+  {
+    "id": 142,
+    "topic_id": 21,
+    "topic_name": "日本男女关系",
+    "strength": 0.5778859257698059,
+    "confidence": 0.19619800397840548,
+    "info_score": 0.15478903457082718
+  },
+  {
+    "id": 143,
+    "topic_id": 21,
+    "topic_name": "日本男女关系",
+    "strength": 0.6451482772827148,
+    "confidence": 0.27021684347169705,
+    "info_score": 0.22227338726511772
+  },
+  {
+    "id": 144,
+    "topic_id": 21,
+    "topic_name": "日本男女关系",
+    "strength": 0.6294260025024414,
+    "confidence": 0.3043310469517415,
+    "info_score": 0.2479424606359795
+  },
+  {
+    "id": 145,
+    "topic_id": 12,
+    "topic_name": "单身调侃",
+    "strength": 0.4261179566383362,
+    "confidence": 0.09432879874619848,
+    "info_score": 0.06726199686003871
+  },
+  {
+    "id": 146,
+    "topic_id": 12,
+    "topic_name": "单身调侃",
+    "strength": 0.4363352060317993,
+    "confidence": 0.08756331033045994,
+    "info_score": 0.06288513269216378
+  },
+  {
+    "id": 147,
+    "topic_id": 12,
+    "topic_name": "单身调侃",
+    "strength": 0.5763180255889893,
+    "confidence": 0.19112204192323412,
+    "info_score": 0.15063455988548421
+  },
+  {
+    "id": 148,
+    "topic_id": 12,
+    "topic_name": "单身调侃",
+    "strength": 0.574208676815033,
+    "confidence": 0.18250258819237908,
+    "info_score": 0.14364857893682195
+  },
+  {
+    "id": 149,
+    "topic_id": 12,
+    "topic_name": "单身调侃",
+    "strength": 0.5966874361038208,
+    "confidence": 0.18900234549483086,
+    "info_score": 0.150888835222875
+  },
+  {
+    "id": 150,
+    "topic_id": 31,
+    "topic_name": "日本社会现象",
+    "strength": 0.5880085229873657,
+    "confidence": 0.22887716995611362,
+    "info_score": 0.18172944830376814
+  },
+  {
+    "id": 151,
+    "topic_id": 23,
+    "topic_name": "政府职务",
+    "strength": 0.5887133479118347,
+    "confidence": 0.2527678568558077,
+    "info_score": 0.20078783405494485
+  },
+  {
+    "id": 152,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.6293233633041382,
+    "confidence": 0.2846441804003189,
+    "info_score": 0.23188870667739872
+  },
+  {
+    "id": 153,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.6344348192214966,
+    "confidence": 0.26560528163408414,
+    "info_score": 0.2170572602359395
+  },
+  {
+    "id": 154,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.7320829629898071,
+    "confidence": 0.37090969493108805,
+    "info_score": 0.3212231816989422
+  },
+  {
+    "id": 155,
+    "topic_id": 24,
+    "topic_name": "孤独与老龄化",
+    "strength": 0.7136071920394897,
+    "confidence": 0.41002832392791333,
+    "info_score": 0.35131374241138497
+  },
+  {
+    "id": 156,
+    "topic_id": 25,
+    "topic_name": "日本人长寿原因",
+    "strength": 0.6798365116119385,
+    "confidence": 0.5193103701132576,
+    "info_score": 0.4361782602874797
+  },
+  {
+    "id": 157,
+    "topic_id": 25,
+    "topic_name": "日本人长寿原因",
+    "strength": 0.6753580570220947,
+    "confidence": 0.5933503517578484,
+    "info_score": 0.4970371462272027
+  },
+  {
+    "id": 158,
+    "topic_id": 1,
+    "topic_name": "日本人长寿",
+    "strength": 0.7102296352386475,
+    "confidence": 0.6568719173704354,
+    "info_score": 0.5617009098214754
+  },
+  {
+    "id": 159,
+    "topic_id": 1,
+    "topic_name": "日本人长寿",
+    "strength": 0.6479810476303101,
+    "confidence": 0.4963728139021598,
+    "info_score": 0.40900649493484315
+  },
+  {
+    "id": 160,
+    "topic_id": 1,
+    "topic_name": "日本人长寿",
+    "strength": 0.7234456539154053,
+    "confidence": 0.5823447433742797,
+    "info_score": 0.5018197585244422
+  },
+  {
+    "id": 161,
+    "topic_id": 18,
+    "topic_name": "女性地位提升",
+    "strength": 0.4334341585636139,
+    "confidence": 0.06796403269156248,
+    "info_score": 0.04871098300690991
+  },
+  {
+    "id": 162,
+    "topic_id": 49,
+    "topic_name": "年龄与生育",
+    "strength": 0.47400766611099243,
+    "confidence": 0.08777758435592864,
+    "info_score": 0.06469241612667156
+  },
+  {
+    "id": 163,
+    "topic_id": 25,
+    "topic_name": "日本人长寿原因",
+    "strength": 0.45142409205436707,
+    "confidence": 0.09667406738674356,
+    "info_score": 0.07015753524100349
+  },
+  {
+    "id": 164,
+    "topic_id": 18,
+    "topic_name": "女性地位提升",
+    "strength": 0.47675952315330505,
+    "confidence": 0.07821076089304824,
+    "info_score": 0.05774924298093754
+  },
+  {
+    "id": 165,
+    "topic_id": 29,
+    "topic_name": "结婚经济压力",
+    "strength": 0.5668433904647827,
+    "confidence": 0.1106224618773366,
+    "info_score": 0.08666403661472362
+  },
+  {
+    "id": 166,
+    "topic_id": 18,
+    "topic_name": "女性地位提升",
+    "strength": 0.5657429695129395,
+    "confidence": 0.08923902158158037,
+    "info_score": 0.06986268532378646
+  },
+  {
+    "id": 167,
+    "topic_id": 15,
+    "topic_name": "东京独居现象",
+    "strength": 0.6600433588027954,
+    "confidence": 0.14892275538300226,
+    "info_score": 0.12360911552408307
+  },
+  {
+    "id": 168,
+    "topic_id": 15,
+    "topic_name": "东京独居现象",
+    "strength": 0.6907588243484497,
+    "confidence": 0.28555502678631683,
+    "info_score": 0.24140234068801156
+  },
+  {
+    "id": 169,
+    "topic_id": 15,
+    "topic_name": "东京独居现象",
+    "strength": 0.6902209520339966,
+    "confidence": 0.3522939188489229,
+    "info_score": 0.297727281456307
+  },
+  {
+    "id": 170,
+    "topic_id": 15,
+    "topic_name": "东京独居现象",
+    "strength": 0.6163954734802246,
+    "confidence": 0.2689296332336034,
+    "info_score": 0.21734832092174677
+  },
+  {
+    "id": 171,
+    "topic_id": 31,
+    "topic_name": "日本社会现象",
+    "strength": 0.6367717981338501,
+    "confidence": 0.31306314695962456,
+    "info_score": 0.25620646498927324
+  },
+  {
+    "id": 172,
+    "topic_id": 28,
+    "topic_name": "通勤方式",
+    "strength": 0.4836574196815491,
+    "confidence": 0.13275180621998683,
+    "info_score": 0.09847910113720534
+  },
+  {
+    "id": 173,
+    "topic_id": 62,
+    "topic_name": "社交方式",
+    "strength": 0.4565051794052124,
+    "confidence": 0.10260701368055536,
+    "info_score": 0.07472382343451518
+  },
+  {
+    "id": 174,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.42648741602897644,
+    "confidence": 0.10954298166550003,
+    "info_score": 0.07813084243006434
+  },
+  {
+    "id": 175,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.46066728234291077,
+    "confidence": 0.08165810611877622,
+    "info_score": 0.059637661972890936
+  },
+  {
+    "id": 176,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.5335153341293335,
+    "confidence": 0.11939326656431759,
+    "info_score": 0.09154570253408603
+  },
+  {
+    "id": 177,
+    "topic_id": 29,
+    "topic_name": "结婚经济压力",
+    "strength": 0.6456061601638794,
+    "confidence": 0.23991493901956862,
+    "info_score": 0.1974027507829718
+  },
+  {
+    "id": 178,
+    "topic_id": 29,
+    "topic_name": "结婚经济压力",
+    "strength": 0.7024641036987305,
+    "confidence": 0.28602490830236027,
+    "info_score": 0.24347356957424468
+  },
+  {
+    "id": 179,
+    "topic_id": 29,
+    "topic_name": "结婚经济压力",
+    "strength": 0.6662018299102783,
+    "confidence": 0.22586788115624612,
+    "info_score": 0.1881707384502473
+  },
+  {
+    "id": 180,
+    "topic_id": 29,
+    "topic_name": "结婚经济压力",
+    "strength": 0.615841805934906,
+    "confidence": 0.15083600821234389,
+    "info_score": 0.12186356395492302
+  },
+  {
+    "id": 181,
+    "topic_id": 21,
+    "topic_name": "日本男女关系",
+    "strength": 0.6101318597793579,
+    "confidence": 0.18342920729442558,
+    "info_score": 0.1476726053394134
+  },
+  {
+    "id": 182,
+    "topic_id": 21,
+    "topic_name": "日本男女关系",
+    "strength": 0.5684632062911987,
+    "confidence": 0.19579518447137712,
+    "info_score": 0.15354877140617643
+  },
+  {
+    "id": 183,
+    "topic_id": 31,
+    "topic_name": "日本社会现象",
+    "strength": 0.5260583758354187,
+    "confidence": 0.1919345045945885,
+    "info_score": 0.1464516291741967
+  },
+  {
+    "id": 184,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.7051286101341248,
+    "confidence": 0.30158642656443413,
+    "info_score": 0.25712182218156543
+  },
+  {
+    "id": 185,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.7126598358154297,
+    "confidence": 0.31223384887149497,
+    "info_score": 0.2673751861721371
+  },
+  {
+    "id": 186,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.5889832973480225,
+    "confidence": 0.11730712910623042,
+    "info_score": 0.0931995344048241
+  },
+  {
+    "id": 187,
+    "topic_id": 32,
+    "topic_name": "拉面评价",
+    "strength": 0.5935155153274536,
+    "confidence": 0.37636711061551975,
+    "info_score": 0.29987341511239735
+  },
+  {
+    "id": 188,
+    "topic_id": 32,
+    "topic_name": "拉面评价",
+    "strength": 0.5750806331634521,
+    "confidence": 0.3764043610725707,
+    "info_score": 0.29643360968183463
+  },
+  {
+    "id": 189,
+    "topic_id": 32,
+    "topic_name": "拉面评价",
+    "strength": 0.5686335563659668,
+    "confidence": 0.29833131830700066,
+    "info_score": 0.23398625840562884
+  },
+  {
+    "id": 190,
+    "topic_id": 32,
+    "topic_name": "拉面评价",
+    "strength": 0.5458105802536011,
+    "confidence": 0.2589747562106338,
+    "info_score": 0.20016295908449738
+  },
+  {
+    "id": 191,
+    "topic_id": 32,
+    "topic_name": "拉面评价",
+    "strength": 0.5081092715263367,
+    "confidence": 0.1449550783225222,
+    "info_score": 0.10930404878651101
+  },
+  {
+    "id": 192,
+    "topic_id": 32,
+    "topic_name": "拉面评价",
+    "strength": 0.5176944136619568,
+    "confidence": 0.16977277584558315,
+    "info_score": 0.12883159674636258
+  },
+  {
+    "id": 193,
+    "topic_id": 32,
+    "topic_name": "拉面评价",
+    "strength": 0.5618261098861694,
+    "confidence": 0.26835253080739974,
+    "info_score": 0.20955999463451477
+  },
+  {
+    "id": 194,
+    "topic_id": 32,
+    "topic_name": "拉面评价",
+    "strength": 0.5794222354888916,
+    "confidence": 0.3320933203935771,
+    "info_score": 0.2622577872434761
+  },
+  {
+    "id": 195,
+    "topic_id": 33,
+    "topic_name": "韩国饮食文化",
+    "strength": 0.5771108865737915,
+    "confidence": 0.17475555582650992,
+    "info_score": 0.13780444479162138
+  },
+  {
+    "id": 196,
+    "topic_id": 33,
+    "topic_name": "韩国饮食文化",
+    "strength": 0.5904595851898193,
+    "confidence": 0.3704697927618603,
+    "info_score": 0.29460861646069336
+  },
+  {
+    "id": 197,
+    "topic_id": 34,
+    "topic_name": "饮食习惯",
+    "strength": 0.4960218667984009,
+    "confidence": 0.21045916807234522,
+    "info_score": 0.15742575875221415
+  },
+  {
+    "id": 198,
+    "topic_id": 34,
+    "topic_name": "饮食习惯",
+    "strength": 0.5344336032867432,
+    "confidence": 0.26134055175468895,
+    "info_score": 0.20050486225694647
+  },
+  {
+    "id": 199,
+    "topic_id": 34,
+    "topic_name": "饮食习惯",
+    "strength": 0.5328378081321716,
+    "confidence": 0.19748381592606923,
+    "info_score": 0.1513553297728466
+  },
+  {
+    "id": 200,
+    "topic_id": 34,
+    "topic_name": "饮食习惯",
+    "strength": 0.5254935026168823,
+    "confidence": 0.16413291122586582,
+    "info_score": 0.12519184482032591
+  },
+  {
+    "id": 201,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.4617290496826172,
+    "confidence": 0.07244493827141096,
+    "info_score": 0.052947435386892706
+  },
+  {
+    "id": 202,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.4637826383113861,
+    "confidence": 0.07544141873094123,
+    "info_score": 0.05521491947396559
+  },
+  {
+    "id": 203,
+    "topic_id": 60,
+    "topic_name": "约会支付方式",
+    "strength": 0.45253413915634155,
+    "confidence": 0.07160753009878829,
+    "info_score": 0.05200619104457763
+  },
+  {
+    "id": 204,
+    "topic_id": 6,
+    "topic_name": "粉丝互动",
+    "strength": 0.4629286527633667,
+    "confidence": 0.08435641512704728,
+    "info_score": 0.06170370836687928
+  },
+  {
+    "id": 205,
+    "topic_id": 6,
+    "topic_name": "粉丝互动",
+    "strength": 0.46203193068504333,
+    "confidence": 0.09189963267986301,
+    "info_score": 0.0671800986980932
+  },
+  {
+    "id": 206,
+    "topic_id": 33,
+    "topic_name": "韩国饮食文化",
+    "strength": 0.43173813819885254,
+    "confidence": 0.08812889084352171,
+    "info_score": 0.06308874704891684
+  },
+  {
+    "id": 207,
+    "topic_id": 9,
+    "topic_name": "个人生活",
+    "strength": 0.44388413429260254,
+    "confidence": 0.11909308157483955,
+    "info_score": 0.08597830549496276
+  },
+  {
+    "id": 208,
+    "topic_id": 9,
+    "topic_name": "个人生活",
+    "strength": 0.43044430017471313,
+    "confidence": 0.12299800336082833,
+    "info_score": 0.08797089642018355
+  },
+  {
+    "id": 209,
+    "topic_id": 42,
+    "topic_name": "孤独感受",
+    "strength": 0.4869701862335205,
+    "confidence": 0.1649647821683864,
+    "info_score": 0.12264885643144882
+  },
+  {
+    "id": 210,
+    "topic_id": 22,
+    "topic_name": "个人情感状态",
+    "strength": 0.48134809732437134,
+    "confidence": 0.11508765067275384,
+    "info_score": 0.0852424361748079
+  },
+  {
+    "id": 211,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.49698904156684875,
+    "confidence": 0.11473695943294993,
+    "info_score": 0.08587998546691306
+  },
+  {
+    "id": 212,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.5142717957496643,
+    "confidence": 0.1202573541183416,
+    "info_score": 0.09105115978644221
+  },
+  {
+    "id": 213,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.5446622371673584,
+    "confidence": 0.1512952627211206,
+    "info_score": 0.11685003949381469
+  },
+  {
+    "id": 214,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.5514847040176392,
+    "confidence": 0.14495647661295208,
+    "info_score": 0.11244887810664289
+  },
+  {
+    "id": 215,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.5849210023880005,
+    "confidence": 0.17831454056015628,
+    "info_score": 0.14130723018247932
+  },
+  {
+    "id": 216,
+    "topic_id": 38,
+    "topic_name": "宠物与单身生活",
+    "strength": 0.6686985492706299,
+    "confidence": 0.26116604510904484,
+    "info_score": 0.2179037002961055
+  },
+  {
+    "id": 217,
+    "topic_id": 38,
+    "topic_name": "宠物与单身生活",
+    "strength": 0.7468521595001221,
+    "confidence": 0.5585302633030119,
+    "info_score": 0.48783489829851906
+  },
+  {
+    "id": 218,
+    "topic_id": 38,
+    "topic_name": "宠物与单身生活",
+    "strength": 0.7437387704849243,
+    "confidence": 0.5730486569044251,
+    "info_score": 0.4996235802092797
+  },
+  {
+    "id": 219,
+    "topic_id": 38,
+    "topic_name": "宠物与单身生活",
+    "strength": 0.7109704613685608,
+    "confidence": 0.5564946320952506,
+    "info_score": 0.4760729387125692
+  },
+  {
+    "id": 220,
+    "topic_id": 38,
+    "topic_name": "宠物与单身生活",
+    "strength": 0.590257465839386,
+    "confidence": 0.28209425797246246,
+    "info_score": 0.22430124990556508
+  },
+  {
+    "id": 221,
+    "topic_id": 38,
+    "topic_name": "宠物与单身生活",
+    "strength": 0.5207855105400085,
+    "confidence": 0.21586227415648185,
+    "info_score": 0.16414010940469628
+  },
+  {
+    "id": 222,
+    "topic_id": 38,
+    "topic_name": "宠物与单身生活",
+    "strength": 0.521640956401825,
+    "confidence": 0.22738827030641984,
+    "info_score": 0.1730016525518087
+  },
+  {
+    "id": 223,
+    "topic_id": 38,
+    "topic_name": "宠物与单身生活",
+    "strength": 0.4810372591018677,
+    "confidence": 0.12411277642311402,
+    "info_score": 0.09190782310660585
+  },
+  {
+    "id": 224,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.5935055017471313,
+    "confidence": 0.31386268942740714,
+    "info_score": 0.2500709611978622
+  },
+  {
+    "id": 225,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.633688747882843,
+    "confidence": 0.15320829182399354,
+    "info_score": 0.1251473312176046
+  },
+  {
+    "id": 226,
+    "topic_id": 17,
+    "topic_name": "日本单身生活",
+    "strength": 0.659843921661377,
+    "confidence": 0.17262791710846515,
+    "info_score": 0.14326769946077494
+  },
+  {
+    "id": 227,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.6624000072479248,
+    "confidence": 0.1814485009347484,
+    "info_score": 0.15081999463452542
+  },
+  {
+    "id": 228,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.6048784255981445,
+    "confidence": 0.18097263473566516,
+    "info_score": 0.1452195385554612
+  },
+  {
+    "id": 229,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.6700866222381592,
+    "confidence": 0.365098567699524,
+    "info_score": 0.3048731168566439
+  },
+  {
+    "id": 230,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.6826409101486206,
+    "confidence": 0.3966959602690906,
+    "info_score": 0.3337484258197318
+  },
+  {
+    "id": 231,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.6703670024871826,
+    "confidence": 0.34526806875514815,
+    "info_score": 0.28836219453053763
+  },
+  {
+    "id": 232,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.5346022248268127,
+    "confidence": 0.12699297505049878,
+    "info_score": 0.09744185102493567
+  },
+  {
+    "id": 233,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.5933758020401001,
+    "confidence": 0.18818909978083587,
+    "info_score": 0.1499279788992469
+  },
+  {
+    "id": 234,
+    "topic_id": 49,
+    "topic_name": "年龄与生育",
+    "strength": 0.5582593679428101,
+    "confidence": 0.18085389191236312,
+    "info_score": 0.14090863565067813
+  },
+  {
+    "id": 235,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.4893515110015869,
+    "confidence": 0.12343645130800895,
+    "info_score": 0.09192013263412847
+  },
+  {
+    "id": 236,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.4855416417121887,
+    "confidence": 0.09857518305515423,
+    "info_score": 0.07321876963391667
+  },
+  {
+    "id": 237,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.6168241500854492,
+    "confidence": 0.2034174333992873,
+    "info_score": 0.16444510943418308
+  },
+  {
+    "id": 238,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.625474214553833,
+    "confidence": 0.2206343038038232,
+    "info_score": 0.17931768583957564
+  },
+  {
+    "id": 239,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.6141454577445984,
+    "confidence": 0.21586059620796605,
+    "info_score": 0.17421520043756464
+  },
+  {
+    "id": 240,
+    "topic_id": 39,
+    "topic_name": "婚姻观念变化",
+    "strength": 0.5074632167816162,
+    "confidence": 0.16240121242593464,
+    "info_score": 0.12240692704641701
+  },
+  {
+    "id": 241,
+    "topic_id": 41,
+    "topic_name": "婚姻与孤独",
+    "strength": 0.6349236965179443,
+    "confidence": 0.2042234639346644,
+    "info_score": 0.1669448902858803
+  },
+  {
+    "id": 242,
+    "topic_id": 41,
+    "topic_name": "婚姻与孤独",
+    "strength": 0.6744909286499023,
+    "confidence": 0.25981876431408535,
+    "info_score": 0.21753208196848145
+  },
+  {
+    "id": 243,
+    "topic_id": 41,
+    "topic_name": "婚姻与孤独",
+    "strength": 0.7180505990982056,
+    "confidence": 0.3358429760102364,
+    "info_score": 0.28849761306865546
+  },
+  {
+    "id": 244,
+    "topic_id": 42,
+    "topic_name": "孤独感受",
+    "strength": 0.721671462059021,
+    "confidence": 0.3975930474772589,
+    "info_score": 0.342262301677337
+  },
+  {
+    "id": 245,
+    "topic_id": 41,
+    "topic_name": "婚姻与孤独",
+    "strength": 0.6860561966896057,
+    "confidence": 0.2862870038605295,
+    "info_score": 0.24134798844537345
+  },
+  {
+    "id": 246,
+    "topic_id": 42,
+    "topic_name": "孤独感受",
+    "strength": 0.6934874653816223,
+    "confidence": 0.30634402585453946,
+    "info_score": 0.2593948839396031
+  },
+  {
+    "id": 247,
+    "topic_id": 54,
+    "topic_name": "年龄与生育观",
+    "strength": 0.4869537353515625,
+    "confidence": 0.07365328492926171,
+    "info_score": 0.05475951357323932
+  },
+  {
+    "id": 248,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.5014851689338684,
+    "confidence": 0.11203590977543632,
+    "info_score": 0.08411012845791532
+  },
+  {
+    "id": 249,
+    "topic_id": 29,
+    "topic_name": "结婚经济压力",
+    "strength": 0.5232527256011963,
+    "confidence": 0.13194236385596103,
+    "info_score": 0.1004907826829287
+  },
+  {
+    "id": 250,
+    "topic_id": 29,
+    "topic_name": "结婚经济压力",
+    "strength": 0.5101689100265503,
+    "confidence": 0.1290274876259162,
+    "info_score": 0.09742665017574705
+  },
+  {
+    "id": 251,
+    "topic_id": 29,
+    "topic_name": "结婚经济压力",
+    "strength": 0.5207195281982422,
+    "confidence": 0.11600895627116692,
+    "info_score": 0.08820854262372974
+  },
+  {
+    "id": 252,
+    "topic_id": 49,
+    "topic_name": "年龄与生育",
+    "strength": 0.46092140674591064,
+    "confidence": 0.08090386826092044,
+    "info_score": 0.05909709651546486
+  },
+  {
+    "id": 253,
+    "topic_id": 53,
+    "topic_name": "孩子的好奇心",
+    "strength": 0.43970197439193726,
+    "confidence": 0.08527939867397616,
+    "info_score": 0.06138845932294031
+  },
+  {
+    "id": 254,
+    "topic_id": 53,
+    "topic_name": "孩子的好奇心",
+    "strength": 0.47612595558166504,
+    "confidence": 0.1364433488863821,
+    "info_score": 0.10070378437883665
+  },
+  {
+    "id": 255,
+    "topic_id": 53,
+    "topic_name": "孩子的好奇心",
+    "strength": 0.5115917921066284,
+    "confidence": 0.1438330900816185,
+    "info_score": 0.10870845920035391
+  },
+  {
+    "id": 256,
+    "topic_id": 44,
+    "topic_name": "家庭期望",
+    "strength": 0.5456891059875488,
+    "confidence": 0.16452443254622107,
+    "info_score": 0.1271518115277386
+  },
+  {
+    "id": 257,
+    "topic_id": 54,
+    "topic_name": "年龄与生育观",
+    "strength": 0.5412682294845581,
+    "confidence": 0.14935219833981472,
+    "info_score": 0.1150958991524164
+  },
+  {
+    "id": 258,
+    "topic_id": 54,
+    "topic_name": "年龄与生育观",
+    "strength": 0.4887727200984955,
+    "confidence": 0.09783576707585484,
+    "info_score": 0.07282761053622162
+  },
+  {
+    "id": 259,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.4168667197227478,
+    "confidence": 0.08013603902008659,
+    "info_score": 0.0567710433689821
+  },
+  {
+    "id": 260,
+    "topic_id": 54,
+    "topic_name": "年龄与生育观",
+    "strength": 0.4640257954597473,
+    "confidence": 0.10867318908652224,
+    "info_score": 0.07955017604877163
+  },
+  {
+    "id": 261,
+    "topic_id": 49,
+    "topic_name": "年龄与生育",
+    "strength": 0.47186481952667236,
+    "confidence": 0.10436102919574686,
+    "info_score": 0.07680266370140787
+  },
+  {
+    "id": 262,
+    "topic_id": 54,
+    "topic_name": "年龄与生育观",
+    "strength": 0.46382251381874084,
+    "confidence": 0.12337067572618932,
+    "info_score": 0.09029638633651357
+  },
+  {
+    "id": 263,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.4768484830856323,
+    "confidence": 0.09793387113241236,
+    "info_score": 0.0723167445123035
+  },
+  {
+    "id": 264,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.4737599492073059,
+    "confidence": 0.09561785472765949,
+    "info_score": 0.0704588823633735
+  },
+  {
+    "id": 265,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.5483018159866333,
+    "confidence": 0.1327282030775312,
+    "info_score": 0.1027516589287921
+  },
+  {
+    "id": 266,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.5882525444030762,
+    "confidence": 0.16242520708971064,
+    "info_score": 0.12898612421771474
+  },
+  {
+    "id": 267,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.5829375982284546,
+    "confidence": 0.15639393301287252,
+    "info_score": 0.12378091835044912
+  },
+  {
+    "id": 268,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.5393518209457397,
+    "confidence": 0.13985858936384088,
+    "info_score": 0.10764578710606547
+  },
+  {
+    "id": 269,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.4696427583694458,
+    "confidence": 0.06532668914603235,
+    "info_score": 0.048003447815859156
+  },
+  {
+    "id": 270,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.550260603427887,
+    "confidence": 0.14654761925887583,
+    "info_score": 0.11359350033159253
+  },
+  {
+    "id": 271,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.5430609583854675,
+    "confidence": 0.11980492326686254,
+    "info_score": 0.09243314985773116
+  },
+  {
+    "id": 272,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.561788022518158,
+    "confidence": 0.1417121631576369,
+    "info_score": 0.11066217953236815
+  },
+  {
+    "id": 273,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.5824878215789795,
+    "confidence": 0.1469329881013397,
+    "info_score": 0.11625983212928959
+  },
+  {
+    "id": 274,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.5707641839981079,
+    "confidence": 0.17213387313379402,
+    "info_score": 0.1351908613857189
+  },
+  {
+    "id": 275,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.5823813676834106,
+    "confidence": 0.19186005961210373,
+    "info_score": 0.1517978917664107
+  },
+  {
+    "id": 276,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.5386701822280884,
+    "confidence": 0.14412924799465865,
+    "info_score": 0.11088368813816939
+  },
+  {
+    "id": 277,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.4609364867210388,
+    "confidence": 0.09728864399646697,
+    "info_score": 0.07106626487902618
+  },
+  {
+    "id": 278,
+    "topic_id": 49,
+    "topic_name": "年龄与生育",
+    "strength": 0.42090824246406555,
+    "confidence": 0.070144750514324,
+    "info_score": 0.04983462708569424
+  },
+  {
+    "id": 279,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.5497937798500061,
+    "confidence": 0.13821050833161408,
+    "info_score": 0.10709889306112147
+  },
+  {
+    "id": 280,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.5618785619735718,
+    "confidence": 0.14724396789293615,
+    "info_score": 0.11498859841595094
+  },
+  {
+    "id": 281,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.6009912490844727,
+    "confidence": 0.16000196977479775,
+    "info_score": 0.12808087672286475
+  },
+  {
+    "id": 282,
+    "topic_id": 22,
+    "topic_name": "个人情感状态",
+    "strength": 0.5469751358032227,
+    "confidence": 0.13075907456261304,
+    "info_score": 0.10114051856450101
+  },
+  {
+    "id": 283,
+    "topic_id": 13,
+    "topic_name": "婚姻态度",
+    "strength": 0.5140153765678406,
+    "confidence": 0.14395636336591322,
+    "info_score": 0.10897607384539
+  },
+  {
+    "id": 284,
+    "topic_id": 29,
+    "topic_name": "结婚经济压力",
+    "strength": 0.4809773564338684,
+    "confidence": 0.11163135638827493,
+    "info_score": 0.08266175553951721
+  },
+  {
+    "id": 285,
+    "topic_id": 66,
+    "topic_name": "朋友与恋人关系",
+    "strength": 0.4890470504760742,
+    "confidence": 0.11686415069805711,
+    "info_score": 0.08700810945166669
+  },
+  {
+    "id": 286,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.5383239984512329,
+    "confidence": 0.13497061347405725,
+    "info_score": 0.1038142668964138
+  },
+  {
+    "id": 287,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.5942449569702148,
+    "confidence": 0.1675539126598956,
+    "info_score": 0.1335609901393332
+  },
+  {
+    "id": 288,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.6289762258529663,
+    "confidence": 0.18177357549387763,
+    "info_score": 0.14805241648390802
+  },
+  {
+    "id": 289,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.6983063220977783,
+    "confidence": 0.2381860368004971,
+    "info_score": 0.20225642606684915
+  },
+  {
+    "id": 290,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.706047534942627,
+    "confidence": 0.20319191711876272,
+    "info_score": 0.17332753466036585
+  },
+  {
+    "id": 291,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.7030768394470215,
+    "confidence": 0.24926944606358203,
+    "info_score": 0.21226251018633754
+  },
+  {
+    "id": 292,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.6208801865577698,
+    "confidence": 0.22623546374444248,
+    "info_score": 0.18335029034003775
+  },
+  {
+    "id": 293,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.6170011758804321,
+    "confidence": 0.21791334249058858,
+    "info_score": 0.17618306552365853
+  },
+  {
+    "id": 294,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.6126863956451416,
+    "confidence": 0.1980853604689865,
+    "info_score": 0.15972478300239923
+  },
+  {
+    "id": 295,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.6892659664154053,
+    "confidence": 0.32844568404667884,
+    "info_score": 0.2774160579380409
+  },
+  {
+    "id": 296,
+    "topic_id": 49,
+    "topic_name": "年龄与生育",
+    "strength": 0.5617239475250244,
+    "confidence": 0.19747000081662247,
+    "info_score": 0.1541968145965527
+  },
+  {
+    "id": 297,
+    "topic_id": 49,
+    "topic_name": "年龄与生育",
+    "strength": 0.588798999786377,
+    "confidence": 0.31188791181915243,
+    "info_score": 0.24776360117186555
+  },
+  {
+    "id": 298,
+    "topic_id": 49,
+    "topic_name": "年龄与生育",
+    "strength": 0.5750102996826172,
+    "confidence": 0.3063050974489727,
+    "info_score": 0.24121684166370988
+  },
+  {
+    "id": 299,
+    "topic_id": 49,
+    "topic_name": "年龄与生育",
+    "strength": 0.6199673414230347,
+    "confidence": 0.3293877402750708,
+    "info_score": 0.26679869095537373
+  },
+  {
+    "id": 300,
+    "topic_id": 1,
+    "topic_name": "日本人长寿",
+    "strength": 0.6397411227226257,
+    "confidence": 0.42657843352388414,
+    "info_score": 0.3497390997578564
+  },
+  {
+    "id": 301,
+    "topic_id": 1,
+    "topic_name": "日本人长寿",
+    "strength": 0.7572722434997559,
+    "confidence": 0.6583527908330619,
+    "info_score": 0.5784525428807701
+  },
+  {
+    "id": 302,
+    "topic_id": 1,
+    "topic_name": "日本人长寿",
+    "strength": 0.7385749816894531,
+    "confidence": 0.6742976643993808,
+    "info_score": 0.5861585247681972
+  },
+  {
+    "id": 303,
+    "topic_id": 1,
+    "topic_name": "日本人长寿",
+    "strength": 0.7054924964904785,
+    "confidence": 0.47377263720597385,
+    "info_score": 0.40400783889864705
+  },
+  {
+    "id": 304,
+    "topic_id": 50,
+    "topic_name": "生育补贴",
+    "strength": 0.5903147459030151,
+    "confidence": 0.19962616465943595,
+    "info_score": 0.15873421666298218
+  },
+  {
+    "id": 305,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.595718264579773,
+    "confidence": 0.194305054326105,
+    "info_score": 0.1550280620441654
+  },
+  {
+    "id": 306,
+    "topic_id": 52,
+    "topic_name": "生育意愿",
+    "strength": 0.5727092027664185,
+    "confidence": 0.16377567598685028,
+    "info_score": 0.1287857564069053
+  },
+  {
+    "id": 307,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.5747889876365662,
+    "confidence": 0.20832649550875293,
+    "info_score": 0.16403513548005133
+  },
+  {
+    "id": 308,
+    "topic_id": 52,
+    "topic_name": "生育意愿",
+    "strength": 0.5164122581481934,
+    "confidence": 0.17321788380662329,
+    "info_score": 0.1313348611674265
+  },
+  {
+    "id": 309,
+    "topic_id": 53,
+    "topic_name": "孩子的好奇心",
+    "strength": 0.6173158884048462,
+    "confidence": 0.2919694324409311,
+    "info_score": 0.2361034010076316
+  },
+  {
+    "id": 310,
+    "topic_id": 53,
+    "topic_name": "孩子的好奇心",
+    "strength": 0.6420271396636963,
+    "confidence": 0.3371234185226496,
+    "info_score": 0.2767829013151967
+  },
+  {
+    "id": 311,
+    "topic_id": 53,
+    "topic_name": "孩子的好奇心",
+    "strength": 0.7451087236404419,
+    "confidence": 0.8012397411751901,
+    "info_score": 0.699125231026117
+  },
+  {
+    "id": 312,
+    "topic_id": 54,
+    "topic_name": "年龄与生育观",
+    "strength": 0.5105513334274292,
+    "confidence": 0.13318080172386182,
+    "info_score": 0.10058821881545676
+  },
+  {
+    "id": 313,
+    "topic_id": 49,
+    "topic_name": "年龄与生育",
+    "strength": 0.5185542106628418,
+    "confidence": 0.13265616315458584,
+    "info_score": 0.10072278756438663
+  },
+  {
+    "id": 314,
+    "topic_id": 43,
+    "topic_name": "婚姻压力",
+    "strength": 0.526476263999939,
+    "confidence": 0.12168243579281746,
+    "info_score": 0.09287267499171623
+  },
+  {
+    "id": 315,
+    "topic_id": 43,
+    "topic_name": "婚姻压力",
+    "strength": 0.5252952575683594,
+    "confidence": 0.12285515401051583,
+    "info_score": 0.0936951918900351
+  },
+  {
+    "id": 316,
+    "topic_id": 13,
+    "topic_name": "婚姻态度",
+    "strength": 0.5092812776565552,
+    "confidence": 0.11825276495812276,
+    "info_score": 0.08923834209120791
+  },
+  {
+    "id": 317,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.46338894963264465,
+    "confidence": 0.13972407382449026,
+    "info_score": 0.10223533281620745
+  },
+  {
+    "id": 318,
+    "topic_id": 53,
+    "topic_name": "孩子的好奇心",
+    "strength": 0.5194952487945557,
+    "confidence": 0.15332921598036608,
+    "info_score": 0.11649150759178026
+  },
+  {
+    "id": 319,
+    "topic_id": 53,
+    "topic_name": "孩子的好奇心",
+    "strength": 0.5401635766029358,
+    "confidence": 0.21144127133864765,
+    "info_score": 0.16282707235320168
+  },
+  {
+    "id": 320,
+    "topic_id": 53,
+    "topic_name": "孩子的好奇心",
+    "strength": 0.5763981342315674,
+    "confidence": 0.3066027655156771,
+    "info_score": 0.24166401375457608
+  },
+  {
+    "id": 321,
+    "topic_id": 49,
+    "topic_name": "年龄与生育",
+    "strength": 0.49883466958999634,
+    "confidence": 0.12665128880106302,
+    "info_score": 0.09491467130164424
+  },
+  {
+    "id": 322,
+    "topic_id": 49,
+    "topic_name": "年龄与生育",
+    "strength": 0.4782647490501404,
+    "confidence": 0.09439435060154944,
+    "info_score": 0.06976992050187522
+  },
+  {
+    "id": 323,
+    "topic_id": 69,
+    "topic_name": "谈恋爱话题",
+    "strength": 0.4615238904953003,
+    "confidence": 0.09866031097652295,
+    "info_score": 0.072097200767942
+  },
+  {
+    "id": 324,
+    "topic_id": 69,
+    "topic_name": "谈恋爱话题",
+    "strength": 0.46937382221221924,
+    "confidence": 0.09987984395781235,
+    "info_score": 0.07338041403912539
+  },
+  {
+    "id": 325,
+    "topic_id": 49,
+    "topic_name": "年龄与生育",
+    "strength": 0.4504774212837219,
+    "confidence": 0.06770982349141752,
+    "info_score": 0.04910578508670363
+  },
+  {
+    "id": 326,
+    "topic_id": 53,
+    "topic_name": "孩子的好奇心",
+    "strength": 0.5887171030044556,
+    "confidence": 0.3260421905926352,
+    "info_score": 0.258994402247779
+  },
+  {
+    "id": 327,
+    "topic_id": 53,
+    "topic_name": "孩子的好奇心",
+    "strength": 0.5675977468490601,
+    "confidence": 0.2629856124795873,
+    "info_score": 0.20612782678836056
+  },
+  {
+    "id": 328,
+    "topic_id": 54,
+    "topic_name": "年龄与生育观",
+    "strength": 0.5586379766464233,
+    "confidence": 0.25069654127627694,
+    "info_score": 0.19537257492355642
+  },
+  {
+    "id": 329,
+    "topic_id": 52,
+    "topic_name": "生育意愿",
+    "strength": 0.5129296779632568,
+    "confidence": 0.18070533753709694,
+    "info_score": 0.13669723406312084
+  },
+  {
+    "id": 331,
+    "topic_id": 52,
+    "topic_name": "生育意愿",
+    "strength": 0.5196408629417419,
+    "confidence": 0.19562526421834292,
+    "info_score": 0.14864007266498444
+  },
+  {
+    "id": 332,
+    "topic_id": 18,
+    "topic_name": "女性地位提升",
+    "strength": 0.45275434851646423,
+    "confidence": 0.09626856316208998,
+    "info_score": 0.06992728687957905
+  },
+  {
+    "id": 333,
+    "topic_id": 22,
+    "topic_name": "个人情感状态",
+    "strength": 0.4652048349380493,
+    "confidence": 0.08890399119459069,
+    "info_score": 0.06513127887180202
+  },
+  {
+    "id": 334,
+    "topic_id": 22,
+    "topic_name": "个人情感状态",
+    "strength": 0.43141549825668335,
+    "confidence": 0.0891209499376846,
+    "info_score": 0.06378455448007987
+  },
+  {
+    "id": 335,
+    "topic_id": 52,
+    "topic_name": "生育意愿",
+    "strength": 0.45194652676582336,
+    "confidence": 0.13056778843181094,
+    "info_score": 0.09478872346053137
+  },
+  {
+    "id": 336,
+    "topic_id": 48,
+    "topic_name": "生育观念",
+    "strength": 0.4869822859764099,
+    "confidence": 0.17174347044578264,
+    "info_score": 0.12768974914249592
+  },
+  {
+    "id": 337,
+    "topic_id": 48,
+    "topic_name": "生育观念",
+    "strength": 0.5267775654792786,
+    "confidence": 0.19611735058641233,
+    "info_score": 0.1497137855382844
+  },
+  {
+    "id": 338,
+    "topic_id": 48,
+    "topic_name": "生育观念",
+    "strength": 0.5159156918525696,
+    "confidence": 0.17159267880582874,
+    "info_score": 0.1300600172043868
+  },
+  {
+    "id": 339,
+    "topic_id": 40,
+    "topic_name": "日本婚姻与孩子",
+    "strength": 0.5488284826278687,
+    "confidence": 0.14300010050675416,
+    "info_score": 0.11074131434175438
+  },
+  {
+    "id": 340,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.4861828088760376,
+    "confidence": 0.08735518878288251,
+    "info_score": 0.06491288991762043
+  },
+  {
+    "id": 341,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.5705397129058838,
+    "confidence": 0.08901434427531363,
+    "info_score": 0.06990028135132828
+  },
+  {
+    "id": 342,
+    "topic_id": 56,
+    "topic_name": "偶像文化",
+    "strength": 0.577144980430603,
+    "confidence": 0.13806447087912155,
+    "info_score": 0.10887384361140685
+  },
+  {
+    "id": 343,
+    "topic_id": 56,
+    "topic_name": "偶像文化",
+    "strength": 0.5924363732337952,
+    "confidence": 0.12642168951248334,
+    "info_score": 0.10065924837267394
+  },
+  {
+    "id": 344,
+    "topic_id": 56,
+    "topic_name": "偶像文化",
+    "strength": 0.5357199907302856,
+    "confidence": 0.1345434077819324,
+    "info_score": 0.10331050047584514
+  },
+  {
+    "id": 345,
+    "topic_id": 56,
+    "topic_name": "偶像文化",
+    "strength": 0.4767417907714844,
+    "confidence": 0.0985235581724846,
+    "info_score": 0.0727469278644067
+  },
+  {
+    "id": 346,
+    "topic_id": 56,
+    "topic_name": "偶像文化",
+    "strength": 0.5478787422180176,
+    "confidence": 0.1448340423029153,
+    "info_score": 0.11209276761509385
+  },
+  {
+    "id": 347,
+    "topic_id": 31,
+    "topic_name": "日本社会现象",
+    "strength": 0.5031034350395203,
+    "confidence": 0.09758083076468638,
+    "info_score": 0.07333704095820509
+  },
+  {
+    "id": 348,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.50455641746521,
+    "confidence": 0.11919442966519433,
+    "info_score": 0.08966737203943687
+  },
+  {
+    "id": 349,
+    "topic_id": 0,
+    "topic_name": "在线征婚",
+    "strength": 0.5658727884292603,
+    "confidence": 0.12000845842183006,
+    "info_score": 0.09395898971204399
+  },
+  {
+    "id": 350,
+    "topic_id": 0,
+    "topic_name": "在线征婚",
+    "strength": 0.5746434926986694,
+    "confidence": 0.15120996700490041,
+    "info_score": 0.11905089528772347
+  },
+  {
+    "id": 351,
+    "topic_id": 0,
+    "topic_name": "在线征婚",
+    "strength": 0.5871106386184692,
+    "confidence": 0.242340022077849,
+    "info_score": 0.19231021360139441
+  },
+  {
+    "id": 352,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.5821720361709595,
+    "confidence": 0.16315226218161039,
+    "info_score": 0.12906747343088837
+  },
+  {
+    "id": 353,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.5936908721923828,
+    "confidence": 0.14988958931781093,
+    "info_score": 0.11943883516623009
+  },
+  {
+    "id": 354,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.5774791240692139,
+    "confidence": 0.14483225249116505,
+    "info_score": 0.11423492739836713
+  },
+  {
+    "id": 355,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.5071419477462769,
+    "confidence": 0.07858684508705804,
+    "info_score": 0.059220765385871794
+  },
+  {
+    "id": 356,
+    "topic_id": 58,
+    "topic_name": "婚礼计划",
+    "strength": 0.555558979511261,
+    "confidence": 0.14058687495131883,
+    "info_score": 0.10934558786597538
+  },
+  {
+    "id": 357,
+    "topic_id": 58,
+    "topic_name": "婚礼计划",
+    "strength": 0.5617507696151733,
+    "confidence": 0.15335069372136845,
+    "info_score": 0.11974778197018394
+  },
+  {
+    "id": 358,
+    "topic_id": 58,
+    "topic_name": "婚礼计划",
+    "strength": 0.5663373470306396,
+    "confidence": 0.15447587006445218,
+    "info_score": 0.12098066224850192
+  },
+  {
+    "id": 359,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.47590819001197815,
+    "confidence": 0.10185266395946524,
+    "info_score": 0.0751625904561563
+  },
+  {
+    "id": 360,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.4635314643383026,
+    "confidence": 0.10781363199349092,
+    "info_score": 0.07889432135353232
+  },
+  {
+    "id": 361,
+    "topic_id": 60,
+    "topic_name": "约会支付方式",
+    "strength": 0.4885812997817993,
+    "confidence": 0.08790891179309923,
+    "info_score": 0.0654297810896876
+  },
+  {
+    "id": 362,
+    "topic_id": 59,
+    "topic_name": "约会成本",
+    "strength": 0.6272854804992676,
+    "confidence": 0.242886026524893,
+    "info_score": 0.19762245219005917
+  },
+  {
+    "id": 363,
+    "topic_id": 59,
+    "topic_name": "约会成本",
+    "strength": 0.6242164373397827,
+    "confidence": 0.1826260852031426,
+    "info_score": 0.14831214473697996
+  },
+  {
+    "id": 364,
+    "topic_id": 59,
+    "topic_name": "约会成本",
+    "strength": 0.6498117446899414,
+    "confidence": 0.21715015557398187,
+    "info_score": 0.1791284385136016
+  },
+  {
+    "id": 365,
+    "topic_id": 21,
+    "topic_name": "日本男女关系",
+    "strength": 0.5388873815536499,
+    "confidence": 0.07619548879394544,
+    "info_score": 0.05862813811815759
+  },
+  {
+    "id": 366,
+    "topic_id": 21,
+    "topic_name": "日本男女关系",
+    "strength": 0.48611515760421753,
+    "confidence": 0.09650286070651393,
+    "info_score": 0.0717071820240594
+  },
+  {
+    "id": 367,
+    "topic_id": 21,
+    "topic_name": "日本男女关系",
+    "strength": 0.5250728726387024,
+    "confidence": 0.07846513788804477,
+    "info_score": 0.05983252662045616
+  },
+  {
+    "id": 368,
+    "topic_id": 18,
+    "topic_name": "女性地位提升",
+    "strength": 0.5101613998413086,
+    "confidence": 0.10013891920865314,
+    "info_score": 0.07561296520536767
+  },
+  {
+    "id": 369,
+    "topic_id": 18,
+    "topic_name": "女性地位提升",
+    "strength": 0.5545046329498291,
+    "confidence": 0.1455365993464841,
+    "info_score": 0.1131186589739363
+  },
+  {
+    "id": 370,
+    "topic_id": 69,
+    "topic_name": "谈恋爱话题",
+    "strength": 0.5511075258255005,
+    "confidence": 0.12249322051565603,
+    "info_score": 0.09500007810221833
+  },
+  {
+    "id": 371,
+    "topic_id": 69,
+    "topic_name": "谈恋爱话题",
+    "strength": 0.5015383362770081,
+    "confidence": 0.09207514609461653,
+    "info_score": 0.06912718083968648
+  },
+  {
+    "id": 372,
+    "topic_id": 69,
+    "topic_name": "谈恋爱话题",
+    "strength": 0.5276563167572021,
+    "confidence": 0.10166915232345297,
+    "info_score": 0.07765776138313656
+  },
+  {
+    "id": 373,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.5341663360595703,
+    "confidence": 0.10268554167109523,
+    "info_score": 0.07876835061591825
+  },
+  {
+    "id": 374,
+    "topic_id": 60,
+    "topic_name": "约会支付方式",
+    "strength": 0.5415999293327332,
+    "confidence": 0.1164561854822469,
+    "info_score": 0.08976442365489574
+  },
+  {
+    "id": 375,
+    "topic_id": 60,
+    "topic_name": "约会支付方式",
+    "strength": 0.6228878498077393,
+    "confidence": 0.1879638631583972,
+    "info_score": 0.15252213486134367
+  },
+  {
+    "id": 376,
+    "topic_id": 60,
+    "topic_name": "约会支付方式",
+    "strength": 0.5755022764205933,
+    "confidence": 0.20493983608768007,
+    "info_score": 0.1614415891427016
+  },
+  {
+    "id": 377,
+    "topic_id": 60,
+    "topic_name": "约会支付方式",
+    "strength": 0.6218987107276917,
+    "confidence": 0.2521989763773316,
+    "info_score": 0.2045205973166188
+  },
+  {
+    "id": 378,
+    "topic_id": 61,
+    "topic_name": "华波波事件",
+    "strength": 0.6185276508331299,
+    "confidence": 0.47039308110028455,
+    "info_score": 0.38067210426070075
+  },
+  {
+    "id": 379,
+    "topic_id": 62,
+    "topic_name": "社交方式",
+    "strength": 0.6027827858924866,
+    "confidence": 0.25818651192952424,
+    "info_score": 0.20690844843513329
+  },
+  {
+    "id": 380,
+    "topic_id": 65,
+    "topic_name": "交友方式",
+    "strength": 0.6702725887298584,
+    "confidence": 0.276357296065297,
+    "info_score": 0.23079600815668377
+  },
+  {
+    "id": 381,
+    "topic_id": 65,
+    "topic_name": "交友方式",
+    "strength": 0.6762522459030151,
+    "confidence": 0.28173187702466507,
+    "info_score": 0.23612684580253346
+  },
+  {
+    "id": 382,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.6100020408630371,
+    "confidence": 0.16558332992293046,
+    "info_score": 0.13329474955440782
+  },
+  {
+    "id": 383,
+    "topic_id": 63,
+    "topic_name": "搭讪技巧",
+    "strength": 0.6132617592811584,
+    "confidence": 0.21257047475816937,
+    "info_score": 0.1714659090397977
+  },
+  {
+    "id": 384,
+    "topic_id": 63,
+    "topic_name": "搭讪技巧",
+    "strength": 0.5831384658813477,
+    "confidence": 0.2182786878140972,
+    "info_score": 0.17278269348030173
+  },
+  {
+    "id": 385,
+    "topic_id": 63,
+    "topic_name": "搭讪技巧",
+    "strength": 0.6341208219528198,
+    "confidence": 0.3703820919861007,
+    "info_score": 0.3026245442964659
+  },
+  {
+    "id": 386,
+    "topic_id": 63,
+    "topic_name": "搭讪技巧",
+    "strength": 0.54422527551651,
+    "confidence": 0.1867944449061133,
+    "info_score": 0.14422635157504818
+  },
+  {
+    "id": 387,
+    "topic_id": 63,
+    "topic_name": "搭讪技巧",
+    "strength": 0.6505943536758423,
+    "confidence": 0.3898466303591789,
+    "info_score": 0.32173932343520695
+  },
+  {
+    "id": 388,
+    "topic_id": 63,
+    "topic_name": "搭讪技巧",
+    "strength": 0.6207771301269531,
+    "confidence": 0.2448274688893003,
+    "info_score": 0.198405381201323
+  },
+  {
+    "id": 389,
+    "topic_id": 63,
+    "topic_name": "搭讪技巧",
+    "strength": 0.7130661010742188,
+    "confidence": 0.5871683699384821,
+    "info_score": 0.50292911508231
+  },
+  {
+    "id": 390,
+    "topic_id": 63,
+    "topic_name": "搭讪技巧",
+    "strength": 0.6786325573921204,
+    "confidence": 0.427074994421329,
+    "info_score": 0.3584509950418505
+  },
+  {
+    "id": 391,
+    "topic_id": 70,
+    "topic_name": "结束对话",
+    "strength": 0.49712759256362915,
+    "confidence": 0.14506157212165882,
+    "info_score": 0.10858784112199717
+  },
+  {
+    "id": 392,
+    "topic_id": 64,
+    "topic_name": "幼儿园经历",
+    "strength": 0.6250317096710205,
+    "confidence": 0.34170393831271995,
+    "info_score": 0.2776398675388201
+  },
+  {
+    "id": 393,
+    "topic_id": 64,
+    "topic_name": "幼儿园经历",
+    "strength": 0.6265743970870972,
+    "confidence": 0.40519247630535415,
+    "info_score": 0.32953785392530466
+  },
+  {
+    "id": 394,
+    "topic_id": 64,
+    "topic_name": "幼儿园经历",
+    "strength": 0.6600077152252197,
+    "confidence": 0.45754301577652234,
+    "info_score": 0.3797624681182208
+  },
+  {
+    "id": 395,
+    "topic_id": 64,
+    "topic_name": "幼儿园经历",
+    "strength": 0.5985249280929565,
+    "confidence": 0.28874883399130613,
+    "info_score": 0.23078610454643883
+  },
+  {
+    "id": 396,
+    "topic_id": 64,
+    "topic_name": "幼儿园经历",
+    "strength": 0.6025264263153076,
+    "confidence": 0.35203752831570745,
+    "info_score": 0.2820747210903223
+  },
+  {
+    "id": 397,
+    "topic_id": 20,
+    "topic_name": "家庭责任",
+    "strength": 0.38358867168426514,
+    "confidence": 0.05415227914177334,
+    "info_score": 0.03746223998322086
+  },
+  {
+    "id": 398,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.5713774561882019,
+    "confidence": 0.19351977442070678,
+    "info_score": 0.15204630542566244
+  },
+  {
+    "id": 399,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.5698946714401245,
+    "confidence": 0.2135383713937048,
+    "info_score": 0.16761637569948973
+  },
+  {
+    "id": 400,
+    "topic_id": 65,
+    "topic_name": "交友方式",
+    "strength": 0.6278340816497803,
+    "confidence": 0.25107833049524053,
+    "info_score": 0.20435693177193995
+  },
+  {
+    "id": 401,
+    "topic_id": 65,
+    "topic_name": "交友方式",
+    "strength": 0.554413378238678,
+    "confidence": 0.20071459393002355,
+    "info_score": 0.15599672500628617
+  },
+  {
+    "id": 402,
+    "topic_id": 6,
+    "topic_name": "粉丝互动",
+    "strength": 0.49128103256225586,
+    "confidence": 0.11314195750543987,
+    "info_score": 0.08436322760741362
+  },
+  {
+    "id": 403,
+    "topic_id": 12,
+    "topic_name": "单身调侃",
+    "strength": 0.47726866602897644,
+    "confidence": 0.08068103669802107,
+    "info_score": 0.05959378372836024
+  },
+  {
+    "id": 404,
+    "topic_id": 66,
+    "topic_name": "朋友与恋人关系",
+    "strength": 0.5866550207138062,
+    "confidence": 0.28684503360527014,
+    "info_score": 0.22756205636831114
+  },
+  {
+    "id": 405,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.5869085788726807,
+    "confidence": 0.29883626894702453,
+    "info_score": 0.23711291943516843
+  },
+  {
+    "id": 406,
+    "topic_id": 66,
+    "topic_name": "朋友与恋人关系",
+    "strength": 0.6517167091369629,
+    "confidence": 0.4286655777510807,
+    "info_score": 0.35401704870165496
+  },
+  {
+    "id": 407,
+    "topic_id": 45,
+    "topic_name": "结婚条件",
+    "strength": 0.5813862085342407,
+    "confidence": 0.18056696271616002,
+    "info_score": 0.14277305227812595
+  },
+  {
+    "id": 408,
+    "topic_id": 66,
+    "topic_name": "朋友与恋人关系",
+    "strength": 0.6604763865470886,
+    "confidence": 0.21873089493910758,
+    "info_score": 0.1815987430273501
+  },
+  {
+    "id": 409,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.6370835304260254,
+    "confidence": 0.18124944030915635,
+    "info_score": 0.14836023681452742
+  },
+  {
+    "id": 410,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.6096615791320801,
+    "confidence": 0.23126332460882726,
+    "info_score": 0.18612784414258987
+  },
+  {
+    "id": 411,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.5798572301864624,
+    "confidence": 0.20806523892484163,
+    "info_score": 0.1643566860329424
+  },
+  {
+    "id": 412,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.4651574492454529,
+    "confidence": 0.10291368673762791,
+    "info_score": 0.07539237737647425
+  },
+  {
+    "id": 413,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.4877212345600128,
+    "confidence": 0.09359111664703201,
+    "info_score": 0.06961874580098631
+  },
+  {
+    "id": 414,
+    "topic_id": 67,
+    "topic_name": "交友建议",
+    "strength": 0.5470834970474243,
+    "confidence": 0.11423542062157488,
+    "info_score": 0.08836586701095475
+  },
+  {
+    "id": 415,
+    "topic_id": 68,
+    "topic_name": "交友软件流行",
+    "strength": 0.6785595417022705,
+    "confidence": 0.22007330968337124,
+    "info_score": 0.18470307692151075
+  },
+  {
+    "id": 416,
+    "topic_id": 68,
+    "topic_name": "交友软件流行",
+    "strength": 0.7139294147491455,
+    "confidence": 0.3562489553639172,
+    "info_score": 0.30529278178593655
+  },
+  {
+    "id": 417,
+    "topic_id": 68,
+    "topic_name": "交友软件流行",
+    "strength": 0.7104165554046631,
+    "confidence": 0.33824954570322563,
+    "info_score": 0.2892738114144517
+  },
+  {
+    "id": 418,
+    "topic_id": 68,
+    "topic_name": "交友软件流行",
+    "strength": 0.6348631381988525,
+    "confidence": 0.18381245073543617,
+    "info_score": 0.1502541000246786
+  },
+  {
+    "id": 419,
+    "topic_id": 68,
+    "topic_name": "交友软件流行",
+    "strength": 0.6299216747283936,
+    "confidence": 0.19119615131601564,
+    "info_score": 0.1558173755773118
+  },
+  {
+    "id": 420,
+    "topic_id": 68,
+    "topic_name": "交友软件流行",
+    "strength": 0.6024460196495056,
+    "confidence": 0.19127305728965682,
+    "info_score": 0.15325237466000122
+  },
+  {
+    "id": 421,
+    "topic_id": 68,
+    "topic_name": "交友软件流行",
+    "strength": 0.6735285520553589,
+    "confidence": 0.3626875794087764,
+    "info_score": 0.30348400980821627
+  },
+  {
+    "id": 422,
+    "topic_id": 68,
+    "topic_name": "交友软件流行",
+    "strength": 0.6590178608894348,
+    "confidence": 0.2739520127995032,
+    "info_score": 0.22724564113049345
+  },
+  {
+    "id": 423,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.669425368309021,
+    "confidence": 0.386328811295787,
+    "info_score": 0.32247355904292774
+  },
+  {
+    "id": 424,
+    "topic_id": 8,
+    "topic_name": "单身话题",
+    "strength": 0.7113081812858582,
+    "confidence": 0.48052531728137504,
+    "info_score": 0.41116345338929994
+  },
+  {
+    "id": 425,
+    "topic_id": 70,
+    "topic_name": "结束对话",
+    "strength": 0.613491415977478,
+    "confidence": 0.2669065866397107,
+    "info_score": 0.2153257432055111
+  }
+]

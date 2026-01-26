@@ -14,6 +14,8 @@
 <script setup lang="ts">
 import DialogBox from './DialogBox.vue'
 import CapsuleUI from './CapsuleUI.vue'
+import StreamGraph from './StreamGraph.vue'
+import TestGraph from './TestGraph.vue'
 import { ref } from 'vue'
 
 type DatasetKey = 'meeting' | 'xinli'

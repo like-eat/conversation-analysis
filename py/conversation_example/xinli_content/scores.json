@@ -1,0 +1,866 @@
+[
+  {
+    "id": 1,
+    "topic_id": 3,
+    "topic_name": "考研后失落",
+    "strength": 0.6247646808624268,
+    "confidence": 0.2054431547903327,
+    "info_score": 0.16689839091414252
+  },
+  {
+    "id": 2,
+    "topic_id": 3,
+    "topic_name": "考研后失落",
+    "strength": 0.6247646808624268,
+    "confidence": 0.2054431547903327,
+    "info_score": 0.16689839091414252
+  },
+  {
+    "id": 3,
+    "topic_id": 3,
+    "topic_name": "考研后失落",
+    "strength": 0.6052217483520508,
+    "confidence": 0.1739542099698972,
+    "info_score": 0.13961754053053904
+  },
+  {
+    "id": 4,
+    "topic_id": 1,
+    "topic_name": "职业前景焦虑",
+    "strength": 0.5937153100967407,
+    "confidence": 0.19563246205238205,
+    "info_score": 0.15589122496240046
+  },
+  {
+    "id": 5,
+    "topic_id": 1,
+    "topic_name": "职业前景焦虑",
+    "strength": 0.5939049124717712,
+    "confidence": 0.18726735489729662,
+    "info_score": 0.14924317845819784
+  },
+  {
+    "id": 6,
+    "topic_id": 1,
+    "topic_name": "职业前景焦虑",
+    "strength": 0.5778699517250061,
+    "confidence": 0.18654355339130335,
+    "info_score": 0.14717073379207346
+  },
+  {
+    "id": 7,
+    "topic_id": 1,
+    "topic_name": "职业前景焦虑",
+    "strength": 0.5513524413108826,
+    "confidence": 0.163550913697189,
+    "info_score": 0.1268625546213798
+  },
+  {
+    "id": 8,
+    "topic_id": 1,
+    "topic_name": "职业前景焦虑",
+    "strength": 0.6300692558288574,
+    "confidence": 0.19082304118420101,
+    "info_score": 0.155527386369065
+  },
+  {
+    "id": 9,
+    "topic_id": 1,
+    "topic_name": "职业前景焦虑",
+    "strength": 0.6417720317840576,
+    "confidence": 0.19597861384256166,
+    "info_score": 0.16087610351726284
+  },
+  {
+    "id": 10,
+    "topic_id": 3,
+    "topic_name": "考研后失落",
+    "strength": 0.6819755434989929,
+    "confidence": 0.28046991208320926,
+    "info_score": 0.23587176640563534
+  },
+  {
+    "id": 11,
+    "topic_id": 3,
+    "topic_name": "考研后失落",
+    "strength": 0.6569932103157043,
+    "confidence": 0.1870002733129955,
+    "info_score": 0.1549290916034073
+  },
+  {
+    "id": 12,
+    "topic_id": 4,
+    "topic_name": "毕业后恐惧",
+    "strength": 0.6758793592453003,
+    "confidence": 0.26425134382951365,
+    "info_score": 0.22142668638835744
+  },
+  {
+    "id": 13,
+    "topic_id": 4,
+    "topic_name": "毕业后恐惧",
+    "strength": 0.6548654437065125,
+    "confidence": 0.19306316844901827,
+    "info_score": 0.15974678295938488
+  },
+  {
+    "id": 14,
+    "topic_id": 4,
+    "topic_name": "毕业后恐惧",
+    "strength": 0.48984700441360474,
+    "confidence": 0.1119228199786545,
+    "info_score": 0.08337393903536078
+  },
+  {
+    "id": 15,
+    "topic_id": 3,
+    "topic_name": "考研后失落",
+    "strength": 0.5016814470291138,
+    "confidence": 0.11017422955745948,
+    "info_score": 0.08272329823358175
+  },
+  {
+    "id": 16,
+    "topic_id": 5,
+    "topic_name": "社交孤立感",
+    "strength": 0.5729207992553711,
+    "confidence": 0.09077840567297801,
+    "info_score": 0.07139362120313444
+  },
+  {
+    "id": 17,
+    "topic_id": 2,
+    "topic_name": "同龄人压力",
+    "strength": 0.5405623316764832,
+    "confidence": 0.08030072483622097,
+    "info_score": 0.06185413594450013
+  },
+  {
+    "id": 18,
+    "topic_id": 6,
+    "topic_name": "外貌自卑",
+    "strength": 0.625949501991272,
+    "confidence": 0.11992231691429467,
+    "info_score": 0.09749381573221845
+  },
+  {
+    "id": 19,
+    "topic_id": 6,
+    "topic_name": "外貌自卑",
+    "strength": 0.6144851446151733,
+    "confidence": 0.10712621954714674,
+    "info_score": 0.08647684502882601
+  },
+  {
+    "id": 20,
+    "topic_id": 17,
+    "topic_name": "恋爱交流",
+    "strength": 0.5589591264724731,
+    "confidence": 0.10082982325993683,
+    "info_score": 0.07859478659584249
+  },
+  {
+    "id": 21,
+    "topic_id": 17,
+    "topic_name": "恋爱交流",
+    "strength": 0.586816668510437,
+    "confidence": 0.10979261006176222,
+    "info_score": 0.08711037186263551
+  },
+  {
+    "id": 22,
+    "topic_id": 22,
+    "topic_name": "个人特长",
+    "strength": 0.546633243560791,
+    "confidence": 0.0733585559951565,
+    "info_score": 0.05672939070086241
+  },
+  {
+    "id": 23,
+    "topic_id": 3,
+    "topic_name": "考研后失落",
+    "strength": 0.5955595970153809,
+    "confidence": 0.08706796304897135,
+    "info_score": 0.0694610620176834
+  },
+  {
+    "id": 24,
+    "topic_id": 11,
+    "topic_name": "减肥计划",
+    "strength": 0.5607975125312805,
+    "confidence": 0.06597027500487573,
+    "info_score": 0.051483120564307275
+  },
+  {
+    "id": 25,
+    "topic_id": 11,
+    "topic_name": "减肥计划",
+    "strength": 0.5331429243087769,
+    "confidence": 0.055834515864979783,
+    "info_score": 0.04280114646529995
+  },
+  {
+    "id": 26,
+    "topic_id": 10,
+    "topic_name": "冬季情感羡慕",
+    "strength": 0.6781046390533447,
+    "confidence": 0.20740813075436426,
+    "info_score": 0.17402627319814068
+  },
+  {
+    "id": 27,
+    "topic_id": 10,
+    "topic_name": "冬季情感羡慕",
+    "strength": 0.6329860687255859,
+    "confidence": 0.13644343445780893,
+    "info_score": 0.11140511381933728
+  },
+  {
+    "id": 28,
+    "topic_id": 13,
+    "topic_name": "减肥方法",
+    "strength": 0.7451156377792358,
+    "confidence": 0.45146303937965937,
+    "info_score": 0.39392760495039325
+  },
+  {
+    "id": 29,
+    "topic_id": 13,
+    "topic_name": "减肥方法",
+    "strength": 0.741069495677948,
+    "confidence": 0.38709188715635645,
+    "info_score": 0.3369769383761713
+  },
+  {
+    "id": 30,
+    "topic_id": 12,
+    "topic_name": "健身房选择",
+    "strength": 0.7026481032371521,
+    "confidence": 0.35627032090487976,
+    "info_score": 0.3033014930641925
+  },
+  {
+    "id": 31,
+    "topic_id": 12,
+    "topic_name": "健身房选择",
+    "strength": 0.6991610527038574,
+    "confidence": 0.3195930690116334,
+    "info_score": 0.2715200477893318
+  },
+  {
+    "id": 32,
+    "topic_id": 13,
+    "topic_name": "减肥方法",
+    "strength": 0.7144149541854858,
+    "confidence": 0.44303109675013996,
+    "info_score": 0.3797695687188184
+  },
+  {
+    "id": 33,
+    "topic_id": 13,
+    "topic_name": "减肥方法",
+    "strength": 0.6717455387115479,
+    "confidence": 0.33349413183196064,
+    "info_score": 0.2787586635382805
+  },
+  {
+    "id": 34,
+    "topic_id": 13,
+    "topic_name": "减肥方法",
+    "strength": 0.6994266510009766,
+    "confidence": 0.27547762102694684,
+    "info_score": 0.23407700546377022
+  },
+  {
+    "id": 35,
+    "topic_id": 13,
+    "topic_name": "减肥方法",
+    "strength": 0.7050396203994751,
+    "confidence": 0.2944206296912609,
+    "info_score": 0.25099941934328096
+  },
+  {
+    "id": 36,
+    "topic_id": 6,
+    "topic_name": "外貌自卑",
+    "strength": 0.6539435386657715,
+    "confidence": 0.2564349123170311,
+    "info_score": 0.21206443315753862
+  },
+  {
+    "id": 37,
+    "topic_id": 6,
+    "topic_name": "外貌自卑",
+    "strength": 0.6602653861045837,
+    "confidence": 0.2245502910754088,
+    "info_score": 0.18640653785610514
+  },
+  {
+    "id": 38,
+    "topic_id": 6,
+    "topic_name": "外貌自卑",
+    "strength": 0.625967264175415,
+    "confidence": 0.24137330712515415,
+    "info_score": 0.19623254791562955
+  },
+  {
+    "id": 39,
+    "topic_id": 6,
+    "topic_name": "外貌自卑",
+    "strength": 0.6268272399902344,
+    "confidence": 0.24190831631241994,
+    "info_score": 0.19677151927860936
+  },
+  {
+    "id": 40,
+    "topic_id": 6,
+    "topic_name": "外貌自卑",
+    "strength": 0.6332181096076965,
+    "confidence": 0.2343063179920114,
+    "info_score": 0.19133666087002635
+  },
+  {
+    "id": 41,
+    "topic_id": 6,
+    "topic_name": "外貌自卑",
+    "strength": 0.6321883201599121,
+    "confidence": 0.22562577603207523,
+    "info_score": 0.18413187818328472
+  },
+  {
+    "id": 42,
+    "topic_id": 12,
+    "topic_name": "健身房选择",
+    "strength": 0.5063949227333069,
+    "confidence": 0.0904103224759003,
+    "info_score": 0.0680968253701886
+  },
+  {
+    "id": 43,
+    "topic_id": 13,
+    "topic_name": "减肥方法",
+    "strength": 0.524143636226654,
+    "confidence": 0.0865324332348355,
+    "info_score": 0.06594392872104117
+  },
+  {
+    "id": 44,
+    "topic_id": 13,
+    "topic_name": "减肥方法",
+    "strength": 0.6159818172454834,
+    "confidence": 0.10260145142012866,
+    "info_score": 0.08290103995896185
+  },
+  {
+    "id": 45,
+    "topic_id": 13,
+    "topic_name": "减肥方法",
+    "strength": 0.6298419237136841,
+    "confidence": 0.10960232094078359,
+    "info_score": 0.08931722880280567
+  },
+  {
+    "id": 46,
+    "topic_id": 17,
+    "topic_name": "恋爱交流",
+    "strength": 0.6608312129974365,
+    "confidence": 0.18438822322793447,
+    "info_score": 0.15311885822304624
+  },
+  {
+    "id": 47,
+    "topic_id": 17,
+    "topic_name": "恋爱交流",
+    "strength": 0.6216115951538086,
+    "confidence": 0.12868075766965192,
+    "info_score": 0.10433510435514247
+  },
+  {
+    "id": 48,
+    "topic_id": 18,
+    "topic_name": "家庭压力",
+    "strength": 0.5011937618255615,
+    "confidence": 0.05729057906360335,
+    "info_score": 0.043002129950827736
+  },
+  {
+    "id": 49,
+    "topic_id": 18,
+    "topic_name": "家庭压力",
+    "strength": 0.5018446445465088,
+    "confidence": 0.05268979941356777,
+    "info_score": 0.03956594653574827
+  },
+  {
+    "id": 50,
+    "topic_id": 6,
+    "topic_name": "外貌自卑",
+    "strength": 0.5320419073104858,
+    "confidence": 0.08522474869415697,
+    "info_score": 0.06528394326972654
+  },
+  {
+    "id": 51,
+    "topic_id": 1,
+    "topic_name": "职业前景焦虑",
+    "strength": 0.5450325608253479,
+    "confidence": 0.08691398765217395,
+    "info_score": 0.0671424704568905
+  },
+  {
+    "id": 52,
+    "topic_id": 19,
+    "topic_name": "兼职选择",
+    "strength": 0.6496264934539795,
+    "confidence": 0.20896239719633836,
+    "info_score": 0.17235495327536665
+  },
+  {
+    "id": 53,
+    "topic_id": 19,
+    "topic_name": "兼职选择",
+    "strength": 0.6560002565383911,
+    "confidence": 0.17687460131870547,
+    "info_score": 0.14645219257945097
+  },
+  {
+    "id": 54,
+    "topic_id": 20,
+    "topic_name": "社交能力",
+    "strength": 0.6025918126106262,
+    "confidence": 0.10899090976034786,
+    "info_score": 0.08733396981545855
+  },
+  {
+    "id": 55,
+    "topic_id": 20,
+    "topic_name": "社交能力",
+    "strength": 0.6344329714775085,
+    "confidence": 0.11312924259312152,
+    "info_score": 0.09245108206623776
+  },
+  {
+    "id": 56,
+    "topic_id": 25,
+    "topic_name": "自我评价与情绪",
+    "strength": 0.5720987319946289,
+    "confidence": 0.0855462357863711,
+    "info_score": 0.06724356440333377
+  },
+  {
+    "id": 57,
+    "topic_id": 25,
+    "topic_name": "自我评价与情绪",
+    "strength": 0.5649445056915283,
+    "confidence": 0.08137894308395477,
+    "info_score": 0.0636767649291093
+  },
+  {
+    "id": 58,
+    "topic_id": 25,
+    "topic_name": "自我评价与情绪",
+    "strength": 0.5783579349517822,
+    "confidence": 0.10290744986296085,
+    "info_score": 0.08121239502842847
+  },
+  {
+    "id": 59,
+    "topic_id": 6,
+    "topic_name": "外貌自卑",
+    "strength": 0.5647357702255249,
+    "confidence": 0.10419860450051754,
+    "info_score": 0.08152164183477108
+  },
+  {
+    "id": 60,
+    "topic_id": 20,
+    "topic_name": "社交能力",
+    "strength": 0.5889597535133362,
+    "confidence": 0.11695708657630921,
+    "info_score": 0.0929200517289651
+  },
+  {
+    "id": 61,
+    "topic_id": 20,
+    "topic_name": "社交能力",
+    "strength": 0.5628255605697632,
+    "confidence": 0.06756690745839466,
+    "info_score": 0.05279764501231548
+  },
+  {
+    "id": 62,
+    "topic_id": 23,
+    "topic_name": "唱歌和乐器学习",
+    "strength": 0.6867376565933228,
+    "confidence": 0.31372495340334294,
+    "info_score": 0.264585846359202
+  },
+  {
+    "id": 63,
+    "topic_id": 23,
+    "topic_name": "唱歌和乐器学习",
+    "strength": 0.6634567975997925,
+    "confidence": 0.2415960052687891,
+    "info_score": 0.20094225861866125
+  },
+  {
+    "id": 64,
+    "topic_id": 31,
+    "topic_name": "低成本社交活动",
+    "strength": 0.6017736792564392,
+    "confidence": 0.07979610724249042,
+    "info_score": 0.06390765214407264
+  },
+  {
+    "id": 65,
+    "topic_id": 31,
+    "topic_name": "低成本社交活动",
+    "strength": 0.6366860866546631,
+    "confidence": 0.11030562276377132,
+    "info_score": 0.0902678390286212
+  },
+  {
+    "id": 66,
+    "topic_id": 31,
+    "topic_name": "低成本社交活动",
+    "strength": 0.5916382670402527,
+    "confidence": 0.10636844713788718,
+    "info_score": 0.08465004543515474
+  },
+  {
+    "id": 67,
+    "topic_id": 31,
+    "topic_name": "低成本社交活动",
+    "strength": 0.6140938997268677,
+    "confidence": 0.10485368325967304,
+    "info_score": 0.08462184525666572
+  },
+  {
+    "id": 68,
+    "topic_id": 25,
+    "topic_name": "自我评价与情绪",
+    "strength": 0.5452223420143127,
+    "confidence": 0.07941949878041676,
+    "info_score": 0.06136039195353922
+  },
+  {
+    "id": 69,
+    "topic_id": 25,
+    "topic_name": "自我评价与情绪",
+    "strength": 0.5600207448005676,
+    "confidence": 0.08383493526473862,
+    "info_score": 0.06539211907600245
+  },
+  {
+    "id": 70,
+    "topic_id": 28,
+    "topic_name": "运动后酸痛",
+    "strength": 0.7096143960952759,
+    "confidence": 0.43307690623115036,
+    "info_score": 0.37019725675458925
+  },
+  {
+    "id": 71,
+    "topic_id": 28,
+    "topic_name": "运动后酸痛",
+    "strength": 0.7013792395591736,
+    "confidence": 0.39566563552958733,
+    "info_score": 0.3365886490485132
+  },
+  {
+    "id": 72,
+    "topic_id": 13,
+    "topic_name": "减肥方法",
+    "strength": 0.518831193447113,
+    "confidence": 0.10732223556369513,
+    "info_score": 0.08150217956230964
+  },
+  {
+    "id": 73,
+    "topic_id": 13,
+    "topic_name": "减肥方法",
+    "strength": 0.518644392490387,
+    "confidence": 0.10524545497933491,
+    "info_score": 0.07991521001973322
+  },
+  {
+    "id": 74,
+    "topic_id": 27,
+    "topic_name": "健身房自信心",
+    "strength": 0.5490516424179077,
+    "confidence": 0.08324584596135332,
+    "info_score": 0.06447605720545126
+  },
+  {
+    "id": 75,
+    "topic_id": 27,
+    "topic_name": "健身房自信心",
+    "strength": 0.5728990435600281,
+    "confidence": 0.0890919000060284,
+    "info_score": 0.07006628215421387
+  },
+  {
+    "id": 76,
+    "topic_id": 28,
+    "topic_name": "运动后酸痛",
+    "strength": 0.6257288455963135,
+    "confidence": 0.2392302767715886,
+    "info_score": 0.19446178084378063
+  },
+  {
+    "id": 77,
+    "topic_id": 28,
+    "topic_name": "运动后酸痛",
+    "strength": 0.6361238956451416,
+    "confidence": 0.21526881555079536,
+    "info_score": 0.17610322655494137
+  },
+  {
+    "id": 78,
+    "topic_id": 29,
+    "topic_name": "运动与心情改善",
+    "strength": 0.724246621131897,
+    "confidence": 0.2857354671678537,
+    "info_score": 0.24633920690085792
+  },
+  {
+    "id": 79,
+    "topic_id": 29,
+    "topic_name": "运动与心情改善",
+    "strength": 0.7158052921295166,
+    "confidence": 0.25364018727896487,
+    "info_score": 0.2175985878149848
+  },
+  {
+    "id": 80,
+    "topic_id": 29,
+    "topic_name": "运动与心情改善",
+    "strength": 0.7320289015769958,
+    "confidence": 0.2589636621028949,
+    "info_score": 0.22426627361021667
+  },
+  {
+    "id": 81,
+    "topic_id": 29,
+    "topic_name": "运动与心情改善",
+    "strength": 0.6606560945510864,
+    "confidence": 0.16875073963949816,
+    "info_score": 0.14011847212116812
+  },
+  {
+    "id": 82,
+    "topic_id": 30,
+    "topic_name": "与异性交流",
+    "strength": 0.5394545793533325,
+    "confidence": 0.07930554657424937,
+    "info_score": 0.061043643420923596
+  },
+  {
+    "id": 83,
+    "topic_id": 30,
+    "topic_name": "与异性交流",
+    "strength": 0.5126467943191528,
+    "confidence": 0.06567709699871682,
+    "info_score": 0.04967312511764853
+  },
+  {
+    "id": 84,
+    "topic_id": 17,
+    "topic_name": "恋爱交流",
+    "strength": 0.549186110496521,
+    "confidence": 0.10610344806106609,
+    "info_score": 0.0821869940059963
+  },
+  {
+    "id": 85,
+    "topic_id": 17,
+    "topic_name": "恋爱交流",
+    "strength": 0.560329258441925,
+    "confidence": 0.11461062127329802,
+    "info_score": 0.08941515285046671
+  },
+  {
+    "id": 86,
+    "topic_id": 31,
+    "topic_name": "低成本社交活动",
+    "strength": 0.665339469909668,
+    "confidence": 0.2126144645325483,
+    "info_score": 0.17703762982988094
+  },
+  {
+    "id": 87,
+    "topic_id": 31,
+    "topic_name": "低成本社交活动",
+    "strength": 0.6407588720321655,
+    "confidence": 0.1525165525797031,
+    "info_score": 0.12512144338845405
+  },
+  {
+    "id": 88,
+    "topic_id": 32,
+    "topic_name": "羽毛球运动",
+    "strength": 0.6852765083312988,
+    "confidence": 0.3140427961074673,
+    "info_score": 0.26462447344529527
+  },
+  {
+    "id": 89,
+    "topic_id": 32,
+    "topic_name": "羽毛球运动",
+    "strength": 0.665540337562561,
+    "confidence": 0.2708832190560685,
+    "info_score": 0.22558346405333873
+  },
+  {
+    "id": 90,
+    "topic_id": 33,
+    "topic_name": "约人打羽毛球",
+    "strength": 0.7539705038070679,
+    "confidence": 0.4533856493321461,
+    "info_score": 0.3976125278889994
+  },
+  {
+    "id": 91,
+    "topic_id": 33,
+    "topic_name": "约人打羽毛球",
+    "strength": 0.7423675060272217,
+    "confidence": 0.455699022289734,
+    "info_score": 0.3969975844830036
+  },
+  {
+    "id": 92,
+    "topic_id": 33,
+    "topic_name": "约人打羽毛球",
+    "strength": 0.7349541783332825,
+    "confidence": 0.33500772429971726,
+    "info_score": 0.2906115255238594
+  },
+  {
+    "id": 93,
+    "topic_id": 33,
+    "topic_name": "约人打羽毛球",
+    "strength": 0.7109272480010986,
+    "confidence": 0.28476358695831383,
+    "info_score": 0.2436048900827547
+  },
+  {
+    "id": 94,
+    "topic_id": 35,
+    "topic_name": "英语学习方法",
+    "strength": 0.6772074699401855,
+    "confidence": 0.3450320692894371,
+    "info_score": 0.2893451819905818
+  },
+  {
+    "id": 95,
+    "topic_id": 35,
+    "topic_name": "英语学习方法",
+    "strength": 0.6669014096260071,
+    "confidence": 0.3188276173560417,
+    "info_score": 0.2657271023992436
+  },
+  {
+    "id": 96,
+    "topic_id": 35,
+    "topic_name": "英语学习方法",
+    "strength": 0.7113100290298462,
+    "confidence": 0.4522915519648778,
+    "info_score": 0.3870055344614846
+  },
+  {
+    "id": 97,
+    "topic_id": 35,
+    "topic_name": "英语学习方法",
+    "strength": 0.6742504835128784,
+    "confidence": 0.28544209392661857,
+    "info_score": 0.2389507818857848
+  },
+  {
+    "id": 98,
+    "topic_id": 25,
+    "topic_name": "自我评价与情绪",
+    "strength": 0.5705161094665527,
+    "confidence": 0.08705729019813668,
+    "info_score": 0.06836243835133914
+  },
+  {
+    "id": 99,
+    "topic_id": 6,
+    "topic_name": "外貌自卑",
+    "strength": 0.57267826795578,
+    "confidence": 0.07419513829685964,
+    "info_score": 0.05834254079372239
+  },
+  {
+    "id": 100,
+    "topic_id": 6,
+    "topic_name": "外貌自卑",
+    "strength": 0.5495206713676453,
+    "confidence": 0.08021156748473646,
+    "info_score": 0.06214474095020001
+  },
+  {
+    "id": 101,
+    "topic_id": 6,
+    "topic_name": "外貌自卑",
+    "strength": 0.5470426082611084,
+    "confidence": 0.06229074460127426,
+    "info_score": 0.04818321799924095
+  },
+  {
+    "id": 102,
+    "topic_id": 27,
+    "topic_name": "健身房自信心",
+    "strength": 0.5872492790222168,
+    "confidence": 0.054286431867086704,
+    "info_score": 0.04308304992086103
+  },
+  {
+    "id": 103,
+    "topic_id": 29,
+    "topic_name": "运动与心情改善",
+    "strength": 0.6009180545806885,
+    "confidence": 0.06415732208687908,
+    "info_score": 0.05135530763121654
+  },
+  {
+    "id": 104,
+    "topic_id": 37,
+    "topic_name": "失眠与焦虑",
+    "strength": 0.7005858421325684,
+    "confidence": 0.2579376366988768,
+    "info_score": 0.21932254656162195
+  },
+  {
+    "id": 105,
+    "topic_id": 37,
+    "topic_name": "失眠与焦虑",
+    "strength": 0.6894438862800598,
+    "confidence": 0.21992992283939017,
+    "info_score": 0.1857796317755265
+  },
+  {
+    "id": 106,
+    "topic_id": 37,
+    "topic_name": "失眠与焦虑",
+    "strength": 0.6391105651855469,
+    "confidence": 0.10619872277827291,
+    "info_score": 0.08703572425753907
+  },
+  {
+    "id": 107,
+    "topic_id": 37,
+    "topic_name": "失眠与焦虑",
+    "strength": 0.6073582768440247,
+    "confidence": 0.08754420647828787,
+    "info_score": 0.07035745243630914
+  },
+  {
+    "id": 108,
+    "topic_id": 38,
+    "topic_name": "压力缓解方法",
+    "strength": 0.791513204574585,
+    "confidence": 0.5446349121194225,
+    "info_score": 0.487860318367132
+  }
+]
