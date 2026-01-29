@@ -526,12 +526,12 @@
     "slots": [
       {
         "slot": "日本单身生活",
-        "id": 105,
+        "id": 103,
         "color": "#B0CFF6",
         "source": "功必扬",
         "is_question": true,
         "resolved": true,
-        "start_id": 105,
+        "start_id": 103,
         "end_id": 109,
         "wordcloud": [
           {
@@ -982,60 +982,6 @@
       }
     ],
     "color": "#EF2628"
-  },
-  {
-    "topic": "日本社会现象",
-    "slots": [
-      {
-        "slot": "日本社会现象",
-        "id": 183,
-        "color": "#B4E6B4",
-        "source": "功必扬",
-        "is_question": false,
-        "resolved": false,
-        "start_id": 183,
-        "end_id": 185,
-        "wordcloud": [
-          {
-            "word": "日本开放",
-            "weight": 0.85
-          },
-          {
-            "word": "数据统计",
-            "weight": 0.75
-          },
-          {
-            "word": "未婚单身",
-            "weight": 0.9
-          },
-          {
-            "word": "虚拟男女朋友",
-            "weight": 0.8
-          },
-          {
-            "word": "设计",
-            "weight": 0.7
-          },
-          {
-            "word": "拉面馆",
-            "weight": 0.65
-          },
-          {
-            "word": "单独隔间",
-            "weight": 0.6
-          },
-          {
-            "word": "社会现象",
-            "weight": 0.88
-          },
-          {
-            "word": "happy life",
-            "weight": 0.78
-          }
-        ]
-      }
-    ],
-    "color": "#2BBA2B"
   },
   {
     "topic": "饮食文化",

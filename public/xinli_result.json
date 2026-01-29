@@ -1302,53 +1302,6 @@
     "color": "#8C5649"
   },
   {
-    "topic": "职业与学业压力",
-    "slots": [
-      {
-        "slot": "经济压力与社交",
-        "id": 63,
-        "color": "#B0CFF6",
-        "source": "user",
-        "is_question": false,
-        "resolved": false,
-        "start_id": 63,
-        "end_id": 66,
-        "wordcloud": [
-          {
-            "word": "自卑",
-            "weight": 0.85
-          },
-          {
-            "word": "经济压力",
-            "weight": 0.9
-          },
-          {
-            "word": "花销",
-            "weight": 0.75
-          },
-          {
-            "word": "社交",
-            "weight": 0.8
-          },
-          {
-            "word": "宿舍",
-            "weight": 0.7
-          },
-          {
-            "word": "出去玩",
-            "weight": 0.78
-          },
-          {
-            "word": "吃饭",
-            "weight": 0.72
-          }
-        ],
-        "sentence": "其实我还有点自卑是因为我没有很多钱，当别人叫我出去吃饭的时候，我觉得花销会很大，但是我又很想和别人一起出去玩，不想自己宅在宿舍里面。"
-      }
-    ],
-    "color": "#1E77E8"
-  },
-  {
     "topic": "外貌与健康管理",
     "slots": [
       {

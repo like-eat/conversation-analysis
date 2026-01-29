@@ -49,3 +49,4 @@ export interface Segment {
   right: number
   width: number
 }
+
