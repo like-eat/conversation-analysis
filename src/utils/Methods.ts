@@ -52,6 +52,7 @@ function permute<T>(arr: T[]): T[][] {
 }
 
 type PrevSegMap = Map<string, { left: number; right: number }>
+type TopicBandById = Map<string, Map<number, Segment>>
 
 export function spreadSpeakerFracs(
   speakerFracGlobal: Map<string, number>,
@@ -130,7 +131,7 @@ export function solveBandsAndSlotsRowWise(args: {
     minWidth = 1,
     edgeFallbackFrac = 0.5,
     beta = 1.0,
-    gamma = 30,
+    gamma = 50,
   } = args
 
   // 输出：topic -> Segment[]
@@ -168,6 +169,22 @@ export function solveBandsAndSlotsRowWise(args: {
     return inv
   }
 
+  // [NEW] build perm: fix new topics at their base-order slots, permute only old topics
+  function buildPermFixNew(
+    basePresent: string[], // topics.filter(widthMap.has)
+    newSet: Set<string>,
+    oldPerm: string[], // permutation of old topics only
+  ) {
+    const out: string[] = []
+    let k = 0
+    for (const t of basePresent) {
+      if (newSet.has(t))
+        out.push(t) // new topic: fixed position (baseOrder slot)
+      else out.push(oldPerm[k++]) // old topic: fill remaining slots by permutation
+    }
+    return out
+  }
+
   for (let rowIdx = 0; rowIdx < xs.length; rowIdx++) {
     const turnId = xs[rowIdx]
     const rp = rowProfile.get(turnId)
@@ -197,14 +214,33 @@ export function solveBandsAndSlotsRowWise(args: {
     // 本行 slots
     const rowSlots = pointsByTurn.get(turnId) ?? []
 
+    // base-present list in global order (used as "slot template")
+    const basePresent = topics.filter((t) => widthMap.has(t))
+
+    // identify new/old topics (new topic = not in prevSeg)
+    const oldTopics = presentTopics.filter((t) => prevSeg.has(t))
+    const newTopics = presentTopics.filter((t) => !prevSeg.has(t))
+    const newSet = new Set<string>(newTopics)
+    const hasNew = newTopics.length > 0
+
     // ---------- 候选排列 ----------
     let permList: string[][] = []
     if (rowIdx === 0) {
       // 第一行：严格按 topics 的 base 顺序
-      permList = [topics.filter((t) => widthMap.has(t))]
+      permList = [basePresent]
     } else {
-      // 后续：全排列（k 太大时会爆炸，必要时你可以改成“邻域候选”）
-      permList = permute(presentTopics)
+      if (hasNew) {
+        // ✅ fix new topics at base slots; only permute old topics
+        if (oldTopics.length <= 1) {
+          permList = [basePresent]
+        } else {
+          const oldPermList = permute(oldTopics)
+          permList = oldPermList.map((oldPerm) => buildPermFixNew(basePresent, newSet, oldPerm))
+        }
+      } else {
+        // no new topics: keep original behavior
+        permList = permute(presentTopics)
+      }
     }
 
     // ---------- eval：给定 perm + shift -> score / segs / slotXs ----------
@@ -260,11 +296,11 @@ export function solveBandsAndSlotsRowWise(args: {
         }
       }
 
-      const score = A - beta * B - gamma * C
-      // const score = -A + beta * B
       // const score = A
+
       // const score = A - beta * B
-      // const score = B
+
+      const score = A - beta * B - gamma * C
       return { score, segThis, slotXsLocal, A, B, C }
     }
 
@@ -335,9 +371,6 @@ export function solveBandsAndSlotsRowWise(args: {
 
     prevSeg = bestSeg
     prevPerm = bestPerm
-
-    // 需要时打开 debug：
-    // console.log('row', turnId, 'bestShift', bestShift, 'score', bestScore)
   }
 
   return { topicBands, slotXMap }
@@ -372,8 +405,8 @@ export function computeKDE1D(
   }
 
   // 归一化：1/(n*h*sqrt(2π))
-  const normFactor = 1 / (n * h * Math.sqrt(2 * Math.PI))
-  for (const v of values) v.value *= normFactor
+  // const normFactor = 1 / (n * h * Math.sqrt(2 * Math.PI))
+  // for (const v of values) v.value *= normFactor
 
   return values
 }
@@ -769,6 +802,116 @@ export function buildRowProfile(args: {
       })
     }
   }
+
+  return rowProfile
+}
+
+// ---- F) 计算每行总条带宽度 rowProfile（block 平滑）----
+export function buildRowProfileKDE(args: {
+  xs: number[]
+  turnScoreMap: Map<number, number>
+  numBlocks: number
+  stripCenter: number
+  pxPerScore: number
+  minRowWidth?: number
+  useSmooth?: boolean
+}) {
+  const {
+    xs,
+    turnScoreMap,
+    numBlocks,
+    stripCenter,
+    pxPerScore,
+    minRowWidth = 0,
+    useSmooth = true,
+  } = args
+
+  const totalSteps = xs.length
+  const safeBlocks = Math.max(1, Math.min(numBlocks, totalSteps))
+  const BLOCK_SIZE = Math.ceil(totalSteps / safeBlocks)
+
+  // ✅ [NEW] 统计：有多少行被 minRowWidth 主导
+  let dominatedCnt = 0
+  let validCnt = 0
+  let minRaw = Infinity,
+    maxRaw = -Infinity // 可选：看 s 的范围
+
+  // 1) 每块平均 raw score
+  const blockAvgScore: number[] = new Array(safeBlocks).fill(NaN)
+  for (let bi = 0; bi < safeBlocks; bi++) {
+    const startIdx = bi * BLOCK_SIZE
+    const endIdx = Math.min(startIdx + BLOCK_SIZE, totalSteps)
+    if (startIdx >= endIdx) break
+
+    const blockIds = xs.slice(startIdx, endIdx)
+
+    let sum = 0
+    let cnt = 0
+    for (const id of blockIds) {
+      const s = turnScoreMap.get(id)
+      if (Number.isFinite(s)) {
+        const ss = Math.max(0, s!)
+        sum += ss
+        cnt++
+
+        // ✅ [NEW] 统计 raw s 范围（可选）
+        minRaw = Math.min(minRaw, ss)
+        maxRaw = Math.max(maxRaw, ss)
+      }
+    }
+    blockAvgScore[bi] = cnt ? sum / cnt : NaN
+  }
+
+  // 2) 下采样 / 平滑：把 blockAvgScore 分配到每一行
+  const rowProfile: RowProfile = new Map()
+  for (let bi = 0; bi < safeBlocks; bi++) {
+    const startIdx = bi * BLOCK_SIZE
+    const endIdx = Math.min(startIdx + BLOCK_SIZE, totalSteps)
+    if (startIdx >= endIdx) break
+
+    const blockIds = xs.slice(startIdx, endIdx)
+    if (!blockIds.length) continue
+
+    const cur = Number.isFinite(blockAvgScore[bi]) ? blockAvgScore[bi] : 0
+    const next = Number.isFinite(blockAvgScore[Math.min(bi + 1, safeBlocks - 1)])
+      ? blockAvgScore[Math.min(bi + 1, safeBlocks - 1)]
+      : cur
+
+    const L = blockIds.length
+
+    for (let k = 0; k < L; k++) {
+      const id = blockIds[k]
+
+      let s = cur
+      if (useSmooth) {
+        const t = L <= 1 ? 0 : k / (L - 1)
+        const tt = t * t * (3 - 2 * t)
+        s = cur + (next - cur) * tt
+      }
+
+      const rawW = s * pxPerScore
+
+      // ✅ [NEW] dominated 统计：rawW 是否被 minRowWidth 压住
+      validCnt++
+      if (rawW < minRowWidth) dominatedCnt++
+
+      const rowWidth = Math.max(minRowWidth, rawW)
+      const half = rowWidth / 2
+
+      rowProfile.set(id, {
+        rowWidth,
+        stripLeft: stripCenter - half,
+        stripRight: stripCenter + half,
+      })
+    }
+  }
+
+  // ✅ [NEW] 打印统计结果（只打印一次）
+  console.log(
+    `[RowProfile] dominated=${dominatedCnt}/${validCnt} (${((dominatedCnt / Math.max(1, validCnt)) * 100).toFixed(1)}%)`,
+    `rawS=[${isFinite(minRaw) ? minRaw.toExponential(2) : 'NA'}, ${isFinite(maxRaw) ? maxRaw.toExponential(2) : 'NA'}]`,
+    `pxPerScore=${pxPerScore}, minRowWidth=${minRowWidth}`,
+  )
 
   return rowProfile
 }

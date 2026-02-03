@@ -1,8 +1,7 @@
 <template>
   <div class="chat-app">
     <div class="chat-header">
-      <h2>ChatApp</h2>
-      <p class="sub-title">自然语言模型人工智能对话</p>
+      <h2>TalkTrace</h2>
     </div>
 
     <div class="chat-window" ref="chatWindow">
@@ -343,49 +342,77 @@ watch(
 .chat-app {
   display: flex;
   flex-direction: column;
-  height: 95vh;
-  background: #f5f5f5;
-  font-family: Arial, sans-serif;
+  height: 98vh;
+
+  /* 更接近 IM 的柔和底色 */
+  background: linear-gradient(180deg, #f6f7fb 0%, #f2f4f8 100%);
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    'PingFang SC',
+    'Hiragino Sans GB',
+    'Microsoft YaHei',
+    Arial;
+  color: #1f2937;
+
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(15, 23, 42, 0.08);
 }
 
+/* 顶部栏：更像 app header */
 .chat-header {
-  background: #eee;
-  padding: 15px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+
+  padding: 12px 14px 10px;
   text-align: center;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
 }
 
 .chat-header h2 {
   margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
 }
 
-.sub-title {
-  font-size: 12px;
-  color: #888;
-}
-
+/* 消息窗口 */
 .chat-window {
   flex: 1;
-  padding: 15px;
+  padding: 14px 12px 18px;
   overflow-y: auto;
+
+  /* 保持你隐藏滚动条的逻辑 */
   scrollbar-width: none;
   -ms-overflow-style: none;
+
+  /* 更像聊天背景的“纸感” */
+  background-image: radial-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+  background-size: 18px 18px;
+  background-position: 0 0;
 }
 
 .chat-window::-webkit-scrollbar {
   display: none;
 }
 
+/* 一条消息 */
 .chat-message {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 16px;
+  gap: 10px;
+  margin-bottom: 14px;
 }
 
+/* 自己：右侧 */
 .chat-message.self {
   flex-direction: row-reverse;
 }
 
+/* 头像区 */
 .avatar-wrapper {
   width: 40px;
   flex-shrink: 0;
@@ -394,74 +421,192 @@ watch(
 }
 
 .avatar {
-  width: 32px;
-  height: 32px;
-  background: #ccc;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  background: #e5e7eb;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.1);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  user-select: none;
+}
+
+.avatar span {
+  font-size: 18px;
+  line-height: 1;
 }
 
 .avatar-self {
-  background: #36ae44;
+  background: linear-gradient(180deg, #34d399 0%, #22c55e 100%);
   color: #fff;
-  font-weight: 600;
+  border: 1px solid rgba(34, 197, 94, 0.35);
 }
 
+/* 消息主体 */
 .message-body {
-  max-width: 80%;
+  max-width: min(78%, 720px);
   display: flex;
   flex-direction: column;
 }
 
+/* 昵称 */
 .speaker-name {
   font-size: 12px;
-  color: #666;
-  margin: 0 4px 4px 4px;
+  color: rgba(31, 41, 55, 0.55);
+  margin: 0 8px 6px;
 }
 
+/* 气泡 */
 .bubble {
-  align-self: flex-start;
+  position: relative;
   max-width: 100%;
-  padding: 8px 10px;
-  border-radius: 6px;
-  background: #ddd;
+  padding: 10px 12px;
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+
   word-break: break-word;
+  line-height: 1.55;
+  font-size: 14px;
 }
 
+/* 让 Markdown 内容更好看 */
+.bubble :deep(p) {
+  margin: 0.25em 0;
+}
+.bubble :deep(ul),
+.bubble :deep(ol) {
+  margin: 0.35em 0 0.35em 1.2em;
+  padding: 0;
+}
+.bubble :deep(li) {
+  margin: 0.2em 0;
+}
+.bubble :deep(a) {
+  color: #2563eb;
+  text-decoration: none;
+}
+.bubble :deep(a:hover) {
+  text-decoration: underline;
+}
+.bubble :deep(code) {
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+  font-size: 12.5px;
+  padding: 0.15em 0.35em;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+.bubble :deep(pre) {
+  margin: 0.6em 0 0.2em;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #0b1220;
+  color: rgba(255, 255, 255, 0.92);
+  overflow: auto;
+}
+.bubble :deep(pre code) {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* 自己的气泡：绿色渐变 */
 .chat-message.self .bubble {
-  background: #36ae44;
+  background: linear-gradient(180deg, #34d399 0%, #22c55e 100%);
   color: #fff;
-  align-self: flex-end;
+  border: 1px solid rgba(34, 197, 94, 0.45);
+  box-shadow: 0 12px 30px rgba(34, 197, 94, 0.18);
+}
+
+/* 自己气泡里链接/代码的适配 */
+.chat-message.self .bubble :deep(a) {
+  color: rgba(255, 255, 255, 0.95);
+  text-decoration: underline;
+}
+.chat-message.self .bubble :deep(code) {
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.95);
+}
+.chat-message.self .bubble :deep(pre) {
+  background: rgba(0, 0, 0, 0.28);
 }
 
 .chat-input {
   display: flex;
-  padding: 10px;
-  background: #fff;
-  border-top: 1px solid #ccc;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+
+  background: rgba(255, 255, 255, 0.92);
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(10px);
 }
 
 .chat-input input {
   flex: 1;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-right: 5px;
+  height: 42px;
+  padding: 0 14px;
+
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: rgba(255, 255, 255, 0.96);
+
+  color: #111827;
+  outline: none;
+
+  transition:
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.chat-input input::placeholder {
+  color: rgba(31, 41, 55, 0.45);
+}
+
+.chat-input input:focus {
+  border-color: rgba(34, 197, 94, 0.55);
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
 }
 
 .chat-input button {
-  padding: 8px 12px;
-  border: none;
-  background: #36ae44;
-  color: #fff;
-  border-radius: 5px;
+  height: 42px;
+  padding: 0 18px;
+  border-radius: 999px;
+
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  background: rgba(34, 197, 94, 0.12);
+  color: #15803d;
+
+  font-weight: 700;
   cursor: pointer;
+
+  transition:
+    transform 0.08s ease,
+    filter 0.15s ease,
+    background 0.15s ease;
+}
+
+.chat-input button:hover {
+  background: rgba(34, 197, 94, 0.18);
+  filter: brightness(1.02);
+}
+
+.chat-input button:active {
+  transform: translateY(1px);
 }
 
 .chat-input button:disabled {
-  background: #aaa;
+  opacity: 0.45;
   cursor: not-allowed;
 }
 </style>

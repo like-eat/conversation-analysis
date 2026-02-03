@@ -4,8 +4,8 @@
     <div class="dataset-label">{{ datasetName }}</div>
 
     <!-- 操作按钮（前两个占位） -->
-    <button class="bottom-left-btn" @click="DeleteLine">清除线条</button>
-    <button class="bottom-mid-btn" @click="AddTalk">新开分支</button>
+    <!-- <button class="bottom-left-btn" @click="DeleteLine">清除线条</button>
+    <button class="bottom-mid-btn" @click="AddTalk">新开分支</button> -->
     <button class="bottom-right-btn" @click="emit('toggle-dataset')">切换数据</button>
   </div>
 </template>
@@ -18,16 +18,16 @@ import type { Conversation } from '@/types/index'
 
 const containerRef = ref<HTMLDivElement | null>(null)
 
-const DeleteLine = () => {
-  // 这里做“清除线条”的真实逻辑：把线层清空即可
-  if (!containerRef.value) return
-  d3.select(containerRef.value).selectAll('.speaker-line').remove()
-  console.log('DeleteLine: removed speaker lines')
-}
+// const DeleteLine = () => {
+//   // 这里做“清除线条”的真实逻辑：把线层清空即可
+//   if (!containerRef.value) return
+//   d3.select(containerRef.value).selectAll('.speaker-line').remove()
+//   console.log('DeleteLine: removed speaker lines')
+// }
 
-const AddTalk = () => {
-  console.log('AddTalk (TODO)')
-}
+// const AddTalk = () => {
+//   console.log('AddTalk (TODO)')
+// }
 
 // 1) props/emits
 type DatasetKey = 'meeting' | 'xinli'

@@ -65,30 +65,27 @@ def softmax_probs(sim_row: np.ndarray, beta: float = 12.0) -> np.ndarray:
     ez = np.exp(z)
     return ez / (np.sum(ez) + 1e-12)
 
-def confidence_entropy(sim_row: np.ndarray, beta: float = 12.0) -> float:
+def entropy_raw(sim_row: np.ndarray, beta: float = 12.0) -> float:
+    """
+    Return raw entropy H(p) in [0, log(K)] where p = softmax(beta * sim_row).
+    """
     K = sim_row.size
     if K <= 1:
-        return 1.0
+        return 0.0
     p = softmax_probs(sim_row, beta=beta)
     H = -float(np.sum(p * np.log(p + 1e-12)))
-    H_norm = H / float(np.log(K))
-    return float(1.0 - np.clip(H_norm, 0.0, 1.0))
+    return H
 
-def cosine_to_01(x: float) -> float:
-    return float(np.clip((x + 1.0) * 0.5, 0.0, 1.0))
-
-def score_strength_confidence(sim_row: np.ndarray, topic_idx: Optional[int], beta: float = 12.0) -> Tuple[int, float, float, float]:
+def reverse_minmax(H: float, Hmin: float, Hmax: float, eps: float = 1e-12) -> float:
     """
-    Return: (best_idx, strength_cos, confidence, info_score)
+    score = (Hmax - H) / (Hmax - Hmin), clipped to [0,1]
     """
-    if sim_row.size == 0 or topic_idx is None or topic_idx < 0 or topic_idx >= sim_row.size:
-        return -1, 0.0, 0.0, 0.0
+    denom = (Hmax - Hmin)
+    if denom < eps:
+        return 1.0  # 或者 0.5，看你更喜欢哪种默认
+    s = (Hmax - H) / denom
+    return float(np.clip(s, 0.0, 1.0))
 
-    strength = float(sim_row[topic_idx])             # <-- 关键：不再 argmax
-    conf = confidence_entropy(sim_row, beta=beta)    # [0,1] 仍用整行
-    strength01 = cosine_to_01(strength)              # [0,1]
-    info_score = strength01 * conf                   # [0,1]
-    return int(topic_idx), strength, conf, float(info_score)
 
 @dataclass
 class SlotSeg:
@@ -244,7 +241,7 @@ def main(
 ):
     USE_NORM = True   # True 输出归一化到 [0.2,1]；False 输出 raw top2 mean
 
-    conv = parse_meeting_conversation(conversation_path)
+    conv = parse_conversation(conversation_path)
     conv = sorted(conv, key=lambda x: int(x["id"]))
 
     ids = [int(m["id"]) for m in conv]
@@ -264,37 +261,37 @@ def main(
 
     beta = 15.0  # 可调：8~20 常用，越大越偏向 top1
 
+    # === 新增：先计算每句的 raw entropy，再取全局 Hmin/Hmax ===
+    Hs = np.array([entropy_raw(sim[i], beta=beta) for i in range(sim.shape[0])], dtype=np.float64)
+    Hmin = float(Hs.min())
+    Hmax = float(Hs.max())
+
     out = []
     for i in range(sim.shape[0]):
         msg_id = ids[i]
-        topic_idx = slot_index_for_id(segs, msg_id)  # <-- 这句所属主题段索引
 
-        assigned_idx, strength, conf, score = score_strength_confidence(
-            sim[i], topic_idx, beta=beta
-        )
+        H = float(Hs[i])
+        score = reverse_minmax(H, Hmin, Hmax)   # <-- 你的公式
 
         out.append({
             "id": msg_id,
-            "topic_id": assigned_idx,
-            "topic_name": topic_names[assigned_idx] if 0 <= assigned_idx < len(topic_names) else "",
-            "strength": strength,
-            "confidence": conf,
             "info_score": score,
         })
-
 
 
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
 
-    print(f"[OK] Wrote: {out_path}  (info_score = strength01 * confidence)")
+    print(f"[OK] Wrote: {out_path}  (info_score = (Hmax - H)/(Hmax - Hmin))")
+    print(f"      Hmin={Hmin:.6f}, Hmax={Hmax:.6f}, beta={beta}")
+
 
 
 
 if __name__ == "__main__":
-    conversation_path = "py/conversation_example/meeting_talk.txt"
-    slots_path = "py/conversation_example/meeting_content/slots.json"
-    out_path = "py/conversation_example/meeting_content/info_with_scores.json"
+    conversation_path = "py/conversation_example/ChatGPT-xinli.txt"
+    slots_path = "py/conversation_example/xinli_content/slots.json"
+    out_path = "py/conversation_example/xinli_content/info_with_scores.json"
 
     # 从 slots.json 中提取 topic_names（去重并保持出现顺序）
     slot_items = load_json(slots_path)

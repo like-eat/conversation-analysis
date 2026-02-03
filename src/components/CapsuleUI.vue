@@ -46,6 +46,30 @@ import {
   makeFixedXInTopicRow,
 } from '@/utils/Methods'
 
+function applySpeakerFilter(ctx: DrawCtx) {
+  const sp = ctx.activeSpeakerKey
+
+  const lineSel = d3.selectAll<SVGPathElement, unknown>('path.speaker-global-line')
+
+  if (!sp) {
+    // 恢复显示
+    lineSel.style('display', null)
+    return
+  }
+
+  // 只显示该 speaker 的全局连线
+  lineSel.style('display', function () {
+    const name = d3.select(this).attr('data-speaker')
+    return name === sp ? null : 'none'
+  })
+}
+
+function clearSpeakerFilter(ctx: DrawCtx) {
+  ctx.activeSpeakerKey = null
+  activeSpeakerKey.value = null
+  d3.selectAll<SVGPathElement, unknown>('path.speaker-global-line').style('display', null)
+}
+
 function hash32(s: string) {
   let h = 2166136261
   for (let i = 0; i < s.length; i++) {
@@ -113,6 +137,23 @@ const UIcontainer = ref<HTMLElement | null>(null)
 const activeTopicKey = ref<string | null>(null)
 // 当前“多选 topics”（用于显示多个 slot 云）
 const activeTopics = ref<Set<string>>(new Set())
+
+// 当前“焦点 speaker”（用于角色筛选）
+const activeSpeakerKey = ref<string | null>(null)
+
+// speaker -> topics set（用于点击角色图例后只显示相关主题）
+type SpeakerTopicsMap = Map<string, Set<string>>
+function buildSpeakerTopicsIndex(allPoints: Point[]): SpeakerTopicsMap {
+  const m: SpeakerTopicsMap = new Map()
+  for (const p of allPoints) {
+    const sp = (p.source || '').trim()
+    if (!sp) continue
+    const t = (p.topic ?? 'Unknown Topic') as string
+    if (!m.has(sp)) m.set(sp, new Set())
+    m.get(sp)!.add(t)
+  }
+  return m
+}
 
 // 存储对话数据（渲染输入）
 const data = ref<Conversation[]>([])
@@ -296,6 +337,9 @@ type DrawCtx = {
   wordcloudTurn: number | null
   wordcloudAnchor: { id: number; x: number; y: number } | null
   zoomK: number
+  // ---- Speaker filter ----
+  activeSpeakerKey: string | null
+  speakerTopics: SpeakerTopicsMap
 
   // ---- functions that need access to refs ----
   updateSelectedTopic: () => void
@@ -399,6 +443,7 @@ function drawGlobalSpeakerLines(ctx: DrawCtx) {
     globalLineLayer
       .append('path')
       .attr('class', 'speaker-global-line')
+      .attr('data-speaker', speakerName)
       .attr('d', lineGen(coords)!)
       .attr('fill', 'none')
       .attr('stroke', speakerColorMap[speakerName] || '#999')
@@ -457,6 +502,9 @@ function renderTopicBands(ctx: DrawCtx) {
       .on('click', (event) => {
         event.stopPropagation()
 
+        // ✅ 点击 topic 时，退出 speaker 过滤模式
+        if (ctx.activeSpeakerKey) clearSpeakerFilter(ctx)
+
         if (isShiftPressed.value) {
           const next = new Set(activeTopics.value)
           if (next.has(topic)) next.delete(topic)
@@ -491,7 +539,16 @@ function showSlotCloudInto(
   cloudLayer: d3.Selection<SVGGElement, unknown, any, unknown>,
 ) {
   // 1) 筛出该 topic 所有 points（按时间排序）
-  const allSlots = ctx.allPoints.filter((p) => p.topic === topic).sort((a, b) => a.id - b.id)
+  // ✅ 如果当前有 activeSpeakerKey，则只显示该 speaker 的 slots
+  const spFilter = ctx.activeSpeakerKey
+  const allSlots = ctx.allPoints
+    .filter((p) => p.topic === topic)
+    .filter((p) => {
+      if (!spFilter) return true
+      return (p.source || '').trim() === spFilter
+    })
+    .sort((a, b) => a.id - b.id)
+
   if (!allSlots.length) return
 
   // 2) 限制显示数量（避免太重）
@@ -577,9 +634,18 @@ function showSlotCloudInto(
     })
 
   // 11) 文本（按时间映射字号）
+  const LEFT_SPEAKERS = new Set<string>(['功必扬']) // 这里填你想放左侧的发言人名字
+
   slotGroups
     .append('text')
-    .attr('x', 6)
+    .attr('x', (d) => {
+      const sp = (d.source || '').trim()
+      return LEFT_SPEAKERS.has(sp) ? -6 : 6
+    })
+    .attr('text-anchor', (d) => {
+      const sp = (d.source || '').trim()
+      return LEFT_SPEAKERS.has(sp) ? 'end' : 'start'
+    })
     .attr('y', 0)
     .attr('dominant-baseline', 'middle')
     .attr('fill', '#333')
@@ -663,148 +729,6 @@ function syncSlotClouds(ctx: DrawCtx) {
  * 14) drawUI 外提：词云渲染（放在条带内部）
  * ======================================================================
  */
-function tryRenderWordcloudInBand(ctx: DrawCtx) {
-  let wcLayer = ctx.contentG.select<SVGGElement>('.slot-wordcloud-inband')
-  if (wcLayer.empty()) wcLayer = ctx.contentG.append('g').attr('class', 'slot-wordcloud-inband')
-  wcLayer.selectAll('*').remove()
-
-  // 条件：有焦点 topic、缩放足够、并且点过 slot
-  const WORDCLOUD_ZOOM_THRESHOLD = 1.5
-  if (!activeTopicKey.value) return
-  if (ctx.zoomK < WORDCLOUD_ZOOM_THRESHOLD) return
-  if (!ctx.wordcloudTurn) return
-
-  // 找当前 turn 对应 point（同 topic）
-  const hit = ctx.allPoints.find(
-    (p) => p.id === ctx.wordcloudTurn && p.topic === activeTopicKey.value,
-  )
-  const wc = hit?.wordcloud ?? []
-  if (!wc.length) return
-
-  // 找该 turn 的条带范围（用 rowProfile 控整个条带宽度）
-  const rp = ctx.rowProfile.get(ctx.wordcloudTurn)
-  if (!rp) return
-
-  // 词云 bounding box（严格限制在该 turn 的条带内）
-  const PAD = 8
-  const boxX0 = rp.stripLeft + PAD
-  const boxX1 = rp.stripRight - PAD
-
-  const centerY = ctx.yScaleTime(ctx.wordcloudTurn)
-  const boxH = 100
-  const boxY0 = Math.max(0, centerY - boxH / 2)
-  const boxY1 = Math.min(ctx.innerHeight, centerY + boxH / 2)
-
-  const boxW = Math.max(10, boxX1 - boxX0)
-  const boxH2 = Math.max(10, boxY1 - boxY0)
-
-  // 取前 N 个词（按权重降序）
-  const MAX_WC = 30
-  const words = wc
-    .slice()
-    .filter((d) => d.word)
-    .sort((a, b) => (Number(b.weight) || 0) - (Number(a.weight) || 0))
-    .slice(0, MAX_WC)
-
-  // 字号/透明度映射（根据 weight）
-  const wArr = words.map((d) => (Number.isFinite(d.weight) ? d.weight : 0.5))
-  let wMin = d3.min(wArr) ?? 0
-  let wMax = d3.max(wArr) ?? 1
-  if (wMax - wMin < 0.15) {
-    wMin = Math.max(0, wMin - 0.4)
-    wMax = Math.min(1, wMax + 0.4)
-  }
-
-  const sizeScale = d3.scalePow().exponent(1.9).domain([wMin, wMax]).range([8, 26]).clamp(true)
-  const alphaScale = d3.scaleLinear().domain([wMin, wMax]).range([0.35, 1.0]).clamp(true)
-
-  // 碰撞盒（更像“云”而不是“一行行”）
-  type Box = { x0: number; x1: number; y0: number; y1: number }
-  const placed: Box[] = []
-
-  const baseCx = boxX0 + boxW / 2
-  const baseCy = boxY0 + boxH2 / 2
-
-  const useAnchor = ctx.wordcloudAnchor && ctx.wordcloudAnchor.id === ctx.wordcloudTurn
-  const margin = 14
-  const cx0 = useAnchor
-    ? Math.max(boxX0 + margin, Math.min(boxX1 - margin, ctx.wordcloudAnchor!.x))
-    : baseCx
-  const cy0 = baseCy
-
-  const aspectY = Math.max(1.2, (boxH2 / boxW) * 3.2)
-  const jitterX = (v: number) => v + (Math.random() - 0.5) * 8
-  const jitterY = (v: number) => v + (Math.random() - 0.5) * 14
-
-  const MAX_TRIES = 260
-  const PAD2 = 3
-
-  for (const it of words) {
-    const w = it.word
-    const weight = Number.isFinite(it.weight) ? it.weight : 0.5
-    const fs = sizeScale(weight)
-
-    // 先创建 text（测量宽度）
-    const t = wcLayer
-      .append('text')
-      .attr('x', 0)
-      .attr('y', 0)
-      .attr('text-anchor', 'middle')
-      .attr('dominant-baseline', 'middle')
-      .attr('fill', '#fff')
-      .attr('font-family', 'SimHei')
-      .attr('font-size', fs)
-      .attr('fill-opacity', alphaScale(weight))
-      .attr('font-weight', weight > (wMin + wMax) / 2 ? 700 : 400)
-      .text(w)
-
-    const node = t.node() as SVGTextElement | null
-    if (!node) {
-      t.remove()
-      continue
-    }
-
-    const tw = node.getComputedTextLength()
-    const th = fs * 1.05
-
-    // 少量旋转，增加“云”感
-    const rot = Math.random() < 0.28 ? (Math.random() < 0.5 ? -22 : 22) : 0
-
-    let ok: { x: number; y: number; box: Box } | null = null
-
-    // 螺旋搜索可放置位置
-    for (let k = 0; k < MAX_TRIES; k++) {
-      const a = 0.45 * k
-      const r = 5.2 * Math.sqrt(k)
-      const x = jitterX(cx0 + r * Math.cos(a))
-      const y = jitterY(cy0 + r * aspectY * Math.sin(a))
-
-      const b: Box = {
-        x0: x - tw / 2 - PAD2,
-        x1: x + tw / 2 + PAD2,
-        y0: y - th / 2 - PAD2,
-        y1: y + th / 2 + PAD2,
-      }
-
-      if (b.x0 < boxX0 || b.x1 > boxX1 || b.y0 < boxY0 || b.y1 > boxY1) continue
-      if (intersects(b, placed)) continue
-
-      ok = { x, y, box: b }
-      break
-    }
-
-    // 放不下就删掉这个词
-    if (!ok) {
-      t.remove()
-      continue
-    }
-
-    // 放置成功：更新坐标与旋转
-    t.attr('x', ok.x).attr('y', ok.y)
-    if (rot !== 0) t.attr('transform', `rotate(${rot}, ${ok.x}, ${ok.y})`)
-    placed.push(ok.box)
-  }
-}
 
 function tryRenderWordcloudInBandbubble(ctx: DrawCtx) {
   // === layer ===
@@ -813,7 +737,7 @@ function tryRenderWordcloudInBandbubble(ctx: DrawCtx) {
   wcLayer.selectAll('*').remove()
 
   // === conditions ===
-  const WORDCLOUD_ZOOM_THRESHOLD = 1.5
+  const WORDCLOUD_ZOOM_THRESHOLD = 1
   if (!activeTopicKey.value) return
   if (ctx.zoomK < WORDCLOUD_ZOOM_THRESHOLD) return
   if (!ctx.wordcloudTurn || !ctx.wordcloudAnchor) return
@@ -850,8 +774,7 @@ function tryRenderWordcloudInBandbubble(ctx: DrawCtx) {
   const stripL = ctx.stripLeftFixed
   const stripR = ctx.stripLeftFixed + ctx.stripWidthFixed * 0.8
 
-  // 1) 先按点击点决定“倾向侧”
-  const side: 'L' | 'R' = anchor.x < ctx.stripCenter ? 'L' : 'R'
+  const side: 'L' | 'R' = anchor.x < ctx.stripCenter + 40 ? 'L' : 'R'
 
   // 1) 先给一个“理想位置”：尽量靠近点击点
   let boxX0 =
@@ -862,11 +785,13 @@ function tryRenderWordcloudInBandbubble(ctx: DrawCtx) {
   // 2) 再强制保证“完全在条带外”
   if (side === 'L') {
     // 右边缘 <= stripL - gapX
-    boxX0 = Math.min(boxX0, stripL)
+    boxX0 = Math.min(boxX0, stripL - gapX - bubbleW)
   } else {
     // 左边缘 >= stripR + gapX
     boxX0 = Math.max(boxX0, stripR)
   }
+
+  console.log('anchor.x', anchor.x, 'stripCenter', ctx.stripCenter, 'zoomK', ctx.zoomK)
 
   // 3) 最后做画布边界 clamp（左右同样需要，但边界不一样）
   if (side === 'L') {
@@ -907,8 +832,17 @@ function tryRenderWordcloudInBandbubble(ctx: DrawCtx) {
   // arrow points to anchor
   // ----- fat curved tail (filled) -----
   // anchor
-  const ax = anchor.x
+  // anchor（默认指向圆点）
+  let ax = anchor.x
   const ay = anchor.y
+
+  // 仅对“功必扬”：把尾巴目标挪到左侧文本区域
+  const sp = (hit?.source || '').trim()
+  if (sp === '功必扬') {
+    const textDx = 6 // 你画 text 的 x 偏移（LEFT 是 -6，但这里我们用绝对值）
+    const estHalfTextW = 60 // 估计“半个文字宽”，按效果调：30~70 都常见
+    ax = anchor.x - (textDx + estHalfTextW)
+  }
 
   // base point on bubble edge
   const bx = side === 'L' ? boxX0 + bubbleW : boxX0
@@ -964,7 +898,7 @@ function tryRenderWordcloudInBandbubble(ctx: DrawCtx) {
     .attr('stroke-linejoin', 'round')
 
   // === word area inside bubble ===
-  const PAD = 10
+  const PAD = 1
   const topPad = 26 // leave room for title
   const wcX0 = boxX0 + PAD
   const wcX1 = boxX1 - PAD
@@ -1262,6 +1196,38 @@ function drawLegends(ctx: DrawCtx) {
       'transform',
       (_d, i) => `translate(${legendPadding}, ${legendPadding + 8 + i * legendItemHeight})`,
     )
+    .style('cursor', 'pointer')
+    .on('click', (event, speaker) => {
+      event.stopPropagation()
+
+      // ✅ toggle speaker
+      const next = activeSpeakerKey.value === speaker ? null : speaker
+      activeSpeakerKey.value = next
+      ctx.activeSpeakerKey = next
+
+      if (!next) {
+        // 取消 speaker 筛选：恢复 topic band/lines，activeTopics 不强制改（你也可清空）
+        applySpeakerFilter(ctx)
+        // 这里你可以选择：恢复为“当前 activeTopics”，或清空
+        // activeTopics.value = new Set()
+        // activeTopicKey.value = null
+        // highlightTopicBands(null)
+        ctx.syncSlotClouds()
+        return
+      }
+
+      // ✅ speaker -> topics：只显示该 speaker 涉及的 topics
+      const keepTopics = ctx.speakerTopics.get(next) ?? new Set<string>()
+      activeTopics.value = new Set(keepTopics)
+      activeTopicKey.value = keepTopics.size ? Array.from(keepTopics)[0] : null
+
+      // 只显示这些 topic 的 bands（其余隐藏）+ 只显示该 speaker 的线
+      applySpeakerFilter(ctx)
+
+      // 同步 slot 云（showSlotCloudInto 内也会过滤为该 speaker）
+      ctx.updateSelectedTopic()
+      ctx.syncSlotClouds()
+    })
 
   speakerLegendItems
     .append('circle')
@@ -1404,10 +1370,10 @@ function drawUI(
     stripCenter,
     widthByTopicById,
     speakerFracGlobal,
-    slotPadX: 30,
+    slotPadX: 50,
     minWidth: 1,
-    beta: 0.5,
-    // gamma: ... 你如果已经加了C项就把 gamma 也传进来
+    beta: 1,
+    gamma: 50,
   })
 
   // prune 一下（可选，但建议保留你之前的）
@@ -1467,10 +1433,17 @@ function drawUI(
     wordcloudAnchor: null,
     zoomK: 1,
 
+    activeSpeakerKey: null,
+    speakerTopics: new Map(),
+
     updateSelectedTopic: () => {},
     syncSlotClouds: () => {},
     resetAll: () => {},
   }
+
+  // ✅ 建 speaker -> topics 索引（给角色图例点击用）
+  ctx.speakerTopics = buildSpeakerTopicsIndex(allPoints)
+  ctx.activeSpeakerKey = null
 
   // 18) 选中 topic：更新 AddTalk 上下文 + 高亮
   ctx.updateSelectedTopic = () => {
@@ -1500,6 +1473,8 @@ function drawUI(
 
   // 19) reset：清 activeTopics / 高亮 / slot 云 / 词云
   ctx.resetAll = () => {
+    clearSpeakerFilter(ctx)
+
     activeTopics.value = new Set()
     activeTopicKey.value = null
     highlightTopicBands(null)
@@ -1522,6 +1497,18 @@ function drawUI(
 
   // 21) svg click：只绑定一次 reset（避免 showSlotCloudInto 重复绑）
   ctx.svg.on('click', () => ctx.resetAll())
+
+  // if (outlinePathD) {
+  //   ctx.overlayLayer
+  //     .append('path')
+  //     .attr('class', 'strip-outline')
+  //     .attr('d', outlinePathD)
+  //     .attr('fill', 'none')
+  //     .attr('stroke', '#111')
+  //     .attr('stroke-width', 1.2)
+  //     .attr('stroke-opacity', 0.35)
+  //     .lower() // 放到底层，避免挡住交互
+  // }
 
   // 22) 画 bands（绑定点击逻辑）
   renderTopicBands(ctx)

@@ -611,3 +611,19 @@ def prune_isolated_slots_keep_multi_clusters(
         if x in keep_x:
             out.append(s)
     return out
+
+def save_messages_as_txt(messages, out_path):
+    with open(out_path, "w", encoding="utf-8") as f:
+        for msg in messages:
+            f.write(f"{msg['id']}\n")
+            f.write(f"[{msg['role']}]\n")
+            f.write((msg.get("content") or "").rstrip() + "\n\n")  # 空一行分隔
+
+
+if __name__ == "__main__":
+    print("🤖 启动对话处理程序...")
+    file_path = "py/conversation_example/meeting_talk.txt"
+    out_path = "py/conversation_example/meeting_talk-clear.txt"
+
+    messages = parse_meeting_conversation(file_path)  # 或 parse_meeting_conversation
+    save_messages_as_txt(messages, out_path)
