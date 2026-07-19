@@ -359,7 +359,14 @@ function createScene(
   margin: DrawCtx['margin'],
 ) {
   // 1) 创建 svg
-  const svg = d3.select(container).append('svg').attr('width', width).attr('height', height)
+  const svg = d3
+    .select(container)
+    .append('svg')
+    .attr('viewBox', `0 0 ${width} ${height}`)
+    .attr('preserveAspectRatio', 'xMidYMid meet')
+    .style('display', 'block')
+    .style('width', '100%')
+    .style('height', '100%')
 
   // 2) 根 group：用于留 margin
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
@@ -1557,18 +1564,27 @@ watch(
   display: flex;
   flex-direction: column;
   position: relative;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background-color: #fff;
 }
 
 /* 主画布 */
 .capsule-body {
-  width: 1000px;
-  height: 900px;
-  margin-top: 10px;
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
 }
 
 .dataset-label {
-  width: 1000px;
+  position: absolute;
+  bottom: 54px;
+  left: 0;
+  width: 100%;
   height: 0px;
   display: flex;
   align-items: center;

@@ -32,6 +32,8 @@ function toggleDataset() {
   flex-direction: column;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
+  background-color: #fff;
 }
 
 .content-container {
@@ -42,6 +44,7 @@ function toggleDataset() {
 }
 .dialog-container {
   flex: 0 0 50%;
+  min-width: 0;
   overflow: auto;
   padding: 10px;
   border-right: 1px solid #ddd;
@@ -49,9 +52,12 @@ function toggleDataset() {
 
 .capsule-graph-container {
   flex: 0 0 50%;
+  min-width: 0;
+  min-height: 0;
   overflow: hidden;
   display: flex;
   justify-content: flex-start; /* 👈 改成左对齐 */
-  align-items: flex-start;
+  align-items: stretch;
+  background-color: #fff;
 }
 </style>
