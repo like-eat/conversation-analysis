@@ -420,94 +420,8 @@ export type SlotCluster = {
   length: number
 }
 
-export function clusterSlotIdsByTopic(
-  slotIdsByTopic: Map<string, Set<number>>,
-  gapTol: number = 1,
-  minLen: number = 1,
-): Record<string, SlotCluster[]> {
-  const out: Record<string, SlotCluster[]> = {}
-
-  for (const [topic, idSet] of slotIdsByTopic.entries()) {
-    const ids = Array.from(idSet).sort((a, b) => a - b)
-    const clusters: SlotCluster[] = []
-    if (ids.length === 0) {
-      out[topic] = clusters
-      continue
-    }
-
-    let cur: number[] = [ids[0]]
-    for (let i = 1; i < ids.length; i++) {
-      const prev = ids[i - 1]
-      const now = ids[i]
-      if (now - prev <= gapTol) cur.push(now)
-      else {
-        if (cur.length >= minLen) {
-          clusters.push({
-            topic,
-            clusterIndex: clusters.length,
-            startId: cur[0],
-            endId: cur[cur.length - 1],
-            ids: cur.slice(),
-            length: cur.length,
-          })
-        }
-        cur = [now]
-      }
-    }
-
-    if (cur.length >= minLen) {
-      clusters.push({
-        topic,
-        clusterIndex: clusters.length,
-        startId: cur[0],
-        endId: cur[cur.length - 1],
-        ids: cur.slice(),
-        length: cur.length,
-      })
-    }
-
-    out[topic] = clusters
-  }
-
-  return out
-}
 
 /** 避让布局：修改 points 内的 _y（原地更新） */
-export function resolveY<T extends { _ty: number; _y: number }>(
-  points: T[],
-  yMin: number,
-  yMax: number,
-  minGap: number,
-) {
-  if (!points.length) return
-
-  const ps = points.slice().sort((a, b) => a._ty - b._ty)
-
-  let cur = yMin
-  for (const d of ps) {
-    cur = Math.max(d._ty, cur)
-    d._y = cur
-    cur += minGap
-  }
-
-  // 下溢出：整体上移
-  const overflow = ps[ps.length - 1]._y - yMax
-  if (overflow > 0) {
-    for (const d of ps) d._y -= overflow
-  }
-
-  // 从下往上再压一遍，确保 gap
-  for (let i = ps.length - 2; i >= 0; i--) {
-    const maxAllowed = ps[i + 1]._y - minGap
-    ps[i]._y = Math.min(ps[i]._y, maxAllowed)
-  }
-
-  // 上溢出：整体下移
-  const topOverflow = yMin - ps[0]._y
-  if (topOverflow > 0) {
-    for (const d of ps) d._y += topOverflow
-  }
-}
 
 export function highlightTopicBands(selected: Set<string> | null) {
   const bands = d3.selectAll<SVGPathElement, unknown>('path.topic-band')
@@ -561,35 +475,6 @@ export function intersects(b: Box, placed: Box[]): boolean {
   return false
 }
 
-// (C) 用贪心排布：row1 按 topics 顺序；row>=2 追求 left 接近上一行
-export function layoutMinMove(desired: number[], widths: number[], L: number, R: number): number[] {
-  const k = desired.length
-  const left = new Array(k).fill(0)
-  if (k === 0) return left
-
-  // forward pass: no overlap
-  left[0] = Math.max(desired[0], L)
-  for (let i = 1; i < k; i++) {
-    left[i] = Math.max(desired[i], left[i - 1] + widths[i - 1])
-  }
-
-  // backward pass: fix overflow
-  const end = left[k - 1] + widths[k - 1]
-  if (end > R) {
-    left[k - 1] = Math.min(left[k - 1], R - widths[k - 1])
-    for (let i = k - 2; i >= 0; i--) {
-      left[i] = Math.min(left[i], left[i + 1] - widths[i])
-    }
-
-    // left bound fix
-    if (left[0] < L) {
-      const shift = L - left[0]
-      for (let i = 0; i < k; i++) left[i] += shift
-    }
-  }
-
-  return left
-}
 
 // ---- A) clamp score 到 [min,max] ----
 export function clamp(v: number, lo: number, hi: number) {
@@ -806,115 +691,6 @@ export function buildRowProfile(args: {
   return rowProfile
 }
 
-// ---- F) 计算每行总条带宽度 rowProfile（block 平滑）----
-export function buildRowProfileKDE(args: {
-  xs: number[]
-  turnScoreMap: Map<number, number>
-  numBlocks: number
-  stripCenter: number
-  pxPerScore: number
-  minRowWidth?: number
-  useSmooth?: boolean
-}) {
-  const {
-    xs,
-    turnScoreMap,
-    numBlocks,
-    stripCenter,
-    pxPerScore,
-    minRowWidth = 0,
-    useSmooth = true,
-  } = args
-
-  const totalSteps = xs.length
-  const safeBlocks = Math.max(1, Math.min(numBlocks, totalSteps))
-  const BLOCK_SIZE = Math.ceil(totalSteps / safeBlocks)
-
-  // ✅ [NEW] 统计：有多少行被 minRowWidth 主导
-  let dominatedCnt = 0
-  let validCnt = 0
-  let minRaw = Infinity,
-    maxRaw = -Infinity // 可选：看 s 的范围
-
-  // 1) 每块平均 raw score
-  const blockAvgScore: number[] = new Array(safeBlocks).fill(NaN)
-  for (let bi = 0; bi < safeBlocks; bi++) {
-    const startIdx = bi * BLOCK_SIZE
-    const endIdx = Math.min(startIdx + BLOCK_SIZE, totalSteps)
-    if (startIdx >= endIdx) break
-
-    const blockIds = xs.slice(startIdx, endIdx)
-
-    let sum = 0
-    let cnt = 0
-    for (const id of blockIds) {
-      const s = turnScoreMap.get(id)
-      if (Number.isFinite(s)) {
-        const ss = Math.max(0, s!)
-        sum += ss
-        cnt++
-
-        // ✅ [NEW] 统计 raw s 范围（可选）
-        minRaw = Math.min(minRaw, ss)
-        maxRaw = Math.max(maxRaw, ss)
-      }
-    }
-    blockAvgScore[bi] = cnt ? sum / cnt : NaN
-  }
-
-  // 2) 下采样 / 平滑：把 blockAvgScore 分配到每一行
-  const rowProfile: RowProfile = new Map()
-  for (let bi = 0; bi < safeBlocks; bi++) {
-    const startIdx = bi * BLOCK_SIZE
-    const endIdx = Math.min(startIdx + BLOCK_SIZE, totalSteps)
-    if (startIdx >= endIdx) break
-
-    const blockIds = xs.slice(startIdx, endIdx)
-    if (!blockIds.length) continue
-
-    const cur = Number.isFinite(blockAvgScore[bi]) ? blockAvgScore[bi] : 0
-    const next = Number.isFinite(blockAvgScore[Math.min(bi + 1, safeBlocks - 1)])
-      ? blockAvgScore[Math.min(bi + 1, safeBlocks - 1)]
-      : cur
-
-    const L = blockIds.length
-
-    for (let k = 0; k < L; k++) {
-      const id = blockIds[k]
-
-      let s = cur
-      if (useSmooth) {
-        const t = L <= 1 ? 0 : k / (L - 1)
-        const tt = t * t * (3 - 2 * t)
-        s = cur + (next - cur) * tt
-      }
-
-      const rawW = s * pxPerScore
-
-      // ✅ [NEW] dominated 统计：rawW 是否被 minRowWidth 压住
-      validCnt++
-      if (rawW < minRowWidth) dominatedCnt++
-
-      const rowWidth = Math.max(minRowWidth, rawW)
-      const half = rowWidth / 2
-
-      rowProfile.set(id, {
-        rowWidth,
-        stripLeft: stripCenter - half,
-        stripRight: stripCenter + half,
-      })
-    }
-  }
-
-  // ✅ [NEW] 打印统计结果（只打印一次）
-  console.log(
-    `[RowProfile] dominated=${dominatedCnt}/${validCnt} (${((dominatedCnt / Math.max(1, validCnt)) * 100).toFixed(1)}%)`,
-    `rawS=[${isFinite(minRaw) ? minRaw.toExponential(2) : 'NA'}, ${isFinite(maxRaw) ? maxRaw.toExponential(2) : 'NA'}]`,
-    `pxPerScore=${pxPerScore}, minRowWidth=${minRowWidth}`,
-  )
-
-  return rowProfile
-}
 
 // ---- G) topic 在每行的宽度：按 KDE 比例分配 ----
 export function computeWidthByTopicById(args: {
@@ -1037,41 +813,6 @@ export function buildTopicBandById(
   return out
 }
 
-// ---- J) 全局 outline path（用于 clipPath 兜底）----
-export function computeOutlinePath(args: {
-  rowProfile: RowProfile
-  yScaleTime: d3.ScaleLinear<number, number>
-}) {
-  const { rowProfile, yScaleTime } = args
-  if (rowProfile.size === 0) return null
-
-  const ids = Array.from(rowProfile.keys()).sort((a, b) => a - b)
-
-  // 采样点数（避免 path 太重）
-  const MAX_POINTS = 30
-  const STEP = Math.max(1, Math.floor(ids.length / MAX_POINTS))
-
-  const sampled: number[] = []
-  for (let i = 0; i < ids.length; i += STEP) sampled.push(ids[i])
-  if (sampled[sampled.length - 1] !== ids[ids.length - 1]) sampled.push(ids[ids.length - 1])
-
-  const leftEdge: [number, number][] = sampled.map((id) => [
-    rowProfile.get(id)!.stripLeft,
-    yScaleTime(id),
-  ])
-  const rightEdge: [number, number][] = sampled
-    .slice()
-    .reverse()
-    .map((id) => [rowProfile.get(id)!.stripRight, yScaleTime(id)])
-
-  const outlineLine = d3
-    .line<[number, number]>()
-    .x((p) => p[0])
-    .y((p) => p[1])
-    .curve(d3.curveCatmullRom.alpha(0.5))
-
-  return outlineLine([...leftEdge, ...rightEdge, leftEdge[0]]) ?? null
-}
 
 // ---- K) 生成 fixedXInTopicRow：按 speaker 全局列比例放点 ----
 export function makeFixedXInTopicRow(args: {

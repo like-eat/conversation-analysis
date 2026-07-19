@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<w:hdr xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:wp14="http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml" xmlns:w15="http://schemas.microsoft.com/office/word/2012/wordml" xmlns:wpg="http://schemas.microsoft.com/office/word/2010/wordprocessingGroup" xmlns:wpi="http://schemas.microsoft.com/office/word/2010/wordprocessingInk" xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml" xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" xmlns:wpsCustomData="http://www.wps.cn/officeDocument/2013/wpsCustomData" mc:Ignorable="w14 w15 wp14">
+  <w:p w14:paraId="0F958427">
+    <w:pPr>
+      <w:pStyle w:val="19"/>
+      <w:pBdr>
+        <w:bottom w:val="none" w:color="auto" w:sz="0" w:space="0"/>
+      </w:pBdr>
+      <w:tabs>
+        <w:tab w:val="left" w:pos="-4758"/>
+        <w:tab w:val="center" w:pos="5052"/>
+        <w:tab w:val="right" w:pos="9552"/>
+        <w:tab w:val="clear" w:pos="4153"/>
+        <w:tab w:val="clear" w:pos="8306"/>
+      </w:tabs>
+      <w:spacing w:line="240" w:lineRule="exact"/>
+      <w:ind w:left="60" w:firstLine="0"/>
+      <w:jc w:val="both"/>
+      <w:rPr>
+        <w:sz w:val="17"/>
+      </w:rPr>
+    </w:pPr>
+    <w:r>
+      <w:rPr>
+        <w:sz w:val="17"/>
+      </w:rPr>
+      <w:t>第3*卷 第*期</w:t>
+    </w:r>
+    <w:r>
+      <w:tab/>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:spacing w:val="10"/>
+        <w:sz w:val="20"/>
+      </w:rPr>
+      <w:t>计算机辅助设计与图形学学报</w:t>
+    </w:r>
+    <w:r>
+      <w:tab/>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:sz w:val="17"/>
+      </w:rPr>
+      <w:t>Vol.3</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+        <w:sz w:val="17"/>
+      </w:rPr>
+      <w:t>*</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:sz w:val="25"/>
+      </w:rPr>
+      <w:t xml:space="preserve"> </w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:sz w:val="17"/>
+      </w:rPr>
+      <w:t>No.</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+        <w:sz w:val="17"/>
+      </w:rPr>
+      <w:t>*</w:t>
+    </w:r>
+  </w:p>
+  <w:p w14:paraId="75FB9585">
+    <w:pPr>
+      <w:pStyle w:val="19"/>
+      <w:pBdr>
+        <w:bottom w:val="single" w:color="auto" w:sz="4" w:space="1"/>
+      </w:pBdr>
+      <w:tabs>
+        <w:tab w:val="center" w:pos="5052"/>
+        <w:tab w:val="right" w:pos="9438"/>
+        <w:tab w:val="right" w:pos="9744"/>
+        <w:tab w:val="clear" w:pos="4153"/>
+        <w:tab w:val="clear" w:pos="8306"/>
+      </w:tabs>
+      <w:spacing w:after="160" w:line="312" w:lineRule="auto"/>
+      <w:ind w:left="60" w:firstLine="200" w:firstLineChars="100"/>
+      <w:jc w:val="both"/>
+      <w:rPr>
+        <w:b/>
+        <w:bCs/>
+        <w:i/>
+        <w:iCs/>
+        <w:w w:val="130"/>
+        <w:sz w:val="17"/>
+      </w:rPr>
+    </w:pPr>
+    <w:r>
+      <w:rPr>
+        <w:snapToGrid/>
+        <w:spacing w:val="0"/>
+        <w:sz w:val="20"/>
+      </w:rPr>
+      <mc:AlternateContent>
+        <mc:Choice Requires="wps">
+          <w:drawing>
+            <wp:anchor distT="0" distB="0" distL="114300" distR="114300" simplePos="0" relativeHeight="251659264" behindDoc="0" locked="0" layoutInCell="1" allowOverlap="1">
+              <wp:simplePos x="0" y="0"/>
+              <wp:positionH relativeFrom="column">
+                <wp:posOffset>20320</wp:posOffset>
+              </wp:positionH>
+              <wp:positionV relativeFrom="paragraph">
+                <wp:posOffset>240665</wp:posOffset>
+              </wp:positionV>
+              <wp:extent cx="6087110" cy="0"/>
+              <wp:effectExtent l="0" t="4445" r="0" b="5080"/>
+              <wp:wrapNone/>
+              <wp:docPr id="12" name="直线 49"/>
+              <wp:cNvGraphicFramePr/>
+              <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+                <a:graphicData uri="http://schemas.microsoft.com/office/word/2010/wordprocessingShape">
+                  <wps:wsp>
+                    <wps:cNvCnPr/>
+                    <wps:spPr>
+                      <a:xfrm>
+                        <a:off x="0" y="0"/>
+                        <a:ext cx="6087110" cy="0"/>
+                      </a:xfrm>
+                      <a:prstGeom prst="line">
+                        <a:avLst/>
+                      </a:prstGeom>
+                      <a:ln w="6350" cap="flat" cmpd="sng">
+                        <a:solidFill>
+                          <a:srgbClr val="000000"/>
+                        </a:solidFill>
+                        <a:prstDash val="solid"/>
+                        <a:headEnd type="none" w="med" len="med"/>
+                        <a:tailEnd type="none" w="med" len="med"/>
+                      </a:ln>
+                    </wps:spPr>
+                    <wps:bodyPr/>
+                  </wps:wsp>
+                </a:graphicData>
+              </a:graphic>
+            </wp:anchor>
+          </w:drawing>
+        </mc:Choice>
+        <mc:Fallback>
+          <w:pict>
+            <v:line id="直线 49" o:spid="_x0000_s1026" o:spt="20" style="position:absolute;left:0pt;margin-left:1.6pt;margin-top:18.95pt;height:0pt;width:479.3pt;z-index:251659264;mso-width-relative:page;mso-height-relative:page;" filled="f" stroked="t" coordsize="21600,21600" o:gfxdata="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
+">
+              <v:fill on="f" focussize="0,0"/>
+              <v:stroke weight="0.5pt" color="#000000" joinstyle="round"/>
+              <v:imagedata o:title=""/>
+              <o:lock v:ext="edit" aspectratio="f"/>
+            </v:line>
+          </w:pict>
+        </mc:Fallback>
+      </mc:AlternateContent>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:spacing w:val="0"/>
+        <w:sz w:val="17"/>
+        <w:lang w:val="en-GB"/>
+      </w:rPr>
+      <w:t>202*</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:sz w:val="17"/>
+      </w:rPr>
+      <w:t>年*</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:spacing w:val="0"/>
+        <w:sz w:val="17"/>
+        <w:lang w:val="en-GB"/>
+      </w:rPr>
+      <w:t>月</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:spacing w:val="0"/>
+        <w:lang w:val="en-GB"/>
+      </w:rPr>
+      <w:tab/>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:spacing w:val="0"/>
+        <w:lang w:val="en-GB"/>
+      </w:rPr>
+      <w:t>Journal of Computer-Aided Design &amp; Computer Graphics</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:spacing w:val="0"/>
+        <w:lang w:val="en-GB"/>
+      </w:rPr>
+      <w:tab/>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+        <w:spacing w:val="0"/>
+        <w:sz w:val="17"/>
+        <w:lang w:val="en-GB"/>
+      </w:rPr>
+      <w:t>***</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:spacing w:val="0"/>
+        <w:sz w:val="17"/>
+        <w:lang w:val="en-GB"/>
+      </w:rPr>
+      <w:t>.</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:sz w:val="17"/>
+      </w:rPr>
+      <w:t xml:space="preserve"> 202</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+        <w:sz w:val="17"/>
+      </w:rPr>
+      <w:t>*</w:t>
+    </w:r>
+  </w:p>
+</w:hdr>

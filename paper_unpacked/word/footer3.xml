@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<w:ftr xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:wp14="http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml" xmlns:w15="http://schemas.microsoft.com/office/word/2012/wordml" xmlns:wpg="http://schemas.microsoft.com/office/word/2010/wordprocessingGroup" xmlns:wpi="http://schemas.microsoft.com/office/word/2010/wordprocessingInk" xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml" xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" xmlns:wpsCustomData="http://www.wps.cn/officeDocument/2013/wpsCustomData" mc:Ignorable="w14 w15 wp14">
+  <w:p w14:paraId="62F45EA5">
+    <w:pPr>
+      <w:pStyle w:val="20"/>
+      <w:spacing w:after="40" w:line="247" w:lineRule="auto"/>
+      <w:ind w:firstLine="0"/>
+      <w:rPr>
+        <w:rFonts w:eastAsia="方正小标宋简体"/>
+        <w:strike/>
+        <w:color w:val="000000"/>
+        <w:spacing w:val="3"/>
+        <w:sz w:val="21"/>
+      </w:rPr>
+    </w:pPr>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia" w:eastAsia="方正小标宋简体"/>
+        <w:strike/>
+        <w:color w:val="000000"/>
+        <w:spacing w:val="3"/>
+        <w:sz w:val="21"/>
+      </w:rPr>
+      <w:t xml:space="preserve">                   </w:t>
+    </w:r>
+  </w:p>
+  <w:p w14:paraId="53DFDCC5">
+    <w:pPr>
+      <w:pStyle w:val="67"/>
+      <w:rPr>
+        <w:rStyle w:val="29"/>
+        <w:szCs w:val="15"/>
+      </w:rPr>
+    </w:pPr>
+    <w:r>
+      <w:t>收稿日期</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>：</w:t>
+    </w:r>
+    <w:r>
+      <w:t>20**-**-**</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>；</w:t>
+    </w:r>
+    <w:r>
+      <w:t>修回日期</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>：</w:t>
+    </w:r>
+    <w:r>
+      <w:t>20**-**-**</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>。</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:ascii="黑体" w:hAnsi="黑体" w:eastAsia="黑体"/>
+        <w:color w:val="000000"/>
+      </w:rPr>
+      <w:t>基金项目</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+        <w:color w:val="000000"/>
+      </w:rPr>
+      <w:t>：</w:t>
+    </w:r>
+    <w:r>
+      <w:t>基金名称1</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>（</w:t>
+    </w:r>
+    <w:r>
+      <w:t>项目编号1</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>，</w:t>
+    </w:r>
+    <w:r>
+      <w:t>项目编号2</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>……）；</w:t>
+    </w:r>
+    <w:r>
+      <w:t>基金名称2</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>（</w:t>
+    </w:r>
+    <w:r>
+      <w:t>项目编号1</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>，</w:t>
+    </w:r>
+    <w:r>
+      <w:t>项目编号2</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>，……）；……。</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia" w:ascii="黑体" w:hAnsi="黑体" w:eastAsia="黑体"/>
+        <w:color w:val="000000"/>
+      </w:rPr>
+      <w:t>第一作者</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>（</w:t>
+    </w:r>
+    <w:r>
+      <w:t>出生年—）</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>，</w:t>
+    </w:r>
+    <w:r>
+      <w:t>性别</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>，</w:t>
+    </w:r>
+    <w:r>
+      <w:t>学位</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>，</w:t>
+    </w:r>
+    <w:r>
+      <w:t>职称</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>，</w:t>
+    </w:r>
+    <w:r>
+      <w:t>若是博士生导师/</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>硕</w:t>
+    </w:r>
+    <w:r>
+      <w:t>士生导师请注明</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>，</w:t>
+    </w:r>
+    <w:r>
+      <w:t>若是CCF会员请注明</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>，</w:t>
+    </w:r>
+    <w:r>
+      <w:t>主要研究方向为********</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+        <w:color w:val="FF0000"/>
+      </w:rPr>
+      <w:t>（</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:color w:val="FF0000"/>
+      </w:rPr>
+      <w:t>每个研究方向之间用顿号分隔</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+        <w:color w:val="FF0000"/>
+      </w:rPr>
+      <w:t>）</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>；</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia" w:ascii="黑体" w:hAnsi="黑体" w:eastAsia="黑体"/>
+        <w:color w:val="000000"/>
+      </w:rPr>
+      <w:t>第二作者</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>（</w:t>
+    </w:r>
+    <w:r>
+      <w:t>出生年—</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>），</w:t>
+    </w:r>
+    <w:r>
+      <w:t>性别</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>，</w:t>
+    </w:r>
+    <w:r>
+      <w:t>学位</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>，</w:t>
+    </w:r>
+    <w:r>
+      <w:t>职称</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>，</w:t>
+    </w:r>
+    <w:r>
+      <w:t>若是博士生导师/</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>硕</w:t>
+    </w:r>
+    <w:r>
+      <w:t>士生导师请注明</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>，</w:t>
+    </w:r>
+    <w:r>
+      <w:t>若是CCF会员请注明</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>，</w:t>
+    </w:r>
+    <w:r>
+      <w:t>若是论文通</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>信</w:t>
+    </w:r>
+    <w:r>
+      <w:t>作者请注明</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>，</w:t>
+    </w:r>
+    <w:r>
+      <w:t>主要研究方向为********</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+        <w:color w:val="FF0000"/>
+      </w:rPr>
+      <w:t>（</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:color w:val="FF0000"/>
+      </w:rPr>
+      <w:t>每个研究方向之间用顿号分隔</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+        <w:color w:val="FF0000"/>
+      </w:rPr>
+      <w:t>）</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+      </w:rPr>
+      <w:t>；……。</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:hint="eastAsia"/>
+        <w:color w:val="FF0000"/>
+      </w:rPr>
+      <w:t>（需按模板格式列出所有作者的个人简介）</w:t>
+    </w:r>
+  </w:p>
+  <w:p w14:paraId="4E2562EF">
+    <w:pPr>
+      <w:pStyle w:val="20"/>
+      <w:spacing w:before="80"/>
+      <w:jc w:val="both"/>
+      <w:rPr>
+        <w:b/>
+        <w:bCs/>
+        <w:color w:val="000000"/>
+        <w:sz w:val="16"/>
+        <w:vertAlign w:val="subscript"/>
+      </w:rPr>
+    </w:pPr>
+  </w:p>
+</w:ftr>

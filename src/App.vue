@@ -7,7 +7,6 @@
 
 <script setup lang="ts">
 import UI from './components/UI.vue'
-import TestGraph from './components/TestGraph.vue'
 </script>
 
 <style scoped>

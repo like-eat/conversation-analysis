@@ -1,12 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from copy import deepcopy
-import json
 import re
-import itertools
-import colorsys
-import uuid
-import matplotlib.pyplot as plt
 
 from LLM_Extraction import talk_to_chatbot, pipeline_on_messages
 from Methods import assign_colors, merge_topics_timeline

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/custom-properties" xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">
+  <property fmtid="{D5CDD505-2E9C-101B-9397-08002B2CF9AE}" pid="2" name="KSOTemplateDocerSaveRecord">
+    <vt:lpwstr>eyJoZGlkIjoiZTUwOGQ5YTBhODliZTc4ZDIxNjZhMmYzMGJjZjhhOWMiLCJ1c2VySWQiOiI1OTI2MjUzMzQifQ==</vt:lpwstr>
+  </property>
+  <property fmtid="{D5CDD505-2E9C-101B-9397-08002B2CF9AE}" pid="3" name="KSOProductBuildVer">
+    <vt:lpwstr>2052-12.1.0.26895</vt:lpwstr>
+  </property>
+  <property fmtid="{D5CDD505-2E9C-101B-9397-08002B2CF9AE}" pid="4" name="ICV">
+    <vt:lpwstr>43CD9040FC4B4B16905B6E1DBA1BBFDE_13</vt:lpwstr>
+  </property>
+  <property fmtid="{D5CDD505-2E9C-101B-9397-08002B2CF9AE}" pid="5" name="GrammarlyDocumentId">
+    <vt:lpwstr>7dfb7fbc-ac0f-49da-8e44-66a02c4fc9ef</vt:lpwstr>
+  </property>
+  <property fmtid="{D5CDD505-2E9C-101B-9397-08002B2CF9AE}" pid="6" name="MTWinEqns">
+    <vt:bool>true</vt:bool>
+  </property>
+</Properties>

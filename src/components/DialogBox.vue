@@ -125,6 +125,35 @@ function isSelf(msg: MessageItem): boolean {
 //  5) 发送消息：前端 -> 后端 -> 回显 bot
 let globalId = 1
 
+// 实时抽取：发送完整历史到后端，更新可视化
+const extractRealtime = async () => {
+  try {
+    const history = messages.value.map((m) => ({
+      id: m.id,
+      role: m.from === 'user' ? 'user' : 'bot',
+      content: m.text,
+    }))
+
+    const resp = await fetch('http://localhost:5001/extract_realtime', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        session_id: 'default',
+        history,
+        reset: false,
+      }),
+    })
+
+    const data = await resp.json()
+    if (data.topics) {
+      FileStore.setRealtimeData(data.topics, data.info_scores || [])
+      console.log(`[realtime] 抽取完成: ${data.topics.length} 个 topic`)
+    }
+  } catch (e) {
+    console.warn('[realtime] 抽取服务未启动或失败:', e)
+  }
+}
+
 const sendMessage = async () => {
   const text = input.value.trim()
   if (!text) return
@@ -156,6 +185,9 @@ const sendMessage = async () => {
     FileStore.MessageContent.push(botMsg)
 
     scrollToBottom()
+
+    // 实时抽取：将完整历史发给后端做增量抽取
+    await extractRealtime()
   } catch (error) {
     console.error('发送 JSON 数据失败:', error)
   } finally {

@@ -4,24 +4,16 @@ export interface Slot {
   slot: string
   color: string
   source: string
-  x?: number // 新增
-  y?: number // 新增
-  rw?: number // 新增
-  rh?: number // 新增
   is_question?: boolean
   resolved?: boolean
   info_score?: number
-  wordcloud?: { word: string; weight: number }[] // 新增
+  wordcloud?: { word: string; weight: number }[]
 }
 export interface Conversation {
   id: number
   topic: string
   slots: Slot[]
   color: string
-  w?: number
-  h?: number
-  cx?: number
-  cy?: number
 }
 
 export interface MessageItem {

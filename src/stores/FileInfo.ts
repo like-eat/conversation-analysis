@@ -1,16 +1,5 @@
-import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { MessageItem, Conversation } from '@/types/index'
-
-export const useCounterStore = defineStore('counter', () => {
-  const count = ref(0)
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
-  }
-
-  return { count, doubleCount, increment }
-})
 
 export const useFileStore = defineStore('refileInfo', {
   state() {
@@ -23,20 +12,26 @@ export const useFileStore = defineStore('refileInfo', {
       selectedSlotId: null as number | null,
       // 控制左侧是否刷新
       refreshKey: 0,
+      // 实时抽取：topic 数据
+      realtimeTopics: [] as Conversation[],
+      // 实时抽取：信息量评分
+      realtimeScores: [] as { id: number; info_score: number }[],
     }
   },
   actions: {
     setMessageContent(content: MessageItem[]) {
       this.MessageContent = content
     },
-    clearMessageContent() {
-      this.MessageContent = []
-    },
-    clearGPTContent() {
-      this.GPTContent = []
-    },
     triggerRefresh() {
-      this.refreshKey++ // ✅ 每次新建分支时+1
+      this.refreshKey++
+    },
+    setRealtimeData(topics: Conversation[], scores: { id: number; info_score: number }[]) {
+      this.realtimeTopics = topics
+      this.realtimeScores = scores
+    },
+    clearRealtimeData() {
+      this.realtimeTopics = []
+      this.realtimeScores = []
     },
   },
 })

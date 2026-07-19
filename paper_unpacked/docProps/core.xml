@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <dcterms:created xsi:type="dcterms:W3CDTF">2026-01-31T05:41:00Z</dcterms:created>
+  <dc:creator>微软用户</dc:creator>
+  <cp:lastModifiedBy>晚来风急</cp:lastModifiedBy>
+  <cp:lastPrinted>2026-02-10T11:23:00Z</cp:lastPrinted>
+  <dcterms:modified xsi:type="dcterms:W3CDTF">2026-06-20T10:30:58Z</dcterms:modified>
+  <dc:title> </dc:title>
+  <cp:revision>196</cp:revision>
+</cp:coreProperties>

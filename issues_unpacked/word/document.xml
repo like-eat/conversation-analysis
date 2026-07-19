@@ -1,0 +1,3378 @@
+<?xml version="1.0" encoding="UTF-8"?><w:document xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas" xmlns:mo="http://schemas.microsoft.com/office/mac/office/2008/main" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mv="urn:schemas-microsoft-com:mac:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:wp14="http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml" xmlns:wpg="http://schemas.microsoft.com/office/word/2010/wordprocessingGroup" xmlns:wpi="http://schemas.microsoft.com/office/word/2010/wordprocessingInk" xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml" xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" mc:Ignorable="w14 wp14">
+  <w:body>
+    <w:p>
+      <w:pPr>
+        <w:jc w:val="center"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="黑体" w:hAnsi="黑体" w:eastAsia="黑体"/>
+          <w:b/>
+          <w:sz w:val="36"/>
+        </w:rPr>
+        <w:t>TopicTrace 论文审稿意见未解决问题清单</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr>
+        <w:jc w:val="center"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+          <w:sz w:val="21"/>
+        </w:rPr>
+        <w:t>基于当前稿件状态整理；已解决项：第 3.2 节信息熵解释前后矛盾问题。</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+        </w:rPr>
+        <w:t>一、当前修改进度概览</w:t>
+      </w:r>
+    </w:p>
+    <w:tbl>
+      <w:tblPr>
+        <w:tblStyle w:val="TableGrid"/>
+        <w:tblW w:type="auto" w:w="0"/>
+        <w:jc w:val="center"/>
+        <w:tblLook w:firstColumn="1" w:firstRow="1" w:lastColumn="0" w:lastRow="0" w:noHBand="0" w:noVBand="1" w:val="04A0"/>
+      </w:tblPr>
+      <w:tblGrid>
+        <w:gridCol w:w="4751"/>
+        <w:gridCol w:w="4751"/>
+        <w:gridCol w:w="4751"/>
+      </w:tblGrid>
+      <w:tr>
+        <w:trPr>
+          <w:tblHeader w:val="true"/>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:shd w:fill="D9EAF7"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>状态</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:shd w:fill="D9EAF7"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>数量</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:shd w:fill="D9EAF7"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>说明</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>已解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>1 个</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>P9：信息熵解释前后矛盾，已修改为&#x201C;熵高表示分散，聚焦度与熵负相关&#x201D;。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>仍未解决的一级问题</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>6 个</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>最影响审稿结果，建议优先处理。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>仍未解决的二级问题</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>6 个</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>影响论文说服力，建议认真修改。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>仍未解决的三级问题</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>7 个</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>格式、补充说明和规范性问题，建议顺手处理。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+    </w:tbl>
+    <w:p>
+      <w:pPr>
+        <w:spacing w:before="240"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="黑体" w:hAnsi="黑体" w:eastAsia="黑体"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+        </w:rPr>
+        <w:t>二、尚未解决问题列表</w:t>
+      </w:r>
+    </w:p>
+    <w:tbl>
+      <w:tblPr>
+        <w:tblStyle w:val="TableGrid"/>
+        <w:tblW w:type="auto" w:w="0"/>
+        <w:jc w:val="center"/>
+        <w:tblLook w:firstColumn="1" w:firstRow="1" w:lastColumn="0" w:lastRow="0" w:noHBand="0" w:noVBand="1" w:val="04A0"/>
+      </w:tblPr>
+      <w:tblGrid>
+        <w:gridCol w:w="2375"/>
+        <w:gridCol w:w="2375"/>
+        <w:gridCol w:w="2375"/>
+        <w:gridCol w:w="2375"/>
+        <w:gridCol w:w="2375"/>
+        <w:gridCol w:w="2375"/>
+      </w:tblGrid>
+      <w:tr>
+        <w:trPr>
+          <w:tblHeader w:val="true"/>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:shd w:fill="D9EAF7"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b/>
+                <w:sz w:val="17"/>
+              </w:rPr>
+              <w:t>编号</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:shd w:fill="D9EAF7"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b/>
+                <w:sz w:val="17"/>
+              </w:rPr>
+              <w:t>优先级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:shd w:fill="D9EAF7"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b/>
+                <w:sz w:val="17"/>
+              </w:rPr>
+              <w:t>问题</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:shd w:fill="D9EAF7"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b/>
+                <w:sz w:val="17"/>
+              </w:rPr>
+              <w:t>涉及位置</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:shd w:fill="D9EAF7"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b/>
+                <w:sz w:val="17"/>
+              </w:rPr>
+              <w:t>当前状态</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:shd w:fill="D9EAF7"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b/>
+                <w:sz w:val="17"/>
+              </w:rPr>
+              <w:t>建议处理方式</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P1</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="FCE4D6"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>一级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>LLM 方法细节不足</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>第 3.1 节&#x201C;大语言模型驱动的主题抽取&#x201D;</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>补充模型名称、版本、prompt、参数、长文本切块方式、输出格式、失败处理方式。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P2</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="FCE4D6"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>一级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>LLM 主题抽取质量缺少直接验证</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>第 4 节评估部分</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>新增&#x201C;主题抽取质量评估&#x201D;，评价局部主题、抽象主题、主题边界、发言人归因、问题解决状态。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P3</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="FCE4D6"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>一级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>用户实验设计说服力不足</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>第 4.2 节&#x201C;用户实验&#x201D;</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>增加主题定位、信息查找、主题演化理解、发言人行为分析等任务。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P4</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="FCE4D6"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>一级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>LLM 既做抽取又做评分，存在同质化偏向</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>第 4.2 节评分部分</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>改为人工评分为主，LLM 评分为辅；补充评分标准和人工一致性。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P5</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="FCE4D6"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>一级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>缺少 baseline / 对比方法</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>第 4.2、4.3 节</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>增加原始文本界面、LLM 摘要、无发言人轨迹、无布局优化、传统主题河流等对比。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P6</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="FCE4D6"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>一级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>论文贡献点不清晰，算法贡献弱</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>引言末尾、第 3.2 节、第 4.3 节</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>重写贡献点，明确 LLM 结构化流程、发言人感知主题河流、协同布局算法三项贡献。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P7</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="FFF2CC"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>二级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>需求分析不足</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>第 2 节&#x201C;需求分析&#x201D;</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>补充访谈对象背景、访谈过程；最好增加 2–3 名领域专家访谈。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P8</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="FFF2CC"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>二级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>两层主题结构缺少论证</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>摘要、引言、第 3.1 节术语定义</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>说明&#x201C;两层结构&#x201D;是可视复杂度与认知负担之间的折中，而不是主题天然只有两层。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P10</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="FFF2CC"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>二级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>布局算法贡献描述不足</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>第 3.2 节&#x201C;协同优化排布&#x201D;</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>补充目标函数解释、参数设置、复杂度、候选布局生成方式。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P11</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="FFF2CC"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>二级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>真值描述定义不清</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>第 4.2 节用户实验</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>说明真值/参考答案由谁生成、几人生成、是否协商、是否允许多个合理答案。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P12</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="FFF2CC"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>二级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>用户实验参与者画像不足</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>第 4.2 节</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>补充专业背景、可视化经验、LLM 使用经验、长对话阅读经验。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P13</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="FFF2CC"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>二级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>缺少失败案例和错误类型分析</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>第 4 节或第 5 节讨论</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>增加 LLM 主题抽取失败案例，例如主题过泛、误合并、遗漏低频主题、问题解决状态误判。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P14</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="E2F0D9"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>三级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>半结构化讨论实施细节不足</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>第 2 节需求分析</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>补充讨论时长、问题提纲、记录方式、需求归纳过程。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P15</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="E2F0D9"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>三级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>文本向量模型未说明</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>第 3.2 节&#x201C;轮廓生成&#x201D;</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>部分未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>虽然信息熵逻辑已改，但仍需写清楚具体 embedding 模型、向量维度、归一化方法。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P16</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="E2F0D9"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>三级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>公式编号和排版不规范</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>第 3.2 节多个公式处</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>给核心公式编号，统一公式字体和引用格式。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P17</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="E2F0D9"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>三级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>图 4、图 5 清晰度不足</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>图 4、图 5</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>重新导出高清图，增加局部放大标注。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P18</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="E2F0D9"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>三级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>表 1 缺少统计检验</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>第 4.2 节表 1</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>增加配对 t 检验或 Wilcoxon 检验，报告 p 值和效应量。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P19</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="E2F0D9"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>三级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>SUS 结果解释不够标准</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>第 4.2 节图 7 后</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>计算 SUS 总分，报告均值、标准差，而不只是逐题解释。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="680"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>P20</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="737"/>
+            <w:vAlign w:val="center"/>
+            <w:shd w:fill="E2F0D9"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>三级</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="2268"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>模板残留内容未清理</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1927"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>标题页、第 3 节前后</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="1020"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>未解决</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="5670"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:spacing w:after="0" w:line="252" w:lineRule="auto"/>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t>删除模板残留，例如 &#x201C;HEREDITAS (Beijing) 2006...&#x201D; 等无关内容。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+    </w:tbl>
+    <w:p>
+      <w:pPr>
+        <w:spacing w:before="240"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="黑体" w:hAnsi="黑体" w:eastAsia="黑体"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+        </w:rPr>
+        <w:t>三、下一步建议优先处理的 3 个问题</w:t>
+      </w:r>
+    </w:p>
+    <w:tbl>
+      <w:tblPr>
+        <w:tblStyle w:val="TableGrid"/>
+        <w:tblW w:type="auto" w:w="0"/>
+        <w:jc w:val="center"/>
+        <w:tblLook w:firstColumn="1" w:firstRow="1" w:lastColumn="0" w:lastRow="0" w:noHBand="0" w:noVBand="1" w:val="04A0"/>
+      </w:tblPr>
+      <w:tblGrid>
+        <w:gridCol w:w="4751"/>
+        <w:gridCol w:w="4751"/>
+        <w:gridCol w:w="4751"/>
+      </w:tblGrid>
+      <w:tr>
+        <w:trPr>
+          <w:tblHeader w:val="true"/>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:shd w:fill="D9EAF7"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>顺序</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:shd w:fill="D9EAF7"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>要改的问题</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:shd w:fill="D9EAF7"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>原因</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>1</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>P1：补充 LLM 方法细节</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>三位审稿人均提到，是最容易通过文字补强来挽回的核心问题。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>2</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>P4 + P11：修改 LLM 评分和真值定义问题</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>Reviewer B 对用户实验最不满意，这里必须回应。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:trPr>
+          <w:cantSplit/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>3</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>P6：重写贡献点</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:type="dxa" w:w="4751"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r/>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+                <w:b w:val="0"/>
+                <w:sz w:val="18"/>
+              </w:rPr>
+              <w:t>可以让论文从&#x201C;应用系统&#x201D;转为更像&#x201C;有方法贡献的可视化论文&#x201D;。</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+    </w:tbl>
+    <w:p>
+      <w:pPr>
+        <w:spacing w:before="200"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:eastAsia="宋体"/>
+          <w:i/>
+          <w:sz w:val="18"/>
+        </w:rPr>
+        <w:t>备注：P9&#x201C;信息熵解释前后矛盾&#x201D;已完成修改，因此未列入未解决问题表。</w:t>
+      </w:r>
+    </w:p>
+    <w:sectPr w:rsidR="00FC693F" w:rsidRPr="0006063C" w:rsidSect="00034616">
+      <w:pgSz w:w="15840" w:h="12240" w:orient="landscape"/>
+      <w:pgMar w:top="850" w:right="794" w:bottom="850" w:left="794" w:header="720" w:footer="720" w:gutter="0"/>
+      <w:cols w:space="720"/>
+      <w:docGrid w:linePitch="360"/>
+    </w:sectPr>
+  </w:body>
+</w:document>

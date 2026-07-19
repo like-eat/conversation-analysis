@@ -2,6 +2,13 @@
   <div class="capsule-container">
     <div ref="UIcontainer" class="capsule-body"></div>
 
+    <SpeakerDashboard
+      :active-topics="activeTopicList"
+      :all-points="currentAllPoints"
+      :speaker-color-map="speakerColorMap"
+      :topic-color-map="topicColorMap"
+    />
+
     <div class="dataset-label">
       {{ datasetName }}
     </div>
@@ -24,6 +31,7 @@ import type { SlotXMap } from '@/utils/Methods'
 import { useFileStore } from '@/stores/FileInfo'
 
 // utils：你已经外提到 Methods.ts 的函数 + 你原本 Methods.ts 里的工具
+import SpeakerDashboard from './SpeakerDashboard.vue'
 import {
   extractPointsAndTopics,
   assignSpeakerColors,
@@ -31,19 +39,13 @@ import {
   computeTopicKDE,
   buildRowProfile,
   computeWidthByTopicById,
-  // buildTopicBandsFixedOrder,
   buildTopicBandById,
-  computeOutlinePath,
-  // makeFixedXInTopicRow,
   buildGlobalSpeakerFrac,
-  resolveY,
   highlightTopicBands,
   intersects,
   solveBandsAndSlotsRowWise,
   pointKey,
   pruneTopicBands,
-  buildTopicBandsFixedOrder,
-  makeFixedXInTopicRow,
 } from '@/utils/Methods'
 
 function applySpeakerFilter(ctx: DrawCtx) {
@@ -70,43 +72,7 @@ function clearSpeakerFilter(ctx: DrawCtx) {
   d3.selectAll<SVGPathElement, unknown>('path.speaker-global-line').style('display', null)
 }
 
-function hash32(s: string) {
-  let h = 2166136261
-  for (let i = 0; i < s.length; i++) {
-    h ^= s.charCodeAt(i)
-    h = Math.imul(h, 16777619)
-  }
-  return h >>> 0
-}
-
-function mulberry32(seed: number) {
-  let a = seed >>> 0
-  return function () {
-    a |= 0
-    a = (a + 0x6d2b79f5) | 0
-    let t = Math.imul(a ^ (a >>> 15), 1 | a)
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
-  }
-}
-
-function shuffleSeeded<T>(arr: T[], seed: number) {
-  const a = arr.slice()
-  const rnd = mulberry32(seed)
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(rnd() * (i + 1))
-    ;[a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
-}
-
-// baseline 的“很坏排序”：可复现乱序（你也可以换成更坏的 zigzag）
-function makeBadTopicOrder(topics: string[], seed: number) {
-  return shuffleSeeded(topics, seed)
-}
-
-// 你在绘制时给 point 加的 layout 字段
-type PointWithLayout = Point & { _x: number; _y: number; _ty: number }
+type PointWithLayout = Point & { _x: number; _y: number }
 
 function hashTopicId(topic: string) {
   // djb2 xor hash -> hex string (stable, compact)
@@ -122,10 +88,6 @@ type DatasetKey = 'meeting' | 'xinli'
 const props = defineProps<{ datasetKey: DatasetKey }>()
 const emit = defineEmits<{ (e: 'toggle-dataset'): void }>()
 
-// 控制布局优化
-const ENABLE_GREEDY_LAYOUT = ref(true)
-const BAD_ORDER_SEED = ref(2029)
-
 // -----------------------------
 // 3) 组件级状态 / Store
 // -----------------------------
@@ -138,8 +100,13 @@ const activeTopicKey = ref<string | null>(null)
 // 当前“多选 topics”（用于显示多个 slot 云）
 const activeTopics = ref<Set<string>>(new Set())
 
-// 当前“焦点 speaker”（用于角色筛选）
+// 当前”焦点 speaker”（用于角色筛选）
 const activeSpeakerKey = ref<string | null>(null)
+
+// 仪表盘：当前选中的主题列表（Array 形式，供 SpeakerDashboard 使用）
+const activeTopicList = computed(() => Array.from(activeTopics.value))
+// 仪表盘：当前渲染的 allPoints（在 drawUI 中更新）
+const currentAllPoints = ref<Point[]>([])
 
 // speaker -> topics set（用于点击角色图例后只显示相关主题）
 type SpeakerTopicsMap = Map<string, Set<string>>
@@ -328,10 +295,6 @@ type DrawCtx = {
 
   slotXMap: SlotXMap
 
-  // ---- Clip paths ----
-  outlinePathD: string | null
-  topicBandPathMap: Map<string, string>
-
   // ---- UI session states ----
   selectedTopics: Set<string> // 用于高亮 + AddTalk 上下文
   wordcloudTurn: number | null
@@ -358,8 +321,17 @@ function createScene(
   height: number,
   margin: DrawCtx['margin'],
 ) {
-  // 1) 创建 svg
-  const svg = d3.select(container).append('svg').attr('width', width).attr('height', height)
+  // 1) 创建 svg（viewBox 自适应容器，白色背景）
+  const svg = d3
+    .select(container)
+    .append('svg')
+    .attr('viewBox', `0 0 ${width} ${height}`)
+    .attr('preserveAspectRatio', 'xMidYMid meet')
+    .attr('width', '100%')
+    .attr('height', '100%')
+
+  // 白色背景（使用 viewBox 坐标系）
+  svg.insert('rect', ':first-child').attr('width', width).attr('height', height).attr('fill', '#ffffff')
 
   // 2) 根 group：用于留 margin
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
@@ -379,22 +351,27 @@ function createScene(
 
 /**
  * ======================================================================
- * 9) drawUI 外提：绘制 y 轴
+ * 9) drawUI 外提：绘制 x 轴（时间轴，底部）
  * ======================================================================
  */
-function drawYAxis(g: DrawCtx['g'], yScaleTime: DrawCtx['yScaleTime'], innerHeight: number) {
-  const yAxis = d3.axisLeft(yScaleTime).ticks(10).tickFormat(d3.format('d'))
+function drawXAxis(
+  g: DrawCtx['g'],
+  xScaleTime: d3.ScaleLinear<number, number>,
+  innerWidth: number,
+  innerHeight: number,
+) {
+  const xAxis = d3.axisBottom(xScaleTime).ticks(10).tickFormat(d3.format('d'))
   g.append('g')
-    .attr('class', 'axis y-axis')
-    .call(yAxis as d3.Axis<number>)
+    .attr('class', 'axis x-axis')
+    .attr('transform', `translate(0, ${innerHeight})`)
+    .call(xAxis as d3.Axis<number>)
 
-  // y 轴标题
+  // x 轴标题
   g.append('text')
     .attr('class', 'axis-label')
-    .attr('x', 0)
-    .attr('y', innerHeight / 2)
+    .attr('x', innerWidth / 2)
+    .attr('y', innerHeight + 45)
     .attr('text-anchor', 'middle')
-    .attr('transform', `rotate(-90, -40, ${innerHeight / 2})`)
     .attr('fill', '#555')
     .attr('font-size', 12)
     .text('时间（对话轮次）')
@@ -411,25 +388,24 @@ function drawGlobalSpeakerLines(ctx: DrawCtx) {
     globalLineLayer = ctx.overlayLayer.append('g').attr('class', 'speaker-global-line-layer')
   globalLineLayer.selectAll('*').remove()
 
-  // 1) 计算每个点布局坐标
+  // 1) 计算每个点布局坐标（水平模式：x=时间, y=条带位置）
   const allWL: PointWithLayout[] = ctx.allPoints.map((p) => {
-    const ty = ctx.yScaleTime(p.id)
-    // const x = ctx.fixedXInTopicRow(p.topic, p)
+    const tx = ctx.yScaleTime(p.id) // 时间 → X 轴
     const k = pointKey(p)
-    const x = ctx.slotXMap.get(k) ?? ctx.stripCenter
+    const y = ctx.slotXMap.get(k) ?? ctx.stripCenter // 条带位置 → Y 轴
 
-    return { ...p, _ty: ty, _y: ty, _x: x }
+    return { ...p, _x: tx, _y: y }
   })
 
   // 2) 按 speaker 分组
   const bySpeakerAll = d3.group(allWL, (d) => (d.source || '').trim())
 
-  // 3) 线生成器
+  // 3) 线生成器（X 轴单调 = 时间）
   const lineGen = d3
     .line<[number, number]>()
     .x((p) => p[0])
     .y((p) => p[1])
-    .curve(d3.curveMonotoneY)
+    .curve(d3.curveMonotoneX)
 
   // 4) 绘制每条 speaker 线
   bySpeakerAll.forEach((pts, speakerNameRaw) => {
@@ -464,15 +440,15 @@ function renderTopicBands(ctx: DrawCtx) {
     const color = ctx.topicGroup.get(topic)!.color
 
     const MIN_BAND_WIDTH = 0.1
+    // 水平方向：时间轴在 X，条带上下排列
     const area = d3
       .area<Segment>()
       .defined((d) => d.width >= MIN_BAND_WIDTH)
-      .y((d) => ctx.yScaleTime(d.id))
-      .x0((d) => d.left)
-      .x1((d) => d.right)
+      .x((d) => ctx.yScaleTime(d.id))
+      .y0((d) => d.left)
+      .y1((d) => d.right)
       .curve(d3.curveBasis)
 
-    // ✅ 关键：补齐所有 turn，缺失的 turn 用 width=0 占位，制造断点
     const byId = new Map<number, Segment>()
     segments.forEach((s) => {
       const L = Math.min(s.left, s.right)
@@ -483,12 +459,10 @@ function renderTopicBands(ctx: DrawCtx) {
     const segsFull: Segment[] = ctx.xs.map((id) => {
       const s = byId.get(id)
       if (s) return s
-      // 占位段：会被 defined 过滤，但能让 d3 在这里“断开”
       return { id, left: ctx.stripCenter, right: ctx.stripCenter, width: 0 } as Segment
     })
 
     const bandPathD = area(segsFull) ?? ''
-    ctx.topicBandPathMap.set(topic, bandPathD)
 
     ctx.bandLayer
       .append('path')
@@ -555,23 +529,20 @@ function showSlotCloudInto(
   const maxSlots = 40
   const lines = allSlots.slice(0, maxSlots)
 
-  // 3) 初始化布局（y=turn, x=待填）
+  // 3) 初始化布局（x=时间, y=条带位置）
   const linesWL: PointWithLayout[] = lines.map((d) => {
-    const ty = ctx.yScaleTime(d.id)
-    return { ...d, _ty: ty, _y: ty, _x: 0 }
+    const tx = ctx.yScaleTime(d.id) // X = 时间
+    return { ...d, _x: tx, _y: 0 }
   })
 
-  // 4) 计算 x（固定列）
+  // 4) 计算 y（条带内位置）
   linesWL.forEach((d) => {
     const k = pointKey(d)
-
-    const x = ctx.slotXMap.get(k)
-    d._x = x ?? ctx.stripCenter // 找不到就给个兜底
+    const y = ctx.slotXMap.get(k) ?? ctx.stripCenter
+    d._y = y
   })
 
-  // 5) 按 speaker 分列，做 y 方向避让（避免 label 重叠）
-  const bySpeakerCol = d3.group(linesWL, (d) => (d.source || '').trim())
-  bySpeakerCol.forEach((arr) => resolveY(arr, 0, ctx.innerHeight, 10))
+  // 5) 水平模式下标签沿时间轴自然分布，无需额外避让
 
   // 6) 清空该 topic layer
   cloudLayer.selectAll('*').remove()
@@ -580,7 +551,7 @@ function showSlotCloudInto(
   // 7) clipPath：优先 topic band path；否则 outline；再否则矩形
   const cloudClipId = `cloud-clip-topic-${hashTopicId(topic)}`
 
-  // 8) label 样式参数
+  // 8) label 样式参数（水平模式：缩小字号，倾斜文本）
   const minFont = 10
   const maxFont = 18
   const minOpacity = 0.35
@@ -596,35 +567,19 @@ function showSlotCloudInto(
     .attr('transform', (d) => `translate(${d._x}, ${d._y})`)
     .style('cursor', 'pointer')
     .on('click', (event, d) => {
-      // 阻止冒泡：避免触发 svg click reset
       event.stopPropagation()
-
-      // 1) 通知 store（查看详情）
       onSlotClick(d.id)
-
-      // 2) 设置词云目标 turn + anchor
       ctx.wordcloudTurn = d.id
-      // === anchor 改成“文字中心”而不是点 ===
-      const g = event.currentTarget as SVGGElement
-      const textNode = g.querySelector('text') as SVGTextElement | null
 
-      // 你的文字是 x=6, text-anchor 默认为 start，所以中心 = 6 + textWidth/2
-      const textXLocal = 6
-      const textW = textNode ? textNode.getComputedTextLength() : 0
-
-      const anchorX = d._x + textXLocal + textW / 2
-      const anchorY = d._y
-
-      ctx.wordcloudAnchor = { id: d.id, x: anchorX, y: anchorY }
-
-      // 3) 重新绘制词云
+      // 词云锚点：圆点位置
+      ctx.wordcloudAnchor = { id: d.id, x: d._x, y: d._y }
       tryRenderWordcloudInBandbubble(ctx)
     })
 
   // 10) 圆点（按 speaker 着色，越早越显眼）
   slotGroups
     .append('circle')
-    .attr('r', 3.5)
+    .attr('r', 3)
     .attr('cx', 0)
     .attr('cy', 0)
     .attr('fill', (d) => speakerColorMap[d.source] || '#999')
@@ -633,32 +588,25 @@ function showSlotCloudInto(
       return minOpacity + t * (maxOpacity - minOpacity)
     })
 
-  // 11) 文本（按时间映射字号）
-  const LEFT_SPEAKERS = new Set<string>(['功必扬']) // 这里填你想放左侧的发言人名字
-
+  // 11) 文本：倾斜排列 + 上下交替，减少水平拥挤
   slotGroups
     .append('text')
-    .attr('x', (d) => {
-      const sp = (d.source || '').trim()
-      return LEFT_SPEAKERS.has(sp) ? -6 : 6
-    })
-    .attr('text-anchor', (d) => {
-      const sp = (d.source || '').trim()
-      return LEFT_SPEAKERS.has(sp) ? 'end' : 'start'
-    })
-    .attr('y', 0)
+    .attr('x', 4)
+    .attr('y', (_d, i) => (i % 2 === 0 ? -8 : 8))
+    .attr('text-anchor', 'start')
+    .attr('transform', 'rotate(-58)')
     .attr('dominant-baseline', 'middle')
     .attr('fill', '#333')
-    .attr('font-family', 'SimHei')
+    .attr('font-family', 'SimHei, sans-serif')
     .attr('font-size', (_d, i) => {
       const t = linesWL.length <= 1 ? 1 : 1 - i / (linesWL.length - 1)
       return minFont + t * (maxFont - minFont)
     })
-    .attr('fill-opacity', 1)
+    .attr('fill-opacity', 0.85)
     .text((d) => (d.is_question && d.resolved ? `${d.slot} ✅️` : d.slot))
 
-  // 12) clip 到“整条 strip 区域”（推荐）
-  cloudLayer.attr('clip-path', null) // 先清掉旧的，避免残留
+  // 12) clip 到条带区域（水平模式：全宽 × 条带高度）
+  cloudLayer.attr('clip-path', null)
 
   ctx.defs.select(`#${cloudClipId}`).remove()
 
@@ -667,10 +615,10 @@ function showSlotCloudInto(
     .attr('id', cloudClipId)
     .attr('clipPathUnits', 'userSpaceOnUse')
     .append('rect')
-    .attr('x', ctx.stripLeftFixed)
-    .attr('y', 0)
-    .attr('width', ctx.stripWidthFixed)
-    .attr('height', ctx.innerHeight)
+    .attr('x', 0)
+    .attr('y', ctx.stripLeftFixed)
+    .attr('width', ctx.innerWidth)
+    .attr('height', ctx.stripWidthFixed)
 
   cloudLayer.attr('clip-path', `url(#${cloudClipId})`)
 
@@ -764,49 +712,28 @@ function tryRenderWordcloudInBandbubble(ctx: DrawCtx) {
   const seedInt = (parseInt(seedHex.slice(0, 8), 16) ^ (ctx.wordcloudTurn * 2654435761)) >>> 0
   const rnd = mulberry32(seedInt)
 
-  // bubble size & gap
+  // bubble size & gap（水平模式：气泡在条带上方或下方）
   const bubbleW = 180
   const bubbleH = 120
-  const gapX = 12
+  const gapY = 36
   const padEdge = 8
 
   const anchor = ctx.wordcloudAnchor!
-  const stripL = ctx.stripLeftFixed
-  const stripR = ctx.stripLeftFixed + ctx.stripWidthFixed * 0.8
 
-  const side: 'L' | 'R' = anchor.x < ctx.stripCenter + 40 ? 'L' : 'R'
+  const side: 'T' | 'B' = anchor.y < ctx.stripCenter ? 'T' : 'B'
 
-  // 1) 先给一个“理想位置”：尽量靠近点击点
-  let boxX0 =
-    side === 'L'
-      ? anchor.x - bubbleW - gapX // 左侧：右边缘距点 gapX
-      : anchor.x + gapX // 右侧：左边缘距点 gapX
+  // 1) 气泡位置：贴近锚点
+  let boxY0 =
+    side === 'T'
+      ? anchor.y - bubbleH - gapY
+      : anchor.y + gapY
 
-  // 2) 再强制保证“完全在条带外”
-  if (side === 'L') {
-    // 右边缘 <= stripL - gapX
-    boxX0 = Math.min(boxX0, stripL - gapX - bubbleW)
-  } else {
-    // 左边缘 >= stripR + gapX
-    boxX0 = Math.max(boxX0, stripR)
-  }
+  let boxX0 = anchor.x - bubbleW / 2
 
-  console.log('anchor.x', anchor.x, 'stripCenter', ctx.stripCenter, 'zoomK', ctx.zoomK)
-
-  // 3) 最后做画布边界 clamp（左右同样需要，但边界不一样）
-  if (side === 'L') {
-    const minX = padEdge
-    const maxX = Math.min(ctx.innerWidth, stripL)
-    boxX0 = Math.max(minX, Math.min(maxX, boxX0))
-  } else {
-    const minX = Math.max(padEdge, stripR + gapX)
-    const maxX = ctx.innerWidth
-    boxX0 = Math.max(minX, Math.min(maxX, boxX0))
-  }
-
-  // 5) y：围绕点击点居中，再 clamp
-  let boxY0 = anchor.y - bubbleH / 2
+  // 2) 画布边界 clamp
   boxY0 = Math.max(padEdge, Math.min(ctx.innerHeight - bubbleH - padEdge, boxY0))
+  boxX0 = Math.max(padEdge, Math.min(ctx.innerWidth - bubbleW - padEdge, boxX0))
+
 
   const boxX1 = boxX0 + bubbleW
   const boxY1 = boxY0 + bubbleH
@@ -829,24 +756,13 @@ function tryRenderWordcloudInBandbubble(ctx: DrawCtx) {
     .attr('stroke', '#cfcfcf')
     .attr('stroke-width', 1.2)
 
-  // arrow points to anchor
-  // ----- fat curved tail (filled) -----
-  // anchor
-  // anchor（默认指向圆点）
-  let ax = anchor.x
+  // arrow points to anchor（水平模式：气泡在上方或下方）
+  const ax = anchor.x
   const ay = anchor.y
 
-  // 仅对“功必扬”：把尾巴目标挪到左侧文本区域
-  const sp = (hit?.source || '').trim()
-  if (sp === '功必扬') {
-    const textDx = 6 // 你画 text 的 x 偏移（LEFT 是 -6，但这里我们用绝对值）
-    const estHalfTextW = 60 // 估计“半个文字宽”，按效果调：30~70 都常见
-    ax = anchor.x - (textDx + estHalfTextW)
-  }
-
   // base point on bubble edge
-  const bx = side === 'L' ? boxX0 + bubbleW : boxX0
-  const by = Math.max(boxY0 + 18, Math.min(boxY1 - 18, ay))
+  const bx = Math.max(boxX0 + 18, Math.min(boxX1 - 18, ax))
+  const by = side === 'T' ? boxY0 + bubbleH : boxY0
 
   // direction from base -> anchor
   const dx = ax - bx
@@ -857,9 +773,9 @@ function tryRenderWordcloudInBandbubble(ctx: DrawCtx) {
   const nx = -dy / len
   const ny = dx / len
 
-  // widths: root wider, tip narrower (你可以调)
-  const baseW = 16 // 根部宽
-  const tipW = 5 // 尾端宽
+  // widths: root wider, tip narrower
+  const baseW = 16
+  const tipW = 5
 
   // root edge points (on bubble edge)
   const b1x = bx + nx * (baseW / 2)
@@ -873,7 +789,7 @@ function tryRenderWordcloudInBandbubble(ctx: DrawCtx) {
   const a2x = ax - nx * (tipW / 2)
   const a2y = ay - ny * (tipW / 2)
 
-  // control points for smooth curve (你可以调 bend)
+  // control points for smooth curve
   const bend = 0.55
   const c1x = bx + dx * 0.25
   const c1y = by + dy * bend
@@ -954,7 +870,7 @@ function tryRenderWordcloudInBandbubble(ctx: DrawCtx) {
   // center for spiral search: slightly toward arrow side
   const baseCx = wcX0 + wcW / 2
   const baseCy = wcY0 + wcH / 2
-  const cx0 = side === 'L' ? baseCx + wcW * 0.06 : baseCx - wcW * 0.06
+  const cx0 = baseCx // 水平模式：词云气泡中心与气泡box中心对齐
   const cy0 = baseCy
 
   const aspectY = Math.max(1.1, (wcH / wcW) * 2.6)
@@ -1045,9 +961,9 @@ function setupZoom(ctx: DrawCtx) {
       const t = event.transform
       ctx.zoomK = t.k
 
-      // 缩放锚点：条带中心 +（如果点过词云则以该 turn 为锚点）
-      const anchorX = ctx.stripCenter
-      const anchorY = ctx.wordcloudTurn ? ctx.yScaleTime(ctx.wordcloudTurn) : ctx.innerHeight / 2
+      // 缩放锚点（水平模式：以条带垂直中心 + 当前词云 turn 为锚点）
+      const anchorX = ctx.wordcloudTurn ? ctx.yScaleTime(ctx.wordcloudTurn) : ctx.innerWidth / 2
+      const anchorY = ctx.stripCenter
 
       const srcType = event.sourceEvent?.type
 
@@ -1263,12 +1179,9 @@ function drawUI(
   // 1) 抽点 & topics（同时写入 topicColorMap）
   const { points, topics } = extractPointsAndTopics(dataArr, scoreMap, topicColorMap)
   const allPoints = points
+  currentAllPoints.value = allPoints  // 同步给仪表盘
 
-  const topicsGreedy = topics // ✅ 优化方案：第一行顺序永远不变
-
-  // ❌ baseline：故意给一个很坏的顺序（但可复现）
-  const badSeed = BAD_ORDER_SEED.value ^ hash32(props.datasetKey)
-  const topicsBaselineBad = makeBadTopicOrder(topics, badSeed)
+  const topicsGreedy = topics
 
   // 2) 分配 speaker 颜色 + speakers 列表
   const speakers = assignSpeakerColors(points, speakerColorMap, SPEAKER_PALETTE)
@@ -1279,10 +1192,10 @@ function drawUI(
   // 4) KDE：topic -> density curve
   const { topicGroup } = computeTopicKDE(points, topics, xs)
 
-  // 5) 画布 / 坐标系参数
-  const width = 1000
-  const height = 900
-  const margin = { top: 20, right: 20, bottom: 30, left: 100 }
+  // 5) 画布 / 坐标系参数（水平方向：时间轴从左→右）
+  const width = 1200
+  const height = 600
+  const margin = { top: 30, right: 30, bottom: 60, left: 40 }
   const innerWidth = width - margin.left - margin.right
   const innerHeight = height - margin.top - margin.bottom
 
@@ -1294,26 +1207,26 @@ function drawUI(
     margin,
   )
 
-  // 7) yScale：turnId -> 像素
-  const yScaleTime = d3
+  // 7) xScale：turnId -> 像素（时间轴从左→右）
+  const xScaleTime = d3
     .scaleLinear()
     .domain([globalMinTurn, globalMaxTurn])
-    .range([10, innerHeight])
+    .range([margin.left, innerWidth])
 
-  // 8) 画 y 轴
-  drawYAxis(g, yScaleTime, innerHeight)
+  // 8) 画 x 轴（时间轴在底部）
+  drawXAxis(g, xScaleTime, innerWidth, innerHeight)
 
-  // 9) 条带中心与固定宽度（用于 rowProfile）
-  const stripCenter = innerWidth / 2
-  const stripWidthFixed = STRIP_WIDTH_FIXED
-  const stripLeftFixed = stripCenter - stripWidthFixed / 2
+  // 9) 条带中心与固定高度（垂直方向：主题条带上下排列）
+  const stripCenter = innerHeight / 2
+  const stripHeightFixed = STRIP_WIDTH_FIXED
+  const stripTopFixed = stripCenter - stripHeightFixed / 2
 
-  // 10) 每行总宽度 rowProfile（score -> rowWidth）
-  const rowProfile = buildRowProfile({
+  // 10) 每列总高度 colProfile（score -> colHeight）
+  const colProfile = buildRowProfile({
     xs,
     turnScoreMap: scoreMap,
     numBlocks: NUM_WIDTH_BLOCKS,
-    stripWidthFixed,
+    stripWidthFixed: stripHeightFixed,
     stripCenter,
     minF: 0.2,
     maxF: 1.0,
@@ -1321,11 +1234,11 @@ function drawUI(
     useSmooth: true,
   })
 
-  // 11) topic 在每行的宽度（KDE -> width）
-  const widthByTopicById = computeWidthByTopicById({
+  // 11) topic 在每列的高度（KDE -> height）
+  const heightByTopicById = computeWidthByTopicById({
     topics,
     xs,
-    rowProfile,
+    rowProfile: colProfile,
     topicGroup,
     alpha: 2,
   })
@@ -1335,40 +1248,15 @@ function drawUI(
   buildGlobalSpeakerFrac(speakers, 0.1, speakerFracGlobal)
 
   // ===============================
-  // Baseline（不开优化）：固定顺序 topics
+  // Greedy：协同优化条带顺序 + 点位置（水平模式：主题上下排列）
   // ===============================
-  const baselineTopicBands = buildTopicBandsFixedOrder({
-    topics: topicsBaselineBad,
+  const { topicBands: greedyRawTopicBands, slotXMap: slotYMap } = solveBandsAndSlotsRowWise({
     xs,
-    rowProfile,
-    widthByTopicById,
-    minWidth: 1,
-  })
-  const baselineTopicBandById = buildTopicBandById(baselineTopicBands)
-
-  // baseline：用 band + speakerFrac 去给每个点算 x
-  const baselineFixedXInTopicRow = makeFixedXInTopicRow({
-    topicBandById: baselineTopicBandById,
-    speakerFracGlobal,
-    stripCenter,
-    slotPadX: 30, // 你 baseline 也可以用同一个 pad，方便对比
-  })
-
-  const baselineSlotXMap: SlotXMap = new Map()
-  for (const p of allPoints) {
-    baselineSlotXMap.set(pointKey(p), baselineFixedXInTopicRow(p.topic, p))
-  }
-
-  // ===============================
-  // Greedy（开优化）：协同优化条带顺序 + 点位置
-  // ===============================
-  const { topicBands: greedyRawTopicBands, slotXMap: greedySlotXMap } = solveBandsAndSlotsRowWise({
-    xs,
-    topics: topicsGreedy, // 第一行 base 顺序
+    topics: topicsGreedy,
     allPoints,
-    rowProfile,
+    rowProfile: colProfile,
     stripCenter,
-    widthByTopicById,
+    widthByTopicById: heightByTopicById,
     speakerFracGlobal,
     slotPadX: 50,
     minWidth: 1,
@@ -1376,23 +1264,11 @@ function drawUI(
     gamma: 50,
   })
 
-  // prune 一下（可选，但建议保留你之前的）
   const greedyTopicBands = pruneTopicBands(greedyRawTopicBands)
-  const greedyTopicBandById = buildTopicBandById(greedyTopicBands)
+  const topicBandById = buildTopicBandById(greedyTopicBands)
+  const topicBands = greedyTopicBands
 
-  // ===============================
-  // ✅ 最终选择：只在这里切换
-  // ===============================
-  const topicBands = ENABLE_GREEDY_LAYOUT.value ? greedyTopicBands : baselineTopicBands
-  const topicBandById = ENABLE_GREEDY_LAYOUT.value ? greedyTopicBandById : baselineTopicBandById
-  const slotXMap = ENABLE_GREEDY_LAYOUT.value ? greedySlotXMap : baselineSlotXMap
-
-  // 15) 固定 x：seg 左右边界 + speakerFrac
-
-  // 16) outline path：clipPath 兜底
-  const outlinePathD: string | null = computeOutlinePath({ rowProfile, yScaleTime })
-
-  // 17) ctx：把“绘制 session”需要用的东西都集中起来
+  // 16) ctx：把”绘制 session”需要用的东西都集中起来
   const ctx: DrawCtx = {
     svg,
     g,
@@ -1407,8 +1283,8 @@ function drawUI(
     innerWidth,
     innerHeight,
     stripCenter,
-    stripWidthFixed,
-    stripLeftFixed,
+    stripWidthFixed: stripHeightFixed,
+    stripLeftFixed: stripTopFixed,
 
     dataArr,
     allPoints,
@@ -1419,14 +1295,11 @@ function drawUI(
     globalMinTurn,
     globalMaxTurn,
 
-    yScaleTime,
-    rowProfile,
+    yScaleTime: xScaleTime,
+    rowProfile: colProfile,
     topicBands,
     topicBandById,
-    slotXMap,
-
-    outlinePathD,
-    topicBandPathMap: new Map<string, string>(),
+    slotXMap: slotYMap,
 
     selectedTopics: new Set<string>(),
     wordcloudTurn: null,
@@ -1498,17 +1371,6 @@ function drawUI(
   // 21) svg click：只绑定一次 reset（避免 showSlotCloudInto 重复绑）
   ctx.svg.on('click', () => ctx.resetAll())
 
-  // if (outlinePathD) {
-  //   ctx.overlayLayer
-  //     .append('path')
-  //     .attr('class', 'strip-outline')
-  //     .attr('d', outlinePathD)
-  //     .attr('fill', 'none')
-  //     .attr('stroke', '#111')
-  //     .attr('stroke-width', 1.2)
-  //     .attr('stroke-opacity', 0.35)
-  //     .lower() // 放到底层，避免挡住交互
-  // }
 
   // 22) 画 bands（绑定点击逻辑）
   renderTopicBands(ctx)
@@ -1550,6 +1412,25 @@ watch(
   },
   { immediate: true },
 )
+
+// -----------------------------
+// 11) 监听实时抽取数据：直接渲染
+// -----------------------------
+watch(
+  () => [FileStore.realtimeTopics, FileStore.realtimeScores] as const,
+  ([topics, scores]) => {
+    if (!topics || topics.length === 0) return
+    console.log('[CapsuleUI] 收到实时抽取数据, topics:', topics.length)
+
+    // 构造 scoreMap
+    const scoreMap = new Map<number, number>()
+    scores.forEach((s) => scoreMap.set(s.id, s.info_score))
+
+    data.value = topics
+    drawUI(topics, scoreMap, 500, 10)
+  },
+  { deep: true },
+)
 </script>
 
 <style scoped>
@@ -1557,23 +1438,40 @@ watch(
   display: flex;
   flex-direction: column;
   position: relative;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  padding: 20px 30px; /* 让视图稍微缩小 */
+  box-sizing: border-box;
 }
 
-/* 主画布 */
+/* 主画布：自适应容器（上方 ~60%） */
 .capsule-body {
-  width: 1000px;
-  height: 900px;
-  margin-top: 10px;
+  width: 100%;
+  flex: 6;
+  overflow: hidden;
+  background: #ffffff;
+  min-height: 0;
+}
+
+.capsule-body :deep(svg) {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+}
+
+/* 仪表盘（下方 ~40%） */
+.capsule-container :deep(.dashboard-container) {
+  flex: 4;
+  min-height: 0;
 }
 
 .dataset-label {
-  width: 1000px;
+  width: 100%;
   height: 0px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-left: 100px;
   font-size: 28px;
   font-weight: 600;
   color: #111;

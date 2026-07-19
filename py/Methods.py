@@ -130,8 +130,13 @@ def segment_by_timeline(topics):
                 "sentence": s.get("sentence"),
                 "slot": s.get("slot"),
                 "color": s.get("color"),
-                "sentiment": s.get("sentiment"),
                 "source": s.get("source"),
+                "is_question": s.get("is_question", False),
+                "resolved": s.get("resolved", False),
+                "start_id": int(s.get("start_id", s.get("id", 0))),
+                "end_id": int(s.get("end_id", s.get("id", 0))),
+                "wordcloud": s.get("wordcloud", []),
+                "sentiment": s.get("sentiment"),
             })
 
     # 2. 按 id 从小到大排序 —— 严格时间顺序
@@ -182,8 +187,13 @@ def segment_by_timeline(topics):
             "slot": item["slot"],
             "id": item["id"],
             "color": item["color"],
-            "sentiment": item["sentiment"],
             "source": item["source"],
+            "is_question": item.get("is_question", False),
+            "resolved": item.get("resolved", False),
+            "start_id": item.get("start_id"),
+            "end_id": item.get("end_id"),
+            "wordcloud": item.get("wordcloud", []),
+            "sentiment": item.get("sentiment"),
         }
 
         if current_topic is None:

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<w:hdr xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:wp14="http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml" xmlns:w15="http://schemas.microsoft.com/office/word/2012/wordml" xmlns:wpg="http://schemas.microsoft.com/office/word/2010/wordprocessingGroup" xmlns:wpi="http://schemas.microsoft.com/office/word/2010/wordprocessingInk" xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml" xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" xmlns:wpsCustomData="http://www.wps.cn/officeDocument/2013/wpsCustomData" mc:Ignorable="w14 w15 wp14">
+  <w:p w14:paraId="3B59B8E7">
+    <w:pPr>
+      <w:pStyle w:val="19"/>
+      <w:pBdr>
+        <w:bottom w:val="single" w:color="auto" w:sz="4" w:space="1"/>
+      </w:pBdr>
+      <w:tabs>
+        <w:tab w:val="center" w:pos="4818"/>
+        <w:tab w:val="right" w:pos="9708"/>
+        <w:tab w:val="clear" w:pos="4153"/>
+        <w:tab w:val="clear" w:pos="8306"/>
+      </w:tabs>
+      <w:spacing w:line="0" w:lineRule="atLeast"/>
+      <w:ind w:firstLine="113"/>
+      <w:jc w:val="both"/>
+      <w:rPr>
+        <w:i/>
+        <w:iCs/>
+        <w:sz w:val="17"/>
+        <w:szCs w:val="17"/>
+      </w:rPr>
+    </w:pPr>
+    <w:r>
+      <w:rPr>
+        <w:sz w:val="17"/>
+        <w:szCs w:val="17"/>
+      </w:rPr>
+      <w:t xml:space="preserve"> </w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rStyle w:val="29"/>
+        <w:sz w:val="17"/>
+        <w:szCs w:val="17"/>
+      </w:rPr>
+      <w:fldChar w:fldCharType="begin"/>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rStyle w:val="29"/>
+        <w:sz w:val="17"/>
+        <w:szCs w:val="17"/>
+      </w:rPr>
+      <w:instrText xml:space="preserve"> PAGE </w:instrText>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rStyle w:val="29"/>
+        <w:sz w:val="17"/>
+        <w:szCs w:val="17"/>
+      </w:rPr>
+      <w:fldChar w:fldCharType="separate"/>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rStyle w:val="29"/>
+        <w:sz w:val="17"/>
+        <w:szCs w:val="17"/>
+      </w:rPr>
+      <w:t>2</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rStyle w:val="29"/>
+        <w:sz w:val="17"/>
+        <w:szCs w:val="17"/>
+      </w:rPr>
+      <w:fldChar w:fldCharType="end"/>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rStyle w:val="29"/>
+        <w:sz w:val="17"/>
+        <w:szCs w:val="17"/>
+      </w:rPr>
+      <w:t xml:space="preserve"> </w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:sz w:val="17"/>
+        <w:szCs w:val="17"/>
+      </w:rPr>
+      <w:tab/>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:sz w:val="17"/>
+        <w:szCs w:val="17"/>
+      </w:rPr>
+      <w:t>计算机辅助设计与图形学学报</w:t>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:sz w:val="17"/>
+        <w:szCs w:val="17"/>
+      </w:rPr>
+      <w:tab/>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:sz w:val="17"/>
+        <w:szCs w:val="17"/>
+      </w:rPr>
+      <w:t>第3*卷</w:t>
+    </w:r>
+  </w:p>
+  <w:p w14:paraId="7C174B42">
+    <w:pPr>
+      <w:pStyle w:val="19"/>
+      <w:pBdr>
+        <w:bottom w:val="none" w:color="auto" w:sz="0" w:space="0"/>
+      </w:pBdr>
+      <w:rPr>
+        <w:szCs w:val="17"/>
+      </w:rPr>
+    </w:pPr>
+  </w:p>
+</w:hdr>
