@@ -3,7 +3,10 @@ import re
 import json
 import math
 import openai
-import faiss
+try:
+    import faiss
+except ImportError:
+    faiss = None  # 情绪打分等不依赖向量库的功能可独立运行
 import numpy as np
 from collections import Counter
 from datetime import datetime
@@ -180,7 +183,7 @@ def hierarchical_cluster_embeddings(
 
 # ===== 1. 初始化向量数据库（FAISS） =====
 dimension = 1536  # OpenAI text-embedding-3-small 输出向量维度
-index = faiss.IndexFlatL2(dimension)  # L2 距离索引
+index = faiss.IndexFlatL2(dimension) if faiss is not None else None  # L2 距离索引
 
 def embed_texts(
         text_list, 
@@ -417,6 +420,130 @@ def Score_turn_importance(history):
         mid = m.get("id")
         m2 = dict(m)
         m2["info_score"] = float(id2score.get(mid, 0.5))
+        new_history.append(m2)
+
+    return new_history
+
+
+def extract_sentiment(history):
+    """
+    history: list[dict]，形如：
+      [{"id": 1, "role": "user", "content": "..."}, ...]
+    返回：同样长度的 list，每个元素多一个 "sentiment" 字段（-1.0 ~ 1.0）
+      -  1.0 明显积极（开心、赞同、感谢、兴奋、幽默）
+      -  0.0 中性 / 无明显情绪（客观陈述、过渡话语）
+      - -1.0 明显消极（难过、愤怒、焦虑、抱怨、失望）
+    """
+
+    if not isinstance(history, list) or not history:
+        print("⚠️ extract_sentiment: history 为空或格式异常，将返回原样。")
+        return history
+
+    # 1) 把对话整理成 [id][role]: content 形式，给 LLM 看
+    lines = []
+    for m in history:
+        mid = m.get("id")
+        role = m.get("role") or m.get("from") or "user"
+        text = (m.get("content") or m.get("text") or "").strip()
+        if mid is None or text == "":
+            continue
+        lines.append(f"[{mid}][{role}]: {text}")
+
+    if not lines:
+        return history
+
+    conv_text = "\n".join(lines)
+
+    # 2) 构造 prompt：只让模型输出 id + sentiment
+    prompt = f"""你是一名严谨的对话分析助手。
+
+        现在给你一段多轮对话，每一行的格式为：
+        [id][role]: content
+
+        其中：
+        - id 是对话轮次的整数编号；
+        - role 是说话人角色；
+        - content 是该轮的发言内容。
+
+        请你结合整段对话的上下文，为其中每一轮发言打一个"情绪极性"分数 sentiment，用来衡量说话人在这一轮发言中流露出的情绪倾向。
+
+        要求：
+        1. 对每一条出现的 id（即每一行发言）都给出一个 sentiment；
+        2. sentiment 为浮点数，范围在 -1.0 ~ 1.0 之间：
+        - 越接近 1.0，积极情绪越明显（如开心、赞同、感谢、兴奋、幽默）；
+        - 接近 0.0 表示中性或无明显情绪（如客观陈述、事实说明、过渡性话语）；
+        - 越接近 -1.0，消极情绪越明显（如难过、愤怒、焦虑、抱怨、失望、自责）；
+        3. 判断时请结合上下文与语气（如反讽、语气词、玩笑），不要只看个别词；
+        4. 不需要输出 role 或 content，只需要输出 id 和 sentiment；
+        5. 严格输出一个 JSON 数组，禁止任何解释性文字、注释或代码块标记。
+
+        对话内容如下：
+        {conv_text}
+
+        请按以下格式输出（示例）：
+        [
+        {{"id": 1, "sentiment": 0.6}},
+        {{"id": 2, "sentiment": -0.2}}
+        ]
+        """
+
+    completion = openai.chat.completions.create(
+        model="gpt-5.2",
+        temperature=0.2,
+        messages=[
+            {
+                "role": "system",
+                "content": "你是一名严谨的对话分析助手，只输出严格 JSON。",
+            },
+            {"role": "user", "content": prompt},
+        ],
+    )
+
+    raw = completion.choices[0].message.content.strip()
+
+    # 3) 鲁棒解析：去 ``` 围栏 + 截取第一个 [ 到最后一个 ]
+    clean = raw
+    if clean.startswith("```"):
+        first_newline = clean.find("\n")
+        if first_newline != -1:
+            clean = clean[first_newline + 1 :]
+        end_fence = clean.rfind("```")
+        if end_fence != -1:
+            clean = clean[:end_fence]
+        clean = clean.strip()
+
+    if "[" in clean and "]" in clean:
+        start = clean.find("[")
+        end = clean.rfind("]")
+        if start != -1 and end != -1 and end > start:
+            clean = clean[start : end + 1].strip()
+
+    id2senti: Dict[int, float] = {}
+
+    try:
+        arr = json.loads(clean)
+        if isinstance(arr, list):
+            for item in arr:
+                if not isinstance(item, dict):
+                    continue
+                try:
+                    mid = int(item.get("id"))
+                except Exception:
+                    continue
+                try:
+                    s = float(item.get("sentiment"))
+                except Exception:
+                    s = 0.0
+                # 约束到 [-1.0, 1.0]
+                id2senti[mid] = max(-1.0, min(1.0, s))
+    except Exception as e:
+        print(f"⚠️ extract_sentiment: JSON 解析失败，本批默认 0.0（中性）。err={e}, raw={raw[:200]}")
+
+    new_history = []
+    for m in history:
+        mid = m.get("id")
+        m2 = dict(m)
+        m2["sentiment"] = float(id2senti.get(mid, 0.0))
         new_history.append(m2)
 
     return new_history
